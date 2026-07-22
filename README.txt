@@ -1,24 +1,16 @@
-Jess Life & CEO Planner — Version 8 Weekly Hourly Production
+Jess Life & CEO Planner — Version 10
+
+Sidebar correction:
+- The scrollable menu now ends at the top of the coastal artwork.
+- Reports, Settings and Sign Out remain inside the readable menu area.
+- The menu scrolls only above the artwork.
+- The coastal artwork remains fixed and unobstructed at the bottom.
+- Mobile Safari uses the full visible screen height.
 
 GitHub update:
-1. Open the jess-life-ceo-planner repository.
-2. Choose Add file > Upload files.
-3. Upload this index.html and replace the existing index.html.
-4. Commit directly to main.
-5. Wait about one minute and refresh the GitHub Pages site.
-
-Before updating, download a planner backup from Backup & Settings.
-This version keeps the same local-storage key so existing browser data can carry forward.
-
-Weekly Planner update:
-- Main Focus at the top of each day
-- Appointments / Must Not Miss section
-- Existing daily task list and check-offs
-- Hourly plan from 6:00 AM to 10:00 PM
-- Selectable hourly types:
-  Task, Appointment, Meeting, On-site meeting, Phone call,
-  Office / Admin, Finance, Personal, Travel, Break and Other
-- Completion checkbox on each hourly item
-- Notes at the bottom of each day
-- Hourly items also feed the Today schedule and Dashboard agenda
-- Mobile layout stacks the seven days for easier phone use
+1. Download a backup from Backup & Settings.
+2. Open the jess-life-ceo-planner GitHub repository.
+3. Select Add file > Upload files.
+4. Upload this index.html and replace the existing index.html.
+5. Commit directly to main.
+6. Wait about one minute, then refresh the GitHub Pages website.

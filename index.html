@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Jess Planner" />
   <title>Jess Life & CEO Planner</title>
-  <!-- Version 8: production coastal dashboard + customizable hourly weekly planner -->
+  <!-- Version 10: production planner + sidebar menu constrained above fixed coastal artwork -->
   <style>
     :root {
       --coral: #D98978;
@@ -1303,14 +1303,112 @@
       .week-hour-time { padding-left: 6px; font-size: 7.5px; }
     }
 
+    /* VERSION 9 — FIXED COASTAL SIDEBAR ARTWORK */
+    .sidebar {
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+    .sidebar-scroll {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      padding: 20px 8px 18px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(112,132,117,.45) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sidebar-scroll::-webkit-scrollbar { width: 6px; }
+    .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: rgba(112,132,117,.36);
+    }
+    .sidebar::after,
+    .sidebar::before {
+      position: absolute;
+    }
+    .coastal-brand {
+      min-height: 77px;
+      padding: 1px 10px 7px;
+    }
+    .coastal-brand-title {
+      margin-bottom: 3px;
+    }
+    .coastal-brand-art {
+      width: 148px;
+      height: 42px;
+      margin: 0 0 0 35px;
+    }
+
+    @media (max-width: 780px) {
+      .sidebar {
+        padding: 0 !important;
+      }
+      .sidebar-scroll {
+        padding: 20px 16px 18px;
+      }
+      .coastal-brand {
+        min-height: 76px;
+      }
+    }
+
+    /* VERSION 10 — MENU STOPS ABOVE FIXED COASTAL ARTWORK */
+    .sidebar {
+      --sidebar-art-height: 155px;
+      position: sticky;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden !important;
+    }
+
+    .sidebar-scroll {
+      position: relative;
+      z-index: 3;
+      height: calc(100% - var(--sidebar-art-height)) !important;
+      max-height: calc(100% - var(--sidebar-art-height));
+      padding-bottom: 18px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: rgba(255,253,250,.94);
+      border-bottom: 1px solid rgba(117,95,78,.14);
+      box-shadow: 0 8px 14px -15px rgba(65,55,47,.8);
+    }
+
+    .sidebar::after {
+      z-index: 1 !important;
+      height: var(--sidebar-art-height) !important;
+    }
+
+    .sidebar::before {
+      z-index: 2 !important;
+    }
+
+    @media (max-width: 780px) {
+      .sidebar {
+        --sidebar-art-height: 155px;
+        height: 100vh;
+        height: 100dvh;
+      }
+
+      .sidebar-scroll {
+        height: calc(100% - var(--sidebar-art-height)) !important;
+        max-height: calc(100% - var(--sidebar-art-height));
+        padding-bottom: 16px;
+      }
+    }
+
   </style>
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar">
+      <div class="sidebar-scroll">
       <div class="coastal-brand">
         <div class="coastal-brand-title">Life &amp; CEO Planner</div>
-        <div class="coastal-brand-subtitle">built for Jess</div>
         <div class="coastal-brand-art" aria-hidden="true">
           <svg viewBox="0 0 150 42" role="img">
             <path d="M4 25c18-8 30 8 48 0s31 8 49 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
@@ -1354,6 +1452,7 @@
       </div>
 
       <button class="nav-button sidebar-signout" id="signOutBtn"><span class="nav-icon">⇥</span>Sign out</button>
+      </div>
     </aside>
     <div class="menu-backdrop" id="menuBackdrop" aria-hidden="true"></div>
 
