@@ -2377,6 +2377,346 @@
       }
     }
 
+    /* VERSION 19 — 30-MINUTE TIME-BLOCK AGENDA */
+    .weekly-heading-actions {
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .weekly-day-header-actions {
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .week-day-add-event {
+      display:grid;
+      width:31px;
+      height:31px;
+      place-items:center;
+      border:1px solid #D7D1C8;
+      border-radius:50%;
+      background:#FFF;
+      color:#5E7564;
+      font-size:20px;
+      line-height:1;
+      box-shadow:0 5px 13px rgba(58,52,46,.05);
+    }
+    .week-day-add-event:hover {
+      border-color:#91A496;
+      background:#F2F7F3;
+    }
+    .week-hourly-section {
+      padding:0 !important;
+      background:#FFF;
+    }
+    .agenda-timeline {
+      position:relative;
+      height:var(--agenda-height);
+      min-height:var(--agenda-height);
+      overflow:hidden;
+      background:#FFF;
+    }
+    .agenda-slot-list {
+      position:absolute;
+      inset:0;
+      display:grid;
+      grid-auto-rows:34px;
+    }
+    .agenda-slot {
+      display:grid;
+      grid-template-columns:58px minmax(0,1fr);
+      align-items:center;
+      border-bottom:1px solid #EEEAE3;
+      color:#7E817C;
+      background:#FFF;
+    }
+    .agenda-slot.is-hour {
+      border-bottom-color:#DCD7CE;
+    }
+    .agenda-slot-time {
+      align-self:stretch;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-end;
+      padding:5px 8px 0 3px;
+      border-right:1px solid #E7E2DA;
+      color:#665D55;
+      font-size:7.5px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+    .agenda-slot.is-half .agenda-slot-time {
+      color:#A2A39F;
+      font-size:6.8px;
+    }
+    .agenda-slot-free {
+      padding-left:8px;
+      color:#B4B5B1;
+      font-size:7px;
+      font-style:italic;
+    }
+    .agenda-event-layer {
+      position:absolute;
+      top:0;
+      right:4px;
+      bottom:0;
+      left:62px;
+      pointer-events:none;
+    }
+    .agenda-event-block {
+      position:absolute;
+      right:3px;
+      left:3px;
+      z-index:1;
+      display:grid;
+      grid-template-columns:22px minmax(0,1fr);
+      gap:6px;
+      overflow:hidden;
+      padding:5px 7px 5px 5px;
+      border:1px solid rgba(80,77,70,.14);
+      border-left-width:4px;
+      border-radius:5px;
+      box-shadow:0 5px 13px rgba(55,50,45,.08);
+      cursor:pointer;
+      pointer-events:auto;
+    }
+    .agenda-event-block:hover,
+    .agenda-event-block:focus {
+      z-index:3;
+      outline:none;
+      filter:brightness(.985);
+      box-shadow:0 7px 18px rgba(55,50,45,.12);
+    }
+    .agenda-event-check {
+      display:grid;
+      place-items:start center;
+      cursor:pointer;
+    }
+    .agenda-event-check input {
+      position:absolute;
+      width:1px;
+      height:1px;
+      opacity:0;
+    }
+    .agenda-event-check span {
+      display:grid;
+      width:17px;
+      height:17px;
+      place-items:center;
+      border:1px solid rgba(68,72,67,.26);
+      border-radius:3px;
+      background:rgba(255,255,255,.78);
+      color:transparent;
+      font-size:10px;
+      font-weight:800;
+    }
+    .agenda-event-check input:checked + span {
+      color:#FFF;
+      background:#6F8D77;
+      border-color:#6F8D77;
+    }
+    .agenda-event-copy {
+      min-width:0;
+      display:grid;
+      align-content:start;
+      gap:2px;
+    }
+    .agenda-event-copy strong {
+      overflow:hidden;
+      color:#2F342F;
+      font-size:9px;
+      font-weight:800;
+      line-height:1.15;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .agenda-event-copy span {
+      color:#5F675F;
+      font-size:7.2px;
+      font-weight:700;
+    }
+    .agenda-event-copy small {
+      display:-webkit-box;
+      overflow:hidden;
+      color:#707670;
+      font-size:6.8px;
+      line-height:1.25;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;
+    }
+    .agenda-event-block.is-complete {
+      opacity:.56;
+    }
+    .agenda-event-block.is-complete .agenda-event-copy strong {
+      text-decoration:line-through;
+    }
+
+    .event-type-task { background:#EAF3EC; border-left-color:#75917B; }
+    .event-type-appointment { background:#FBE9E7; border-left-color:#D98D8A; }
+    .event-type-meeting { background:#EEE9F4; border-left-color:#A696BC; }
+    .event-type-onsite { background:#F7EBDD; border-left-color:#C79B6E; }
+    .event-type-call { background:#E7F3F0; border-left-color:#78AB9C; }
+    .event-type-admin { background:#F3ECE6; border-left-color:#9F806A; }
+    .event-type-finance { background:#E5EFE6; border-left-color:#57775E; }
+    .event-type-personal { background:#F9E6E4; border-left-color:#D78783; }
+    .event-type-travel { background:#E8F0F2; border-left-color:#789DA8; }
+    .event-type-break { background:#F1EEE9; border-left-color:#A99D90; }
+    .event-type-other { background:#ECEFEC; border-left-color:#8D9690; }
+
+    .today-agenda-card .card-header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .today-event-timeline {
+      overflow:auto;
+      max-height:760px;
+      border:1px solid #E5E0D8;
+      border-radius:5px;
+    }
+    .agenda-timeline-today {
+      min-width:520px;
+    }
+    .agenda-timeline-today .agenda-slot {
+      grid-template-columns:84px minmax(0,1fr);
+    }
+    .agenda-timeline-today .agenda-event-layer {
+      left:88px;
+    }
+    .agenda-timeline-today .agenda-slot-time {
+      padding-right:12px;
+      font-size:9px;
+    }
+    .agenda-timeline-today .agenda-slot-free {
+      font-size:8px;
+    }
+    .agenda-timeline-today .agenda-event-copy strong {
+      font-size:11px;
+    }
+    .agenda-timeline-today .agenda-event-copy span {
+      font-size:8px;
+    }
+    .agenda-timeline-today .agenda-event-copy small {
+      font-size:7.5px;
+    }
+
+    .event-duration-summary {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin:-2px 0 16px;
+      padding:11px 12px;
+      border:1px solid #E0DCD4;
+      border-radius:5px;
+      background:linear-gradient(90deg,#F4F7F4,#FFF9F6);
+    }
+    .event-duration-summary span {
+      color:#747A74;
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .event-duration-summary strong {
+      color:#5F4E42;
+      font-size:12px;
+    }
+    .event-complete-toggle {
+      display:flex;
+      align-items:center;
+      gap:9px;
+      margin-bottom:16px;
+      padding:11px 12px;
+      border:1px solid #DDD9D1;
+      border-radius:5px;
+      background:#FFF;
+      color:#4F5750;
+      font-size:11px;
+      font-weight:700;
+    }
+    .event-complete-toggle input {
+      width:17px;
+      height:17px;
+      accent-color:#6F8C77;
+    }
+    .event-colour-preview {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:17px;
+      padding:12px;
+      border:1px solid #DDD9D1;
+      border-left-width:5px;
+      border-radius:5px;
+    }
+    .event-preview-dot {
+      width:16px;
+      height:16px;
+      border-radius:50%;
+      background:currentColor;
+      opacity:.75;
+    }
+    .event-colour-preview strong {
+      display:block;
+      color:#2F352F;
+      font-size:11px;
+    }
+    .event-colour-preview small {
+      display:block;
+      margin-top:2px;
+      color:#7C817C;
+      font-size:8px;
+    }
+    .event-modal-actions {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:780px) {
+      .weekly-heading-actions {
+        align-items:flex-start;
+        width:100%;
+        justify-content:flex-start;
+        flex-direction:column;
+      }
+      .weekly-heading-actions > .btn {
+        width:100%;
+      }
+      .agenda-event-copy small {
+        -webkit-line-clamp:1;
+      }
+      .today-event-timeline {
+        max-height:680px;
+      }
+    }
+
+    @media (max-width:430px) {
+      .agenda-slot {
+        grid-template-columns:53px minmax(0,1fr);
+      }
+      .agenda-event-layer {
+        left:57px;
+      }
+      .agenda-slot-time {
+        font-size:6.8px;
+      }
+      .agenda-event-copy strong {
+        font-size:8.5px;
+      }
+      .event-modal-actions {
+        display:grid;
+        grid-template-columns:1fr;
+      }
+      .event-modal-actions .btn {
+        width:100%;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -2619,9 +2959,12 @@
             <div class="field"><label class="label">Energy</label><input class="input day-field" data-daykey="energy" placeholder="High, steady, low..." /></div>
           </div>
 
-          <div class="card" style="grid-column: span 2;">
-            <div class="card-header"><h3>Schedule</h3><span class="card-subtitle">6:00 AM – 9:00 PM</span></div>
-            <div id="scheduleGrid" class="schedule-grid"></div>
+          <div class="card today-agenda-card" style="grid-column: span 2;">
+            <div class="card-header">
+              <div><h3>Time-block agenda</h3><span class="card-subtitle">30-minute availability from 6:00 AM – 10:30 PM</span></div>
+              <button class="btn btn-primary btn-small" type="button" id="addTodayEvent">+ Add event</button>
+            </div>
+            <div id="todayEventTimeline" class="today-event-timeline"></div>
           </div>
 
           <div class="card">
@@ -2665,13 +3008,16 @@
           <div class="weekly-planner-heading">
             <div>
               <h3>Weekly overview</h3>
-              <div class="card-subtitle">Today and the next four days, with focus, appointments, tasks, hourly time blocks and notes.</div>
+              <div class="card-subtitle">Today and the next four days, with 30-minute availability and colour-coded time blocks.</div>
             </div>
-            <div class="weekly-legend" aria-label="Hourly item colours">
-              <span class="week-legend-pill legend-task">Task</span>
-              <span class="week-legend-pill legend-appointment">Appointment</span>
-              <span class="week-legend-pill legend-meeting">Meeting</span>
-              <span class="week-legend-pill legend-onsite">On-site</span>
+            <div class="weekly-heading-actions">
+              <div class="weekly-legend" aria-label="Event colours">
+                <span class="week-legend-pill legend-task">Task</span>
+                <span class="week-legend-pill legend-appointment">Appointment</span>
+                <span class="week-legend-pill legend-meeting">Meeting</span>
+                <span class="week-legend-pill legend-onsite">On-site</span>
+              </div>
+              <button class="btn btn-primary" type="button" id="addWeekEvent">+ Add event</button>
             </div>
           </div>
           <div class="week-grid week-grid-hourly" id="weekGrid"></div>
@@ -2992,7 +3338,7 @@
         <div class="grid grid-2">
           <div class="card soft-sage">
             <div class="card-header"><h3>Backup your planner</h3></div>
-            <p class="card-subtitle" style="line-height:1.65;">Download a backup file containing all tasks, carryovers, rolling five-day plans, daily weather history, bank history, finances, goals, habits and dated journal entries with compressed photos and nature cycle journal mood icons. Store it somewhere safe.</p>
+            <p class="card-subtitle" style="line-height:1.65;">Download a backup file containing all tasks, carryovers, rolling five-day plans, 30-minute time-block events, daily weather history, bank history, finances, goals, habits and dated journal entries with compressed photos and nature cycle journal mood icons. Store it somewhere safe.</p>
             <button class="btn btn-primary" id="exportBtn">Download backup</button>
           </div>
           <div class="card soft-wisteria">
@@ -3015,6 +3361,88 @@
     </main>
   </div>
 
+
+  <div class="modal-overlay" id="eventModal" aria-hidden="true">
+    <div class="modal-panel modal-panel-small event-modal-panel" role="dialog" aria-modal="true" aria-labelledby="eventFormTitle">
+      <div class="card modal-card event-modal-card">
+        <button class="modal-close" type="button" data-close-modal="eventModal" aria-label="Close">×</button>
+        <div class="card-header">
+          <div>
+            <span class="eyebrow">Time block</span>
+            <h3 id="eventFormTitle">Add event</h3>
+            <div class="card-subtitle">Choose what it is, when it starts and when it ends.</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Event title</label>
+          <input class="input" id="eventTitle" placeholder="Team meeting, payroll, drive to site..." />
+        </div>
+
+        <div class="field">
+          <label class="label">Event type</label>
+          <select class="select" id="eventType">
+            <option value="task">Task</option>
+            <option value="appointment">Appointment</option>
+            <option value="meeting">Meeting</option>
+            <option value="onsite">On-site meeting</option>
+            <option value="call">Phone call</option>
+            <option value="admin">Office / Admin</option>
+            <option value="finance">Finance</option>
+            <option value="personal">Personal</option>
+            <option value="travel">Travel</option>
+            <option value="break">Break</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="label">Date</label>
+          <input type="date" class="input" id="eventDate" />
+        </div>
+
+        <div class="finance-detail-grid">
+          <div class="field">
+            <label class="label">Start time</label>
+            <select class="select" id="eventStart"></select>
+          </div>
+          <div class="field">
+            <label class="label">End time</label>
+            <select class="select" id="eventEnd"></select>
+          </div>
+        </div>
+
+        <div class="event-duration-summary">
+          <span>Length</span>
+          <strong id="eventDurationPreview">1 hour</strong>
+        </div>
+
+        <div class="field">
+          <label class="label">Details (optional)</label>
+          <textarea class="textarea" id="eventNotes" style="min-height:92px;" placeholder="Location, people involved, preparation, reminders..."></textarea>
+        </div>
+
+        <label class="event-complete-toggle">
+          <input type="checkbox" id="eventDone">
+          <span>Mark this event complete</span>
+        </label>
+
+        <div class="event-colour-preview" id="eventColourPreview">
+          <span class="event-preview-dot"></span>
+          <div>
+            <strong id="eventPreviewType">Task</strong>
+            <small>This colour will appear on the agenda.</small>
+          </div>
+        </div>
+
+        <div class="event-modal-actions">
+          <button class="btn btn-primary" type="button" id="saveEvent">Save event</button>
+          <button class="btn btn-danger" type="button" id="deleteEvent" style="display:none;">Delete</button>
+          <button class="btn btn-light" type="button" data-close-modal="eventModal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="modal-overlay" id="financeModal" aria-hidden="true">
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="financeFormTitle">
@@ -3421,7 +3849,17 @@
       data.days ??= {}; data.weeks ??= {}; data.tasks ??= []; data.finance ??= {};
       data.finance.transactions ??= []; data.finance.recurring ??= []; data.finance.bankHistory ??= [];
       Object.entries(data.days).forEach(([date, day]) => {
-        day.tasks ??= []; day.schedule ??= {}; day.scheduleMeta ??= {};
+        day.tasks ??= []; day.schedule ??= {}; day.scheduleMeta ??= {}; day.events ??= [];
+        day.events.forEach(event => {
+          event.id ??= uid();
+          event.title ??= 'Event';
+          event.type ??= 'other';
+          event.start ??= '9:00';
+          event.end ??= '10:00';
+          event.notes ??= '';
+          event.done = !!event.done;
+          event.createdAt ??= new Date().toISOString();
+        });
         day.weekly ??= { focus:'', appointments:'', notes:'', hourly:{} };
         day.weekly.focus ??= '';
         day.weekly.appointments ??= '';
@@ -3441,8 +3879,8 @@
       Object.values(data.weeks).forEach(week => {
         Object.entries(week || {}).forEach(([date, item]) => {
           item.focus ??= ''; item.appointments ??= ''; item.notes ??= ''; item.hourly ??= {};
-          const day = data.days[date] ??= { tasks:[], schedule:{}, scheduleMeta:{}, weekly:{focus:'',appointments:'',notes:'',hourly:{}} };
-          day.tasks ??= []; day.schedule ??= {}; day.scheduleMeta ??= {};
+          const day = data.days[date] ??= { tasks:[], schedule:{}, scheduleMeta:{}, events:[], weekly:{focus:'',appointments:'',notes:'',hourly:{}} };
+          day.tasks ??= []; day.schedule ??= {}; day.scheduleMeta ??= {}; day.events ??= [];
           day.weekly ??= { focus:'', appointments:'', notes:'', hourly:{} };
           day.weekly.focus ||= item.focus || '';
           day.weekly.appointments ||= item.appointments || '';
@@ -3484,7 +3922,7 @@
     }
 
     function getDay(date=selectedDate) {
-      return data.days[date] ??= { tasks: [], schedule: {}, scheduleMeta: {} };
+      return data.days[date] ??= { tasks: [], schedule: {}, scheduleMeta: {}, events: [], weekly:{focus:'',appointments:'',notes:'',hourly:{}} };
     }
     function localTasksForDate(date) { return getDay(date).tasks || []; }
     function masterTasksForDate(date) { return (data.tasks || []).filter(t => t.scheduledDate === date); }
@@ -3517,22 +3955,6 @@
       else getDay(date).tasks=localTasksForDate(date).filter(t=>t.id!==id);
     }
     function taskKey(t) { return `${t.source}:${t.id}`; }
-
-    const scheduleGrid = document.getElementById('scheduleGrid');
-    const times = [];
-    for (let h=6; h<=22; h++) times.push(`${h}:00`);
-    times.forEach(time => {
-      const row = document.createElement('div'); row.className='schedule-row';
-      const hour = Number(time.split(':')[0]);
-      const label = `${hour === 12 ? 12 : hour > 12 ? hour-12 : hour}:00 ${hour >= 12 ? 'PM':'AM'}`;
-      row.innerHTML = `<div class="schedule-time">${label}</div><input class="input schedule-input" data-time="${time}" />`;
-      scheduleGrid.appendChild(row);
-    });
-    scheduleGrid.addEventListener('input', e => {
-      if (!e.target.matches('.schedule-input')) return;
-      getDay().schedule[e.target.dataset.time] = e.target.value; saveData();
-    });
-
 
     const MONCTON_WEATHER = {
       latitude: 46.0878,
@@ -3803,8 +4225,8 @@
       document.getElementById('selectedDateLabel').textContent = prettyDate(selectedDate);
       const day = getDay();
       document.querySelectorAll('.day-field').forEach(el => el.value = day[el.dataset.daykey] || '');
-      document.querySelectorAll('.schedule-input').forEach(el => el.value = day.schedule?.[el.dataset.time] || '');
       renderWeatherRecord();
+      renderTodayEventTimeline();
       renderTodayTasks();
       maybeAutoCaptureWeather();
     }
@@ -3855,7 +4277,6 @@
     function weekKey(date) { return isoDate(startOfWeek(date)); }
 
     const WEEK_EVENT_TYPES = [
-      { value:'', label:'Type' },
       { value:'task', label:'Task' },
       { value:'appointment', label:'Appointment' },
       { value:'meeting', label:'Meeting' },
@@ -3868,18 +4289,124 @@
       { value:'break', label:'Break' },
       { value:'other', label:'Other' }
     ];
-    const WEEK_TIMES = Array.from({length:17}, (_,index) => `${index + 6}:00`);
 
-    function hourLabel(time) {
-      const hour = Number(String(time).split(':')[0]);
-      return `${hour === 12 ? 12 : hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}`;
+    const AGENDA_START_MINUTES = 6 * 60;
+    const AGENDA_END_MINUTES = 22 * 60 + 30;
+    const AGENDA_SLOT_MINUTES = 30;
+    const AGENDA_SLOT_HEIGHT = 34;
+    let editingEventId = null;
+
+    function timeToMinutes(value='0:00') {
+      const [hours='0', minutes='0'] = String(value).split(':');
+      return Number(hours) * 60 + Number(minutes);
     }
-    function weekTypeClass(type='') {
-      return `week-type-${type || 'none'}`;
+
+    function minutesToTime(total) {
+      const safe = Math.max(0, Math.min(24 * 60 - 1, Number(total) || 0));
+      return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2,'0')}`;
     }
-    function weekTypeOptions(selected='') {
-      return WEEK_EVENT_TYPES.map(option => `<option value="${option.value}" ${option.value===selected?'selected':''}>${option.label}</option>`).join('');
+
+    function formatClock(value) {
+      const minutes = typeof value === 'number' ? value : timeToMinutes(value);
+      const hour24 = Math.floor(minutes / 60);
+      const minute = minutes % 60;
+      const hour12 = hour24 === 0 ? 12 : hour24 > 12 ? hour24 - 12 : hour24;
+      return `${hour12}:${String(minute).padStart(2,'0')} ${hour24 >= 12 ? 'PM' : 'AM'}`;
     }
+
+    function formatDuration(minutes) {
+      const total = Math.max(0, Number(minutes) || 0);
+      const hours = Math.floor(total / 60);
+      const remainder = total % 60;
+      if (!hours) return `${remainder} minutes`;
+      if (!remainder) return `${hours} ${hours === 1 ? 'hour' : 'hours'}`;
+      return `${hours} ${hours === 1 ? 'hour' : 'hours'} ${remainder} minutes`;
+    }
+
+    function eventTypeDetails(type='other') {
+      return WEEK_EVENT_TYPES.find(item => item.value === type) || WEEK_EVENT_TYPES[WEEK_EVENT_TYPES.length - 1];
+    }
+
+    function eventTypeClass(type='other') {
+      return `event-type-${type || 'other'}`;
+    }
+
+    function agendaTimeOptions(selected='', includeEnd=false) {
+      const first = AGENDA_START_MINUTES;
+      const last = includeEnd ? AGENDA_END_MINUTES : AGENDA_END_MINUTES - AGENDA_SLOT_MINUTES;
+      const options = [];
+      for (let minute = first; minute <= last; minute += AGENDA_SLOT_MINUTES) {
+        const value = minutesToTime(minute);
+        options.push(`<option value="${value}" ${value === selected ? 'selected' : ''}>${formatClock(minute)}</option>`);
+      }
+      return options.join('');
+    }
+
+    function ensureDayEvents(dateKey) {
+      const day = getDay(dateKey);
+      day.events ??= [];
+
+      if (!day.eventMigrationComplete) {
+        const occupied = new Set(day.events.map(event => `${event.start}|${event.title}`));
+        Object.entries(day.schedule || {}).forEach(([start, title]) => {
+          if (!String(title || '').trim()) return;
+          const startMinutes = timeToMinutes(start);
+          if (startMinutes < AGENDA_START_MINUTES || startMinutes >= AGENDA_END_MINUTES) return;
+          const key = `${start}|${String(title).trim()}`;
+          if (occupied.has(key)) return;
+          const meta = day.scheduleMeta?.[start] || {};
+          day.events.push({
+            id: uid(),
+            title: String(title).trim(),
+            type: meta.type || 'other',
+            start,
+            end: minutesToTime(Math.min(startMinutes + 60, AGENDA_END_MINUTES)),
+            notes: '',
+            done: !!meta.done,
+            createdAt: new Date().toISOString(),
+            migratedFromSchedule: true
+          });
+          occupied.add(key);
+        });
+        day.eventMigrationComplete = true;
+      }
+
+      day.events.forEach(event => {
+        event.id ??= uid();
+        event.title ??= 'Event';
+        event.type ??= 'other';
+        event.start ??= '9:00';
+        event.end ??= minutesToTime(Math.min(timeToMinutes(event.start) + 60, AGENDA_END_MINUTES));
+        event.notes ??= '';
+        event.done = !!event.done;
+      });
+
+      day.events.sort((a,b) => timeToMinutes(a.start) - timeToMinutes(b.start));
+      return day.events;
+    }
+
+    function migrateAllScheduleEvents() {
+      Object.keys(data.days || {}).forEach(ensureDayEvents);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function syncLegacyScheduleFromEvents(dateKey) {
+      const day = getDay(dateKey);
+      const schedule = {};
+      const scheduleMeta = {};
+      ensureDayEvents(dateKey).forEach(event => {
+        schedule[event.start] = event.title;
+        scheduleMeta[event.start] = {
+          type: event.type,
+          done: !!event.done,
+          end: event.end,
+          eventId: event.id
+        };
+      });
+      day.schedule = schedule;
+      day.scheduleMeta = scheduleMeta;
+    }
+
     function ensureWeekEntry(_legacyWeek, dateKey) {
       const day = getDay(dateKey);
       day.weekly ??= {focus:'', appointments:'', notes:'', hourly:{}};
@@ -3894,31 +4421,85 @@
           day.weekly.focus ||= legacy.focus || '';
           day.weekly.appointments ||= legacy.appointments || '';
           day.weekly.notes ||= legacy.notes || '';
-          Object.entries(legacy.hourly || {}).forEach(([time, value]) => {
-            day.weekly.hourly[time] ??= {};
-            day.weekly.hourly[time].type ||= value.type || '';
-            day.weekly.hourly[time].text ||= value.text || '';
-            if (day.weekly.hourly[time].done == null) day.weekly.hourly[time].done = !!value.done;
-            if (!day.schedule[time] && value.text) day.schedule[time] = value.text;
-            day.scheduleMeta ??= {};
-            day.scheduleMeta[time] ??= {};
-            day.scheduleMeta[time].type ||= value.type || '';
-            if (day.scheduleMeta[time].done == null) day.scheduleMeta[time].done = !!value.done;
-          });
         }
         day.weekly.legacyChecked = true;
       }
       return day.weekly;
     }
+
+    function eventOverlaps(dateKey, start, end, ignoreId='') {
+      const startMinutes = timeToMinutes(start);
+      const endMinutes = timeToMinutes(end);
+      return ensureDayEvents(dateKey).some(event => {
+        if (event.id === ignoreId) return false;
+        const eventStart = timeToMinutes(event.start);
+        const eventEnd = timeToMinutes(event.end);
+        return startMinutes < eventEnd && endMinutes > eventStart;
+      });
+    }
+
+    function firstFreeStart(dateKey) {
+      const today = isoDate(new Date());
+      let candidate = dateKey === today
+        ? Math.ceil((new Date().getHours() * 60 + new Date().getMinutes()) / AGENDA_SLOT_MINUTES) * AGENDA_SLOT_MINUTES
+        : 9 * 60;
+      candidate = Math.max(AGENDA_START_MINUTES, Math.min(candidate, AGENDA_END_MINUTES - AGENDA_SLOT_MINUTES));
+
+      const events = ensureDayEvents(dateKey);
+      while (candidate < AGENDA_END_MINUTES) {
+        const end = candidate + 60 <= AGENDA_END_MINUTES ? candidate + 60 : candidate + AGENDA_SLOT_MINUTES;
+        const blocked = events.some(event => candidate < timeToMinutes(event.end) && end > timeToMinutes(event.start));
+        if (!blocked) return minutesToTime(candidate);
+        candidate += AGENDA_SLOT_MINUTES;
+      }
+      return '9:00';
+    }
+
+    function eventTimelineMarkup(dateKey, mode='week') {
+      const events = ensureDayEvents(dateKey);
+      const slots = [];
+      for (let minute = AGENDA_START_MINUTES; minute < AGENDA_END_MINUTES; minute += AGENDA_SLOT_MINUTES) {
+        const slotEnd = minute + AGENDA_SLOT_MINUTES;
+        const occupied = events.some(event => minute < timeToMinutes(event.end) && slotEnd > timeToMinutes(event.start));
+        slots.push(`<div class="agenda-slot ${minute % 60 === 0 ? 'is-hour' : 'is-half'}">
+          <span class="agenda-slot-time">${formatClock(minute)}</span>
+          <span class="agenda-slot-free">${occupied ? '' : 'Free'}</span>
+        </div>`);
+      }
+
+      const blocks = events.map(event => {
+        const startMinutes = Math.max(AGENDA_START_MINUTES, timeToMinutes(event.start));
+        const endMinutes = Math.min(AGENDA_END_MINUTES, timeToMinutes(event.end));
+        const top = ((startMinutes - AGENDA_START_MINUTES) / AGENDA_SLOT_MINUTES) * AGENDA_SLOT_HEIGHT + 2;
+        const height = Math.max(AGENDA_SLOT_HEIGHT - 4, ((endMinutes - startMinutes) / AGENDA_SLOT_MINUTES) * AGENDA_SLOT_HEIGHT - 4);
+        const type = eventTypeDetails(event.type);
+        return `<article class="agenda-event-block ${eventTypeClass(event.type)} ${event.done ? 'is-complete' : ''}" style="top:${top}px;height:${height}px;" data-event-id="${event.id}" data-date="${dateKey}" tabindex="0" role="button">
+          <label class="agenda-event-check" title="Mark complete">
+            <input type="checkbox" data-event-id="${event.id}" data-date="${dateKey}" ${event.done ? 'checked' : ''}>
+            <span>✓</span>
+          </label>
+          <div class="agenda-event-copy">
+            <strong>${escapeHtml(event.title)}</strong>
+            <span>${formatClock(event.start)} – ${formatClock(event.end)}</span>
+            <small>${escapeHtml(type.label)}${event.notes ? ` · ${escapeHtml(event.notes)}` : ''}</small>
+          </div>
+        </article>`;
+      }).join('');
+
+      return `<div class="agenda-timeline ${mode === 'today' ? 'agenda-timeline-today' : ''}" style="--agenda-height:${((AGENDA_END_MINUTES - AGENDA_START_MINUTES) / AGENDA_SLOT_MINUTES) * AGENDA_SLOT_HEIGHT}px">
+        <div class="agenda-slot-list">${slots.join('')}</div>
+        <div class="agenda-event-layer">${blocks}</div>
+      </div>`;
+    }
+
     function updateWeekDayProgress(dateKey, column) {
       if (!column) return;
       const tasks = tasksForDate(dateKey);
-      const day = getDay(dateKey);
-      const scheduledTimes = Object.entries(day.schedule || {}).filter(([,value]) => String(value || '').trim());
-      const completedSchedule = scheduledTimes.filter(([time]) => !!day.scheduleMeta?.[time]?.done).length;
+      const events = ensureDayEvents(dateKey);
       const completedTasks = tasks.filter(task => task.done).length;
-      const total = tasks.length + scheduledTimes.length;
-      const completed = completedTasks + completedSchedule;
+      const completedEvents = events.filter(event => event.done).length;
+      const total = tasks.length + events.length;
+      const completed = completedTasks + completedEvents;
       const pct = total ? Math.round(completed / total * 100) : 0;
       const ring = column.querySelector('.mini-progress');
       if (ring) {
@@ -3928,6 +4509,44 @@
       }
       const progressLabel = column.querySelector('.week-day-progress-label');
       if (progressLabel) progressLabel.textContent = `${completed}/${total} complete`;
+    }
+
+    function wireAgendaEvents(container, rerender) {
+      container.querySelectorAll('.agenda-event-block').forEach(block => {
+        block.addEventListener('click', event => {
+          if (event.target.closest('.agenda-event-check')) return;
+          openEventEditor(block.dataset.date, block.dataset.eventId);
+        });
+        block.addEventListener('keydown', event => {
+          if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('.agenda-event-check')) {
+            event.preventDefault();
+            openEventEditor(block.dataset.date, block.dataset.eventId);
+          }
+        });
+      });
+
+      container.querySelectorAll('.agenda-event-check input').forEach(input => {
+        input.addEventListener('click', event => event.stopPropagation());
+        input.addEventListener('change', () => {
+          const eventItem = ensureDayEvents(input.dataset.date).find(item => item.id === input.dataset.eventId);
+          if (!eventItem) return;
+          eventItem.done = input.checked;
+          syncLegacyScheduleFromEvents(input.dataset.date);
+          saveData(input.checked ? 'Event completed' : 'Event reopened');
+          rerender();
+        });
+      });
+    }
+
+    function renderTodayEventTimeline() {
+      const wrap = document.getElementById('todayEventTimeline');
+      if (!wrap) return;
+      ensureDayEvents(selectedDate);
+      wrap.innerHTML = eventTimelineMarkup(selectedDate, 'today');
+      wireAgendaEvents(wrap, () => {
+        renderTodayEventTimeline();
+        renderWeek();
+      });
     }
 
     function renderWeek() {
@@ -3943,40 +4562,13 @@
         const d = addDays(start,i);
         const dateKey = isoDate(d);
         const item = ensureWeekEntry(week, dateKey);
-        const day = getDay(dateKey);
-        day.schedule ??= {};
-        day.scheduleMeta ??= {};
-
         const tasks = tasksForDate(dateKey);
+        const events = ensureDayEvents(dateKey);
         const taskDone = tasks.filter(task => task.done).length;
-        const scheduledTimes = Object.entries(day.schedule).filter(([,value]) => String(value || '').trim());
-        const scheduledDone = scheduledTimes.filter(([time]) => !!day.scheduleMeta?.[time]?.done).length;
-        const totalItems = tasks.length + scheduledTimes.length;
-        const completedItems = taskDone + scheduledDone;
+        const eventDone = events.filter(event => event.done).length;
+        const totalItems = tasks.length + events.length;
+        const completedItems = taskDone + eventDone;
         const pct = totalItems ? Math.round(completedItems / totalItems * 100) : 0;
-
-        const hourlyRows = WEEK_TIMES.map(time => {
-          const legacyMeta = item.hourly[time] ??= {};
-          const sharedMeta = day.scheduleMeta[time] ??= {};
-          const type = sharedMeta.type || legacyMeta.type || '';
-          const done = sharedMeta.done ?? legacyMeta.done ?? false;
-          const text = day.schedule[time] ?? legacyMeta.text ?? '';
-          legacyMeta.type = type;
-          legacyMeta.done = !!done;
-          legacyMeta.text = text;
-          sharedMeta.type = type;
-          sharedMeta.done = !!done;
-
-          return `<div class="week-hour-row ${weekTypeClass(type)} ${done?'is-complete':''}" data-date="${dateKey}" data-time="${time}">
-            <div class="week-hour-time">${hourLabel(time)}</div>
-            <select class="week-hour-type" data-date="${dateKey}" data-time="${time}" aria-label="Item type at ${hourLabel(time)}">${weekTypeOptions(type)}</select>
-            <input class="week-hour-text" data-date="${dateKey}" data-time="${time}" value="${escapeHtml(text)}" placeholder="Add item…" aria-label="Schedule item at ${hourLabel(time)}" />
-            <label class="week-hour-check-wrap" title="Mark complete">
-              <input type="checkbox" class="week-hour-check" data-date="${dateKey}" data-time="${time}" ${done?'checked':''}>
-              <span>✓</span>
-            </label>
-          </div>`;
-        }).join('');
 
         const col = document.createElement('article');
         col.className = `day-column weekly-day week-day-color-${i}`;
@@ -3988,7 +4580,10 @@
               <div class="day-date">${d.toLocaleDateString('en-CA',{month:'short',day:'numeric'})}</div>
               <div class="week-day-progress-label">${completedItems}/${totalItems} complete</div>
             </div>
-            <div class="mini-progress" style="--pct:${pct}%"><span>${pct}%</span></div>
+            <div class="weekly-day-header-actions">
+              <button class="week-day-add-event" type="button" data-date="${dateKey}" title="Add event">+</button>
+              <div class="mini-progress" style="--pct:${pct}%"><span>${pct}%</span></div>
+            </div>
           </div>
 
           <div class="weekly-day-body">
@@ -4018,14 +4613,7 @@
             </section>
 
             <section class="week-hourly-section">
-              <div class="week-hourly-heading">
-                <div>
-                  <label class="label">Hourly plan</label>
-                  <span>6:00 AM – 10:00 PM</span>
-                </div>
-                <small>Choose a type, add the item, then check it off.</small>
-              </div>
-              <div class="week-hourly-grid">${hourlyRows}</div>
+              ${eventTimelineMarkup(dateKey, 'week')}
             </section>
 
             <section class="week-notes-section">
@@ -4065,60 +4653,187 @@
         }
       }));
 
-      grid.querySelectorAll('.week-hour-text').forEach(element => element.addEventListener('input', () => {
-        const dateKey = element.dataset.date;
-        const time = element.dataset.time;
-        const item = ensureWeekEntry(week, dateKey);
-        const day = getDay(dateKey);
-        item.hourly[time] ??= {};
-        day.scheduleMeta ??= {};
-        day.scheduleMeta[time] ??= {};
-        day.schedule[time] = element.value;
-        item.hourly[time].text = element.value;
-        if (!element.value.trim()) {
-          item.hourly[time].done = false;
-          day.scheduleMeta[time].done = false;
-          const checkbox = element.closest('.week-hour-row')?.querySelector('.week-hour-check');
-          if (checkbox) checkbox.checked = false;
-          element.closest('.week-hour-row')?.classList.remove('is-complete');
-        }
-        saveData();
-        updateWeekDayProgress(dateKey, element.closest('.weekly-day'));
-      }));
-
-      grid.querySelectorAll('.week-hour-type').forEach(element => element.addEventListener('change', () => {
-        const dateKey = element.dataset.date;
-        const time = element.dataset.time;
-        const item = ensureWeekEntry(week, dateKey);
-        const day = getDay(dateKey);
-        item.hourly[time] ??= {};
-        day.scheduleMeta ??= {};
-        day.scheduleMeta[time] ??= {};
-        item.hourly[time].type = element.value;
-        day.scheduleMeta[time].type = element.value;
-        const row = element.closest('.week-hour-row');
-        WEEK_EVENT_TYPES.forEach(option => row.classList.remove(weekTypeClass(option.value)));
-        row.classList.add(weekTypeClass(element.value));
-        saveData('Schedule type updated');
-      }));
-
-      grid.querySelectorAll('.week-hour-check').forEach(element => element.addEventListener('change', () => {
-        const dateKey = element.dataset.date;
-        const time = element.dataset.time;
-        const item = ensureWeekEntry(week, dateKey);
-        const day = getDay(dateKey);
-        item.hourly[time] ??= {};
-        day.scheduleMeta ??= {};
-        day.scheduleMeta[time] ??= {};
-        item.hourly[time].done = element.checked;
-        day.scheduleMeta[time].done = element.checked;
-        element.closest('.week-hour-row')?.classList.toggle('is-complete', element.checked);
-        saveData(element.checked ? 'Schedule item completed' : 'Schedule item reopened');
-        updateWeekDayProgress(dateKey, element.closest('.weekly-day'));
-      }));
+      grid.querySelectorAll('.week-day-add-event').forEach(button => button.addEventListener('click', () => openEventEditor(button.dataset.date)));
+      wireAgendaEvents(grid, () => {
+        renderWeek();
+        renderTodayEventTimeline();
+      });
 
       requestAnimationFrame(() => { grid.scrollLeft = previousScroll; });
     }
+
+    function updateEventDurationPreview() {
+      const start = timeToMinutes(document.getElementById('eventStart').value);
+      const end = timeToMinutes(document.getElementById('eventEnd').value);
+      document.getElementById('eventDurationPreview').textContent = end > start ? formatDuration(end - start) : 'Choose a later end time';
+    }
+
+    function updateEventColourPreview() {
+      const type = document.getElementById('eventType').value;
+      const preview = document.getElementById('eventColourPreview');
+      WEEK_EVENT_TYPES.forEach(item => preview.classList.remove(eventTypeClass(item.value)));
+      preview.classList.add(eventTypeClass(type));
+      document.getElementById('eventPreviewType').textContent = eventTypeDetails(type).label;
+    }
+
+    function resetEventEditor(dateKey=isoDate(new Date())) {
+      editingEventId = null;
+      const start = firstFreeStart(dateKey);
+      const startMinutes = timeToMinutes(start);
+      const end = minutesToTime(Math.min(startMinutes + 60, AGENDA_END_MINUTES));
+      document.getElementById('eventFormTitle').textContent = 'Add event';
+      document.getElementById('eventTitle').value = '';
+      document.getElementById('eventType').value = 'task';
+      document.getElementById('eventDate').value = dateKey;
+      document.getElementById('eventStart').innerHTML = agendaTimeOptions(start, false);
+      document.getElementById('eventEnd').innerHTML = agendaTimeOptions(end, true);
+      document.getElementById('eventStart').value = start;
+      document.getElementById('eventEnd').value = end;
+      document.getElementById('eventNotes').value = '';
+      document.getElementById('eventDone').checked = false;
+      document.getElementById('deleteEvent').style.display = 'none';
+      updateEventDurationPreview();
+      updateEventColourPreview();
+    }
+
+    function openEventEditor(dateKey=isoDate(new Date()), eventId='') {
+      resetEventEditor(dateKey);
+      if (eventId) {
+        const eventItem = ensureDayEvents(dateKey).find(item => item.id === eventId);
+        if (!eventItem) return;
+        editingEventId = eventId;
+        document.getElementById('eventFormTitle').textContent = 'Edit event';
+        document.getElementById('eventTitle').value = eventItem.title || '';
+        document.getElementById('eventType').value = eventItem.type || 'other';
+        document.getElementById('eventDate').value = dateKey;
+        document.getElementById('eventStart').innerHTML = agendaTimeOptions(eventItem.start, false);
+        document.getElementById('eventEnd').innerHTML = agendaTimeOptions(eventItem.end, true);
+        document.getElementById('eventStart').value = eventItem.start;
+        document.getElementById('eventEnd').value = eventItem.end;
+        document.getElementById('eventNotes').value = eventItem.notes || '';
+        document.getElementById('eventDone').checked = !!eventItem.done;
+        document.getElementById('deleteEvent').style.display = '';
+        updateEventDurationPreview();
+        updateEventColourPreview();
+      }
+      openModal('eventModal');
+      setTimeout(() => document.getElementById('eventTitle').focus(), 80);
+    }
+
+    function saveEventFromEditor() {
+      const title = document.getElementById('eventTitle').value.trim();
+      const type = document.getElementById('eventType').value;
+      const dateKey = document.getElementById('eventDate').value;
+      const start = document.getElementById('eventStart').value;
+      const end = document.getElementById('eventEnd').value;
+      const notes = document.getElementById('eventNotes').value.trim();
+      const done = document.getElementById('eventDone').checked;
+
+      if (!title) {
+        showToast('Add an event title');
+        document.getElementById('eventTitle').focus();
+        return;
+      }
+      if (!dateKey) {
+        showToast('Choose a date');
+        return;
+      }
+      if (timeToMinutes(end) <= timeToMinutes(start)) {
+        showToast('End time must be after start time');
+        return;
+      }
+      if (eventOverlaps(dateKey, start, end, editingEventId || '')) {
+        alert('That time overlaps another event on this day. Choose another time or edit the existing event.');
+        return;
+      }
+
+      let originalDate = dateKey;
+      let eventItem = null;
+      if (editingEventId) {
+        for (const [dayDate, day] of Object.entries(data.days || {})) {
+          const match = (day.events || []).find(item => item.id === editingEventId);
+          if (match) {
+            eventItem = match;
+            originalDate = dayDate;
+            break;
+          }
+        }
+      }
+
+      if (eventItem) {
+        if (originalDate !== dateKey) {
+          getDay(originalDate).events = ensureDayEvents(originalDate).filter(item => item.id !== editingEventId);
+          syncLegacyScheduleFromEvents(originalDate);
+          getDay(dateKey).events ??= [];
+          getDay(dateKey).events.push(eventItem);
+        }
+        Object.assign(eventItem, {title,type,start,end,notes,done,updatedAt:new Date().toISOString()});
+      } else {
+        getDay(dateKey).events ??= [];
+        getDay(dateKey).events.push({
+          id:uid(),
+          title,
+          type,
+          start,
+          end,
+          notes,
+          done,
+          createdAt:new Date().toISOString(),
+          updatedAt:new Date().toISOString()
+        });
+      }
+
+      syncLegacyScheduleFromEvents(dateKey);
+      saveData(editingEventId ? 'Event updated' : 'Event added');
+      closeModal('eventModal');
+      renderWeek();
+      renderTodayEventTimeline();
+    }
+
+    function deleteEventFromEditor() {
+      if (!editingEventId) return;
+      let foundDate = '';
+      let foundEvent = null;
+      for (const [dateKey, day] of Object.entries(data.days || {})) {
+        const eventItem = (day.events || []).find(item => item.id === editingEventId);
+        if (eventItem) {
+          foundDate = dateKey;
+          foundEvent = eventItem;
+          break;
+        }
+      }
+      if (!foundEvent) return;
+      if (!confirm(`Delete “${foundEvent.title}”?`)) return;
+      getDay(foundDate).events = ensureDayEvents(foundDate).filter(item => item.id !== editingEventId);
+      syncLegacyScheduleFromEvents(foundDate);
+      saveData('Event deleted');
+      closeModal('eventModal');
+      renderWeek();
+      renderTodayEventTimeline();
+    }
+
+    document.getElementById('addWeekEvent').addEventListener('click', () => openEventEditor(isoDate(weekAnchor)));
+    document.getElementById('addTodayEvent').addEventListener('click', () => openEventEditor(selectedDate));
+    document.getElementById('eventStart').addEventListener('change', () => {
+      const startMinutes = timeToMinutes(document.getElementById('eventStart').value);
+      const currentEnd = timeToMinutes(document.getElementById('eventEnd').value);
+      if (currentEnd <= startMinutes) {
+        const adjustedEnd = minutesToTime(Math.min(startMinutes + 60, AGENDA_END_MINUTES));
+        document.getElementById('eventEnd').value = adjustedEnd;
+      }
+      updateEventDurationPreview();
+    });
+    document.getElementById('eventEnd').addEventListener('change', updateEventDurationPreview);
+    document.getElementById('eventType').addEventListener('change', updateEventColourPreview);
+    document.getElementById('eventDate').addEventListener('change', event => {
+      const start = firstFreeStart(event.target.value);
+      document.getElementById('eventStart').value = start;
+      document.getElementById('eventEnd').value = minutesToTime(Math.min(timeToMinutes(start) + 60, AGENDA_END_MINUTES));
+      updateEventDurationPreview();
+    });
+    document.getElementById('saveEvent').addEventListener('click', saveEventFromEditor);
+    document.getElementById('deleteEvent').addEventListener('click', deleteEventFromEditor);
+
     document.getElementById('prevWeek').addEventListener('click',()=>{weekAnchor=addDays(weekAnchor,-5);renderWeek();});
     document.getElementById('nextWeek').addEventListener('click',()=>{weekAnchor=addDays(weekAnchor,5);renderWeek();});
     document.getElementById('thisWeek').addEventListener('click',()=>{weekAnchor=localDate(isoDate(new Date()));renderWeek();});
@@ -4867,15 +5582,12 @@
         const [hourText,minute='00']=String(time).split(':');
         const hour=Number(hourText); return `${hour===12?12:hour>12?hour-12:hour}:${minute} ${hour>=12?'PM':'AM'}`;
       };
-      const agenda=Object.entries(today.schedule||{}).filter(([,value])=>String(value||'').trim()).sort(([a],[b])=>a.localeCompare(b)).slice(0,5);
+      const agenda=ensureDayEvents(todayDate).slice(0,5);
       const agendaWrap=document.getElementById('dashboardAgenda');
-      agendaWrap.innerHTML=agenda.length?agenda.map(([time,value],index)=>{
-        const parts=String(value).split('|').map(v=>v.trim()).filter(Boolean);
-        const meta=today.scheduleMeta?.[time]||{};
-        const subtitleParts=[];
-        if(meta.type && agendaTypeLabels[meta.type]) subtitleParts.push(agendaTypeLabels[meta.type]);
-        if(parts.length>1) subtitleParts.push(parts.slice(1).join(' • '));
-        return `<div class="dashboard-agenda-row" style="${meta.done?'opacity:.52;':''}"><div class="dashboard-agenda-time">${formatAgendaTime(time)}</div><span class="dashboard-agenda-dot" style="background:${agendaTypeColours[meta.type]||['#76957F','#E48F97','#D4A77D','#6D907A','#A99AC1'][index%5]}"></span><div><div class="dashboard-agenda-title" style="${meta.done?'text-decoration:line-through;':''}">${escapeHtml(parts[0]||value)}</div>${subtitleParts.length?`<div class="dashboard-agenda-subtitle">${escapeHtml(subtitleParts.join(' • '))}</div>`:''}</div></div>`;
+      agendaWrap.innerHTML=agenda.length?agenda.map((eventItem,index)=>{
+        const subtitleParts=[eventTypeDetails(eventItem.type).label, `${formatClock(eventItem.start)} – ${formatClock(eventItem.end)}`];
+        if(eventItem.notes) subtitleParts.push(eventItem.notes);
+        return `<div class="dashboard-agenda-row" style="${eventItem.done?'opacity:.52;':''}"><div class="dashboard-agenda-time">${formatClock(eventItem.start)}</div><span class="dashboard-agenda-dot" style="background:${agendaTypeColours[eventItem.type]||['#76957F','#E48F97','#D4A77D','#6D907A','#A99AC1'][index%5]}"></span><div><div class="dashboard-agenda-title" style="${eventItem.done?'text-decoration:line-through;':''}">${escapeHtml(eventItem.title)}</div><div class="dashboard-agenda-subtitle">${escapeHtml(subtitleParts.join(' • '))}</div></div></div>`;
       }).join(''):'<div class="dashboard-empty">No time blocks yet. Add them in Today or the Weekly Planner.</div>';
 
       today.priorityDone ??= {};
@@ -4931,6 +5643,7 @@
     document.getElementById('clearBtn').addEventListener('click',()=>{if(confirm('Erase all planner data from this browser? This cannot be undone.')){localStorage.removeItem(STORAGE_KEY);location.reload();}});
 
     if(data.settings?.plannerName) document.title=data.settings.plannerName;
+    migrateAllScheduleEvents();
     operatingYearOptions(); renderToday(); renderWeek(); renderTasks(); renderFinance(); renderGoals(); renderHabits(); renderMonthly(); renderNotes(); renderDashboard();
   </script>
 </body>

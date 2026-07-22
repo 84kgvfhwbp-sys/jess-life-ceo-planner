@@ -1,22 +1,13 @@
-Jess Life & CEO Planner — Version 18 Nature Cycle Moods
+Jess Life & CEO Planner — Version 20 Clean Time-Block Agenda
 
-This version replaces the Journal cat moods with a Nature Cycle mood set.
-
-Mood icons:
-- Amazing — Full leafy branch
-- Good — Healthy leaf
-- Okay — Small leaf
-- Low — Fallen leaf
-- Rough — Bare branch
-
-Used in:
-- Journal mood picker
-- Saved Journal entry rows
-- Most common mood summary
-- Recent mood strip
+Change:
+- Removed the explanatory Time-Block Agenda header from each weekly day.
+- The 30-minute schedule now begins immediately below the task section.
+- All event creation, editing, colours, durations and free-time labels remain unchanged.
 
 GitHub update:
-1. Upload the new index.html to your repository
-2. Replace the old index.html
-3. Commit directly to main
-4. Refresh GitHub Pages after about a minute
+1. Download a backup from Backup & Settings.
+2. Upload this index.html to the jess-life-ceo-planner repository.
+3. Replace the existing index.html.
+4. Commit directly to main.
+5. Refresh GitHub Pages after about one minute.
