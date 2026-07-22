@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#8E9C86" />
+  <title>Jess Life & CEO Planner</title>
+  <style>
+    :root {
+      --coral: #D98978;
+      --coral-soft: #F3D4CC;
+      --wisteria: #AAA0C8;
+      --wisteria-soft: #E4E0F0;
+      --sage: #8E9C86;
+      --sage-soft: #DDE4D8;
+      --mint: #B7CDC0;
+      --brown: #80695B;
+      --cream: #F8F3EB;
+      --paper: #FFFDFC;
+      --ink: #3E3A37;
+      --muted: #746F6A;
+      --line: #DED6CE;
+      --danger: #B7655C;
+      --shadow: 0 10px 30px rgba(74, 59, 47, 0.10);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: linear-gradient(145deg, #f9f4ec 0%, #f2eee8 55%, #edf2ec 100%);
+      font-family: Comfortaa, "Avenir Next", Avenir, Arial, sans-serif;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 20px;
+      background: rgba(255, 253, 252, 0.92);
+      backdrop-filter: blur(15px);
+      border-right: 1px solid rgba(128, 105, 91, 0.14);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 26px;
+      padding: 4px 6px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 17px;
+      color: white;
+      background: linear-gradient(135deg, var(--coral), var(--wisteria));
+      box-shadow: var(--shadow);
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .brand h1 { margin: 0; font-size: 17px; line-height: 1.25; }
+    .brand small { color: var(--muted); font-size: 11px; }
+
+    .nav-group { margin-bottom: 22px; }
+    .nav-label {
+      margin: 0 8px 8px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .nav-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      margin: 4px 0;
+      padding: 12px 13px;
+      border: 0;
+      border-radius: 14px;
+      color: var(--ink);
+      background: transparent;
+      text-align: left;
+      transition: .2s ease;
+    }
+
+    .nav-button:hover { background: var(--cream); transform: translateX(2px); }
+    .nav-button.active { color: #fff; background: var(--sage); box-shadow: 0 7px 18px rgba(91, 108, 82, .22); }
+    .nav-icon { width: 25px; text-align: center; font-size: 18px; }
+
+    .sidebar-footer {
+      margin-top: 28px;
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--wisteria-soft);
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .main { min-width: 0; padding: 28px 34px 60px; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+
+    .topbar h2 { margin: 0 0 6px; font-size: clamp(24px, 3vw, 36px); }
+    .topbar p { margin: 0; color: var(--muted); }
+    .date-chip {
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.76);
+      border: 1px solid var(--line);
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(74,59,47,.06);
+    }
+
+    .page { display: none; animation: fade .22s ease; }
+    .page.active { display: block; }
+    @keyframes fade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+    .grid { display: grid; gap: 18px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      padding: 20px;
+      border: 1px solid rgba(128,105,91,.15);
+      border-radius: var(--radius);
+      background: rgba(255,253,252,.94);
+      box-shadow: var(--shadow);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .card h3 { margin: 0; font-size: 16px; }
+    .card-subtitle { color: var(--muted); font-size: 12px; }
+
+    .soft-coral { background: linear-gradient(145deg, #fffaf8, var(--coral-soft)); }
+    .soft-wisteria { background: linear-gradient(145deg, #fff, var(--wisteria-soft)); }
+    .soft-sage { background: linear-gradient(145deg, #fff, var(--sage-soft)); }
+    .soft-mint { background: linear-gradient(145deg, #fff, #dcebe2); }
+
+    .stat {
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .stat-label { color: var(--muted); font-size: 12px; }
+    .stat-value { font-size: 32px; font-weight: 800; }
+    .stat-note { color: var(--muted); font-size: 11px; }
+
+    .progress-track {
+      width: 100%; height: 9px; border-radius: 99px;
+      background: rgba(128,105,91,.13); overflow: hidden;
+    }
+    .progress-fill { height: 100%; width: 0; border-radius: inherit; background: var(--coral); transition: width .25s ease; }
+
+    .input, .textarea, .select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 11px 12px;
+      color: var(--ink);
+      background: rgba(255,255,255,.86);
+      outline: none;
+      transition: .2s;
+    }
+    .textarea { resize: vertical; min-height: 112px; line-height: 1.55; }
+    .input:focus, .textarea:focus, .select:focus { border-color: var(--sage); box-shadow: 0 0 0 3px rgba(142,156,134,.14); }
+
+    .label { display: block; margin: 0 0 7px; color: var(--muted); font-size: 11px; font-weight: 800; }
+    .field { margin-bottom: 13px; }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 800;
+      transition: .2s;
+    }
+    .btn:hover { transform: translateY(-1px); filter: brightness(.98); }
+    .btn-primary { color: #fff; background: var(--sage); }
+    .btn-coral { color: #fff; background: var(--coral); }
+    .btn-wisteria { color: #fff; background: var(--wisteria); }
+    .btn-light { color: var(--ink); background: var(--cream); border: 1px solid var(--line); }
+    .btn-danger { color: #fff; background: var(--danger); }
+    .btn-small { padding: 7px 10px; font-size: 11px; }
+
+    .row { display: flex; align-items: center; gap: 10px; }
+    .row-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .spread { justify-content: space-between; }
+
+    .task-list, .simple-list { display: grid; gap: 9px; }
+    .task-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 11px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255,255,255,.72);
+    }
+    .task-item.done .task-text { text-decoration: line-through; opacity: .55; }
+    .task-check { width: 19px; height: 19px; accent-color: var(--sage); }
+    .task-text { font-size: 13px; line-height: 1.45; }
+    .task-meta { margin-top: 3px; color: var(--muted); font-size: 10px; }
+    .delete-btn { border: 0; background: transparent; color: var(--muted); font-size: 18px; line-height: 1; }
+    .delete-btn:hover { color: var(--danger); }
+
+    .priority-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .priority-high { background: var(--danger); }
+    .priority-medium { background: var(--coral); }
+    .priority-low { background: var(--sage); }
+
+    .quick-add {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) auto;
+      gap: 9px;
+      margin-bottom: 12px;
+    }
+
+    .schedule-grid { display: grid; gap: 7px; }
+    .schedule-row { display: grid; grid-template-columns: 74px 1fr; gap: 10px; align-items: center; }
+    .schedule-time { color: var(--brown); font-size: 11px; font-weight: 800; }
+    .schedule-row input { padding: 8px 10px; border-radius: 10px; }
+
+    .habit-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
+    .habit-day { text-align: center; font-size: 10px; color: var(--muted); }
+    .habit-cell {
+      display: grid; place-items: center; min-height: 34px;
+      border: 1px solid var(--line); border-radius: 10px; background: white;
+    }
+    .habit-cell input { width: 17px; height: 17px; accent-color: var(--wisteria); }
+
+    .week-grid { display: grid; grid-template-columns: repeat(7, minmax(180px,1fr)); gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+    .day-column {
+      min-height: 355px;
+      padding: 14px;
+      border-radius: 17px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.82);
+    }
+    .day-column h4 { margin: 0 0 4px; }
+    .day-date { margin-bottom: 12px; color: var(--muted); font-size: 10px; }
+    .day-column textarea { min-height: 80px; }
+
+    .goal-card {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: white;
+    }
+    .goal-title { font-weight: 800; }
+    .goal-meta { margin: 5px 0 10px; color: var(--muted); font-size: 10px; }
+
+    .note-card {
+      min-height: 180px;
+      padding: 15px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, #fff, var(--cream));
+    }
+    .note-card input { border: 0; padding: 0; font-weight: 800; background: transparent; }
+    .note-card textarea { border: 0; padding: 10px 0 0; min-height: 120px; background: transparent; }
+
+    .month-reset-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+
+    .empty {
+      padding: 18px;
+      border: 1px dashed var(--line);
+      border-radius: 13px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 10;
+      padding: 12px 16px;
+      border-radius: 13px;
+      color: white;
+      background: var(--sage);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: .25s;
+    }
+    .toast.show { opacity: 1; transform: none; }
+
+
+
+    .money-value { font-size: clamp(24px, 3vw, 34px); font-weight: 800; letter-spacing: -.03em; }
+    .money-positive { color: #5F7862; }
+    .money-negative { color: var(--danger); }
+    .money-neutral { color: var(--brown); }
+    .finance-toolbar { margin-bottom: 18px; }
+    .finance-controls { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(180px, 1fr) auto; gap: 12px; align-items: end; }
+    .finance-summary-note { margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .finance-list { display: grid; gap: 10px; }
+    .finance-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.78);
+    }
+    .finance-item-main { min-width: 0; }
+    .finance-item-title { font-size: 13px; font-weight: 800; line-height: 1.4; }
+    .finance-item-meta { margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .finance-amount { font-size: 14px; font-weight: 800; white-space: nowrap; }
+    .finance-actions { display: flex; align-items: center; gap: 5px; }
+    .status-pill, .season-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+    .status-actual { color: #4E6652; background: var(--sage-soft); }
+    .status-planned { color: #75658E; background: var(--wisteria-soft); }
+    .season-summer { color: #8B5D4F; background: var(--coral-soft); }
+    .season-winter { color: #5B6684; background: var(--wisteria-soft); }
+    .finance-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 15px; }
+    .finance-table { width: 100%; min-width: 810px; border-collapse: collapse; background: rgba(255,255,255,.78); }
+    .finance-table th, .finance-table td { padding: 11px 12px; border-bottom: 1px solid var(--line); text-align: right; font-size: 11px; }
+    .finance-table th { position: sticky; top: 0; color: var(--muted); background: var(--cream); font-size: 9px; text-transform: uppercase; letter-spacing: .05em; }
+    .finance-table th:first-child, .finance-table td:first-child,
+    .finance-table th:nth-child(2), .finance-table td:nth-child(2) { text-align: left; }
+    .finance-table tr:last-child td { border-bottom: 0; }
+    .finance-table .total-row td { font-weight: 800; background: var(--cream); }
+    .mini-divider { border: 0; border-top: 1px solid var(--line); margin: 18px 0; }
+    .form-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
+    .dashboard-finance { margin-bottom: 18px; }
+
+    .task-progress-summary { display:flex; align-items:center; gap:10px; color:var(--muted); font-size:11px; }
+    .task-progress-summary strong { color:var(--ink); font-size:13px; }
+    .task-actions { display:flex; align-items:center; justify-content:flex-end; gap:6px; flex-wrap:wrap; }
+    .task-actions .input { width:138px; padding:7px 8px; font-size:10px; border-radius:9px; }
+    .task-actions .btn { white-space:nowrap; }
+    .task-origin { display:inline-flex; align-items:center; padding:2px 7px; margin-left:4px; border-radius:99px; background:var(--cream); color:var(--muted); font-size:9px; font-weight:800; }
+    .carryover-review { margin:12px 0; padding:12px; border:1px solid rgba(177,105,95,.25); border-radius:14px; background:var(--coral-soft); }
+    .carryover-review h4 { margin:0 0 4px; }
+    .carryover-list { display:grid; gap:7px; margin-top:10px; }
+    .carryover-row { display:grid; grid-template-columns:1fr auto; align-items:center; gap:8px; padding:9px 10px; border-radius:11px; background:rgba(255,255,255,.72); border:1px solid var(--line); }
+    .carryover-row .task-meta { margin-top:2px; }
+    .mini-progress { width:52px; height:52px; border-radius:50%; display:grid; place-items:center; background:conic-gradient(var(--sage) var(--pct), rgba(142,156,134,.16) 0); position:relative; flex:0 0 auto; }
+    .mini-progress::after { content:''; position:absolute; inset:6px; border-radius:50%; background:white; }
+    .mini-progress span { position:relative; z-index:1; font-size:10px; font-weight:800; }
+    .week-day-head { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:10px; }
+    .week-task-list { display:grid; gap:6px; margin-bottom:9px; }
+    .week-task-row { display:grid; grid-template-columns:auto 1fr; gap:7px; align-items:start; padding:7px 8px; border-radius:9px; border:1px solid var(--line); background:rgba(255,255,255,.72); }
+    .week-task-row.done .task-text { text-decoration:line-through; opacity:.55; }
+    .week-task-row .task-text { font-size:10px; }
+    .week-quick-add { display:grid; grid-template-columns:1fr auto; gap:5px; margin-bottom:12px; }
+    .week-quick-add .input { padding:7px 8px; font-size:10px; border-radius:9px; }
+    .week-quick-add .btn { padding:7px 9px; font-size:10px; }
+    .attention-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+    .attention-stat { padding:10px; border-radius:12px; border:1px solid var(--line); background:rgba(255,255,255,.72); }
+    .attention-stat strong { display:block; margin-top:4px; font-size:20px; }
+    .status-overdue { color:#8f3d36; background:#f7d7d2; }
+    .finance-detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .bank-history { display:grid; gap:7px; max-height:240px; overflow:auto; margin-top:12px; }
+    .bank-row { display:grid; grid-template-columns:1fr auto; gap:10px; padding:9px 10px; border-radius:11px; border:1px solid var(--line); background:rgba(255,255,255,.72); }
+    .bank-change-positive { color:#5F7862; }
+    .bank-change-negative { color:var(--danger); }
+    .finance-item-overdue { border-color:rgba(185,83,75,.42); background:#fff8f6; }
+
+    .mobile-menu { display: none; }
+
+    @media (max-width: 1050px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 780px) {
+      .app-shell { display: block; }
+      .sidebar {
+        position: fixed; inset: 0 auto 0 0; z-index: 20; width: 275px;
+        transform: translateX(-105%); transition: .24s ease;
+        box-shadow: 15px 0 30px rgba(44,39,34,.16);
+      }
+      .sidebar.open { transform: none; }
+      .mobile-menu {
+        display: grid; place-items: center; width: 42px; height: 42px;
+        border: 1px solid var(--line); border-radius: 12px; background: white;
+      }
+      .main { padding: 20px 16px 45px; }
+      .topbar { align-items: flex-start; }
+      .topbar-title { display: flex; gap: 11px; align-items: flex-start; }
+      .date-chip { display: none; }
+      .grid-2, .grid-3, .grid-4, .month-reset-grid, .form-grid-2 { grid-template-columns: 1fr; }
+      .finance-controls { grid-template-columns: 1fr; }
+      .finance-item { grid-template-columns: 1fr auto; }
+      .finance-actions { grid-column: 1 / -1; justify-content: flex-end; }
+      .task-item { grid-template-columns:auto 1fr; }
+      .task-actions { grid-column:1 / -1; justify-content:flex-start; padding-left:30px; }
+      .finance-detail-grid, .attention-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">J</div>
+        <div>
+          <h1>Life & CEO Planner</h1>
+          <small>Built for Jess</small>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-label">Plan</div>
+        <button class="nav-button active" data-page="dashboard"><span class="nav-icon">⌂</span>Dashboard</button>
+        <button class="nav-button" data-page="today"><span class="nav-icon">☀</span>Today</button>
+        <button class="nav-button" data-page="week"><span class="nav-icon">▦</span>Weekly Planner</button>
+        <button class="nav-button" data-page="tasks"><span class="nav-icon">✓</span>Master Tasks</button>
+      </div>
+
+
+
+      <div class="nav-group">
+        <div class="nav-label">Business</div>
+        <button class="nav-button" data-page="finance"><span class="nav-icon">$</span>Finance Centre</button>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-label">Grow</div>
+        <button class="nav-button" data-page="goals"><span class="nav-icon">◎</span>Goals</button>
+        <button class="nav-button" data-page="habits"><span class="nav-icon">◌</span>Habits</button>
+        <button class="nav-button" data-page="monthly"><span class="nav-icon">↻</span>Monthly Reset</button>
+        <button class="nav-button" data-page="notes"><span class="nav-icon">✎</span>Notes</button>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-label">Data</div>
+        <button class="nav-button" data-page="settings"><span class="nav-icon">⚙</span>Backup & Settings</button>
+      </div>
+
+      <div class="sidebar-footer">
+        Your information saves automatically in this browser. Use <strong>Backup & Settings</strong> to download a copy regularly.
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">
+          <button class="mobile-menu" id="menuBtn" aria-label="Open menu">☰</button>
+          <div>
+            <h2 id="pageTitle">Dashboard</h2>
+            <p id="pageSubtitle">A calm view of what matters most.</p>
+          </div>
+        </div>
+        <div class="date-chip" id="todayDisplay"></div>
+      </header>
+
+      <section class="page active" id="dashboard-page">
+        <div class="grid grid-4" style="margin-bottom:18px;">
+          <div class="card stat soft-coral">
+            <div class="stat-label">This week completed</div>
+            <div class="stat-value" id="dashTaskPercent">0%</div>
+            <div class="progress-track"><div class="progress-fill" id="dashTaskBar"></div></div>
+          </div>
+          <div class="card stat soft-wisteria">
+            <div class="stat-label">Active goals</div>
+            <div class="stat-value" id="dashGoals">0</div>
+            <div class="stat-note">Keep the list focused and realistic.</div>
+          </div>
+          <div class="card stat soft-sage">
+            <div class="stat-label">Habit check-ins</div>
+            <div class="stat-value" id="dashHabits">0</div>
+            <div class="stat-note">This week so far.</div>
+          </div>
+          <div class="card stat soft-mint">
+            <div class="stat-label">Notes saved</div>
+            <div class="stat-value" id="dashNotes">0</div>
+            <div class="stat-note">Ideas, reminders and brain dumps.</div>
+          </div>
+        </div>
+
+
+
+        <div class="grid grid-3 dashboard-finance">
+          <div class="card soft-sage">
+            <div class="row spread"><div class="stat-label">Current bank balance</div><button class="btn btn-light btn-small" data-jump="finance">Finance</button></div>
+            <div class="money-value money-neutral" id="dashCurrentBalance">$0.00</div>
+            <div class="stat-note">Manually updated in Finance Centre.</div>
+          </div>
+          <div class="card soft-wisteria">
+            <div class="stat-label">Projected in 30 days</div>
+            <div class="money-value" id="dashProjectedBalance">$0.00</div>
+            <div class="stat-note">Current balance plus upcoming planned cash flow.</div>
+          </div>
+          <div class="card soft-coral">
+            <div class="stat-label">Coming out in 30 days</div>
+            <div class="money-value money-negative" id="dashUpcomingOut">$0.00</div>
+            <div class="stat-note">Expected expenses and recurring commitments.</div>
+          </div>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card" style="grid-column: span 2;">
+            <div class="card-header">
+              <div><h3>Today’s priorities</h3><div class="card-subtitle">Your three most important wins.</div></div>
+              <button class="btn btn-light btn-small" data-jump="today">Open today</button>
+            </div>
+            <div id="dashPriorities" class="simple-list"></div>
+          </div>
+          <div class="card soft-wisteria">
+            <div class="card-header"><h3>Daily check-in</h3></div>
+            <div class="field">
+              <label class="label">Mood</label>
+              <select class="select autosave" data-path="dailyCheck.mood">
+                <option value="">Choose</option><option>Great</option><option>Good</option><option>Okay</option><option>Low</option><option>Overwhelmed</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="label">Energy</label>
+              <select class="select autosave" data-path="dailyCheck.energy">
+                <option value="">Choose</option><option>High</option><option>Steady</option><option>Low</option><option>Running on fumes</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="label">One thing I need today</label>
+              <textarea class="textarea autosave" style="min-height:76px" data-path="dailyCheck.need"></textarea>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>Due soon</h3><button class="btn btn-light btn-small" data-jump="tasks">All tasks</button></div>
+            <div id="dashDueSoon" class="task-list"></div>
+          </div>
+          <div class="card soft-sage">
+            <div class="card-header"><h3>CEO focus</h3></div>
+            <textarea class="textarea autosave" data-path="dashboard.ceoFocus" placeholder="What deserves your attention as the owner today?"></textarea>
+          </div>
+          <div class="card soft-coral">
+            <div class="card-header"><h3>Personal focus</h3></div>
+            <textarea class="textarea autosave" data-path="dashboard.personalFocus" placeholder="What would make today feel good and grounded?"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="today-page">
+        <div class="card" style="margin-bottom:18px;">
+          <div class="row-wrap spread">
+            <div class="row-wrap">
+              <button class="btn btn-light" id="prevDay">←</button>
+              <input type="date" class="input" id="selectedDate" style="width:auto;" />
+              <button class="btn btn-light" id="nextDay">→</button>
+              <button class="btn btn-light" id="goToday">Today</button>
+            </div>
+            <div class="card-subtitle" id="selectedDateLabel"></div>
+          </div>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card soft-coral">
+            <div class="card-header"><h3>Top priorities</h3><span class="card-subtitle">Maximum three</span></div>
+            <div class="field"><input class="input day-field" data-daykey="priority1" placeholder="Priority 1" /></div>
+            <div class="field"><input class="input day-field" data-daykey="priority2" placeholder="Priority 2" /></div>
+            <div class="field"><input class="input day-field" data-daykey="priority3" placeholder="Priority 3" /></div>
+          </div>
+
+          <div class="card soft-sage">
+            <div class="card-header"><h3>Daily intentions</h3></div>
+            <div class="field"><label class="label">Business</label><textarea class="textarea day-field" data-daykey="businessFocus" style="min-height:72px"></textarea></div>
+            <div class="field"><label class="label">Personal</label><textarea class="textarea day-field" data-daykey="personalFocus" style="min-height:72px"></textarea></div>
+          </div>
+
+          <div class="card soft-wisteria">
+            <div class="card-header"><h3>Wellness check</h3></div>
+            <div class="field"><label class="label">Sleep</label><input class="input day-field" data-daykey="sleep" placeholder="e.g. 7 hours" /></div>
+            <div class="field"><label class="label">Mood</label><input class="input day-field" data-daykey="mood" placeholder="How do you feel?" /></div>
+            <div class="field"><label class="label">Energy</label><input class="input day-field" data-daykey="energy" placeholder="High, steady, low..." /></div>
+          </div>
+
+          <div class="card" style="grid-column: span 2;">
+            <div class="card-header"><h3>Schedule</h3><span class="card-subtitle">6:00 AM – 9:00 PM</span></div>
+            <div id="scheduleGrid" class="schedule-grid"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div><h3>Today’s tasks</h3><div class="task-progress-summary"><strong id="todayTaskProgressText">0% complete</strong><span id="todayTaskCountText">0 of 0</span></div></div>
+              <button class="btn btn-light btn-small" id="moveUnfinishedTomorrow">Move unfinished → tomorrow</button>
+            </div>
+            <div class="progress-track" style="margin-bottom:12px;"><div class="progress-fill" id="todayTaskProgressBar"></div></div>
+            <div class="quick-add"><input class="input" id="todayTaskInput" placeholder="Add a task" /><button class="btn btn-primary" id="addTodayTask">Add</button></div>
+            <div id="carryoverReview"></div>
+            <div id="todayTaskList" class="task-list"></div>
+          </div>
+
+          <div class="card" style="grid-column: span 2;">
+            <div class="card-header"><h3>Notes</h3></div>
+            <textarea class="textarea day-field" data-daykey="notes" style="min-height:150px" placeholder="Details, reminders, phone calls, ideas..."></textarea>
+          </div>
+          <div class="card soft-mint">
+            <div class="card-header"><h3>End-of-day reflection</h3></div>
+            <div class="field"><label class="label">Today’s win</label><textarea class="textarea day-field" data-daykey="win" style="min-height:72px"></textarea></div>
+            <div class="field"><label class="label">Move to tomorrow</label><textarea class="textarea day-field" data-daykey="carryover" style="min-height:72px"></textarea></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="week-page">
+        <div class="card" style="margin-bottom:18px;">
+          <div class="row-wrap spread">
+            <div class="row-wrap">
+              <button class="btn btn-light" id="prevWeek">← Previous</button>
+              <button class="btn btn-light" id="thisWeek">This week</button>
+              <button class="btn btn-light" id="nextWeek">Next →</button>
+            </div>
+            <strong id="weekRange"></strong>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div><h3>Weekly overview</h3><div class="card-subtitle">Focus, appointments and notes for each day.</div></div></div>
+          <div class="week-grid" id="weekGrid"></div>
+        </div>
+      </section>
+
+      <section class="page" id="tasks-page">
+        <div class="grid grid-3">
+          <div class="card">
+            <div class="card-header"><h3>Add task</h3></div>
+            <div class="field"><label class="label">Task</label><input class="input" id="masterTaskText" /></div>
+            <div class="field"><label class="label">Category</label>
+              <select class="select" id="masterTaskCategory"><option>Business</option><option>Personal</option><option>Financial</option><option>Health</option><option>Home</option></select>
+            </div>
+            <div class="field"><label class="label">Priority</label>
+              <select class="select" id="masterTaskPriority"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select>
+            </div>
+            <div class="field"><label class="label">Due date</label><input type="date" class="input" id="masterTaskDue" /></div>
+            <div class="field"><label class="label">Schedule for a day (optional)</label><input type="date" class="input" id="masterTaskSchedule" /></div>
+            <button class="btn btn-primary" id="addMasterTask">Add task</button>
+          </div>
+          <div class="card" style="grid-column: span 2;">
+            <div class="row-wrap spread" style="margin-bottom:15px;">
+              <div><h3 style="margin:0 0 5px;">Master task list</h3><div class="card-subtitle">Everything in one place.</div></div>
+              <select class="select" id="taskFilter" style="width:auto;"><option value="all">All tasks</option><option value="open">Open</option><option value="done">Completed</option><option value="Business">Business</option><option value="Personal">Personal</option><option value="Financial">Financial</option><option value="Health">Health</option><option value="Home">Home</option></select>
+            </div>
+            <div id="masterTaskList" class="task-list"></div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section class="page" id="finance-page">
+        <div class="card soft-sage finance-toolbar">
+          <div class="finance-controls">
+            <div class="field" style="margin:0;">
+              <label class="label">Reference date</label>
+              <input type="date" class="input" id="financeDate" />
+            </div>
+            <div class="field" style="margin:0;">
+              <label class="label">View</label>
+              <select class="select" id="financeView">
+                <option value="week">Weekly</option>
+                <option value="month" selected>Monthly</option>
+                <option value="summer">Summer season</option>
+                <option value="winter">Winter season</option>
+                <option value="year">Operating year</option>
+              </select>
+            </div>
+            <button class="btn btn-light" id="financeToday">Use today</button>
+          </div>
+          <div class="card-subtitle" id="financeRangeLabel" style="margin-top:12px;"></div>
+        </div>
+
+        <div class="grid grid-4" style="margin-bottom:18px;">
+          <div class="card soft-mint">
+            <div class="stat-label">Current bank balance</div>
+            <input type="number" step="0.01" class="input" id="financeCurrentBalance" placeholder="0.00" style="margin:10px 0 7px; font-size:22px; font-weight:800;" />
+            <div class="stat-note">Enter the actual balance showing in your bank.</div>
+          </div>
+          <div class="card soft-wisteria">
+            <div class="stat-label">Projected in 30 days</div>
+            <div class="money-value" id="financeProjected30">$0.00</div>
+            <div class="finance-summary-note" id="financeProjected30Note"></div>
+          </div>
+          <div class="card soft-sage">
+            <div class="stat-label">Coming in — next 30 days</div>
+            <div class="money-value money-positive" id="financeUpcomingIncome">$0.00</div>
+            <div class="stat-note">Planned income and recurring receivables.</div>
+          </div>
+          <div class="card soft-coral">
+            <div class="stat-label">Coming out — next 30 days</div>
+            <div class="money-value money-negative" id="financeUpcomingExpenses">$0.00</div>
+            <div class="stat-note">Planned expenses and recurring commitments.</div>
+          </div>
+        </div>
+
+        <div class="grid grid-4" style="margin-bottom:18px;">
+          <div class="card">
+            <div class="stat-label">Actual income</div>
+            <div class="money-value money-positive" id="financeActualIncome">$0.00</div>
+            <div class="stat-note">Received in this selected period.</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Expected income</div>
+            <div class="money-value money-positive" id="financePlannedIncome">$0.00</div>
+            <div class="stat-note">Still expected in this selected period.</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Actual expenses</div>
+            <div class="money-value money-negative" id="financeActualExpenses">$0.00</div>
+            <div class="stat-note">Paid in this selected period.</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Expected expenses</div>
+            <div class="money-value money-negative" id="financePlannedExpenses">$0.00</div>
+            <div class="stat-note">Still expected in this selected period.</div>
+          </div>
+        </div>
+
+        <div class="card soft-wisteria" style="margin-bottom:18px;">
+          <div class="row-wrap spread">
+            <div>
+              <div class="stat-label">Selected period net cash flow</div>
+              <div class="money-value" id="financePeriodNet">$0.00</div>
+            </div>
+            <div class="card-subtitle" style="max-width:520px; line-height:1.6;">Actual plus expected income, less actual plus expected expenses. This is the working projection for the period—not your taxable profit.</div>
+          </div>
+        </div>
+
+        <div class="grid grid-3" style="margin-bottom:18px;">
+          <div class="card soft-coral">
+            <div class="card-header"><div><h3>Needs attention</h3><div class="card-subtitle">Automatically based on today’s date.</div></div></div>
+            <div class="attention-grid">
+              <div class="attention-stat"><span class="stat-label">Overdue income</span><strong id="financeOverdueIncome">$0.00</strong></div>
+              <div class="attention-stat"><span class="stat-label">Overdue bills</span><strong id="financeOverdueBills">$0.00</strong></div>
+              <div class="attention-stat"><span class="stat-label">Bills due in 7 days</span><strong id="financeDueSeven">$0.00</strong></div>
+              <div class="attention-stat"><span class="stat-label">Projected month-end</span><strong id="financeMonthEnd">$0.00</strong></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div><h3>Next five bills</h3><div class="card-subtitle">Expected expenses ordered by due date.</div></div></div>
+            <div id="financeNextBills" class="finance-list"></div>
+          </div>
+          <div class="card soft-mint">
+            <div class="card-header"><div><h3>Bank balance log</h3><div class="card-subtitle">The newest entry becomes your current balance.</div></div></div>
+            <div class="finance-detail-grid">
+              <div class="field"><label class="label">Date</label><input type="date" class="input" id="bankBalanceDate" /></div>
+              <div class="field"><label class="label">Balance</label><input type="number" step="0.01" class="input" id="bankBalanceAmount" /></div>
+            </div>
+            <div class="field"><label class="label">Note (optional)</label><input class="input" id="bankBalanceNote" placeholder="Bank checked, deposit cleared..." /></div>
+            <button class="btn btn-primary" id="addBankBalance">Save balance snapshot</button>
+            <div id="bankBalanceHistory" class="bank-history"></div>
+          </div>
+        </div>
+
+        <div class="grid grid-3" style="margin-bottom:18px;">
+          <div class="card soft-coral">
+            <div class="card-header"><h3>Add income or expense</h3></div>
+            <div class="field"><label class="label">Client / vendor</label><input class="input" id="financeParty" placeholder="Killam, Wajax, Payroll..." /></div>
+            <div class="field"><label class="label">Description</label><input class="input" id="financeDescription" placeholder="July service income, truck payment, materials..." /></div>
+            <div class="finance-detail-grid">
+              <div class="field"><label class="label">Amount</label><input type="number" min="0" step="0.01" class="input" id="financeAmount" /></div>
+              <div class="field"><label class="label">HST included</label><input type="number" min="0" step="0.01" class="input" id="financeHst" placeholder="0.00" /></div>
+              <div class="field"><label class="label">Type</label><select class="select" id="financeType"><option value="income">Income</option><option value="expense">Expense</option></select></div>
+              <div class="field"><label class="label">Status</label><select class="select" id="financeStatus"><option value="planned">Expected / unpaid</option><option value="actual">Received / paid</option></select></div>
+              <div class="field"><label class="label">Expected / due date</label><input type="date" class="input" id="financeItemDate" /></div>
+              <div class="field"><label class="label">Received / paid date</label><input type="date" class="input" id="financeActualDate" /></div>
+            </div>
+            <div class="field"><label class="label">Category</label>
+              <select class="select" id="financeCategory">
+                <option>Client Payment</option><option>Summer Contract</option><option>Winter Contract</option><option>Other Income</option>
+                <option>Payroll</option><option>Fuel</option><option>Equipment Payment</option><option>Vehicle Payment</option><option>Loan / Financing</option>
+                <option>Insurance</option><option>Materials</option><option>Taxes / HST</option><option>Rent / Shop</option><option>Utilities</option>
+                <option>Office / Admin</option><option>Owner Pay</option><option>Other</option>
+              </select>
+            </div>
+            <div class="field"><label class="label">Payment method</label><select class="select" id="financePaymentMethod"><option value="">Not entered</option><option>E-Transfer</option><option>EFT / Direct Deposit</option><option>Cheque</option><option>Credit Card</option><option>Pre-authorized Debit</option><option>Cash</option><option>Other</option></select></div>
+            <div class="field"><label class="label">Notes</label><textarea class="textarea" id="financeNotes" style="min-height:72px;"></textarea></div>
+            <button class="btn btn-coral" id="addFinanceItem">Add cash-flow item</button>
+          </div>
+
+          <div class="card soft-sage">
+            <div class="card-header"><h3>Add recurring cash flow</h3></div>
+            <div class="field"><label class="label">Client / vendor</label><input class="input" id="recurringParty" placeholder="Client, lender, payroll..." /></div>
+            <div class="field"><label class="label">Description</label><input class="input" id="recurringDescription" placeholder="Truck payment, insurance, monthly contract..." /></div>
+            <div class="finance-detail-grid">
+              <div class="field"><label class="label">Amount</label><input type="number" min="0" step="0.01" class="input" id="recurringAmount" /></div>
+              <div class="field"><label class="label">HST included</label><input type="number" min="0" step="0.01" class="input" id="recurringHst" placeholder="0.00" /></div>
+              <div class="field"><label class="label">Type</label><select class="select" id="recurringType"><option value="expense">Expense</option><option value="income">Income</option></select></div>
+              <div class="field"><label class="label">First / next date</label><input type="date" class="input" id="recurringNextDate" /></div>
+              <div class="field"><label class="label">Frequency</label><select class="select" id="recurringFrequency"><option value="weekly">Weekly</option><option value="biweekly">Every 2 weeks</option><option value="semimonthly">Twice monthly</option><option value="monthly" selected>Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Yearly</option></select></div>
+              <div class="field" id="recurringSecondDayWrap" style="display:none;"><label class="label">Second day of month</label><input type="number" min="1" max="31" class="input" id="recurringSecondDay" placeholder="e.g. 23" /></div>
+            </div>
+            <div class="field"><label class="label">Category</label>
+              <select class="select" id="recurringCategory">
+                <option>Payroll</option><option>Fuel</option><option>Equipment Payment</option><option>Vehicle Payment</option><option>Loan / Financing</option>
+                <option>Insurance</option><option>Materials</option><option>Taxes / HST</option><option>Rent / Shop</option><option>Utilities</option>
+                <option>Client Payment</option><option>Summer Contract</option><option>Winter Contract</option><option>Other</option>
+              </select>
+            </div>
+            <div class="field"><label class="label">Payment method</label><select class="select" id="recurringPaymentMethod"><option value="">Not entered</option><option>E-Transfer</option><option>EFT / Direct Deposit</option><option>Cheque</option><option>Credit Card</option><option>Pre-authorized Debit</option><option>Cash</option><option>Other</option></select></div>
+            <div class="field"><label class="label">Stop after (optional)</label><input type="date" class="input" id="recurringEndDate" /></div>
+            <button class="btn btn-primary" id="addRecurringItem">Add recurring item</button>
+            <p class="card-subtitle" style="line-height:1.6; margin-bottom:0;">Bi-weekly means every 14 days. For two monthly payments with different amounts, add two separate monthly recurring items.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>Next 30 days</h3><span class="card-subtitle">What is coming</span></div>
+            <div id="financeUpcomingList" class="finance-list"></div>
+          </div>
+        </div>
+
+        <div class="grid grid-2" style="margin-bottom:18px;">
+          <div class="card">
+            <div class="card-header">
+              <div><h3>Cash-flow items</h3><div class="card-subtitle">Items inside the selected period.</div></div>
+              <select class="select" id="financeItemFilter" style="width:auto;"><option value="all">All</option><option value="income">Income</option><option value="expense">Expenses</option><option value="actual">Actual</option><option value="planned">Expected</option></select>
+            </div>
+            <div id="financeItemList" class="finance-list"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div><h3>Recurring commitments</h3><div class="card-subtitle">Loans, equipment, payroll, insurance and repeating income.</div></div></div>
+            <div id="recurringItemList" class="finance-list"></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:18px;">
+          <div class="row-wrap spread">
+            <div>
+              <h3 style="margin:0 0 5px;">Summer & Winter operating year</h3>
+              <div class="card-subtitle" id="financeOperatingYearLabel"></div>
+            </div>
+            <select class="select" id="financeOperatingYear" style="width:auto;"></select>
+          </div>
+        </div>
+
+        <div class="grid grid-2" style="margin-bottom:18px;">
+          <div class="card soft-coral">
+            <div class="row spread"><h3>Summer</h3><span class="season-pill season-summer">May–October</span></div>
+            <div class="form-grid-2" style="margin-top:17px;">
+              <div><div class="stat-label">Income</div><div class="money-value money-positive" id="summerIncome">$0.00</div></div>
+              <div><div class="stat-label">Expenses</div><div class="money-value money-negative" id="summerExpenses">$0.00</div></div>
+            </div>
+            <hr class="mini-divider" />
+            <div class="row spread"><strong>Projected net</strong><strong id="summerNet">$0.00</strong></div>
+          </div>
+          <div class="card soft-wisteria">
+            <div class="row spread"><h3>Winter</h3><span class="season-pill season-winter">November–April</span></div>
+            <div class="form-grid-2" style="margin-top:17px;">
+              <div><div class="stat-label">Income</div><div class="money-value money-positive" id="winterIncome">$0.00</div></div>
+              <div><div class="stat-label">Expenses</div><div class="money-value money-negative" id="winterExpenses">$0.00</div></div>
+            </div>
+            <hr class="mini-divider" />
+            <div class="row spread"><strong>Projected net</strong><strong id="winterNet">$0.00</strong></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><div><h3>12-month cash-flow view</h3><div class="card-subtitle">May through April, split into the two operating seasons.</div></div></div>
+          <div class="finance-table-wrap">
+            <table class="finance-table">
+              <thead><tr><th>Month</th><th>Season</th><th>Actual income</th><th>Expected income</th><th>Actual expenses</th><th>Expected expenses</th><th>Net</th></tr></thead>
+              <tbody id="financeYearTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="page" id="goals-page">
+        <div class="grid grid-3">
+          <div class="card soft-wisteria">
+            <div class="card-header"><h3>Add a goal</h3></div>
+            <div class="field"><label class="label">Goal</label><input class="input" id="goalTitle" /></div>
+            <div class="field"><label class="label">Area</label><select class="select" id="goalArea"><option>Business</option><option>Personal</option><option>Financial</option><option>Health</option><option>Home</option></select></div>
+            <div class="field"><label class="label">Target date</label><input type="date" class="input" id="goalDate" /></div>
+            <div class="field"><label class="label">First next step</label><textarea class="textarea" id="goalNext" style="min-height:85px"></textarea></div>
+            <button class="btn btn-wisteria" id="addGoal">Add goal</button>
+          </div>
+          <div class="card" style="grid-column: span 2;">
+            <div class="card-header"><div><h3>Current goals</h3><div class="card-subtitle">Progress can be adjusted at any time.</div></div></div>
+            <div id="goalList" class="grid grid-2"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="habits-page">
+        <div class="grid grid-3">
+          <div class="card soft-sage">
+            <div class="card-header"><h3>Add habit</h3></div>
+            <div class="field"><label class="label">Habit name</label><input class="input" id="habitName" placeholder="Drink water, take medication..." /></div>
+            <button class="btn btn-primary" id="addHabit">Add habit</button>
+            <hr style="border:0;border-top:1px solid var(--line);margin:20px 0;">
+            <p class="card-subtitle">The tracker shows Monday through Sunday for the current week.</p>
+          </div>
+          <div class="card" style="grid-column: span 2;">
+            <div class="card-header"><h3>Weekly habit tracker</h3><span class="card-subtitle" id="habitWeekLabel"></span></div>
+            <div id="habitList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="monthly-page">
+        <div class="card soft-coral" style="margin-bottom:18px;">
+          <div class="row-wrap spread">
+            <div><h3 style="margin:0 0 5px;">Monthly reset</h3><div class="card-subtitle">Close the month clearly and choose what comes next.</div></div>
+            <input type="month" class="input" id="resetMonth" style="width:auto;" />
+          </div>
+        </div>
+        <div class="month-reset-grid">
+          <div class="card"><h3>Wins</h3><textarea class="textarea month-field" data-monthkey="wins" placeholder="What went well?"></textarea></div>
+          <div class="card"><h3>Lessons</h3><textarea class="textarea month-field" data-monthkey="lessons" placeholder="What did this month teach you?"></textarea></div>
+          <div class="card"><h3>Unfinished business</h3><textarea class="textarea month-field" data-monthkey="unfinished" placeholder="What still needs attention?"></textarea></div>
+          <div class="card"><h3>Financial check-in</h3><textarea class="textarea month-field" data-monthkey="financial" placeholder="Bills, cash flow, upcoming costs..."></textarea></div>
+          <div class="card soft-sage"><h3>Next month’s top priorities</h3><textarea class="textarea month-field" data-monthkey="priorities" placeholder="The few things that matter most."></textarea></div>
+          <div class="card soft-wisteria"><h3>What I’m protecting</h3><textarea class="textarea month-field" data-monthkey="protecting" placeholder="Time, energy, boundaries, routines..."></textarea></div>
+        </div>
+      </section>
+
+      <section class="page" id="notes-page">
+        <div class="card" style="margin-bottom:18px;">
+          <div class="row-wrap spread">
+            <div><h3 style="margin:0 0 5px;">Notes & brain dump</h3><div class="card-subtitle">Create as many notes as you need.</div></div>
+            <button class="btn btn-coral" id="addNote">+ New note</button>
+          </div>
+        </div>
+        <div id="notesGrid" class="grid grid-3"></div>
+      </section>
+
+      <section class="page" id="settings-page">
+        <div class="grid grid-2">
+          <div class="card soft-sage">
+            <div class="card-header"><h3>Backup your planner</h3></div>
+            <p class="card-subtitle" style="line-height:1.65;">Download a backup file containing all tasks, carryovers, plans, bank history, finances, goals, habits and notes. Store it somewhere safe.</p>
+            <button class="btn btn-primary" id="exportBtn">Download backup</button>
+          </div>
+          <div class="card soft-wisteria">
+            <div class="card-header"><h3>Restore a backup</h3></div>
+            <p class="card-subtitle" style="line-height:1.65;">Choose a backup file previously downloaded from this planner.</p>
+            <input type="file" id="importFile" accept="application/json" class="input" />
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Planner name</h3></div>
+            <input class="input autosave" data-path="settings.plannerName" placeholder="Jess Life & CEO Planner" />
+            <p class="card-subtitle">This changes the browser title after refresh.</p>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Start fresh</h3></div>
+            <p class="card-subtitle" style="line-height:1.65;">This permanently removes all planner data from this browser. Export a backup first.</p>
+            <button class="btn btn-danger" id="clearBtn">Erase all planner data</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">Saved</div>
+
+  <script>
+    const STORAGE_KEY = 'jess-life-ceo-planner-v1';
+    const defaultData = {
+      dashboard: { ceoFocus: '', personalFocus: '' },
+      dailyCheck: { mood: '', energy: '', need: '' },
+      days: {}, weeks: {}, monthResets: {}, tasks: [], goals: [], habits: [], notes: [],
+      finance: { currentBalance: 0, bankHistory: [], transactions: [], recurring: [] },
+      settings: { plannerName: 'Jess Life & CEO Planner' }
+    };
+
+    let data = loadData();
+    normalizePlannerData();
+    let selectedDate = isoDate(new Date());
+    let weekAnchor = startOfWeek(new Date());
+
+    function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
+    function loadData() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        return deepMerge(clone(defaultData), parsed || {});
+      } catch { return clone(defaultData); }
+    }
+    function deepMerge(target, source) {
+      if (!source || typeof source !== 'object') return target;
+      Object.keys(source).forEach(key => {
+        if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+          target[key] = deepMerge(target[key] || {}, source[key]);
+        } else target[key] = source[key];
+      });
+      return target;
+    }
+    function saveData(message = 'Saved') {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      showToast(message);
+      renderDashboard();
+    }
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove('show'), 1200);
+    }
+    function isoDate(date) {
+      const d = new Date(date); d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      return d.toISOString().slice(0, 10);
+    }
+    function prettyDate(date) { return new Intl.DateTimeFormat('en-CA', { weekday:'long', month:'long', day:'numeric', year:'numeric' }).format(new Date(date + 'T12:00:00')); }
+    function startOfWeek(date) { const d = new Date(date); const day = d.getDay() || 7; d.setHours(12,0,0,0); d.setDate(d.getDate() - day + 1); return d; }
+    function addDays(date, n) { const d = new Date(date); d.setDate(d.getDate()+n); return d; }
+    function escapeHtml(value='') { return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+    function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+    const pageMeta = {
+      dashboard: ['Dashboard', 'A calm view of what matters most.'],
+      today: ['Today', 'Plan the day without overloading it.'],
+      week: ['Weekly Planner', 'See the whole week in one place.'],
+      tasks: ['Master Tasks', 'Capture, prioritize and finish what matters.'],
+      finance: ['Finance Centre', 'See where the money is now—and where it is headed.'],
+      goals: ['Goals', 'Turn bigger intentions into visible progress.'],
+      habits: ['Habit Tracker', 'Build consistency one check-in at a time.'],
+      monthly: ['Monthly Reset', 'Reflect, reset and plan forward.'],
+      notes: ['Notes', 'A home for ideas, details and brain dumps.'],
+      settings: ['Backup & Settings', 'Protect your planner data.']
+    };
+
+    document.querySelectorAll('.nav-button').forEach(btn => btn.addEventListener('click', () => openPage(btn.dataset.page)));
+    document.querySelectorAll('[data-jump]').forEach(btn => btn.addEventListener('click', () => openPage(btn.dataset.jump)));
+    function openPage(page) {
+      document.querySelectorAll('.nav-button').forEach(b => b.classList.toggle('active', b.dataset.page === page));
+      document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === page + '-page'));
+      document.getElementById('pageTitle').textContent = pageMeta[page][0];
+      document.getElementById('pageSubtitle').textContent = pageMeta[page][1];
+      document.getElementById('sidebar').classList.remove('open');
+      if (page === 'today') renderToday();
+      if (page === 'week') renderWeek();
+      if (page === 'tasks') renderTasks();
+      if (page === 'finance') renderFinance();
+      if (page === 'goals') renderGoals();
+      if (page === 'habits') renderHabits();
+      if (page === 'monthly') renderMonthly();
+      if (page === 'notes') renderNotes();
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+    document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+
+    document.getElementById('todayDisplay').textContent = new Intl.DateTimeFormat('en-CA', { weekday:'short', month:'long', day:'numeric' }).format(new Date());
+
+    function setByPath(obj, path, value) {
+      const parts = path.split('.'); let cur = obj;
+      parts.slice(0,-1).forEach(p => cur = cur[p] ??= {});
+      cur[parts.at(-1)] = value;
+    }
+    function getByPath(obj, path) { return path.split('.').reduce((a,k) => a?.[k], obj) ?? ''; }
+    document.querySelectorAll('.autosave').forEach(el => {
+      el.value = getByPath(data, el.dataset.path);
+      el.addEventListener('input', () => { setByPath(data, el.dataset.path, el.value); saveData(); });
+    });
+
+    function normalizePlannerData() {
+      data.days ??= {}; data.tasks ??= []; data.finance ??= {};
+      data.finance.transactions ??= []; data.finance.recurring ??= []; data.finance.bankHistory ??= [];
+      Object.entries(data.days).forEach(([date, day]) => {
+        day.tasks ??= []; day.schedule ??= {};
+        day.tasks.forEach(t => { t.id ??= uid(); t.done = !!t.done; t.createdAt ??= date; });
+      });
+      data.tasks.forEach(t => { t.id ??= uid(); t.done = !!t.done; t.scheduledDate ??= ''; });
+      data.finance.transactions.forEach(t => {
+        t.id ??= uid(); t.party ??= ''; t.hst = Number(t.hst)||0; t.actualDate ??= t.status === 'actual' ? t.date : ''; t.paymentMethod ??= '';
+      });
+      data.finance.recurring.forEach(r => {
+        r.id ??= uid(); r.party ??= ''; r.hst = Number(r.hst)||0; r.paymentMethod ??= ''; r.firstDay ??= r.nextDate ? localDate(r.nextDate).getDate() : 1;
+      });
+    }
+
+    function getDay(date=selectedDate) {
+      return data.days[date] ??= { tasks: [], schedule: {} };
+    }
+    function localTasksForDate(date) { return getDay(date).tasks || []; }
+    function masterTasksForDate(date) { return (data.tasks || []).filter(t => t.scheduledDate === date); }
+    function tasksForDate(date) {
+      return [
+        ...localTasksForDate(date).map(t => ({...t, source:'day'})),
+        ...masterTasksForDate(date).map(t => ({...t, source:'master'}))
+      ];
+    }
+    function findTask(source, id, date) {
+      return source === 'master' ? data.tasks.find(t=>t.id===id) : localTasksForDate(date).find(t=>t.id===id);
+    }
+    function setTaskDone(source, id, date, done) {
+      const task=findTask(source,id,date); if(!task)return;
+      task.done=done; task.completedAt=done?new Date().toISOString():'';
+    }
+    function moveTask(source, id, fromDate, toDate) {
+      if (!toDate || toDate === fromDate) return;
+      if (source === 'master') {
+        const task=data.tasks.find(t=>t.id===id); if(!task)return;
+        task.movedFrom=fromDate; task.scheduledDate=toDate; task.carryCount=(Number(task.carryCount)||0)+1;
+      } else {
+        const from=localTasksForDate(fromDate); const index=from.findIndex(t=>t.id===id); if(index<0)return;
+        const [task]=from.splice(index,1); task.movedFrom=fromDate; task.carryCount=(Number(task.carryCount)||0)+1;
+        localTasksForDate(toDate).push(task);
+      }
+    }
+    function removeTaskFromDay(source,id,date) {
+      if(source==='master') { const t=data.tasks.find(x=>x.id===id); if(t)t.scheduledDate=''; }
+      else getDay(date).tasks=localTasksForDate(date).filter(t=>t.id!==id);
+    }
+    function taskKey(t) { return `${t.source}:${t.id}`; }
+
+    const scheduleGrid = document.getElementById('scheduleGrid');
+    const times = [];
+    for (let h=6; h<=21; h++) times.push(`${h}:00`);
+    times.forEach(time => {
+      const row = document.createElement('div'); row.className='schedule-row';
+      const hour = Number(time.split(':')[0]);
+      const label = `${hour === 12 ? 12 : hour > 12 ? hour-12 : hour}:00 ${hour >= 12 ? 'PM':'AM'}`;
+      row.innerHTML = `<div class="schedule-time">${label}</div><input class="input schedule-input" data-time="${time}" />`;
+      scheduleGrid.appendChild(row);
+    });
+    scheduleGrid.addEventListener('input', e => {
+      if (!e.target.matches('.schedule-input')) return;
+      getDay().schedule[e.target.dataset.time] = e.target.value; saveData();
+    });
+
+    function renderToday() {
+      document.getElementById('selectedDate').value = selectedDate;
+      document.getElementById('selectedDateLabel').textContent = prettyDate(selectedDate);
+      const day = getDay();
+      document.querySelectorAll('.day-field').forEach(el => el.value = day[el.dataset.daykey] || '');
+      document.querySelectorAll('.schedule-input').forEach(el => el.value = day.schedule?.[el.dataset.time] || '');
+      renderTodayTasks();
+    }
+    document.querySelectorAll('.day-field').forEach(el => el.addEventListener('input', () => { getDay()[el.dataset.daykey] = el.value; saveData(); }));
+    document.getElementById('selectedDate').addEventListener('change', e => { selectedDate = e.target.value || isoDate(new Date()); renderToday(); });
+    document.getElementById('prevDay').addEventListener('click', () => { selectedDate = isoDate(addDays(new Date(selectedDate+'T12:00:00'), -1)); renderToday(); });
+    document.getElementById('nextDay').addEventListener('click', () => { selectedDate = isoDate(addDays(new Date(selectedDate+'T12:00:00'), 1)); renderToday(); });
+    document.getElementById('goToday').addEventListener('click', () => { selectedDate = isoDate(new Date()); renderToday(); });
+    document.getElementById('addTodayTask').addEventListener('click', addTodayTask);
+    document.getElementById('todayTaskInput').addEventListener('keydown', e => { if(e.key==='Enter') addTodayTask(); });
+    document.getElementById('moveUnfinishedTomorrow').addEventListener('click',()=>{
+      const tomorrow=isoDate(addDays(localDate(selectedDate),1));
+      const open=tasksForDate(selectedDate).filter(t=>!t.done);
+      open.forEach(t=>moveTask(t.source,t.id,selectedDate,tomorrow));
+      saveData(open.length?`${open.length} unfinished task${open.length===1?'':'s'} moved`:'Nothing to move'); renderTodayTasks();
+    });
+    function addTodayTask() {
+      const input = document.getElementById('todayTaskInput'); const text = input.value.trim(); if(!text) return;
+      getDay().tasks.push({id:uid(), text, done:false, createdAt:selectedDate}); input.value=''; saveData('Task added'); renderTodayTasks();
+    }
+    function unfinishedBefore(date) {
+      const results=[];
+      Object.keys(data.days).filter(d=>d<date).forEach(d=>localTasksForDate(d).filter(t=>!t.done).forEach(t=>results.push({...t,source:'day',date:d})));
+      data.tasks.filter(t=>t.scheduledDate && t.scheduledDate<date && !t.done).forEach(t=>results.push({...t,source:'master',date:t.scheduledDate}));
+      return results.sort((a,b)=>b.date.localeCompare(a.date)).slice(0,12);
+    }
+    function renderCarryoverReview() {
+      const wrap=document.getElementById('carryoverReview'); const items=unfinishedBefore(selectedDate);
+      if(!items.length){wrap.innerHTML='';return;}
+      wrap.innerHTML=`<div class="carryover-review"><h4>Unfinished from earlier days</h4><div class="card-subtitle">Nothing disappears. Choose what belongs on ${prettyDate(selectedDate)}.</div><div class="carryover-list">${items.map(t=>`<div class="carryover-row"><div><div class="task-text">${escapeHtml(t.text)}</div><div class="task-meta">From ${escapeHtml(t.date)}${t.source==='master'?' • Master task':''}</div></div><button class="btn btn-light btn-small carry-to-day" data-source="${t.source}" data-id="${t.id}" data-from="${t.date}">Move here</button></div>`).join('')}</div></div>`;
+      wrap.querySelectorAll('.carry-to-day').forEach(el=>el.addEventListener('click',()=>{moveTask(el.dataset.source,el.dataset.id,el.dataset.from,selectedDate);saveData('Task carried forward');renderTodayTasks();}));
+    }
+    function renderTodayTasks() {
+      const list = document.getElementById('todayTaskList'); const tasks = tasksForDate(selectedDate);
+      const done=tasks.filter(t=>t.done).length, pct=tasks.length?Math.round(done/tasks.length*100):0;
+      document.getElementById('todayTaskProgressText').textContent=`${pct}% complete`;
+      document.getElementById('todayTaskCountText').textContent=`${done} of ${tasks.length}`;
+      document.getElementById('todayTaskProgressBar').style.width=pct+'%';
+      renderCarryoverReview();
+      if (!tasks.length) { list.innerHTML='<div class="empty">No tasks yet.</div>'; return; }
+      list.innerHTML = tasks.map(t => `<div class="task-item ${t.done?'done':''}"><input class="task-check today-check" data-source="${t.source}" data-id="${t.id}" type="checkbox" ${t.done?'checked':''}><div><div class="task-text">${escapeHtml(t.text)}${t.source==='master'?'<span class="task-origin">Master</span>':''}</div><div class="task-meta">${t.movedFrom?'Moved from '+escapeHtml(t.movedFrom):t.createdAt?'Added '+escapeHtml(t.createdAt):''}</div></div><div class="task-actions"><button class="btn btn-light btn-small today-tomorrow" data-source="${t.source}" data-id="${t.id}">Tomorrow</button><input type="date" class="input today-move-date" data-key="${taskKey(t)}"><button class="btn btn-light btn-small today-move" data-source="${t.source}" data-id="${t.id}">Move</button><button class="delete-btn today-delete" data-source="${t.source}" data-id="${t.id}" title="${t.source==='master'?'Remove from this day':'Delete'}">×</button></div></div>`).join('');
+      list.querySelectorAll('.today-check').forEach(el => el.addEventListener('change', () => { setTaskDone(el.dataset.source,el.dataset.id,selectedDate,el.checked); saveData(); renderTodayTasks(); }));
+      list.querySelectorAll('.today-tomorrow').forEach(el=>el.addEventListener('click',()=>{moveTask(el.dataset.source,el.dataset.id,selectedDate,isoDate(addDays(localDate(selectedDate),1)));saveData('Moved to tomorrow');renderTodayTasks();}));
+      list.querySelectorAll('.today-move').forEach(el=>el.addEventListener('click',()=>{const key=`${el.dataset.source}:${el.dataset.id}`;const input=list.querySelector(`.today-move-date[data-key="${key}"]`);if(!input?.value)return;moveTask(el.dataset.source,el.dataset.id,selectedDate,input.value);saveData('Task moved');renderTodayTasks();}));
+      list.querySelectorAll('.today-delete').forEach(el => el.addEventListener('click', () => { removeTaskFromDay(el.dataset.source,el.dataset.id,selectedDate); saveData(el.dataset.source==='master'?'Task unscheduled':'Task removed'); renderTodayTasks(); }));
+    }
+
+    function weekKey(date) { return isoDate(startOfWeek(date)); }
+    function renderWeek() {
+      const start = startOfWeek(weekAnchor); const end = addDays(start,6); const key = weekKey(start);
+      const week = data.weeks[key] ??= {};
+      document.getElementById('weekRange').textContent = `${start.toLocaleDateString('en-CA',{month:'short',day:'numeric'})} – ${end.toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'})}`;
+      const grid = document.getElementById('weekGrid'); grid.innerHTML='';
+      for(let i=0;i<7;i++) {
+        const d=addDays(start,i), dateKey=isoDate(d); const item=week[dateKey] ??= {focus:'', appointments:'', notes:''};
+        const day=getDay(dateKey), tasks=tasksForDate(dateKey), done=tasks.filter(t=>t.done).length, pct=tasks.length?Math.round(done/tasks.length*100):0;
+        const priorities=[day.priority1,day.priority2,day.priority3].filter(Boolean);
+        const col=document.createElement('div'); col.className='day-column';
+        col.innerHTML=`<div class="week-day-head"><div><h4>${d.toLocaleDateString('en-CA',{weekday:'long'})}</h4><div class="day-date">${d.toLocaleDateString('en-CA',{month:'short',day:'numeric'})}</div></div><div class="mini-progress" style="--pct:${pct}%"><span>${pct}%</span></div></div>
+          ${priorities.length?`<div class="field"><label class="label">Top priorities</label>${priorities.map((p,n)=>`<div class="task-meta" style="margin:4px 0;">${n+1}. ${escapeHtml(p)}</div>`).join('')}</div>`:''}
+          <div class="field"><label class="label">Tasks • ${done}/${tasks.length}</label><div class="week-task-list">${tasks.length?tasks.map(t=>`<label class="week-task-row ${t.done?'done':''}"><input type="checkbox" class="task-check week-task-check" data-date="${dateKey}" data-source="${t.source}" data-id="${t.id}" ${t.done?'checked':''}><span class="task-text">${escapeHtml(t.text)}</span></label>`).join(''):'<div class="task-meta">No tasks</div>'}</div><div class="week-quick-add"><input class="input week-task-input" data-date="${dateKey}" placeholder="Add task"><button class="btn btn-light week-task-add" data-date="${dateKey}">Add</button></div></div>
+          <div class="field"><label class="label">Main focus</label><textarea class="textarea week-field" data-date="${dateKey}" data-key="focus">${escapeHtml(item.focus)}</textarea></div><div class="field"><label class="label">Appointments</label><textarea class="textarea week-field" data-date="${dateKey}" data-key="appointments">${escapeHtml(item.appointments)}</textarea></div><div class="field"><label class="label">Notes</label><textarea class="textarea week-field" data-date="${dateKey}" data-key="notes">${escapeHtml(item.notes)}</textarea></div>`;
+        grid.appendChild(col);
+      }
+      grid.querySelectorAll('.week-field').forEach(el => el.addEventListener('input',()=>{ week[el.dataset.date][el.dataset.key]=el.value; saveData(); }));
+      grid.querySelectorAll('.week-task-check').forEach(el=>el.addEventListener('change',()=>{setTaskDone(el.dataset.source,el.dataset.id,el.dataset.date,el.checked);saveData();renderWeek();}));
+      grid.querySelectorAll('.week-task-add').forEach(el=>el.addEventListener('click',()=>{const input=grid.querySelector(`.week-task-input[data-date="${el.dataset.date}"]`);const value=input?.value.trim();if(!value)return;getDay(el.dataset.date).tasks.push({id:uid(),text:value,done:false,createdAt:el.dataset.date});saveData('Task added');renderWeek();}));
+      grid.querySelectorAll('.week-task-input').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();grid.querySelector(`.week-task-add[data-date="${el.dataset.date}"]`).click();}}));
+    }
+    document.getElementById('prevWeek').addEventListener('click',()=>{weekAnchor=addDays(weekAnchor,-7);renderWeek();});
+    document.getElementById('nextWeek').addEventListener('click',()=>{weekAnchor=addDays(weekAnchor,7);renderWeek();});
+    document.getElementById('thisWeek').addEventListener('click',()=>{weekAnchor=startOfWeek(new Date());renderWeek();});
+
+    document.getElementById('addMasterTask').addEventListener('click', () => {
+      const text=document.getElementById('masterTaskText').value.trim(); if(!text) return;
+      data.tasks.unshift({id:uid(),text,category:document.getElementById('masterTaskCategory').value,priority:document.getElementById('masterTaskPriority').value,due:document.getElementById('masterTaskDue').value,scheduledDate:document.getElementById('masterTaskSchedule').value,done:false,createdAt:isoDate(new Date())});
+      document.getElementById('masterTaskText').value=''; document.getElementById('masterTaskDue').value=''; document.getElementById('masterTaskSchedule').value=''; saveData('Task added'); renderTasks();
+    });
+    document.getElementById('taskFilter').addEventListener('change',renderTasks);
+    function renderTasks() {
+      const filter=document.getElementById('taskFilter').value; let tasks=[...data.tasks];
+      if(filter==='open') tasks=tasks.filter(t=>!t.done); else if(filter==='done') tasks=tasks.filter(t=>t.done); else if(filter!=='all') tasks=tasks.filter(t=>t.category===filter);
+      const list=document.getElementById('masterTaskList');
+      if(!tasks.length){list.innerHTML='<div class="empty">No matching tasks.</div>';return;}
+      list.innerHTML=tasks.map(t=>`<div class="task-item ${t.done?'done':''}"><input class="task-check master-check" data-id="${t.id}" type="checkbox" ${t.done?'checked':''}><div><div class="task-text"><span class="priority-dot priority-${t.priority}"></span> ${escapeHtml(t.text)}</div><div class="task-meta">${escapeHtml(t.category)}${t.due?' • Due '+escapeHtml(t.due):''}${t.scheduledDate?' • Scheduled '+escapeHtml(t.scheduledDate):' • Unscheduled'}</div></div><div class="task-actions"><button class="btn btn-light btn-small master-today" data-id="${t.id}">Today</button><button class="btn btn-light btn-small master-tomorrow" data-id="${t.id}">Tomorrow</button><input type="date" class="input master-move-date" data-id="${t.id}" value="${escapeHtml(t.scheduledDate||'')}"><button class="btn btn-light btn-small master-move" data-id="${t.id}">Schedule</button><button class="delete-btn master-delete" data-id="${t.id}">×</button></div></div>`).join('');
+      list.querySelectorAll('.master-check').forEach(el=>el.addEventListener('change',()=>{const t=data.tasks.find(x=>x.id===el.dataset.id);t.done=el.checked;t.completedAt=el.checked?new Date().toISOString():'';saveData();renderTasks();}));
+      list.querySelectorAll('.master-today').forEach(el=>el.addEventListener('click',()=>{const t=data.tasks.find(x=>x.id===el.dataset.id);t.scheduledDate=isoDate(new Date());saveData('Scheduled for today');renderTasks();}));
+      list.querySelectorAll('.master-tomorrow').forEach(el=>el.addEventListener('click',()=>{const t=data.tasks.find(x=>x.id===el.dataset.id);t.scheduledDate=isoDate(addDays(new Date(),1));saveData('Scheduled for tomorrow');renderTasks();}));
+      list.querySelectorAll('.master-move').forEach(el=>el.addEventListener('click',()=>{const t=data.tasks.find(x=>x.id===el.dataset.id);const input=list.querySelector(`.master-move-date[data-id="${el.dataset.id}"]`);t.scheduledDate=input.value;saveData(input.value?'Task scheduled':'Task unscheduled');renderTasks();}));
+      list.querySelectorAll('.master-delete').forEach(el=>el.addEventListener('click',()=>{data.tasks=data.tasks.filter(x=>x.id!==el.dataset.id);saveData('Task removed');renderTasks();}));
+    }
+
+    document.getElementById('addGoal').addEventListener('click',()=>{
+      const title=document.getElementById('goalTitle').value.trim(); if(!title)return;
+      data.goals.push({id:uid(),title,area:document.getElementById('goalArea').value,date:document.getElementById('goalDate').value,next:document.getElementById('goalNext').value,progress:0});
+      ['goalTitle','goalDate','goalNext'].forEach(id=>document.getElementById(id).value=''); saveData('Goal added'); renderGoals();
+    });
+    function renderGoals(){
+      const list=document.getElementById('goalList'); if(!data.goals.length){list.innerHTML='<div class="empty" style="grid-column:1/-1">No goals yet.</div>';return;}
+      list.innerHTML=data.goals.map(g=>`<div class="goal-card"><div class="row spread"><div class="goal-title">${escapeHtml(g.title)}</div><button class="delete-btn goal-delete" data-id="${g.id}">×</button></div><div class="goal-meta">${escapeHtml(g.area)}${g.date?' • Target '+escapeHtml(g.date):''}</div><div class="card-subtitle" style="margin-bottom:10px;">${escapeHtml(g.next||'No next step added.')}</div><div class="row"><input type="range" min="0" max="100" value="${Number(g.progress)||0}" class="goal-range" data-id="${g.id}" style="width:100%"><strong class="goal-percent">${Number(g.progress)||0}%</strong></div></div>`).join('');
+      list.querySelectorAll('.goal-range').forEach(el=>el.addEventListener('input',()=>{const g=data.goals.find(x=>x.id===el.dataset.id);g.progress=Number(el.value);el.parentElement.querySelector('.goal-percent').textContent=el.value+'%';saveData();}));
+      list.querySelectorAll('.goal-delete').forEach(el=>el.addEventListener('click',()=>{data.goals=data.goals.filter(x=>x.id!==el.dataset.id);saveData('Goal removed');renderGoals();}));
+    }
+
+    document.getElementById('addHabit').addEventListener('click',()=>{const name=document.getElementById('habitName').value.trim();if(!name)return;data.habits.push({id:uid(),name,checks:{}});document.getElementById('habitName').value='';saveData('Habit added');renderHabits();});
+    function renderHabits(){
+      const start=startOfWeek(new Date()); const dates=Array.from({length:7},(_,i)=>isoDate(addDays(start,i)));
+      document.getElementById('habitWeekLabel').textContent=`Week of ${start.toLocaleDateString('en-CA',{month:'long',day:'numeric'})}`;
+      const wrap=document.getElementById('habitList'); if(!data.habits.length){wrap.innerHTML='<div class="empty">No habits yet.</div>';return;}
+      wrap.innerHTML=data.habits.map(h=>`<div style="margin-bottom:18px;"><div class="row spread" style="margin-bottom:8px;"><strong>${escapeHtml(h.name)}</strong><button class="delete-btn habit-delete" data-id="${h.id}">×</button></div><div class="habit-grid">${dates.map((d,i)=>`<div><div class="habit-day">${['M','T','W','T','F','S','S'][i]}</div><label class="habit-cell"><input type="checkbox" class="habit-check" data-id="${h.id}" data-date="${d}" ${h.checks?.[d]?'checked':''}></label></div>`).join('')}</div></div>`).join('');
+      wrap.querySelectorAll('.habit-check').forEach(el=>el.addEventListener('change',()=>{const h=data.habits.find(x=>x.id===el.dataset.id);h.checks??={};h.checks[el.dataset.date]=el.checked;saveData();renderHabits();}));
+      wrap.querySelectorAll('.habit-delete').forEach(el=>el.addEventListener('click',()=>{data.habits=data.habits.filter(x=>x.id!==el.dataset.id);saveData('Habit removed');renderHabits();}));
+    }
+
+    const resetMonth=document.getElementById('resetMonth'); resetMonth.value=isoDate(new Date()).slice(0,7);
+    function renderMonthly(){const key=resetMonth.value;const m=data.monthResets[key]??={};document.querySelectorAll('.month-field').forEach(el=>el.value=m[el.dataset.monthkey]||'');}
+    resetMonth.addEventListener('change',renderMonthly);
+    document.querySelectorAll('.month-field').forEach(el=>el.addEventListener('input',()=>{const m=data.monthResets[resetMonth.value]??={};m[el.dataset.monthkey]=el.value;saveData();}));
+
+    document.getElementById('addNote').addEventListener('click',()=>{data.notes.unshift({id:uid(),title:'New note',body:''});saveData('Note created');renderNotes();});
+    function renderNotes(){
+      const grid=document.getElementById('notesGrid'); if(!data.notes.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1">No notes yet.</div>';return;}
+      grid.innerHTML=data.notes.map(n=>`<div class="note-card"><div class="row spread"><input class="input note-title" data-id="${n.id}" value="${escapeHtml(n.title)}"><button class="delete-btn note-delete" data-id="${n.id}">×</button></div><textarea class="textarea note-body" data-id="${n.id}" placeholder="Write anything...">${escapeHtml(n.body)}</textarea></div>`).join('');
+      grid.querySelectorAll('.note-title').forEach(el=>el.addEventListener('input',()=>{data.notes.find(n=>n.id===el.dataset.id).title=el.value;saveData();}));
+      grid.querySelectorAll('.note-body').forEach(el=>el.addEventListener('input',()=>{data.notes.find(n=>n.id===el.dataset.id).body=el.value;saveData();}));
+      grid.querySelectorAll('.note-delete').forEach(el=>el.addEventListener('click',()=>{data.notes=data.notes.filter(n=>n.id!==el.dataset.id);saveData('Note removed');renderNotes();}));
+    }
+
+
+
+    function money(value) {
+      return new Intl.NumberFormat('en-CA', { style:'currency', currency:'CAD', maximumFractionDigits:2 }).format(Number(value) || 0);
+    }
+    function localDate(dateStr) { return new Date((dateStr || isoDate(new Date())) + 'T12:00:00'); }
+    function lastDayOfMonth(year, month) { return new Date(year, month + 1, 0, 12); }
+    function addMonthsSafe(date, months) {
+      const d = new Date(date); const day = d.getDate();
+      d.setDate(1); d.setMonth(d.getMonth() + months);
+      d.setDate(Math.min(day, lastDayOfMonth(d.getFullYear(), d.getMonth()).getDate()));
+      return d;
+    }
+    function dateWithSafeDay(year,month,day){return new Date(year,month,Math.min(Number(day)||1,lastDayOfMonth(year,month).getDate()),12);}
+    function advanceRecurring(date, frequency, recurring={}) {
+      if (frequency === 'weekly') return addDays(date, 7);
+      if (frequency === 'biweekly') return addDays(date, 14);
+      if (frequency === 'semimonthly') {
+        const first=Number(recurring.firstDay)||date.getDate(), second=Number(recurring.secondDay)||Math.min(first+14,28);
+        if(date.getDate()<second) return dateWithSafeDay(date.getFullYear(),date.getMonth(),second);
+        const next=addMonthsSafe(new Date(date.getFullYear(),date.getMonth(),1,12),1);
+        return dateWithSafeDay(next.getFullYear(),next.getMonth(),first);
+      }
+      if (frequency === 'quarterly') return addMonthsSafe(date, 3);
+      if (frequency === 'yearly') return addMonthsSafe(date, 12);
+      return addMonthsSafe(date, 1);
+    }
+    function cycleYearFor(date) { const d = new Date(date); return d.getMonth() >= 4 ? d.getFullYear() : d.getFullYear() - 1; }
+    function financeRange(view, dateStr) {
+      const d = localDate(dateStr); const cycleYear = cycleYearFor(d);
+      if (view === 'week') { const start = startOfWeek(d); return { start, end:addDays(start,6), label:`Week of ${start.toLocaleDateString('en-CA',{month:'long',day:'numeric',year:'numeric'})}` }; }
+      if (view === 'summer') return { start:new Date(cycleYear,4,1,12), end:new Date(cycleYear,9,31,12), label:`Summer • May 1–October 31, ${cycleYear}` };
+      if (view === 'winter') return { start:new Date(cycleYear,10,1,12), end:new Date(cycleYear+1,3,30,12), label:`Winter • November 1, ${cycleYear}–April 30, ${cycleYear+1}` };
+      if (view === 'year') return { start:new Date(cycleYear,4,1,12), end:new Date(cycleYear+1,3,30,12), label:`Operating year • May ${cycleYear}–April ${cycleYear+1}` };
+      return { start:new Date(d.getFullYear(),d.getMonth(),1,12), end:lastDayOfMonth(d.getFullYear(),d.getMonth()), label:d.toLocaleDateString('en-CA',{month:'long',year:'numeric'}) };
+    }
+    function inRange(dateStr, start, end) { if(!dateStr)return false; const d=localDate(dateStr); return d >= start && d <= end; }
+    function recurringOccurrences(start, end) {
+      const today = localDate(isoDate(new Date())); const effectiveStart = start > today ? start : today;
+      const results = [];
+      (data.finance.recurring || []).forEach(r => {
+        if (!r.nextDate || !(Number(r.amount) > 0)) return;
+        let d = localDate(r.nextDate); const stop = r.endDate ? localDate(r.endDate) : null; let guard=0;
+        while (d < effectiveStart && guard++ < 1500) d = advanceRecurring(d, r.frequency, r);
+        while (d <= end && (!stop || d <= stop) && guard++ < 1500) {
+          results.push({ id:`rec-${r.id}-${isoDate(d)}`, recurringId:r.id, party:r.party||'', description:r.description, amount:Number(r.amount)||0, hst:Number(r.hst)||0, type:r.type, category:r.category, date:isoDate(d), actualDate:'', status:'planned', paymentMethod:r.paymentMethod||'', notes:'Recurring projection', virtual:true, frequency:r.frequency });
+          d = advanceRecurring(d, r.frequency, r);
+        }
+      });
+      return results;
+    }
+    function financeItemsFor(start, end) {
+      const saved=(data.finance.transactions || []).filter(t=>inRange(t.date,start,end));
+      return [...saved, ...recurringOccurrences(start,end)];
+    }
+    function outstandingThrough(end) {
+      const saved=(data.finance.transactions||[]).filter(t=>t.status==='planned' && t.date && localDate(t.date)<=end);
+      const recurring=[];
+      (data.finance.recurring||[]).forEach(r=>{
+        if(!r.nextDate || !(Number(r.amount)>0)) return;
+        let d=localDate(r.nextDate), stop=r.endDate?localDate(r.endDate):null, guard=0;
+        while(d<=end && (!stop || d<=stop) && guard++<1500){
+          recurring.push({id:`out-${r.id}-${isoDate(d)}`,recurringId:r.id,party:r.party||'',description:r.description,amount:Number(r.amount)||0,hst:Number(r.hst)||0,type:r.type,category:r.category,date:isoDate(d),actualDate:'',status:'planned',paymentMethod:r.paymentMethod||'',notes:'Recurring projection',virtual:true,frequency:r.frequency});
+          d=advanceRecurring(d,r.frequency,r);
+        }
+      });
+      return [...saved,...recurring];
+    }
+    function cashTotals(items) {
+      const total=(type,status)=>items.filter(i=>i.type===type && i.status===status).reduce((sum,i)=>sum+(Number(i.amount)||0),0);
+      return { actualIncome:total('income','actual'), plannedIncome:total('income','planned'), actualExpenses:total('expense','actual'), plannedExpenses:total('expense','planned') };
+    }
+    function setMoneyClass(el, value) {
+      el.classList.remove('money-positive','money-negative','money-neutral');
+      el.classList.add(value > 0 ? 'money-positive' : value < 0 ? 'money-negative' : 'money-neutral');
+    }
+    function isOverdue(item) { return !item.virtual && item.status==='planned' && item.date && item.date<isoDate(new Date()); }
+    function statusText(item) {
+      if (isOverdue(item)) return 'Overdue';
+      if (item.status === 'planned') return item.type==='income'?'Expected':'Unpaid';
+      return item.type === 'income' ? 'Received' : 'Paid';
+    }
+    function frequencyText(value) { return ({weekly:'Weekly',biweekly:'Every 2 weeks',semimonthly:'Twice monthly',monthly:'Monthly',quarterly:'Every 3 months',yearly:'Yearly'})[value] || value; }
+    function financeItemHtml(item, controls=true) {
+      const sign=item.type==='income'?'+':'−'; const amountClass=item.type==='income'?'money-positive':'money-negative';
+      const overdue=isOverdue(item); const pillClass=overdue?'status-overdue':item.status==='actual'?'status-actual':'status-planned';
+      const recurringLabel=item.virtual?' • Recurring':''; const actionLabel=item.status==='planned' ? (item.type==='income'?'Mark received':'Mark paid') : 'Make expected';
+      const party=item.party?`${escapeHtml(item.party)} • `:''; const actual=item.actualDate?` • ${item.type==='income'?'Received':'Paid'} ${escapeHtml(item.actualDate)}`:'';
+      const details=`${party}${escapeHtml(item.date)} • ${escapeHtml(item.category||'Other')}${recurringLabel}${actual}${Number(item.hst)?' • HST '+money(item.hst):''}${item.paymentMethod?' • '+escapeHtml(item.paymentMethod):''}${item.notes?' • '+escapeHtml(item.notes):''}`;
+      return `<div class="finance-item ${overdue?'finance-item-overdue':''}"><div class="finance-item-main"><div class="finance-item-title">${escapeHtml(item.description)}</div><div class="finance-item-meta">${details}</div></div><div><div class="finance-amount ${amountClass}">${sign}${money(item.amount)}</div><span class="status-pill ${pillClass}">${statusText(item)}</span></div>${controls && !item.virtual ? `<div class="finance-actions"><button class="btn btn-light btn-small finance-toggle" data-id="${item.id}">${actionLabel}</button><button class="delete-btn finance-delete" data-id="${item.id}">×</button></div>` : '<span></span>'}</div>`;
+    }
+    function operatingYearOptions() {
+      const select=document.getElementById('financeOperatingYear'); const current=cycleYearFor(new Date());
+      if (!select.options.length) { for(let y=current-4;y<=current+4;y++){const opt=document.createElement('option');opt.value=y;opt.textContent=`May ${y} – April ${y+1}`;select.appendChild(opt);} select.value=String(current); }
+    }
+    function latestBankEntry(){return [...(data.finance.bankHistory||[])].sort((a,b)=>(b.date||'').localeCompare(a.date||''))[0]||null;}
+    function latestBankBalance(){return Number(data.finance.currentBalance)||0;}
+
+    document.getElementById('financeDate').value=isoDate(new Date());
+    document.getElementById('financeItemDate').value=isoDate(new Date());
+    document.getElementById('recurringNextDate').value=isoDate(new Date());
+    document.getElementById('bankBalanceDate').value=isoDate(new Date());
+    document.getElementById('financeDate').addEventListener('change',renderFinance);
+    document.getElementById('financeView').addEventListener('change',renderFinance);
+    document.getElementById('financeItemFilter').addEventListener('change',renderFinanceTransactions);
+    document.getElementById('financeType').addEventListener('change',e=>{const category=document.getElementById('financeCategory');const incomeCats=['Client Payment','Summer Contract','Winter Contract','Other Income'];if(e.target.value==='income'&&!incomeCats.includes(category.value))category.value='Client Payment';if(e.target.value==='expense'&&incomeCats.includes(category.value))category.value='Other';});
+    document.getElementById('financeStatus').addEventListener('change',e=>{if(e.target.value==='actual'&&!document.getElementById('financeActualDate').value)document.getElementById('financeActualDate').value=isoDate(new Date());});
+    document.getElementById('recurringFrequency').addEventListener('change',e=>{document.getElementById('recurringSecondDayWrap').style.display=e.target.value==='semimonthly'?'block':'none';});
+    document.getElementById('financeToday').addEventListener('click',()=>{document.getElementById('financeDate').value=isoDate(new Date());renderFinance();});
+    document.getElementById('financeCurrentBalance').addEventListener('input',e=>{data.finance.currentBalance=Number(e.target.value)||0;saveData();renderFinanceSummary();});
+    document.getElementById('financeOperatingYear').addEventListener('change',renderOperatingYear);
+    document.getElementById('addBankBalance').addEventListener('click',()=>{const date=document.getElementById('bankBalanceDate').value, amount=Number(document.getElementById('bankBalanceAmount').value);if(!date||!Number.isFinite(amount)){alert('Add a date and bank balance.');return;}data.finance.bankHistory.push({id:uid(),date,amount,note:document.getElementById('bankBalanceNote').value.trim(),createdAt:new Date().toISOString()});data.finance.currentBalance=amount;document.getElementById('bankBalanceAmount').value='';document.getElementById('bankBalanceNote').value='';saveData('Bank balance saved');renderFinance();});
+
+    document.getElementById('addFinanceItem').addEventListener('click',()=>{
+      const description=document.getElementById('financeDescription').value.trim(); const amount=Number(document.getElementById('financeAmount').value); const date=document.getElementById('financeItemDate').value;
+      if(!description || !(amount>0) || !date){alert('Add a description, amount and expected or due date.');return;}
+      const status=document.getElementById('financeStatus').value;
+      data.finance.transactions.unshift({id:uid(),party:document.getElementById('financeParty').value.trim(),description,amount,hst:Number(document.getElementById('financeHst').value)||0,type:document.getElementById('financeType').value,category:document.getElementById('financeCategory').value,date,actualDate:status==='actual'?(document.getElementById('financeActualDate').value||isoDate(new Date())):'',status,paymentMethod:document.getElementById('financePaymentMethod').value,notes:document.getElementById('financeNotes').value.trim()});
+      ['financeParty','financeDescription','financeAmount','financeHst','financeActualDate','financeNotes'].forEach(id=>document.getElementById(id).value='');
+      saveData('Cash-flow item added');renderFinance();
+    });
+    document.getElementById('addRecurringItem').addEventListener('click',()=>{
+      const description=document.getElementById('recurringDescription').value.trim(); const amount=Number(document.getElementById('recurringAmount').value); const nextDate=document.getElementById('recurringNextDate').value; const frequency=document.getElementById('recurringFrequency').value;
+      if(!description || !(amount>0) || !nextDate){alert('Add a description, amount and first date.');return;}
+      const secondDay=Number(document.getElementById('recurringSecondDay').value)||0;if(frequency==='semimonthly' && !(secondDay>=1&&secondDay<=31)){alert('Add the second payment day of the month.');return;}
+      data.finance.recurring.push({id:uid(),party:document.getElementById('recurringParty').value.trim(),description,amount,hst:Number(document.getElementById('recurringHst').value)||0,type:document.getElementById('recurringType').value,category:document.getElementById('recurringCategory').value,nextDate,frequency,firstDay:localDate(nextDate).getDate(),secondDay,paymentMethod:document.getElementById('recurringPaymentMethod').value,endDate:document.getElementById('recurringEndDate').value});
+      ['recurringParty','recurringDescription','recurringAmount','recurringHst','recurringEndDate','recurringSecondDay'].forEach(id=>document.getElementById(id).value='');
+      saveData('Recurring item added');renderFinance();
+    });
+
+    function renderBankHistory(){
+      const wrap=document.getElementById('bankBalanceHistory');const entries=[...(data.finance.bankHistory||[])].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+      if(!entries.length){wrap.innerHTML='<div class="empty">No saved balance snapshots yet.</div>';return;}
+      wrap.innerHTML=entries.slice(0,12).map((e,i)=>{const next=entries[i+1];const change=next?(Number(e.amount)||0)-(Number(next.amount)||0):null;return `<div class="bank-row"><div><strong>${escapeHtml(e.date)}</strong><div class="task-meta">${escapeHtml(e.note||'Bank balance check')}</div></div><div style="text-align:right;"><strong>${money(e.amount)}</strong>${change===null?'':`<div class="task-meta ${change>=0?'bank-change-positive':'bank-change-negative'}">${change>=0?'+':''}${money(change)}</div>`}<button class="delete-btn bank-delete" data-id="${e.id}">×</button></div></div>`;}).join('');
+      wrap.querySelectorAll('.bank-delete').forEach(el=>el.addEventListener('click',()=>{data.finance.bankHistory=data.finance.bankHistory.filter(e=>e.id!==el.dataset.id);const latest=latestBankEntry();data.finance.currentBalance=latest?Number(latest.amount)||0:data.finance.currentBalance;saveData('Balance entry removed');renderFinance();}));
+    }
+    function renderFinanceSummary(){
+      const balance=latestBankBalance();document.getElementById('financeCurrentBalance').value=balance||'';
+      const start=localDate(isoDate(new Date())), end=addDays(start,30);const outstanding=outstandingThrough(end);const totals=cashTotals(outstanding);const projected=balance+totals.plannedIncome-totals.plannedExpenses;
+      document.getElementById('financeProjected30').textContent=money(projected);setMoneyClass(document.getElementById('financeProjected30'),projected);document.getElementById('financeProjected30Note').textContent=`${money(balance)} + ${money(totals.plannedIncome)} − ${money(totals.plannedExpenses)}`;
+      document.getElementById('financeUpcomingIncome').textContent=money(totals.plannedIncome);document.getElementById('financeUpcomingExpenses').textContent=money(totals.plannedExpenses);
+      const today=isoDate(new Date());const overdue=outstanding.filter(i=>i.date<today);const overdueIncome=overdue.filter(i=>i.type==='income').reduce((s,i)=>s+(Number(i.amount)||0),0);const overdueBills=overdue.filter(i=>i.type==='expense').reduce((s,i)=>s+(Number(i.amount)||0),0);
+      const seven=isoDate(addDays(localDate(today),7));const dueSeven=outstanding.filter(i=>i.type==='expense'&&i.date>=today&&i.date<=seven).reduce((s,i)=>s+(Number(i.amount)||0),0);
+      const monthEnd=lastDayOfMonth(start.getFullYear(),start.getMonth());const monthUpcoming=cashTotals(outstandingThrough(monthEnd));const projectedMonth=balance+monthUpcoming.plannedIncome-monthUpcoming.plannedExpenses;
+      document.getElementById('financeOverdueIncome').textContent=money(overdueIncome);document.getElementById('financeOverdueBills').textContent=money(overdueBills);document.getElementById('financeDueSeven').textContent=money(dueSeven);document.getElementById('financeMonthEnd').textContent=money(projectedMonth);setMoneyClass(document.getElementById('financeMonthEnd'),projectedMonth);
+      const bills=outstandingThrough(addMonthsSafe(localDate(today),12)).filter(i=>i.type==='expense').sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5);document.getElementById('financeNextBills').innerHTML=bills.length?bills.map(i=>financeItemHtml(i,false)).join(''):'<div class="empty">No upcoming bills.</div>';
+      const upcomingList=[...outstanding].sort((a,b)=>a.date.localeCompare(b.date)).slice(0,8);document.getElementById('financeUpcomingList').innerHTML=upcomingList.length?upcomingList.map(i=>financeItemHtml(i,false)).join(''):'<div class="empty">Nothing scheduled in the next 30 days.</div>';
+      renderBankHistory();
+    }
+    function renderFinanceTransactions(){
+      const date=document.getElementById('financeDate').value||isoDate(new Date());const range=financeRange(document.getElementById('financeView').value,date);const filter=document.getElementById('financeItemFilter').value;
+      let items=(data.finance.transactions||[]).filter(i=>inRange(i.date,range.start,range.end)).sort((a,b)=>a.date.localeCompare(b.date));
+      if(filter==='income'||filter==='expense')items=items.filter(i=>i.type===filter);else if(filter==='actual'||filter==='planned')items=items.filter(i=>i.status===filter);
+      const list=document.getElementById('financeItemList');list.innerHTML=items.length?items.map(i=>financeItemHtml(i,true)).join(''):'<div class="empty">No saved cash-flow items in this view.</div>';
+      list.querySelectorAll('.finance-toggle').forEach(el=>el.addEventListener('click',()=>{const item=data.finance.transactions.find(i=>i.id===el.dataset.id);item.status=item.status==='actual'?'planned':'actual';item.actualDate=item.status==='actual'?isoDate(new Date()):'';saveData('Status updated');renderFinance();}));
+      list.querySelectorAll('.finance-delete').forEach(el=>el.addEventListener('click',()=>{data.finance.transactions=data.finance.transactions.filter(i=>i.id!==el.dataset.id);saveData('Cash-flow item removed');renderFinance();}));
+    }
+    function renderRecurringItems(){
+      const list=document.getElementById('recurringItemList'); const items=[...(data.finance.recurring||[])].sort((a,b)=>a.nextDate.localeCompare(b.nextDate));
+      list.innerHTML=items.length?items.map(i=>`<div class="finance-item"><div class="finance-item-main"><div class="finance-item-title">${escapeHtml(i.description)}</div><div class="finance-item-meta">${i.party?escapeHtml(i.party)+' • ':''}Next: ${escapeHtml(i.nextDate)} • ${escapeHtml(frequencyText(i.frequency))} • ${escapeHtml(i.category||'Other')}${i.endDate?' • Ends '+escapeHtml(i.endDate):''}${Number(i.hst)?' • HST '+money(i.hst):''}</div></div><div class="finance-amount ${i.type==='income'?'money-positive':'money-negative'}">${i.type==='income'?'+':'−'}${money(i.amount)}</div><div class="finance-actions"><button class="btn btn-light btn-small recurring-record" data-id="${i.id}">${i.type==='income'?'Record received':'Record paid'}</button><button class="delete-btn recurring-delete" data-id="${i.id}">×</button></div></div>`).join(''):'<div class="empty">No recurring items yet.</div>';
+      list.querySelectorAll('.recurring-record').forEach(el=>el.addEventListener('click',()=>{const item=data.finance.recurring.find(i=>i.id===el.dataset.id);if(!item)return;data.finance.transactions.unshift({id:uid(),party:item.party||'',description:item.description,amount:Number(item.amount)||0,hst:Number(item.hst)||0,type:item.type,category:item.category,date:item.nextDate,actualDate:isoDate(new Date()),status:'actual',paymentMethod:item.paymentMethod||'',notes:'Recorded from recurring cash flow'});item.nextDate=isoDate(advanceRecurring(localDate(item.nextDate),item.frequency,item));saveData(item.type==='income'?'Income recorded':'Payment recorded');renderFinance();}));
+      list.querySelectorAll('.recurring-delete').forEach(el=>el.addEventListener('click',()=>{data.finance.recurring=data.finance.recurring.filter(i=>i.id!==el.dataset.id);saveData('Recurring item removed');renderFinance();}));
+    }
+    function renderOperatingYear(){
+      operatingYearOptions(); const year=Number(document.getElementById('financeOperatingYear').value); document.getElementById('financeOperatingYearLabel').textContent=`May 1, ${year} through April 30, ${year+1}`;
+      const summerRange={start:new Date(year,4,1,12),end:new Date(year,9,31,12)}; const winterRange={start:new Date(year,10,1,12),end:new Date(year+1,3,30,12)};
+      const seasonTotals=range=>{const t=cashTotals(financeItemsFor(range.start,range.end));return {income:t.actualIncome+t.plannedIncome,expenses:t.actualExpenses+t.plannedExpenses};};
+      const summer=seasonTotals(summerRange),winter=seasonTotals(winterRange);
+      document.getElementById('summerIncome').textContent=money(summer.income);document.getElementById('summerExpenses').textContent=money(summer.expenses);const sn=summer.income-summer.expenses;document.getElementById('summerNet').textContent=money(sn);setMoneyClass(document.getElementById('summerNet'),sn);
+      document.getElementById('winterIncome').textContent=money(winter.income);document.getElementById('winterExpenses').textContent=money(winter.expenses);const wn=winter.income-winter.expenses;document.getElementById('winterNet').textContent=money(wn);setMoneyClass(document.getElementById('winterNet'),wn);
+      const months=[];for(let offset=0;offset<12;offset++){const d=new Date(year,4+offset,1,12);const start=new Date(d.getFullYear(),d.getMonth(),1,12),end=lastDayOfMonth(d.getFullYear(),d.getMonth());const totals=cashTotals(financeItemsFor(start,end));months.push({d,totals,season:offset<6?'Summer':'Winter'});}
+      const grand=months.reduce((a,m)=>{Object.keys(a).forEach(k=>a[k]+=m.totals[k]);return a;},{actualIncome:0,plannedIncome:0,actualExpenses:0,plannedExpenses:0});
+      const rows=months.map(m=>{const t=m.totals,net=t.actualIncome+t.plannedIncome-t.actualExpenses-t.plannedExpenses;return `<tr><td>${m.d.toLocaleDateString('en-CA',{month:'long',year:'numeric'})}</td><td><span class="season-pill ${m.season==='Summer'?'season-summer':'season-winter'}">${m.season}</span></td><td>${money(t.actualIncome)}</td><td>${money(t.plannedIncome)}</td><td>${money(t.actualExpenses)}</td><td>${money(t.plannedExpenses)}</td><td class="${net>=0?'money-positive':'money-negative'}"><strong>${money(net)}</strong></td></tr>`;}).join('');
+      const grandNet=grand.actualIncome+grand.plannedIncome-grand.actualExpenses-grand.plannedExpenses;document.getElementById('financeYearTable').innerHTML=rows+`<tr class="total-row"><td colspan="2">Operating year total</td><td>${money(grand.actualIncome)}</td><td>${money(grand.plannedIncome)}</td><td>${money(grand.actualExpenses)}</td><td>${money(grand.plannedExpenses)}</td><td class="${grandNet>=0?'money-positive':'money-negative'}">${money(grandNet)}</td></tr>`;
+    }
+    function renderFinance(){
+      const date=document.getElementById('financeDate').value||isoDate(new Date());const view=document.getElementById('financeView').value;const range=financeRange(view,date);document.getElementById('financeRangeLabel').textContent=range.label;
+      const totals=cashTotals(financeItemsFor(range.start,range.end)); const net=totals.actualIncome+totals.plannedIncome-totals.actualExpenses-totals.plannedExpenses;
+      document.getElementById('financeActualIncome').textContent=money(totals.actualIncome);document.getElementById('financePlannedIncome').textContent=money(totals.plannedIncome);document.getElementById('financeActualExpenses').textContent=money(totals.actualExpenses);document.getElementById('financePlannedExpenses').textContent=money(totals.plannedExpenses);
+      const netEl=document.getElementById('financePeriodNet');netEl.textContent=money(net);setMoneyClass(netEl,net);renderFinanceSummary();renderFinanceTransactions();renderRecurringItems();renderOperatingYear();
+    }
+
+    function renderDashboard(){
+      const start=startOfWeek(new Date()), dates=Array.from({length:7},(_,i)=>isoDate(addDays(start,i)));
+      const seen=new Set(), weekTasks=[];dates.forEach(d=>tasksForDate(d).forEach(t=>{const k=taskKey(t);if(!seen.has(k)){seen.add(k);weekTasks.push(t);}}));
+      const done=weekTasks.filter(t=>t.done).length, pct=weekTasks.length?Math.round(done/weekTasks.length*100):0;
+      document.getElementById('dashTaskPercent').textContent=pct+'%'; document.getElementById('dashTaskBar').style.width=pct+'%';
+      document.getElementById('dashGoals').textContent=data.goals.length;
+      const habitChecks=data.habits.reduce((sum,h)=>sum+dates.filter(d=>h.checks?.[d]).length,0);
+      document.getElementById('dashHabits').textContent=habitChecks; document.getElementById('dashNotes').textContent=data.notes.length;
+      const currentBalance=latestBankBalance(); const cashStart=localDate(isoDate(new Date())),cashEnd=addDays(cashStart,30); const upcomingCash=cashTotals(outstandingThrough(cashEnd)); const projectedBalance=currentBalance+upcomingCash.plannedIncome-upcomingCash.plannedExpenses;
+      document.getElementById('dashCurrentBalance').textContent=money(currentBalance); document.getElementById('dashProjectedBalance').textContent=money(projectedBalance); setMoneyClass(document.getElementById('dashProjectedBalance'),projectedBalance); document.getElementById('dashUpcomingOut').textContent=money(upcomingCash.plannedExpenses);
+      const today=getDay(isoDate(new Date())); const priorities=[today.priority1,today.priority2,today.priority3].filter(Boolean);
+      document.getElementById('dashPriorities').innerHTML=priorities.length?priorities.map((p,i)=>`<div class="task-item"><div class="brand-mark" style="width:30px;height:30px;border-radius:10px;font-size:12px;box-shadow:none;">${i+1}</div><div class="task-text">${escapeHtml(p)}</div><span></span></div>`).join(''):'<div class="empty">Add priorities in the Today page.</div>';
+      const soon=[...data.tasks].filter(t=>!t.done).sort((a,b)=>(a.due||'9999').localeCompare(b.due||'9999')).slice(0,5);
+      document.getElementById('dashDueSoon').innerHTML=soon.length?soon.map(t=>`<div class="task-item"><span class="priority-dot priority-${t.priority}"></span><div><div class="task-text">${escapeHtml(t.text)}</div><div class="task-meta">${escapeHtml(t.category)}${t.due?' • '+escapeHtml(t.due):''}${t.scheduledDate?' • Scheduled '+escapeHtml(t.scheduledDate):''}</div></div><span></span></div>`).join(''):'<div class="empty">No open master tasks.</div>';
+    }
+
+    document.getElementById('exportBtn').addEventListener('click',()=>{
+      const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a');
+      a.href=url;a.download=`jess-planner-backup-${isoDate(new Date())}.json`;a.click();URL.revokeObjectURL(url);showToast('Backup downloaded');
+    });
+    document.getElementById('importFile').addEventListener('change',e=>{
+      const file=e.target.files[0]; if(!file)return; const reader=new FileReader();
+      reader.onload=()=>{try{data=deepMerge(clone(defaultData),JSON.parse(reader.result));saveData('Backup restored');location.reload();}catch{alert('That file could not be restored.');}}; reader.readAsText(file);
+    });
+    document.getElementById('clearBtn').addEventListener('click',()=>{if(confirm('Erase all planner data from this browser? This cannot be undone.')){localStorage.removeItem(STORAGE_KEY);location.reload();}});
+
+    if(data.settings?.plannerName) document.title=data.settings.plannerName;
+    operatingYearOptions(); renderToday(); renderWeek(); renderTasks(); renderFinance(); renderGoals(); renderHabits(); renderMonthly(); renderNotes(); renderDashboard();
+  </script>
+</body>
+</html>
