@@ -1,16 +1,22 @@
-Jess Life & CEO Planner — Version 10
+Jess Life & CEO Planner — Version 18 Nature Cycle Moods
 
-Sidebar correction:
-- The scrollable menu now ends at the top of the coastal artwork.
-- Reports, Settings and Sign Out remain inside the readable menu area.
-- The menu scrolls only above the artwork.
-- The coastal artwork remains fixed and unobstructed at the bottom.
-- Mobile Safari uses the full visible screen height.
+This version replaces the Journal cat moods with a Nature Cycle mood set.
+
+Mood icons:
+- Amazing — Full leafy branch
+- Good — Healthy leaf
+- Okay — Small leaf
+- Low — Fallen leaf
+- Rough — Bare branch
+
+Used in:
+- Journal mood picker
+- Saved Journal entry rows
+- Most common mood summary
+- Recent mood strip
 
 GitHub update:
-1. Download a backup from Backup & Settings.
-2. Open the jess-life-ceo-planner GitHub repository.
-3. Select Add file > Upload files.
-4. Upload this index.html and replace the existing index.html.
-5. Commit directly to main.
-6. Wait about one minute, then refresh the GitHub Pages website.
+1. Upload the new index.html to your repository
+2. Replace the old index.html
+3. Commit directly to main
+4. Refresh GitHub Pages after about a minute

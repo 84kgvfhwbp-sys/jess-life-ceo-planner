@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Jess Planner" />
   <title>Jess Life & CEO Planner</title>
-  <!-- Version 10: production planner + sidebar menu constrained above fixed coastal artwork -->
+  <!-- Version 16: coastal planner with cute nature cycle journal mood icons for the journal -->
   <style>
     :root {
       --coral: #D98978;
@@ -1401,13 +1401,988 @@
       }
     }
 
+    /* VERSION 11 — FIXED HEADER, SCROLLING MENU, FIXED COASTAL ART */
+    .sidebar {
+      --sidebar-brand-height: auto;
+      --sidebar-art-height: 155px;
+      display: grid !important;
+      grid-template-rows: auto minmax(0, 1fr) var(--sidebar-art-height);
+      height: 100vh;
+      height: 100dvh;
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .sidebar-brand-fixed {
+      position: relative;
+      z-index: 4;
+      min-height: 0 !important;
+      margin: 0;
+      padding: 20px 18px 9px !important;
+      background: rgba(255,253,250,.98);
+      border-bottom: 1px solid rgba(117,95,78,.16);
+      box-shadow: 0 8px 13px -15px rgba(58,48,40,.8);
+    }
+
+    .sidebar-brand-fixed .coastal-brand-title {
+      margin: 0 0 2px;
+    }
+
+    .sidebar-brand-fixed .coastal-brand-art {
+      margin-bottom: 0;
+    }
+
+    .sidebar-scroll {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      height: auto !important;
+      max-height: none !important;
+      min-height: 0;
+      padding: 11px 8px 17px !important;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: rgba(255,253,250,.95);
+      border-top: 0;
+      border-bottom: 1px solid rgba(117,95,78,.14);
+      box-shadow: none;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(112,132,117,.45) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .sidebar-art-spacer {
+      position: relative;
+      z-index: 2;
+      min-height: var(--sidebar-art-height);
+      pointer-events: none;
+    }
+
+    .sidebar::after {
+      z-index: 1 !important;
+      height: var(--sidebar-art-height) !important;
+    }
+
+    .sidebar::before {
+      z-index: 2 !important;
+    }
+
+    @media (max-width: 780px) {
+      .sidebar {
+        --sidebar-art-height: 155px;
+        grid-template-rows: auto minmax(0, 1fr) var(--sidebar-art-height);
+        height: 100vh;
+        height: 100dvh;
+      }
+
+      .sidebar-brand-fixed {
+        padding: 20px 24px 9px !important;
+      }
+
+      .sidebar-scroll {
+        height: auto !important;
+        max-height: none !important;
+        min-height: 0;
+        padding: 11px 16px 16px !important;
+      }
+    }
+
+    /* VERSION 12 — DAILY WEATHER HISTORY */
+    .today-date-weather-card {
+      padding: 0;
+      overflow: hidden;
+    }
+    .today-date-controls {
+      min-height: 88px;
+      padding: 17px 20px;
+    }
+    .today-weather-record {
+      display: grid;
+      grid-template-columns: 56px minmax(0,1fr) auto;
+      align-items: center;
+      gap: 14px;
+      min-height: 104px;
+      padding: 16px 20px;
+      border-top: 1px solid #E5E0D8;
+      background:
+        linear-gradient(105deg, rgba(232,240,233,.88), rgba(255,252,247,.95) 48%, rgba(248,229,226,.57));
+    }
+    .weather-icon-shell {
+      display: grid;
+      width: 54px;
+      height: 54px;
+      place-items: center;
+      border: 1px solid rgba(112,132,117,.22);
+      border-radius: 50%;
+      background: rgba(255,255,255,.78);
+      color: #6D8875;
+      font-size: 27px;
+      box-shadow: 0 8px 22px rgba(76,69,59,.06);
+    }
+    .weather-summary-copy {
+      min-width: 0;
+    }
+    .weather-summary-title {
+      margin-top: 4px;
+      color: #272D28;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 21px;
+      font-weight: 500;
+    }
+    .weather-summary-metrics {
+      margin-top: 5px;
+      color: #624F42;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .weather-summary-status {
+      margin-top: 5px;
+      color: #737873;
+      font-size: 10px;
+      line-height: 1.45;
+    }
+    .weather-record-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 7px;
+      flex-wrap: wrap;
+      max-width: 430px;
+    }
+    .weather-reference-link {
+      text-decoration: none;
+    }
+    .weather-source-note {
+      margin: 2px 0 17px;
+      padding: 11px 12px;
+      border-left: 3px solid #839E89;
+      background: #F1F6F2;
+      color: #5F6961;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+    .weather-number-field {
+      position: relative;
+    }
+    .weather-number-field .input {
+      padding-right: 43px;
+    }
+    .weather-number-field span {
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+      color: #74665B;
+      font-size: 12px;
+      font-weight: 700;
+      pointer-events: none;
+    }
+    .weather-modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .weather-fetching {
+      opacity: .68;
+      pointer-events: none;
+    }
+
+    @media (max-width: 900px) {
+      .today-weather-record {
+        grid-template-columns: 50px minmax(0,1fr);
+      }
+      .weather-record-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+        max-width: none;
+      }
+    }
+    @media (max-width: 620px) {
+      .today-date-controls {
+        align-items: stretch;
+        flex-direction: column;
+        min-height: auto;
+        padding: 14px;
+      }
+      .today-date-controls > .row-wrap:first-child {
+        display: grid;
+        grid-template-columns: 42px minmax(0,1fr) 42px auto;
+        width: 100%;
+      }
+      .today-date-controls .input,
+      .today-date-controls .btn {
+        width: 100% !important;
+      }
+      .today-weather-record {
+        grid-template-columns: 44px minmax(0,1fr);
+        gap: 11px;
+        padding: 14px;
+      }
+      .weather-icon-shell {
+        width: 43px;
+        height: 43px;
+        font-size: 22px;
+      }
+      .weather-summary-title {
+        font-size: 18px;
+      }
+      .weather-record-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+      }
+      .weather-record-actions .btn {
+        justify-content: center;
+        width: 100%;
+      }
+      .weather-reference-link {
+        grid-column: 1 / -1;
+      }
+      .weather-modal-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .weather-modal-actions .btn {
+        width: 100%;
+      }
+    }
+
+    /* VERSION 13 — ROLLING FIVE-DAY WEEKLY VIEW */
+    .week-grid.week-grid-hourly {
+      grid-template-columns: repeat(5, minmax(248px, 1fr));
+    }
+
+    @media (min-width: 1500px) {
+      .week-grid.week-grid-hourly {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 780px) {
+      .week-grid.week-grid-hourly {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* VERSION 14 — DATED JOURNAL */
+    .journal-library-header {
+      margin-bottom: 14px;
+      padding: 0;
+      overflow: hidden;
+    }
+    .journal-library-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 20px 22px;
+      border-bottom: 1px solid #E6E1D9;
+      background:
+        linear-gradient(112deg, rgba(238,244,238,.86), rgba(255,253,249,.97) 48%, rgba(249,231,228,.64));
+    }
+    .journal-library-title-row h3 {
+      margin: 4px 0 5px;
+      color: #242B26;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      font-weight: 500;
+    }
+    .journal-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4,minmax(0,1fr));
+      background: #FFF;
+    }
+    .journal-summary-item {
+      min-height: 102px;
+      padding: 17px 19px;
+      border-right: 1px solid #E8E4DD;
+    }
+    .journal-summary-item:last-child { border-right: 0; }
+    .journal-summary-item > span {
+      display: block;
+      color: #666D67;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .journal-summary-item strong {
+      display: block;
+      margin-top: 8px;
+      color: #263029;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 24px;
+      font-weight: 500;
+    }
+    .journal-summary-mood-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .journal-summary-item small {
+      display: block;
+      margin-top: 5px;
+      color: #858983;
+      font-size: 9px;
+    }
+    .journal-mood-strip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 33px;
+      margin-top: 7px;
+    }
+    .journal-mood-strip-dot {
+      display: grid;
+      width: 31px;
+      height: 31px;
+      place-items: center;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: #FFF;
+      font-size: 15px;
+    }
+    .journal-mood-strip-empty {
+      color: #929691;
+      font-size: 10px;
+    }
+    .journal-library-tools {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) 190px;
+      gap: 11px;
+      margin-bottom: 14px;
+      padding: 12px;
+    }
+    .journal-search-wrap {
+      position: relative;
+    }
+    .journal-search-wrap > span {
+      position: absolute;
+      top: 50%;
+      left: 13px;
+      z-index: 1;
+      transform: translateY(-50%);
+      color: #738078;
+      font-size: 18px;
+      pointer-events: none;
+    }
+    .journal-search-wrap .input {
+      padding-left: 40px;
+    }
+    .journal-timeline {
+      display: grid;
+      gap: 10px;
+    }
+    .journal-entry-row {
+      display: grid;
+      grid-template-columns: 75px 72px minmax(0,1fr) minmax(0,165px) 28px;
+      align-items: center;
+      gap: 14px;
+      min-height: 126px;
+      padding: 14px 16px;
+      border: 1px solid #DDD9D1;
+      border-radius: 7px;
+      background: rgba(255,255,255,.95);
+      box-shadow: 0 8px 26px rgba(63,57,49,.035);
+      cursor: pointer;
+      transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+    .journal-entry-row:hover,
+    .journal-entry-row:focus {
+      border-color: #AEBCAF;
+      outline: none;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(63,57,49,.07);
+    }
+    .journal-entry-date {
+      display: grid;
+      min-height: 88px;
+      place-items: center;
+      align-content: center;
+      border-right: 1px solid #E7E2DA;
+      color: #765D4E;
+    }
+    .journal-entry-date span {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .09em;
+    }
+    .journal-entry-date strong {
+      margin: 3px 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 29px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .journal-entry-date small {
+      color: #8B8F89;
+      font-size: 8px;
+    }
+    .journal-entry-mood {
+      display: grid;
+      justify-items: center;
+      gap: 5px;
+      color: #59625B;
+    }
+    .journal-entry-mood > .journal-cat-icon-shell {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      place-items: center;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: #FFF;
+      box-shadow: 0 5px 14px rgba(58,52,46,.06);
+    }
+    .journal-entry-mood small {
+      font-size: 8px;
+      font-weight: 700;
+    }
+    .journal-entry-copy {
+      min-width: 0;
+    }
+    .journal-entry-copy h3 {
+      margin: 0 0 7px;
+      color: #252C27;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 19px;
+      font-weight: 500;
+    }
+    .journal-entry-copy p {
+      display: -webkit-box;
+      margin: 0;
+      overflow: hidden;
+      color: #626963;
+      font-size: 10px;
+      line-height: 1.55;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+    .journal-entry-meta-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 9px;
+      color: #8A8179;
+      font-size: 8px;
+      font-weight: 600;
+    }
+    .journal-entry-photos {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+      min-height: 72px;
+    }
+    .journal-entry-photos img {
+      width: 50px;
+      height: 66px;
+      border: 2px solid #FFF;
+      border-radius: 4px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(54,48,43,.12);
+    }
+    .journal-entry-photos img:nth-child(2) { transform: rotate(2deg); }
+    .journal-entry-photos img:nth-child(3) { transform: rotate(-2deg); }
+    .journal-entry-photos.is-empty {
+      min-height: 0;
+    }
+    .journal-entry-arrow {
+      color: #866F5E;
+      font-size: 20px;
+    }
+    .journal-empty-state {
+      display: grid;
+      min-height: 340px;
+      place-items: center;
+      align-content: center;
+      padding: 40px 20px;
+      border: 1px dashed #CFC9BF;
+      border-radius: 7px;
+      background: linear-gradient(135deg,#FFF,#F7F1E9);
+      text-align: center;
+    }
+    .journal-empty-icon {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      place-items: center;
+      border-radius: 50%;
+      background: #E8F0E9;
+      color: #63806B;
+      font-size: 26px;
+    }
+    .journal-empty-state h3 {
+      margin: 14px 0 5px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22px;
+      font-weight: 500;
+    }
+    .journal-empty-state p {
+      max-width: 420px;
+      margin: 0 0 16px;
+      color: #777D77;
+      font-size: 11px;
+    }
+
+    .journal-modal-overlay {
+      justify-content: center;
+      background: rgba(36,42,37,.46);
+    }
+    .journal-modal-panel {
+      width: min(1240px,100vw);
+      height: 100dvh;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      background: #F4F1EB;
+      box-shadow: 0 0 80px rgba(28,34,29,.25);
+    }
+    .journal-editor-page {
+      display: grid;
+      grid-template-rows: auto minmax(0,1fr);
+      width: 100%;
+      height: 100%;
+    }
+    .journal-editor-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 84px;
+      padding: 14px 22px;
+      border-bottom: 1px solid #DCD7CE;
+      background: rgba(255,253,249,.97);
+    }
+    .journal-editor-heading {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+    .journal-editor-heading h2 {
+      margin: 4px 0 0;
+      color: #202722;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      font-weight: 500;
+    }
+    .journal-back-button {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      place-items: center;
+      border: 1px solid #D9D4CC;
+      border-radius: 50%;
+      background: #FFF;
+      color: #5E6E62;
+      font-size: 19px;
+    }
+    .journal-editor-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .journal-editor-layout {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) 340px;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .journal-writing-panel {
+      min-width: 0;
+      padding: 28px;
+      overflow: auto;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(235,242,235,.72), transparent 25%),
+        radial-gradient(circle at 92% 90%, rgba(247,226,223,.55), transparent 26%),
+        #F4F1EB;
+    }
+    .journal-paper {
+      display: grid;
+      grid-template-rows: auto minmax(480px,1fr);
+      width: min(820px,100%);
+      min-height: calc(100dvh - 140px);
+      margin: 0 auto;
+      padding: 44px 48px;
+      border: 1px solid #DDD8CF;
+      background:
+        repeating-linear-gradient(to bottom, #FFF 0, #FFF 35px, #F1EDE7 36px);
+      box-shadow: 0 18px 55px rgba(65,57,49,.08);
+    }
+    .journal-title-input {
+      width: 100%;
+      margin-bottom: 18px;
+      padding: 0 0 13px;
+      border: 0;
+      border-bottom: 1px solid #D8D2C9;
+      outline: none;
+      background: rgba(255,255,255,.92);
+      color: #272C28;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 31px;
+      font-weight: 500;
+    }
+    .journal-title-input::placeholder {
+      color: #ABA59C;
+    }
+    .journal-body-input {
+      width: 100%;
+      min-height: 500px;
+      padding: 0;
+      resize: none;
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: #313631;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      line-height: 36px;
+    }
+    .journal-body-input::placeholder {
+      color: #A7A29A;
+    }
+    .journal-details-panel {
+      min-height: 0;
+      overflow: auto;
+      border-left: 1px solid #DCD7CE;
+      background: #FFFDF9;
+    }
+    .journal-editor-section {
+      padding: 18px;
+      border-bottom: 1px solid #E6E1D9;
+    }
+    .journal-mood-picker {
+      display: grid;
+      grid-template-columns: repeat(5,1fr);
+      gap: 5px;
+      margin-top: 9px;
+    }
+    .journal-mood-choice {
+      display: grid;
+      justify-items: center;
+      gap: 4px;
+      min-width: 0;
+      padding: 9px 3px 7px;
+      border: 1px solid #E1DDD6;
+      border-radius: 6px;
+      background: #FFF;
+      color: #5D655F;
+    }
+    .journal-mood-choice .journal-cat-icon-shell {
+      margin-bottom: 2px;
+    }
+    .journal-mood-choice small {
+      overflow: hidden;
+      max-width: 100%;
+      font-size: 7px;
+      font-weight: 700;
+      text-overflow: ellipsis;
+    }
+    .journal-mood-choice.selected {
+      border-color: #809984;
+      box-shadow: inset 0 0 0 1px #809984;
+      transform: translateY(-1px);
+    }
+    .journal-cat-icon-shell {
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #FFF;
+      border: 1px solid transparent;
+      box-shadow: 0 4px 10px rgba(58,52,46,.05);
+    }
+    .mood-picker-shell {
+      width: 48px;
+      height: 48px;
+      box-shadow: 0 2px 6px rgba(58,52,46,.04);
+    }
+    .summary-shell {
+      width: 34px;
+      height: 34px;
+    }
+    .strip-shell {
+      width: 26px;
+      height: 26px;
+      box-shadow: none;
+    }
+    .row-shell {
+      width: 50px;
+      height: 50px;
+      box-shadow: 0 2px 6px rgba(58,52,46,.04);
+    }
+    .mood-amazing .journal-cat-icon-shell,
+    .mood-amazing.journal-mood-strip-dot { background:#FAEFBC; border-color:#F0DF93; }
+    .mood-good .journal-cat-icon-shell,
+    .mood-good.journal-mood-strip-dot { background:#E5F0D0; border-color:#CEE2B1; }
+    .mood-okay .journal-cat-icon-shell,
+    .mood-okay.journal-mood-strip-dot { background:#D8E8D3; border-color:#BFD6BB; }
+    .mood-low .journal-cat-icon-shell,
+    .mood-low.journal-mood-strip-dot { background:#B7CCB6; border-color:#9FB79F; }
+    .mood-rough .journal-cat-icon-shell,
+    .mood-rough.journal-mood-strip-dot { background:#9CA39E; border-color:#838B85; }
+    .mood-none .journal-cat-icon-shell { background:#F0EEE9; border-color:#E2DED7; }
+    .journal-context-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .journal-context-title .label {
+      margin: 0 0 3px;
+    }
+    .journal-context-title strong {
+      color: #334038;
+      font-size: 11px;
+    }
+    .journal-context-icon {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      place-items: center;
+      border-radius: 50%;
+      background: #EDF3EE;
+      color: #66806E;
+      font-size: 21px;
+    }
+    .journal-weather-context p {
+      margin: 10px 0 0;
+      color: #7A807A;
+      font-size: 9px;
+      line-height: 1.5;
+    }
+    .journal-photo-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .journal-photo-heading .label { margin: 0 0 3px; }
+    .journal-photo-heading small {
+      display: block;
+      color: #858983;
+      font-size: 8px;
+    }
+    .journal-photo-upload {
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .journal-photo-upload.is-loading {
+      opacity: .58;
+      pointer-events: none;
+    }
+    .journal-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .journal-photo-empty {
+      grid-column: 1 / -1;
+      padding: 24px 12px;
+      border: 1px dashed #D7D1C7;
+      border-radius: 5px;
+      color: #92958F;
+      font-size: 9px;
+      line-height: 1.45;
+      text-align: center;
+    }
+    .journal-photo-preview {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      margin: 0;
+      overflow: hidden;
+      border-radius: 5px;
+      background: #EEEAE4;
+    }
+    .journal-photo-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .journal-photo-remove {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      display: grid;
+      width: 24px;
+      height: 24px;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(39,43,39,.74);
+      color: #FFF;
+      font-size: 16px;
+    }
+    .journal-entry-meta {
+      color: #898D88;
+      font-size: 8px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 980px) {
+      .journal-summary-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+      .journal-summary-item:nth-child(2) { border-right: 0; }
+      .journal-summary-item:nth-child(-n+2) { border-bottom: 1px solid #E8E4DD; }
+      .journal-entry-row {
+        grid-template-columns: 65px 58px minmax(0,1fr) 28px;
+      }
+      .journal-entry-photos { display: none; }
+      .journal-editor-layout {
+        grid-template-columns: minmax(0,1fr) 300px;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .journal-library-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 16px;
+      }
+      .journal-library-tools {
+        grid-template-columns: 1fr;
+      }
+      .journal-entry-row {
+        grid-template-columns: 54px 48px minmax(0,1fr) 20px;
+        gap: 9px;
+        min-height: 112px;
+        padding: 11px;
+      }
+      .journal-entry-date {
+        min-height: 72px;
+      }
+      .journal-entry-date strong {
+        font-size: 24px;
+      }
+      .journal-entry-mood > span {
+        width: 38px;
+        height: 38px;
+        font-size: 20px;
+      }
+      .journal-entry-copy h3 {
+        font-size: 16px;
+      }
+      .journal-entry-copy p {
+        font-size: 9px;
+        -webkit-line-clamp: 2;
+      }
+      .journal-entry-meta-line {
+        gap: 7px;
+        font-size: 7px;
+      }
+      .journal-modal-panel {
+        width: 100vw;
+      }
+      .journal-editor-header {
+        align-items: flex-start;
+        padding: 12px;
+      }
+      .journal-editor-heading h2 {
+        font-size: 20px;
+      }
+      .journal-editor-header-actions {
+        display: grid;
+        grid-template-columns: auto auto;
+      }
+      .journal-delete-button {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+      .journal-editor-layout {
+        display: block;
+        overflow: auto;
+      }
+      .journal-writing-panel {
+        padding: 12px;
+        overflow: visible;
+      }
+      .journal-paper {
+        grid-template-rows: auto minmax(390px,1fr);
+        min-height: 520px;
+        padding: 26px 20px;
+      }
+      .journal-title-input {
+        font-size: 25px;
+      }
+      .journal-body-input {
+        min-height: 390px;
+        font-size: 16px;
+        line-height: 34px;
+      }
+      .journal-details-panel {
+        overflow: visible;
+        border-top: 1px solid #DCD7CE;
+        border-left: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .journal-summary-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .journal-summary-item {
+        min-height: 91px;
+        padding: 13px;
+      }
+      .journal-summary-item strong {
+        font-size: 20px;
+      }
+      .journal-entry-row {
+        grid-template-columns: 50px minmax(0,1fr) 18px;
+      }
+      .journal-entry-mood {
+        display: none;
+      }
+      .journal-editor-header {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .journal-editor-header-actions {
+        grid-template-columns: 1fr 1fr;
+      }
+      .journal-editor-header-actions .btn {
+        width: 100%;
+      }
+      .journal-editor-heading h2 {
+        font-size: 18px;
+      }
+      .journal-mood-picker {
+        grid-template-columns: repeat(5,minmax(0,1fr));
+      }
+      .journal-mood-choice small {
+        font-size: 6px;
+      }
+      .journal-photo-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    .journal-mood-choice {
+      gap: 6px;
+      padding-top: 8px;
+    }
+    .journal-mood-choice small {
+      line-height: 1.2;
+    }
+
+    @media (max-width: 780px) {
+      .journal-entry-mood > .journal-cat-icon-shell,
+      .row-shell {
+        width: 42px;
+        height: 42px;
+      }
+    }
+
   </style>
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar">
-      <div class="sidebar-scroll">
-      <div class="coastal-brand">
+      <div class="coastal-brand sidebar-brand-fixed">
         <div class="coastal-brand-title">Life &amp; CEO Planner</div>
         <div class="coastal-brand-art" aria-hidden="true">
           <svg viewBox="0 0 150 42" role="img">
@@ -1418,6 +2393,7 @@
         </div>
       </div>
 
+      <div class="sidebar-scroll">
       <div class="nav-group">
         <div class="nav-label">Plan</div>
         <button class="nav-button active" data-page="dashboard"><span class="nav-icon">⌂</span>Dashboard</button>
@@ -1453,6 +2429,7 @@
 
       <button class="nav-button sidebar-signout" id="signOutBtn"><span class="nav-icon">⇥</span>Sign out</button>
       </div>
+      <div class="sidebar-art-spacer" aria-hidden="true"></div>
     </aside>
     <div class="menu-backdrop" id="menuBackdrop" aria-hidden="true"></div>
 
@@ -1594,8 +2571,8 @@
       </section>
 
       <section class="page" id="today-page">
-        <div class="card" style="margin-bottom:18px;">
-          <div class="row-wrap spread">
+        <div class="card today-date-weather-card" style="margin-bottom:18px;">
+          <div class="row-wrap spread today-date-controls">
             <div class="row-wrap">
               <button class="btn btn-light" id="prevDay">←</button>
               <input type="date" class="input" id="selectedDate" style="width:auto;" />
@@ -1603,6 +2580,21 @@
               <button class="btn btn-light" id="goToday">Today</button>
             </div>
             <div class="card-subtitle" id="selectedDateLabel"></div>
+          </div>
+
+          <div class="today-weather-record" id="todayWeatherRecord">
+            <div class="weather-icon-shell" id="weatherSummaryIcon" aria-hidden="true">○</div>
+            <div class="weather-summary-copy">
+              <div class="eyebrow">Daily weather record · Moncton, NB</div>
+              <div class="weather-summary-title" id="weatherSummaryTitle">No weather saved</div>
+              <div class="weather-summary-metrics" id="weatherSummaryMetrics">High — · Humidex —</div>
+              <div class="weather-summary-status" id="weatherSummaryStatus">The record can be filled automatically or entered manually.</div>
+            </div>
+            <div class="weather-record-actions">
+              <button class="btn btn-primary btn-small" type="button" id="fetchSelectedWeather">Auto-fill weather</button>
+              <button class="btn btn-light btn-small" type="button" id="openWeatherEditor">Edit manually</button>
+              <a class="btn btn-light btn-small weather-reference-link" href="https://www.theweathernetwork.com/en/city/ca/new-brunswick/moncton/current" target="_blank" rel="noopener">Weather Network ↗</a>
+            </div>
           </div>
         </div>
 
@@ -1660,11 +2652,11 @@
           <div class="row-wrap spread">
             <div class="row-wrap">
               <button class="btn btn-light" id="prevWeek">← Previous</button>
-              <button class="btn btn-light" id="thisWeek">This week</button>
+              <button class="btn btn-light" id="thisWeek">Start today</button>
               <button class="btn btn-light" id="nextWeek">Next →</button>
             </div>
             <div class="week-range-block">
-              <span class="eyebrow">Weekly plan</span>
+              <span class="eyebrow">Five-day plan</span>
               <strong id="weekRange"></strong>
             </div>
           </div>
@@ -1673,7 +2665,7 @@
           <div class="weekly-planner-heading">
             <div>
               <h3>Weekly overview</h3>
-              <div class="card-subtitle">Main focus, must-not-miss appointments, tasks, hourly time blocks and notes.</div>
+              <div class="card-subtitle">Today and the next four days, with focus, appointments, tasks, hourly time blocks and notes.</div>
             </div>
             <div class="weekly-legend" aria-label="Hourly item colours">
               <span class="week-legend-pill legend-task">Task</span>
@@ -1941,20 +2933,66 @@
       </section>
 
       <section class="page" id="notes-page">
-        <div class="card" style="margin-bottom:18px;">
-          <div class="row-wrap spread">
-            <div><h3 style="margin:0 0 5px;">Notes & brain dump</h3><div class="card-subtitle">Create as many notes as you need.</div></div>
-            <div class="row-wrap"><button class="btn btn-light" data-jump="monthly">Monthly reset</button><button class="btn btn-coral" id="addNote">+ New note</button></div>
+        <div class="card journal-library-header">
+          <div class="journal-library-title-row">
+            <div>
+              <span class="eyebrow">Personal record</span>
+              <h3>Journal entries</h3>
+              <div class="card-subtitle">Write freely, record your mood, save photos and keep each memory attached to its date.</div>
+            </div>
+            <div class="row-wrap">
+              <button class="btn btn-light" data-jump="monthly">Monthly reset</button>
+              <button class="btn btn-coral" id="addNote">+ New entry</button>
+            </div>
+          </div>
+
+          <div class="journal-summary-grid">
+            <div class="journal-summary-item">
+              <span>This month</span>
+              <strong id="journalMonthCount">0</strong>
+              <small>journal entries</small>
+            </div>
+            <div class="journal-summary-item">
+              <span>Most common mood</span>
+              <strong id="journalCommonMood">—</strong>
+              <small id="journalCommonMoodNote">No mood history yet</small>
+            </div>
+            <div class="journal-summary-item">
+              <span>Photo memories</span>
+              <strong id="journalPhotoCount">0</strong>
+              <small>photos saved</small>
+            </div>
+            <div class="journal-summary-item journal-mood-strip-card">
+              <span>Recent moods</span>
+              <div class="journal-mood-strip" id="journalMoodStrip"></div>
+              <small>Newest entries first</small>
+            </div>
           </div>
         </div>
-        <div id="notesGrid" class="grid grid-3"></div>
+
+        <div class="card journal-library-tools">
+          <div class="journal-search-wrap">
+            <span aria-hidden="true">⌕</span>
+            <input class="input" id="journalSearch" placeholder="Search titles or journal entries…">
+          </div>
+          <select class="select journal-mood-filter" id="journalMoodFilter">
+            <option value="">All moods</option>
+            <option value="amazing">Amazing</option>
+            <option value="good">Good</option>
+            <option value="okay">Okay</option>
+            <option value="low">Low</option>
+            <option value="rough">Rough</option>
+          </select>
+        </div>
+
+        <div id="notesGrid" class="journal-timeline"></div>
       </section>
 
       <section class="page" id="settings-page">
         <div class="grid grid-2">
           <div class="card soft-sage">
             <div class="card-header"><h3>Backup your planner</h3></div>
-            <p class="card-subtitle" style="line-height:1.65;">Download a backup file containing all tasks, carryovers, plans, bank history, finances, goals, habits and notes. Store it somewhere safe.</p>
+            <p class="card-subtitle" style="line-height:1.65;">Download a backup file containing all tasks, carryovers, rolling five-day plans, daily weather history, bank history, finances, goals, habits and dated journal entries with compressed photos and nature cycle journal mood icons. Store it somewhere safe.</p>
             <button class="btn btn-primary" id="exportBtn">Download backup</button>
           </div>
           <div class="card soft-wisteria">
@@ -2062,6 +3100,149 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="weatherModal" aria-hidden="true">
+    <div class="modal-panel modal-panel-small" role="dialog" aria-modal="true" aria-labelledby="weatherFormTitle">
+      <div class="card modal-card weather-modal-card">
+        <button class="modal-close" type="button" data-close-modal="weatherModal" aria-label="Close">×</button>
+        <div class="card-header">
+          <div>
+            <h3 id="weatherFormTitle">Daily weather record</h3>
+            <div class="card-subtitle" id="weatherFormDate">Moncton, New Brunswick</div>
+          </div>
+        </div>
+
+        <div class="weather-source-note" id="weatherEditorSource">
+          Enter the day manually, or use Auto-fill to collect the weather for the selected date.
+        </div>
+
+        <div class="field">
+          <label class="label">Conditions</label>
+          <select class="select" id="weatherCondition">
+            <option value="">Choose conditions</option>
+            <option>Sunny</option>
+            <option>Mainly sunny</option>
+            <option>Mix of sun and cloud</option>
+            <option>Partly cloudy</option>
+            <option>Cloudy</option>
+            <option>Overcast</option>
+            <option>Fog</option>
+            <option>Drizzle</option>
+            <option>Rain</option>
+            <option>Showers</option>
+            <option>Thunderstorms</option>
+            <option>Freezing drizzle</option>
+            <option>Freezing rain</option>
+            <option>Flurries</option>
+            <option>Snow</option>
+            <option>Snow showers</option>
+            <option>Ice pellets</option>
+            <option>Windy</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="finance-detail-grid">
+          <div class="field">
+            <label class="label">Daily high</label>
+            <div class="weather-number-field"><input type="number" step="0.1" class="input" id="weatherHigh" placeholder="e.g. 26"><span>°C</span></div>
+          </div>
+          <div class="field">
+            <label class="label">Maximum Humidex</label>
+            <input type="number" step="1" class="input" id="weatherHumidex" placeholder="e.g. 33">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Weather notes (optional)</label>
+          <textarea class="textarea" id="weatherNotes" style="min-height:86px;" placeholder="Heavy rain in the morning, windy afternoon, snow accumulation..."></textarea>
+        </div>
+
+        <div class="weather-modal-actions">
+          <button class="btn btn-primary" type="button" id="saveWeatherRecord">Save weather</button>
+          <button class="btn btn-light" type="button" id="fetchWeatherFromModal">Auto-fill Moncton</button>
+          <button class="btn btn-light" type="button" id="clearWeatherRecord">Clear record</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay journal-modal-overlay" id="journalModal" aria-hidden="true">
+    <div class="modal-panel journal-modal-panel" role="dialog" aria-modal="true" aria-labelledby="journalEditorHeading">
+      <div class="journal-editor-page">
+        <header class="journal-editor-header">
+          <div class="journal-editor-heading">
+            <button class="journal-back-button" type="button" data-close-modal="journalModal" aria-label="Close journal editor">←</button>
+            <div>
+              <span class="eyebrow" id="journalEditorKicker">New journal entry</span>
+              <h2 id="journalEditorHeading">Write what matters today</h2>
+            </div>
+          </div>
+          <div class="journal-editor-header-actions">
+            <button class="btn btn-danger journal-delete-button" type="button" id="deleteJournalEntry">Delete</button>
+            <button class="btn btn-light" type="button" data-close-modal="journalModal">Cancel</button>
+            <button class="btn btn-primary" type="button" id="saveJournalEntry">Save entry</button>
+          </div>
+        </header>
+
+        <div class="journal-editor-layout">
+          <main class="journal-writing-panel">
+            <div class="journal-paper">
+              <input class="journal-title-input" id="journalTitle" placeholder="Give this entry a title…">
+              <textarea class="journal-body-input" id="journalBody" placeholder="Start writing…"></textarea>
+            </div>
+          </main>
+
+          <aside class="journal-details-panel">
+            <section class="journal-editor-section">
+              <label class="label" for="journalDate">Entry date</label>
+              <input type="date" class="input" id="journalDate">
+            </section>
+
+            <section class="journal-editor-section">
+              <label class="label">How did the day feel?</label>
+              <div class="journal-mood-picker" id="journalMoodPicker">
+                <button type="button" class="journal-mood-choice mood-amazing" data-mood="amazing"><div class="journal-cat-icon" data-mood-icon="amazing"></div><small>Amazing</small></button>
+                <button type="button" class="journal-mood-choice mood-good" data-mood="good"><div class="journal-cat-icon" data-mood-icon="good"></div><small>Good</small></button>
+                <button type="button" class="journal-mood-choice mood-okay" data-mood="okay"><div class="journal-cat-icon" data-mood-icon="okay"></div><small>Okay</small></button>
+                <button type="button" class="journal-mood-choice mood-low" data-mood="low"><div class="journal-cat-icon" data-mood-icon="low"></div><small>Low</small></button>
+                <button type="button" class="journal-mood-choice mood-rough" data-mood="rough"><div class="journal-cat-icon" data-mood-icon="rough"></div><small>Rough</small></button>
+              </div>
+            </section>
+
+            <section class="journal-editor-section journal-weather-context" id="journalWeatherContext">
+              <div class="journal-context-title">
+                <span class="journal-context-icon" id="journalWeatherIcon">○</span>
+                <div>
+                  <label class="label">Weather that day</label>
+                  <strong id="journalWeatherTitle">No weather saved</strong>
+                </div>
+              </div>
+              <p id="journalWeatherDetails">Weather from the Today page will appear here automatically.</p>
+            </section>
+
+            <section class="journal-editor-section">
+              <div class="journal-photo-heading">
+                <div>
+                  <label class="label">Photos</label>
+                  <small>Up to four compressed photos per entry.</small>
+                </div>
+                <label class="btn btn-light journal-photo-upload">
+                  + Add photos
+                  <input type="file" id="journalPhotoInput" accept="image/*" multiple hidden>
+                </label>
+              </div>
+              <div class="journal-photo-grid" id="journalPhotoPreview"></div>
+            </section>
+
+            <section class="journal-editor-section journal-entry-meta" id="journalEntryMeta">
+              This entry has not been saved yet.
+            </section>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toast">Saved</div>
 
   <script>
@@ -2077,7 +3258,7 @@
     let data = loadData();
     normalizePlannerData();
     let selectedDate = isoDate(new Date());
-    let weekAnchor = startOfWeek(new Date());
+    let weekAnchor = localDate(isoDate(new Date()));
     let editingFinanceId = null;
     let editingRecurringId = null;
 
@@ -2098,9 +3279,17 @@
       return target;
     }
     function saveData(message = 'Saved') {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      showToast(message);
-      renderDashboard();
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        showToast(message);
+        renderDashboard();
+        return true;
+      } catch (error) {
+        console.error(error);
+        showToast('Storage is full');
+        alert('This browser has run out of local planner storage. Download a backup, then remove some journal photos or older entries before saving again.');
+        return false;
+      }
     }
     function showToast(message) {
       const toast = document.getElementById('toast');
@@ -2128,7 +3317,7 @@
       goals: ['Goals', 'Turn bigger intentions into visible progress.'],
       habits: ['Habit Tracker', 'Build consistency one check-in at a time.'],
       monthly: ['Monthly Reset', 'Reflect, reset and plan forward.'],
-      notes: ['Notes', 'A home for ideas, details and brain dumps.'],
+      notes: ['Journal', 'A dated home for reflection, memories and photos.'],
       settings: ['Backup & Settings', 'Protect your planner data.']
     };
 
@@ -2233,11 +3422,42 @@
       data.finance.transactions ??= []; data.finance.recurring ??= []; data.finance.bankHistory ??= [];
       Object.entries(data.days).forEach(([date, day]) => {
         day.tasks ??= []; day.schedule ??= {}; day.scheduleMeta ??= {};
+        day.weekly ??= { focus:'', appointments:'', notes:'', hourly:{} };
+        day.weekly.focus ??= '';
+        day.weekly.appointments ??= '';
+        day.weekly.notes ??= '';
+        day.weekly.hourly ??= {};
+        if (day.weather && typeof day.weather === 'object') {
+          day.weather.condition ??= '';
+          day.weather.high ??= '';
+          day.weather.humidex ??= '';
+          day.weather.notes ??= '';
+          day.weather.source ??= 'manual';
+          day.weather.capturedAt ??= '';
+          day.weather.location ??= 'Moncton, NB';
+        }
         day.tasks.forEach(t => { t.id ??= uid(); t.done = !!t.done; t.createdAt ??= date; });
       });
       Object.values(data.weeks).forEach(week => {
-        Object.values(week || {}).forEach(item => {
+        Object.entries(week || {}).forEach(([date, item]) => {
           item.focus ??= ''; item.appointments ??= ''; item.notes ??= ''; item.hourly ??= {};
+          const day = data.days[date] ??= { tasks:[], schedule:{}, scheduleMeta:{}, weekly:{focus:'',appointments:'',notes:'',hourly:{}} };
+          day.tasks ??= []; day.schedule ??= {}; day.scheduleMeta ??= {};
+          day.weekly ??= { focus:'', appointments:'', notes:'', hourly:{} };
+          day.weekly.focus ||= item.focus || '';
+          day.weekly.appointments ||= item.appointments || '';
+          day.weekly.notes ||= item.notes || '';
+          day.weekly.hourly ??= {};
+          Object.entries(item.hourly || {}).forEach(([time, legacy]) => {
+            day.weekly.hourly[time] ??= {};
+            day.weekly.hourly[time].type ||= legacy.type || '';
+            day.weekly.hourly[time].text ||= legacy.text || '';
+            if (day.weekly.hourly[time].done == null) day.weekly.hourly[time].done = !!legacy.done;
+            if (!day.schedule[time] && legacy.text) day.schedule[time] = legacy.text;
+            day.scheduleMeta[time] ??= {};
+            day.scheduleMeta[time].type ||= legacy.type || '';
+            if (day.scheduleMeta[time].done == null) day.scheduleMeta[time].done = !!legacy.done;
+          });
         });
       });
       data.tasks.forEach(t => { t.id ??= uid(); t.done = !!t.done; t.scheduledDate ??= ''; });
@@ -2246,6 +3466,20 @@
       });
       data.finance.recurring.forEach(r => {
         r.id ??= uid(); r.party ??= ''; r.hst = Number(r.hst)||0; r.paymentMethod ??= ''; r.firstDay ??= r.nextDate ? localDate(r.nextDate).getDate() : 1;
+      });
+      data.notes ??= [];
+      data.notes.forEach(note => {
+        note.id ??= uid();
+        note.title ??= 'Journal entry';
+        note.body ??= '';
+        note.entryDate ??= inferLegacyJournalDate(note);
+        note.mood ??= '';
+        note.photos = Array.isArray(note.photos) ? note.photos.map(photo => {
+          if (typeof photo === 'string') return {id:uid(), name:'Journal photo', data:photo};
+          return {id:photo.id || uid(), name:photo.name || 'Journal photo', data:photo.data || ''};
+        }).filter(photo => photo.data) : [];
+        note.createdAt ??= new Date(`${note.entryDate}T12:00:00`).toISOString();
+        note.updatedAt ??= note.createdAt;
       });
     }
 
@@ -2299,13 +3533,280 @@
       getDay().schedule[e.target.dataset.time] = e.target.value; saveData();
     });
 
+
+    const MONCTON_WEATHER = {
+      latitude: 46.0878,
+      longitude: -64.7782,
+      timezone: 'America/Moncton',
+      label: 'Moncton, NB'
+    };
+    const weatherFetchInFlight = new Set();
+
+    function weatherConditionFromCode(code) {
+      const value = Number(code);
+      if (value === 0) return 'Sunny';
+      if (value === 1) return 'Mainly sunny';
+      if (value === 2) return 'Partly cloudy';
+      if (value === 3) return 'Cloudy';
+      if ([45,48].includes(value)) return 'Fog';
+      if ([51,53,55].includes(value)) return 'Drizzle';
+      if ([56,57].includes(value)) return 'Freezing drizzle';
+      if ([61,63,65].includes(value)) return 'Rain';
+      if ([66,67].includes(value)) return 'Freezing rain';
+      if ([71,73,75,77].includes(value)) return 'Snow';
+      if ([80,81,82].includes(value)) return 'Showers';
+      if ([85,86].includes(value)) return 'Snow showers';
+      if ([95,96,99].includes(value)) return 'Thunderstorms';
+      return 'Other';
+    }
+
+    function weatherIcon(condition='') {
+      const text = String(condition).toLowerCase();
+      if (text.includes('thunder')) return 'ϟ';
+      if (text.includes('freezing rain') || text.includes('ice pellet')) return '◆';
+      if (text.includes('snow') || text.includes('flurr')) return '❄';
+      if (text.includes('rain') || text.includes('shower') || text.includes('drizzle')) return '☂';
+      if (text.includes('fog')) return '≋';
+      if (text.includes('cloud') || text.includes('overcast')) return '☁';
+      if (text.includes('sun')) return '☀';
+      if (text.includes('wind')) return '〰';
+      return '○';
+    }
+
+    function calculateHumidex(tempC, dewPointC) {
+      const temperature = Number(tempC);
+      const dewPoint = Number(dewPointC);
+      if (!Number.isFinite(temperature) || !Number.isFinite(dewPoint)) return null;
+      const vapourPressure = 6.11 * Math.exp(5417.7530 * ((1 / 273.15) - (1 / (dewPoint + 273.15))));
+      return temperature + 0.5555 * (vapourPressure - 10);
+    }
+
+    function weatherApiUrl(date) {
+      const today = isoDate(new Date());
+      const base = date === today
+        ? 'https://api.open-meteo.com/v1/forecast'
+        : 'https://archive-api.open-meteo.com/v1/archive';
+      const params = new URLSearchParams({
+        latitude: String(MONCTON_WEATHER.latitude),
+        longitude: String(MONCTON_WEATHER.longitude),
+        start_date: date,
+        end_date: date,
+        hourly: 'temperature_2m,dew_point_2m',
+        daily: 'weather_code,temperature_2m_max',
+        timezone: MONCTON_WEATHER.timezone
+      });
+      return `${base}?${params.toString()}`;
+    }
+
+    function weatherRecordFor(date=selectedDate) {
+      return getDay(date).weather || null;
+    }
+
+    function weatherStatusText(record, date) {
+      const today = isoDate(new Date());
+      if (!record) {
+        if (date > today) return 'Future days are left blank until the day arrives, but you may enter them manually.';
+        return 'No historical weather has been saved for this date yet.';
+      }
+      const captured = record.capturedAt
+        ? new Intl.DateTimeFormat('en-CA',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(record.capturedAt))
+        : '';
+      if (record.source === 'manual') return `Saved manually${captured ? ` · ${captured}` : ''}. This entry will not be overwritten automatically.`;
+      if (date === today) return `Automatically collected for Moncton${captured ? ` · updated ${captured}` : ''}. It can refresh again until the day ends.`;
+      return `Saved historical record from Open-Meteo${captured ? ` · collected ${captured}` : ''}.`;
+    }
+
+    function renderWeatherRecord() {
+      const record = weatherRecordFor(selectedDate);
+      const title = document.getElementById('weatherSummaryTitle');
+      const metrics = document.getElementById('weatherSummaryMetrics');
+      const status = document.getElementById('weatherSummaryStatus');
+      const icon = document.getElementById('weatherSummaryIcon');
+      const fetchButton = document.getElementById('fetchSelectedWeather');
+      const today = isoDate(new Date());
+
+      if (record) {
+        title.textContent = record.condition || 'Weather recorded';
+        const high = record.high === '' || record.high == null ? '—' : `${Number(record.high).toFixed(Number(record.high) % 1 ? 1 : 0)}°C`;
+        const humidex = record.humidex === '' || record.humidex == null ? '—' : Math.round(Number(record.humidex));
+        metrics.textContent = `High ${high} · Humidex ${humidex}${record.notes ? ` · ${record.notes}` : ''}`;
+        icon.textContent = weatherIcon(record.condition);
+      } else {
+        title.textContent = 'No weather saved';
+        metrics.textContent = 'High — · Humidex —';
+        icon.textContent = '○';
+      }
+
+      status.textContent = weatherStatusText(record, selectedDate);
+      fetchButton.disabled = selectedDate > today;
+      fetchButton.textContent = selectedDate > today ? 'Available on this date' : (record ? 'Refresh weather' : 'Auto-fill weather');
+    }
+
+    function populateWeatherEditor() {
+      const record = weatherRecordFor(selectedDate) || {};
+      document.getElementById('weatherFormDate').textContent = `${prettyDate(selectedDate)} · ${MONCTON_WEATHER.label}`;
+      document.getElementById('weatherCondition').value = record.condition || '';
+      document.getElementById('weatherHigh').value = record.high ?? '';
+      document.getElementById('weatherHumidex').value = record.humidex ?? '';
+      document.getElementById('weatherNotes').value = record.notes || '';
+      document.getElementById('weatherEditorSource').textContent = record
+        ? weatherStatusText(record, selectedDate)
+        : 'Enter the day manually, or use Auto-fill to collect the weather for the selected date.';
+      const future = selectedDate > isoDate(new Date());
+      document.getElementById('fetchWeatherFromModal').disabled = future;
+      document.getElementById('fetchWeatherFromModal').textContent = future ? 'Available on this date' : 'Auto-fill Moncton';
+    }
+
+    function saveManualWeatherRecord() {
+      const condition = document.getElementById('weatherCondition').value;
+      const highValue = document.getElementById('weatherHigh').value;
+      const humidexValue = document.getElementById('weatherHumidex').value;
+      const notes = document.getElementById('weatherNotes').value.trim();
+
+      if (!condition && highValue === '' && humidexValue === '' && !notes) {
+        showToast('Add at least one weather detail');
+        return;
+      }
+
+      getDay(selectedDate).weather = {
+        condition,
+        high: highValue === '' ? '' : Number(highValue),
+        humidex: humidexValue === '' ? '' : Number(humidexValue),
+        notes,
+        source: 'manual',
+        capturedAt: new Date().toISOString(),
+        location: MONCTON_WEATHER.label
+      };
+      saveData('Weather saved');
+      renderWeatherRecord();
+      closeModal('weatherModal');
+    }
+
+    async function fetchWeatherForDate(date, {silent=false, force=false}={}) {
+      const today = isoDate(new Date());
+      if (date > today) {
+        if (!silent) showToast('Future weather is not collected');
+        return;
+      }
+      const existing = weatherRecordFor(date);
+      if (!force && existing?.source === 'manual') return;
+      if (weatherFetchInFlight.has(date)) return;
+
+      weatherFetchInFlight.add(date);
+      const strip = document.getElementById('todayWeatherRecord');
+      const fetchButtons = [document.getElementById('fetchSelectedWeather'), document.getElementById('fetchWeatherFromModal')].filter(Boolean);
+      if (date === selectedDate) {
+        strip?.classList.add('weather-fetching');
+        fetchButtons.forEach(button => {
+          button.disabled = true;
+          button.dataset.originalText = button.textContent;
+          button.textContent = 'Collecting…';
+        });
+      }
+
+      try {
+        const response = await fetch(weatherApiUrl(date), {headers:{'Accept':'application/json'}});
+        if (!response.ok) throw new Error(`Weather service returned ${response.status}`);
+        const result = await response.json();
+
+        const temperatures = Array.isArray(result.hourly?.temperature_2m) ? result.hourly.temperature_2m : [];
+        const dewPoints = Array.isArray(result.hourly?.dew_point_2m) ? result.hourly.dew_point_2m : [];
+        const humidexValues = temperatures.map((temperature,index) => calculateHumidex(temperature, dewPoints[index])).filter(Number.isFinite);
+
+        const dailyHigh = Number(result.daily?.temperature_2m_max?.[0]);
+        const calculatedHigh = temperatures.filter(Number.isFinite).length ? Math.max(...temperatures.filter(Number.isFinite)) : null;
+        const maximumHumidex = humidexValues.length ? Math.max(...humidexValues) : null;
+        const weatherCode = result.daily?.weather_code?.[0];
+
+        if (!Number.isFinite(dailyHigh) && !Number.isFinite(calculatedHigh) && weatherCode == null) {
+          throw new Error('No weather data was returned for that date.');
+        }
+
+        getDay(date).weather = {
+          condition: weatherConditionFromCode(weatherCode),
+          high: Number.isFinite(dailyHigh) ? Math.round(dailyHigh * 10) / 10 : Math.round(calculatedHigh * 10) / 10,
+          humidex: Number.isFinite(maximumHumidex) ? Math.round(maximumHumidex) : '',
+          notes: existing?.source === 'manual' ? existing.notes || '' : existing?.notes || '',
+          source: 'open-meteo',
+          capturedAt: new Date().toISOString(),
+          location: MONCTON_WEATHER.label
+        };
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        if (date === selectedDate) {
+          renderWeatherRecord();
+          populateWeatherEditor();
+        }
+        renderDashboard();
+        if (!silent) showToast('Moncton weather saved');
+      } catch (error) {
+        console.error(error);
+        if (!silent) showToast('Weather could not be collected');
+        if (date === selectedDate) {
+          document.getElementById('weatherSummaryStatus').textContent =
+            'Automatic collection is unavailable right now. You can still enter the weather manually.';
+        }
+      } finally {
+        weatherFetchInFlight.delete(date);
+        if (date === selectedDate) {
+          strip?.classList.remove('weather-fetching');
+          fetchButtons.forEach(button => {
+            button.disabled = selectedDate > isoDate(new Date());
+            button.textContent = button.dataset.originalText || (button.id === 'fetchSelectedWeather' ? 'Auto-fill weather' : 'Auto-fill Moncton');
+            delete button.dataset.originalText;
+          });
+          renderWeatherRecord();
+        }
+      }
+    }
+
+    function maybeAutoCaptureWeather() {
+      const today = isoDate(new Date());
+      if (selectedDate > today) return;
+      const record = weatherRecordFor(selectedDate);
+
+      if (!record) {
+        fetchWeatherForDate(selectedDate, {silent:true});
+        return;
+      }
+
+      if (selectedDate === today && record.source === 'open-meteo') {
+        const capturedTime = record.capturedAt ? new Date(record.capturedAt).getTime() : 0;
+        const threeHours = 3 * 60 * 60 * 1000;
+        if (!capturedTime || Date.now() - capturedTime > threeHours) {
+          fetchWeatherForDate(selectedDate, {silent:true, force:true});
+        }
+      }
+    }
+
+    document.getElementById('openWeatherEditor').addEventListener('click', () => {
+      populateWeatherEditor();
+      openModal('weatherModal');
+    });
+    document.getElementById('fetchSelectedWeather').addEventListener('click', () => fetchWeatherForDate(selectedDate, {force:true}));
+    document.getElementById('fetchWeatherFromModal').addEventListener('click', () => fetchWeatherForDate(selectedDate, {force:true}));
+    document.getElementById('saveWeatherRecord').addEventListener('click', saveManualWeatherRecord);
+    document.getElementById('clearWeatherRecord').addEventListener('click', () => {
+      if (!weatherRecordFor(selectedDate)) {
+        showToast('No weather record to clear');
+        return;
+      }
+      if (!confirm(`Clear the weather record for ${prettyDate(selectedDate)}?`)) return;
+      delete getDay(selectedDate).weather;
+      saveData('Weather record cleared');
+      populateWeatherEditor();
+      renderWeatherRecord();
+    });
+
     function renderToday() {
       document.getElementById('selectedDate').value = selectedDate;
       document.getElementById('selectedDateLabel').textContent = prettyDate(selectedDate);
       const day = getDay();
       document.querySelectorAll('.day-field').forEach(el => el.value = day[el.dataset.daykey] || '');
       document.querySelectorAll('.schedule-input').forEach(el => el.value = day.schedule?.[el.dataset.time] || '');
+      renderWeatherRecord();
       renderTodayTasks();
+      maybeAutoCaptureWeather();
     }
     document.querySelectorAll('.day-field').forEach(el => el.addEventListener('input', () => { getDay()[el.dataset.daykey] = el.value; saveData(); }));
     document.getElementById('selectedDate').addEventListener('change', e => { selectedDate = e.target.value || isoDate(new Date()); renderToday(); });
@@ -2379,10 +3880,35 @@
     function weekTypeOptions(selected='') {
       return WEEK_EVENT_TYPES.map(option => `<option value="${option.value}" ${option.value===selected?'selected':''}>${option.label}</option>`).join('');
     }
-    function ensureWeekEntry(week, dateKey) {
-      const item = week[dateKey] ??= {focus:'', appointments:'', notes:'', hourly:{}};
-      item.focus ??= ''; item.appointments ??= ''; item.notes ??= ''; item.hourly ??= {};
-      return item;
+    function ensureWeekEntry(_legacyWeek, dateKey) {
+      const day = getDay(dateKey);
+      day.weekly ??= {focus:'', appointments:'', notes:'', hourly:{}};
+      day.weekly.focus ??= '';
+      day.weekly.appointments ??= '';
+      day.weekly.notes ??= '';
+      day.weekly.hourly ??= {};
+
+      if (!day.weekly.legacyChecked) {
+        const legacy = Object.values(data.weeks || {}).map(week => week?.[dateKey]).find(Boolean);
+        if (legacy) {
+          day.weekly.focus ||= legacy.focus || '';
+          day.weekly.appointments ||= legacy.appointments || '';
+          day.weekly.notes ||= legacy.notes || '';
+          Object.entries(legacy.hourly || {}).forEach(([time, value]) => {
+            day.weekly.hourly[time] ??= {};
+            day.weekly.hourly[time].type ||= value.type || '';
+            day.weekly.hourly[time].text ||= value.text || '';
+            if (day.weekly.hourly[time].done == null) day.weekly.hourly[time].done = !!value.done;
+            if (!day.schedule[time] && value.text) day.schedule[time] = value.text;
+            day.scheduleMeta ??= {};
+            day.scheduleMeta[time] ??= {};
+            day.scheduleMeta[time].type ||= value.type || '';
+            if (day.scheduleMeta[time].done == null) day.scheduleMeta[time].done = !!value.done;
+          });
+        }
+        day.weekly.legacyChecked = true;
+      }
+      return day.weekly;
     }
     function updateWeekDayProgress(dateKey, column) {
       if (!column) return;
@@ -2407,14 +3933,13 @@
     function renderWeek() {
       const grid = document.getElementById('weekGrid');
       const previousScroll = grid.scrollLeft;
-      const start = startOfWeek(weekAnchor);
-      const end = addDays(start,6);
-      const key = weekKey(start);
-      const week = data.weeks[key] ??= {};
+      const start = localDate(isoDate(weekAnchor));
+      const end = addDays(start,4);
+      const week = null;
       document.getElementById('weekRange').textContent = `${start.toLocaleDateString('en-CA',{month:'short',day:'numeric'})} – ${end.toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'})}`;
       grid.innerHTML='';
 
-      for(let i=0;i<7;i++) {
+      for(let i=0;i<5;i++) {
         const d = addDays(start,i);
         const dateKey = isoDate(d);
         const item = ensureWeekEntry(week, dateKey);
@@ -2594,9 +4119,9 @@
 
       requestAnimationFrame(() => { grid.scrollLeft = previousScroll; });
     }
-    document.getElementById('prevWeek').addEventListener('click',()=>{weekAnchor=addDays(weekAnchor,-7);renderWeek();});
-    document.getElementById('nextWeek').addEventListener('click',()=>{weekAnchor=addDays(weekAnchor,7);renderWeek();});
-    document.getElementById('thisWeek').addEventListener('click',()=>{weekAnchor=startOfWeek(new Date());renderWeek();});
+    document.getElementById('prevWeek').addEventListener('click',()=>{weekAnchor=addDays(weekAnchor,-5);renderWeek();});
+    document.getElementById('nextWeek').addEventListener('click',()=>{weekAnchor=addDays(weekAnchor,5);renderWeek();});
+    document.getElementById('thisWeek').addEventListener('click',()=>{weekAnchor=localDate(isoDate(new Date()));renderWeek();});
 
     document.getElementById('addMasterTask').addEventListener('click', () => {
       const text=document.getElementById('masterTaskText').value.trim(); if(!text) return;
@@ -2644,14 +4169,424 @@
     resetMonth.addEventListener('change',renderMonthly);
     document.querySelectorAll('.month-field').forEach(el=>el.addEventListener('input',()=>{const m=data.monthResets[resetMonth.value]??={};m[el.dataset.monthkey]=el.value;saveData();}));
 
-    document.getElementById('addNote').addEventListener('click',()=>{data.notes.unshift({id:uid(),title:'New note',body:''});saveData('Note created');renderNotes();});
-    function renderNotes(){
-      const grid=document.getElementById('notesGrid'); if(!data.notes.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1">No notes yet.</div>';return;}
-      grid.innerHTML=data.notes.map(n=>`<div class="note-card"><div class="row spread"><input class="input note-title" data-id="${n.id}" value="${escapeHtml(n.title)}"><button class="delete-btn note-delete" data-id="${n.id}">×</button></div><textarea class="textarea note-body" data-id="${n.id}" placeholder="Write anything...">${escapeHtml(n.body)}</textarea></div>`).join('');
-      grid.querySelectorAll('.note-title').forEach(el=>el.addEventListener('input',()=>{data.notes.find(n=>n.id===el.dataset.id).title=el.value;saveData();}));
-      grid.querySelectorAll('.note-body').forEach(el=>el.addEventListener('input',()=>{data.notes.find(n=>n.id===el.dataset.id).body=el.value;saveData();}));
-      grid.querySelectorAll('.note-delete').forEach(el=>el.addEventListener('click',()=>{data.notes=data.notes.filter(n=>n.id!==el.dataset.id);saveData('Note removed');renderNotes();}));
+    const JOURNAL_MAX_PHOTOS = 4;
+    const JOURNAL_MOODS = {
+      amazing: {label:'Amazing', className:'mood-amazing'},
+      good: {label:'Good', className:'mood-good'},
+      okay: {label:'Okay', className:'mood-okay'},
+      low: {label:'Low', className:'mood-low'},
+      rough: {label:'Rough', className:'mood-rough'}
+    };
+
+    function catMoodSVG(mood='okay', size=44) {
+      const palette = {
+        amazing: {bg:'#EAF3E2', border:'#D1E2C0', stem:'#6A8E5A', fill:'#83B86D', accent:'#A9CF92'},
+        good: {bg:'#EDF5E8', border:'#D7E7CC', stem:'#6E935E', fill:'#8EBF78', accent:'#BCD8A6'},
+        okay: {bg:'#F1F3E6', border:'#DEE3CF', stem:'#7A8E64', fill:'#A6BC85', accent:'#D5DEB8'},
+        low: {bg:'#F2EBDD', border:'#E2D3BC', stem:'#94755E', fill:'#C8A47C', accent:'#DFC4A5'},
+        rough: {bg:'#F1ECE3', border:'#DED4C5', stem:'#7F7365', fill:'#A89B8A', accent:'#C6BAAB'}
+      }[mood] || {bg:'#F1F3E6', border:'#DEE3CF', stem:'#7A8E64', fill:'#A6BC85', accent:'#D5DEB8'};
+
+      const artMap = {
+        amazing: `
+          <path d="M16 44c7-1 15-5.5 19-13.5" fill="none" stroke="${palette.stem}" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M35 30.5c2.6-4.9 7.1-8.5 13-10.5" fill="none" stroke="${palette.stem}" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M28.2 33.3c-4.5-1.2-7.6-4.6-8.2-8.8 5.1-1 9 1.1 10.9 5.1-1 1.7-1.9 2.8-2.7 3.7Z" fill="${palette.fill}" stroke="${palette.stem}" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M34.5 28.2c-1.7-4.2-.4-8.6 3.4-11.5 4.3 3 5.8 7.5 3.9 11.8-2.4-.1-4.4-.2-7.3-.3Z" fill="${palette.accent}" stroke="${palette.stem}" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M38.9 31.2c2.2-4.2 6.4-6.4 10.8-5.9.1 5.1-2.7 8.7-7.1 9.6-1.7-1.3-2.4-2-3.7-3.7Z" fill="${palette.fill}" stroke="${palette.stem}" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M24.2 40.1c-3.9.1-7.2-2.2-8.7-5.7 4.5-2.2 8.8-1.3 11.8 1.9-.7 1.5-1.4 2.6-3.1 3.8Z" fill="${palette.accent}" stroke="${palette.stem}" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M31.7 38.5c.3-4.2 3-7.4 7-8.5 2.1 4.2 1.4 8.3-1.6 11.2-1.8-.5-3.3-1.1-5.4-2.7Z" fill="${palette.fill}" stroke="${palette.stem}" stroke-width="1.6" stroke-linejoin="round"/>
+          <circle cx="35" cy="30.2" r="1.2" fill="${palette.stem}"/>
+        `,
+        good: `
+          <path d="M31 45c1-6.5 3.7-12.7 8.6-19.1" fill="none" stroke="${palette.stem}" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M39.6 25.9c8.6 1.2 13.3 8.6 11.4 15.8-7.6 1.7-15.8-2.9-17.4-10.5 1.4-2.6 3.1-4.4 6-5.3Z" fill="${palette.fill}" stroke="${palette.stem}" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M41.2 28.3c2.9 2.5 5.1 5.6 6.1 9.2" fill="none" stroke="${palette.stem}" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M39.4 31.3c-2.4 1-4.6 2.5-6.1 4.4" fill="none" stroke="${palette.stem}" stroke-width="1.2" stroke-linecap="round"/>
+        `,
+        okay: `
+          <path d="M31 45c.3-5.7 1.6-11.2 4-16.8" fill="none" stroke="${palette.stem}" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M34.8 28c5.9.8 9.3 6 8.2 11.2-5.2 1.3-10.9-2-12.1-7.4.9-1.7 1.8-2.8 3.9-3.8Z" fill="${palette.fill}" stroke="${palette.stem}" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="M35.9 30.2c1.8 1.4 3 3.3 3.7 5.4" fill="none" stroke="${palette.stem}" stroke-width="1.1" stroke-linecap="round"/>
+        `,
+        low: `
+          <path d="M31 43.5c2.6-1.2 5.3-4 6.6-7.2" fill="none" stroke="${palette.stem}" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M38.2 35.7c5.4-.2 9.5 4 9.8 9.2-5.3 2.2-10.8.3-13.4-4.4.5-2.1 1.5-3.5 3.6-4.8Z" fill="${palette.fill}" stroke="${palette.stem}" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="M37.8 38.5c1.8 1.6 3.1 3.6 3.8 5.8" fill="none" stroke="${palette.stem}" stroke-width="1.1" stroke-linecap="round"/>
+          <path d="M21 14.5c1.6-.8 3.1-.7 4.4.3" fill="none" stroke="${palette.stem}" stroke-width="1.5" stroke-linecap="round" opacity=".75"/>
+        `,
+        rough: `
+          <path d="M16 45c7.2-1.8 12.4-6.8 14.8-14.3" fill="none" stroke="${palette.stem}" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M30.8 30.7c2.1-6.1 6-11 11.9-14.6" fill="none" stroke="${palette.stem}" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M24.2 38.2c-4.1.1-7.7-1.6-10.2-4.9" fill="none" stroke="${palette.stem}" stroke-width="2.1" stroke-linecap="round"/>
+          <path d="M38.2 32.8c3.6.7 7.1 2.6 10.1 5.7" fill="none" stroke="${palette.stem}" stroke-width="2.1" stroke-linecap="round"/>
+          <circle cx="30.8" cy="30.9" r="1.5" fill="${palette.stem}"/>
+        `
+      };
+
+      return `
+        <svg viewBox="0 0 62 62" width="${size}" height="${size}" aria-hidden="true" focusable="false">
+          <circle cx="31" cy="31" r="28.3" fill="${palette.bg}" stroke="${palette.border}" stroke-width="1.2"/>
+          ${artMap[mood] || artMap.okay}
+        </svg>`;
     }
+
+    function catMoodMarkup(mood='okay', size=44, wrapperClass='journal-cat-icon-shell') {
+      const details = JOURNAL_MOODS[mood] || {label:'No mood', className:'mood-none'};
+      return `<span class="${wrapperClass} ${details.className}" aria-hidden="true">${catMoodSVG(mood, size)}</span>`;
+    }
+    let editingJournalId = null;
+    let selectedJournalMood = '';
+    let journalDraftPhotos = [];
+    let journalSearchTerm = '';
+    let journalMoodFilter = '';
+
+    function inferLegacyJournalDate(note) {
+      if (note.entryDate) return note.entryDate;
+      if (note.createdAt) {
+        const created = new Date(note.createdAt);
+        if (!Number.isNaN(created.getTime())) return isoDate(created);
+      }
+      const rawId = String(note.id || '');
+      const possibleTimestamp = parseInt(rawId.slice(0,8), 36);
+      if (Number.isFinite(possibleTimestamp) && possibleTimestamp > 1577836800000 && possibleTimestamp < Date.now() + 86400000) {
+        return isoDate(new Date(possibleTimestamp));
+      }
+      return isoDate(new Date());
+    }
+
+    function journalMoodDetails(mood='') {
+      return JOURNAL_MOODS[mood] || {label:'No mood', className:'mood-none'};
+    }
+
+    function journalExcerpt(body='') {
+      const clean = String(body).replace(/\s+/g,' ').trim();
+      return clean.length > 185 ? `${clean.slice(0,182)}…` : clean;
+    }
+
+    function journalWeatherForDate(date) {
+      return data.days?.[date]?.weather || null;
+    }
+
+    function renderJournalWeatherContext(date) {
+      const weather = journalWeatherForDate(date);
+      const icon = document.getElementById('journalWeatherIcon');
+      const title = document.getElementById('journalWeatherTitle');
+      const details = document.getElementById('journalWeatherDetails');
+      if (!weather) {
+        icon.textContent = '○';
+        title.textContent = 'No weather saved';
+        details.textContent = 'Weather from the Today page will appear here automatically.';
+        return;
+      }
+      icon.textContent = weatherIcon(weather.condition);
+      title.textContent = weather.condition || 'Weather recorded';
+      const high = weather.high === '' || weather.high == null ? 'High —' : `High ${Number(weather.high).toFixed(Number(weather.high)%1?1:0)}°C`;
+      const humidex = weather.humidex === '' || weather.humidex == null ? 'Humidex —' : `Humidex ${Math.round(Number(weather.humidex))}`;
+      details.textContent = `${high} · ${humidex}${weather.notes ? ` · ${weather.notes}` : ''}`;
+    }
+
+    function updateJournalMoodPicker() {
+      document.querySelectorAll('.journal-mood-choice').forEach(button => {
+        button.classList.toggle('selected', button.dataset.mood === selectedJournalMood);
+      });
+    }
+
+    function hydrateJournalMoodPickerIcons() {
+      document.querySelectorAll('[data-mood-icon]').forEach(node => {
+        node.innerHTML = catMoodMarkup(node.dataset.moodIcon, 40, 'journal-cat-icon-shell mood-picker-shell');
+      });
+    }
+
+    function renderJournalPhotoPreview() {
+      const preview = document.getElementById('journalPhotoPreview');
+      if (!journalDraftPhotos.length) {
+        preview.innerHTML = '<div class="journal-photo-empty">Photos added to this entry will appear here.</div>';
+        return;
+      }
+      preview.innerHTML = journalDraftPhotos.map((photo,index) => `
+        <figure class="journal-photo-preview">
+          <img src="${photo.data}" alt="${escapeHtml(photo.name || `Journal photo ${index+1}`)}">
+          <button type="button" class="journal-photo-remove" data-photo-id="${photo.id}" aria-label="Remove photo">×</button>
+        </figure>
+      `).join('');
+      preview.querySelectorAll('.journal-photo-remove').forEach(button => button.addEventListener('click', () => {
+        journalDraftPhotos = journalDraftPhotos.filter(photo => photo.id !== button.dataset.photoId);
+        renderJournalPhotoPreview();
+      }));
+    }
+
+    function resetJournalEditor() {
+      editingJournalId = null;
+      selectedJournalMood = '';
+      journalDraftPhotos = [];
+      document.getElementById('journalEditorKicker').textContent = 'New journal entry';
+      document.getElementById('journalEditorHeading').textContent = 'Write what matters today';
+      document.getElementById('journalTitle').value = '';
+      document.getElementById('journalBody').value = '';
+      document.getElementById('journalDate').value = isoDate(new Date());
+      document.getElementById('journalEntryMeta').textContent = 'This entry has not been saved yet.';
+      document.getElementById('deleteJournalEntry').style.display = 'none';
+      updateJournalMoodPicker();
+      renderJournalPhotoPreview();
+      renderJournalWeatherContext(document.getElementById('journalDate').value);
+    }
+
+    function openJournalEntry(id=null) {
+      resetJournalEditor();
+      if (id) {
+        const entry = data.notes.find(note => note.id === id);
+        if (!entry) return;
+        editingJournalId = id;
+        selectedJournalMood = entry.mood || '';
+        journalDraftPhotos = clone(entry.photos || []);
+        document.getElementById('journalEditorKicker').textContent = prettyDate(entry.entryDate);
+        document.getElementById('journalEditorHeading').textContent = 'Edit journal entry';
+        document.getElementById('journalTitle').value = entry.title || '';
+        document.getElementById('journalBody').value = entry.body || '';
+        document.getElementById('journalDate').value = entry.entryDate || isoDate(new Date());
+        const updated = entry.updatedAt ? new Intl.DateTimeFormat('en-CA',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(entry.updatedAt)) : '';
+        document.getElementById('journalEntryMeta').textContent = updated ? `Last updated ${updated}` : 'Saved journal entry';
+        document.getElementById('deleteJournalEntry').style.display = '';
+        updateJournalMoodPicker();
+        renderJournalPhotoPreview();
+        renderJournalWeatherContext(entry.entryDate);
+      }
+      openModal('journalModal');
+    }
+
+    function saveJournalEntry() {
+      const titleInput = document.getElementById('journalTitle').value.trim();
+      const body = document.getElementById('journalBody').value.trim();
+      const entryDate = document.getElementById('journalDate').value || isoDate(new Date());
+      if (!titleInput && !body) {
+        showToast('Write a title or journal entry first');
+        document.getElementById('journalTitle').focus();
+        return;
+      }
+
+      const now = new Date().toISOString();
+      const title = titleInput || journalExcerpt(body).slice(0,70) || 'Journal entry';
+      let entry;
+      if (editingJournalId) {
+        entry = data.notes.find(note => note.id === editingJournalId);
+        if (!entry) return;
+        Object.assign(entry, {
+          title,
+          body,
+          entryDate,
+          mood:selectedJournalMood,
+          photos:clone(journalDraftPhotos),
+          updatedAt:now
+        });
+      } else {
+        entry = {
+          id:uid(),
+          title,
+          body,
+          entryDate,
+          mood:selectedJournalMood,
+          photos:clone(journalDraftPhotos),
+          createdAt:now,
+          updatedAt:now
+        };
+        data.notes.unshift(entry);
+      }
+
+      if (!saveData(editingJournalId ? 'Journal entry updated' : 'Journal entry saved')) return;
+      editingJournalId = entry.id;
+      closeModal('journalModal');
+      renderNotes();
+    }
+
+    function deleteJournalEntry() {
+      if (!editingJournalId) return;
+      const entry = data.notes.find(note => note.id === editingJournalId);
+      if (!entry) return;
+      if (!confirm(`Delete “${entry.title || 'this journal entry'}”? This cannot be undone.`)) return;
+      data.notes = data.notes.filter(note => note.id !== editingJournalId);
+      saveData('Journal entry deleted');
+      closeModal('journalModal');
+      renderNotes();
+    }
+
+    function compressJournalPhoto(file) {
+      return new Promise((resolve,reject) => {
+        if (!file.type.startsWith('image/')) {
+          reject(new Error('That file is not an image.'));
+          return;
+        }
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error('The photo could not be read.'));
+        reader.onload = () => {
+          const image = new Image();
+          image.onerror = () => reject(new Error('The photo format could not be opened.'));
+          image.onload = () => {
+            const maximum = 1000;
+            const scale = Math.min(1, maximum / Math.max(image.width, image.height));
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, Math.round(image.width * scale));
+            canvas.height = Math.max(1, Math.round(image.height * scale));
+            const context = canvas.getContext('2d');
+            context.fillStyle = '#FFFFFF';
+            context.fillRect(0,0,canvas.width,canvas.height);
+            context.drawImage(image,0,0,canvas.width,canvas.height);
+            let dataUrl = canvas.toDataURL('image/jpeg', .72);
+            if (dataUrl.length > 480000) dataUrl = canvas.toDataURL('image/jpeg', .56);
+            resolve({id:uid(), name:file.name || 'Journal photo', data:dataUrl});
+          };
+          image.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function addJournalPhotos(files) {
+      const available = JOURNAL_MAX_PHOTOS - journalDraftPhotos.length;
+      if (available <= 0) {
+        showToast('Four photos is the maximum');
+        return;
+      }
+      const selected = Array.from(files).slice(0,available);
+      const input = document.getElementById('journalPhotoInput');
+      const label = document.querySelector('.journal-photo-upload');
+      label.classList.add('is-loading');
+      try {
+        for (const file of selected) {
+          const compressed = await compressJournalPhoto(file);
+          journalDraftPhotos.push(compressed);
+          renderJournalPhotoPreview();
+        }
+        showToast(selected.length === 1 ? 'Photo added' : `${selected.length} photos added`);
+      } catch (error) {
+        console.error(error);
+        alert(error.message || 'One of the photos could not be added.');
+      } finally {
+        label.classList.remove('is-loading');
+        input.value = '';
+      }
+    }
+
+    function renderJournalSummary(entries) {
+      const today = new Date();
+      const monthPrefix = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}`;
+      const thisMonth = entries.filter(entry => String(entry.entryDate || '').startsWith(monthPrefix));
+      document.getElementById('journalMonthCount').textContent = thisMonth.length;
+      document.getElementById('journalPhotoCount').textContent = entries.reduce((total,entry) => total + (entry.photos?.length || 0), 0);
+
+      const moods = entries.map(entry => entry.mood).filter(Boolean);
+      const counts = moods.reduce((acc,mood) => {
+        acc[mood] = (acc[mood] || 0) + 1;
+        return acc;
+      }, {});
+      const mostCommon = Object.entries(counts).sort((a,b) => b[1]-a[1])[0]?.[0] || '';
+      const moodInfo = journalMoodDetails(mostCommon);
+      document.getElementById('journalCommonMood').innerHTML = mostCommon
+        ? `<span class="journal-summary-mood-label">${catMoodMarkup(mostCommon, 30, 'journal-cat-icon-shell summary-shell')}<span>${moodInfo.label}</span></span>`
+        : '—';
+      document.getElementById('journalCommonMoodNote').textContent = mostCommon ? `${counts[mostCommon]} recorded ${counts[mostCommon]===1?'time':'times'}` : 'No mood history yet';
+
+      const strip = document.getElementById('journalMoodStrip');
+      const recent = entries.filter(entry => entry.mood).slice(0,10);
+      strip.innerHTML = recent.length
+        ? recent.map(entry => {
+            const mood = journalMoodDetails(entry.mood);
+            return `<span class="journal-mood-strip-dot ${mood.className}" title="${escapeHtml(prettyDate(entry.entryDate))}: ${mood.label}">${catMoodMarkup(entry.mood, 24, 'journal-cat-icon-shell strip-shell')}</span>`;
+          }).join('')
+        : '<span class="journal-mood-strip-empty">No moods yet</span>';
+    }
+
+    function renderNotes() {
+      const grid = document.getElementById('notesGrid');
+      const entries = [...(data.notes || [])].sort((a,b) => {
+        const dateCompare = String(b.entryDate || '').localeCompare(String(a.entryDate || ''));
+        return dateCompare || String(b.updatedAt || '').localeCompare(String(a.updatedAt || ''));
+      });
+      renderJournalSummary(entries);
+
+      const filtered = entries.filter(entry => {
+        const searchMatch = !journalSearchTerm || `${entry.title || ''} ${entry.body || ''}`.toLowerCase().includes(journalSearchTerm);
+        const moodMatch = !journalMoodFilter || entry.mood === journalMoodFilter;
+        return searchMatch && moodMatch;
+      });
+
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="journal-empty-state">
+          <div class="journal-empty-icon">✎</div>
+          <h3>${entries.length ? 'No entries match your search' : 'Your journal begins here'}</h3>
+          <p>${entries.length ? 'Try a different search or mood filter.' : 'Create a dated entry with your mood, memories and photos.'}</p>
+          ${entries.length ? '' : '<button class="btn btn-coral" type="button" id="journalEmptyCreate">Write the first entry</button>'}
+        </div>`;
+        document.getElementById('journalEmptyCreate')?.addEventListener('click', () => openJournalEntry());
+        return;
+      }
+
+      grid.innerHTML = filtered.map(entry => {
+        const mood = journalMoodDetails(entry.mood);
+        const date = localDate(entry.entryDate || isoDate(new Date()));
+        const weather = journalWeatherForDate(entry.entryDate);
+        const weatherText = weather
+          ? `${weatherIcon(weather.condition)} ${escapeHtml(weather.condition || 'Weather recorded')}${weather.high === '' || weather.high == null ? '' : ` · High ${Number(weather.high).toFixed(Number(weather.high)%1?1:0)}°C`}${weather.humidex === '' || weather.humidex == null ? '' : ` · Humidex ${Math.round(Number(weather.humidex))}`}`
+          : '';
+        const photos = entry.photos || [];
+        const previewPhotos = photos.slice(0,3).map(photo => `<img src="${photo.data}" alt="">`).join('');
+        return `<article class="journal-entry-row" data-id="${entry.id}" tabindex="0" role="button" aria-label="Open ${escapeHtml(entry.title || 'journal entry')}">
+          <div class="journal-entry-date">
+            <span>${date.toLocaleDateString('en-CA',{month:'short'}).toUpperCase()}</span>
+            <strong>${date.getDate()}</strong>
+            <small>${date.getFullYear()}</small>
+          </div>
+          <div class="journal-entry-mood ${mood.className}" title="${mood.label}">
+            ${catMoodMarkup(entry.mood || 'okay', 42, 'journal-cat-icon-shell row-shell')}
+            <small>${mood.label}</small>
+          </div>
+          <div class="journal-entry-copy">
+            <h3>${escapeHtml(entry.title || 'Journal entry')}</h3>
+            <p>${escapeHtml(journalExcerpt(entry.body) || 'No written reflection.')}</p>
+            <div class="journal-entry-meta-line">
+              ${weatherText ? `<span>${weatherText}</span>` : ''}
+              ${photos.length ? `<span>${photos.length} photo${photos.length===1?'':'s'}</span>` : ''}
+            </div>
+          </div>
+          <div class="journal-entry-photos ${photos.length ? '' : 'is-empty'}">${previewPhotos}</div>
+          <div class="journal-entry-arrow">→</div>
+        </article>`;
+      }).join('');
+
+      grid.querySelectorAll('.journal-entry-row').forEach(row => {
+        row.addEventListener('click', () => openJournalEntry(row.dataset.id));
+        row.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openJournalEntry(row.dataset.id);
+          }
+        });
+      });
+    }
+
+    hydrateJournalMoodPickerIcons();
+
+    document.getElementById('addNote').addEventListener('click', () => openJournalEntry());
+    document.getElementById('saveJournalEntry').addEventListener('click', saveJournalEntry);
+    document.getElementById('deleteJournalEntry').addEventListener('click', deleteJournalEntry);
+    document.getElementById('journalDate').addEventListener('change', event => {
+      renderJournalWeatherContext(event.target.value);
+      document.getElementById('journalEditorKicker').textContent = prettyDate(event.target.value);
+    });
+    document.querySelectorAll('.journal-mood-choice').forEach(button => button.addEventListener('click', () => {
+      selectedJournalMood = selectedJournalMood === button.dataset.mood ? '' : button.dataset.mood;
+      updateJournalMoodPicker();
+    }));
+    document.getElementById('journalPhotoInput').addEventListener('change', event => addJournalPhotos(event.target.files));
+    document.getElementById('journalSearch').addEventListener('input', event => {
+      journalSearchTerm = event.target.value.trim().toLowerCase();
+      renderNotes();
+      document.getElementById('journalSearch').focus();
+    });
+    document.getElementById('journalMoodFilter').addEventListener('change', event => {
+      journalMoodFilter = event.target.value;
+      renderNotes();
+    });
 
 
 
