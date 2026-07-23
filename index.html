@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Version 44: corrected exact-time inputs and working quick-duration buttons -->
+  <!-- Version 45: corrected finance cash dates, overdue reporting and seasonal totals -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#5E7464" />
@@ -7116,6 +7116,31 @@
       box-shadow:0 0 0 3px rgba(130,159,137,.12);
     }
 
+    /* VERSION 45 — FINANCE DATE AND OVERDUE CARRY CLARITY */
+    .cashflow-overdue-carry,
+    .week-cashflow-carry {
+      display:block;
+      color:#8B653F;
+      font-size:6.2px;
+      font-weight:800;
+      line-height:1.3;
+    }
+
+    .cashflow-overdue-carry {
+      margin-top:3px;
+      padding:4px 5px;
+      border-left:2px solid #D1A273;
+      background:#FFF7EC;
+    }
+
+    .week-cashflow-carry {
+      margin-top:6px;
+      padding:5px 7px;
+      border:1px solid #E4C9A9;
+      border-radius:4px;
+      background:#FFF8EF;
+    }
+
   </style>
 </head>
 <body>
@@ -12100,13 +12125,30 @@
       return { start:new Date(d.getFullYear(),d.getMonth(),1,12), end:lastDayOfMonth(d.getFullYear(),d.getMonth()), label:d.toLocaleDateString('en-CA',{month:'long',year:'numeric'}) };
     }
     function inRange(dateStr, start, end) { if(!dateStr)return false; const d=localDate(dateStr); return d >= start && d <= end; }
+
+    function financeTransactionCashDate(item={}) {
+      if (item.status === 'actual') return item.actualDate || item.date || '';
+      return item.date || '';
+    }
+
+    function financeItemReportingDate(item={}) {
+      return item.virtual ? (item.date || '') : financeTransactionCashDate(item);
+    }
+
+    function financeItemDueDate(item={}) {
+      return item.date || '';
+    }
+
+    function financeItemInRange(item,start,end) {
+      return inRange(financeItemReportingDate(item),start,end);
+    }
+
     function recurringOccurrences(start, end) {
-      const today = localDate(isoDate(new Date())); const effectiveStart = start > today ? start : today;
       const results = [];
       (data.finance.recurring || []).forEach(r => {
         if (!r.nextDate || !(Number(r.amount) > 0)) return;
         let d = localDate(r.nextDate); const stop = r.endDate ? localDate(r.endDate) : null; let guard=0;
-        while (d < effectiveStart && guard++ < 1500) d = advanceRecurring(d, r.frequency, r);
+        while (d < start && (!stop || d <= stop) && guard++ < 1500) d = advanceRecurring(d, r.frequency, r);
         while (d <= end && (!stop || d <= stop) && guard++ < 1500) {
           results.push({ id:`rec-${r.id}-${isoDate(d)}`, recurringId:r.id, party:r.party||'', description:r.description, amount:Number(r.amount)||0, hst:Number(r.hst)||0, type:r.type, category:r.category, date:isoDate(d), actualDate:'', status:'planned', paymentMethod:r.paymentMethod||'', notes:'Recurring projection', virtual:true, frequency:r.frequency });
           d = advanceRecurring(d, r.frequency, r);
@@ -12115,7 +12157,7 @@
       return results;
     }
     function financeItemsFor(start, end) {
-      const saved=(data.finance.transactions || []).filter(t=>inRange(t.date,start,end));
+      const saved=(data.finance.transactions || []).filter(t=>financeItemInRange(t,start,end));
       return [...saved, ...recurringOccurrences(start,end)];
     }
     function outstandingThrough(end) {
@@ -12150,8 +12192,13 @@
       const sign=item.type==='income'?'+':'−'; const amountClass=item.type==='income'?'money-positive':'money-negative';
       const overdue=isOverdue(item); const pillClass=overdue?'status-overdue':item.status==='actual'?'status-actual':'status-planned';
       const recurringLabel=item.virtual?' • Recurring':''; const actionLabel=item.status==='planned' ? (item.type==='income'?'Mark received':'Mark paid') : 'Make expected';
-      const party=item.party?`${escapeHtml(item.party)} • `:''; const actual=item.actualDate?` • ${item.type==='income'?'Received':'Paid'} ${escapeHtml(item.actualDate)}`:'';
-      const details=`${party}${escapeHtml(item.date)} • ${escapeHtml(item.category||'Other')}${recurringLabel}${actual}${Number(item.hst)?' • HST '+money(item.hst):''}${item.paymentMethod?' • '+escapeHtml(item.paymentMethod):''}${item.notes?' • '+escapeHtml(item.notes):''}`;
+      const party=item.party?`${escapeHtml(item.party)} • `:'';
+      const dateDetails=item.virtual
+        ? `Due ${escapeHtml(item.date)}`
+        : item.status==='actual'
+          ? `Due ${escapeHtml(item.date)} • ${item.type==='income'?'Received':'Paid'} ${escapeHtml(item.actualDate||item.date)}`
+          : `Due ${escapeHtml(item.date)}`;
+      const details=`${party}${dateDetails} • ${escapeHtml(item.category||'Other')}${recurringLabel}${Number(item.hst)?' • HST '+money(item.hst):''}${item.paymentMethod?' • '+escapeHtml(item.paymentMethod):''}${item.notes?' • '+escapeHtml(item.notes):''}`;
       return `<div class="finance-item ${overdue?'finance-item-overdue':''}"><div class="finance-item-main"><div class="finance-item-title">${escapeHtml(item.description)}</div><div class="finance-item-meta">${details}</div></div><div><div class="finance-amount ${amountClass}">${sign}${money(item.amount)}</div><span class="status-pill ${pillClass}">${statusText(item)}</span></div>${controls && !item.virtual ? `<div class="finance-actions"><button class="btn btn-light btn-small finance-edit" data-id="${item.id}">Edit</button><button class="btn btn-light btn-small finance-toggle" data-id="${item.id}">${actionLabel}</button><button class="delete-btn finance-delete" data-id="${item.id}">×</button></div>` : '<span></span>'}</div>`;
     }
     function operatingYearOptions() {
@@ -12199,6 +12246,22 @@
       return {items:recorded,income,expenses,net:income-expenses};
     }
 
+    function overdueCarryForwardTotals() {
+      const todayKey=isoDate(new Date());
+      const yesterday=addDays(localDate(todayKey),-1);
+      const items=outstandingThrough(yesterday).filter(item=>item.date && item.date<todayKey);
+      const income=items.filter(item=>item.type==='income').reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+      const expenses=items.filter(item=>item.type==='expense').reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+      return {items,income,expenses,net:income-expenses};
+    }
+
+    function overdueCarryForwardLabel(carry=overdueCarryForwardTotals()) {
+      const parts=[];
+      if(carry.income)parts.push(`${money(carry.income)} overdue income`);
+      if(carry.expenses)parts.push(`${money(carry.expenses)} overdue expenses`);
+      return parts.join(' and ');
+    }
+
     function projectedBalanceThroughDate(dateKey) {
       const todayKey=isoDate(new Date());
       if(dateKey<todayKey)return null;
@@ -12241,6 +12304,8 @@
       const recorded=recordedDayTotals(dateKey);
       const todayKey=isoDate(new Date());
       const isPast=dateKey<todayKey;
+      const carry=overdueCarryForwardTotals();
+      const showCarry=dateKey===todayKey && carry.items.length>0;
       const important=cashFlowImportantItems(items,2);
 
       return `<button class="week-cashflow-card" type="button" data-cashflow-date="${dateKey}">
@@ -12259,6 +12324,7 @@
           </span>
         </span>
         ${important.length?`<span class="week-cashflow-items">${important.map(item=>`<span class="${item.status==='actual'?'is-recorded':'is-expected'}"><i class="${item.type}"></i><em>${escapeHtml(item.party||item.description||cashFlowCategoryLabel(item))}</em><b>${money(item.amount)}</b></span>`).join('')}</span>`:'<span class="week-cashflow-empty">No recorded or expected cash flow this day.</span>'}
+        ${showCarry?`<span class="week-cashflow-carry">Past-due carry: ${escapeHtml(overdueCarryForwardLabel(carry))}</span>`:''}
         <span class="week-cashflow-balance">
           <small>${isPast?'Recorded daily net':'Projected account balance after this day'}</small>
           <strong>${isPast?money(recorded.net):(projected===null?'—':money(projected))}</strong>
@@ -12280,6 +12346,7 @@
       const recorded=recordedDayTotals(dateKey);
       const isToday=dateKey===todayKey;
       const isPast=dateKey<todayKey;
+      const carry=isToday?overdueCarryForwardTotals():{items:[],income:0,expenses:0,net:0};
 
       return `<button class="cashflow-day-cell ${isCurrentMonth?'':'is-outside'} ${isToday?'is-today':''} ${items.length?'has-cashflow':''} ${recorded.items.length?'has-recorded-cashflow':''}" type="button" data-cashflow-date="${dateKey}">
         <span class="cashflow-day-heading">
@@ -12300,6 +12367,7 @@
           ${important.length?important.map(item=>`<span class="${item.type} ${item.virtual?'is-recurring':''} ${item.status==='actual'?'is-recorded':'is-expected'}"><i></i><em>${escapeHtml(item.party||item.description||cashFlowCategoryLabel(item))}</em><b>${money(item.amount)}</b></span>`).join(''):'<span class="cashflow-no-items">No recorded or expected cash flow</span>'}
           ${items.length>3?`<small class="cashflow-more-items">+${items.length-3} more</small>`:''}
           ${recorded.items.length?`<small class="cashflow-recorded-count">${recorded.items.length} recorded item${recorded.items.length===1?'':'s'}</small>`:''}
+          ${carry.items.length?`<small class="cashflow-overdue-carry">Past-due carry: ${escapeHtml(overdueCarryForwardLabel(carry))}</small>`:''}
         </span>
         <span class="cashflow-day-balance">
           <small>${isPast?'Recorded net':'Projected balance'}</small>
@@ -12440,9 +12508,12 @@
       if(projectedEnd!==null)setMoneyClass(document.getElementById('cashflowMonthEndBalance'),projectedEnd);
       document.getElementById('cashflowMonthIncomeCount').textContent=`${income.length} incoming item${income.length===1?'':'s'}`;
       document.getElementById('cashflowMonthExpenseCount').textContent=`${expenses.length} outgoing item${expenses.length===1?'':'s'}`;
+      const carry=overdueCarryForwardTotals();
       document.getElementById('cashflowMonthEndNote').textContent=projectedEnd===null
         ? 'Historical projected balance unavailable'
-        : `Projected balance after ${range.end.toLocaleDateString('en-CA',{month:'short',day:'numeric'})}`;
+        : carry.items.length
+          ? `Includes ${overdueCarryForwardLabel(carry)} carried forward`
+          : `Projected balance after ${range.end.toLocaleDateString('en-CA',{month:'short',day:'numeric'})}`;
 
       const grid=document.getElementById('cashflowCalendarGrid');
       grid.classList.remove('view-month','view-week','view-biweekly');
@@ -13080,8 +13151,13 @@
       const start=localDate(isoDate(new Date())), end=addDays(start,30);const outstanding=outstandingThrough(end);const totals=cashTotals(outstanding);const projected=balance+totals.plannedIncome-totals.plannedExpenses;
       const incomeItems=outstanding.filter(item=>item.type==='income');
       const expenseItems=outstanding.filter(item=>item.type==='expense');
-      document.getElementById('financeProjected30').textContent=money(projected);setMoneyClass(document.getElementById('financeProjected30'),projected);document.getElementById('financeProjected30Note').textContent=`${money(balance)} + ${money(totals.plannedIncome)} − ${money(totals.plannedExpenses)}`;
-      document.getElementById('financeProjected30Count').textContent=`${outstanding.length} included item${outstanding.length===1?'':'s'}`;
+      const carry=overdueCarryForwardTotals();
+      document.getElementById('financeProjected30').textContent=money(projected);setMoneyClass(document.getElementById('financeProjected30'),projected);document.getElementById('financeProjected30Note').textContent=carry.items.length
+        ? `${money(balance)} + ${money(totals.plannedIncome)} − ${money(totals.plannedExpenses)} • includes ${overdueCarryForwardLabel(carry)}`
+        : `${money(balance)} + ${money(totals.plannedIncome)} − ${money(totals.plannedExpenses)}`;
+      document.getElementById('financeProjected30Count').textContent=carry.items.length
+        ? `${outstanding.length} included item${outstanding.length===1?'':'s'} • ${carry.items.length} overdue`
+        : `${outstanding.length} included item${outstanding.length===1?'':'s'}`;
       document.getElementById('financeUpcomingIncome').textContent=money(totals.plannedIncome);
       document.getElementById('financeUpcomingExpenses').textContent=money(totals.plannedExpenses);
       document.getElementById('financeUpcomingIncomeCount').textContent=`${incomeItems.length} expected item${incomeItems.length===1?'':'s'}`;
@@ -13098,7 +13174,8 @@
       const transactions=(data.finance.transactions||[]).map(item=>({
         kind:'transaction',
         id:item.id,
-        date:item.date||'',
+        date:financeTransactionCashDate(item),
+        dueDate:item.date||'',
         amount:Number(item.amount)||0,
         type:item.type||'expense',
         status:item.status||'planned',
@@ -13168,7 +13245,12 @@
       const sign=income?'+':expense?'−':'';
       const kindLabel=entry.kind==='recurring'?'Recurring':entry.kind==='bank'?'Balance':'Transaction';
       const statusClass=entry.kind==='bank'?'status-bank':entry.kind==='recurring'?'status-recurring':entry.status==='actual'?'status-actual':isOverdue(entry.original)?'status-overdue':'status-planned';
-      const details=[entry.party,entry.category,entry.paymentMethod,entry.notes].filter(Boolean).map(escapeHtml).join(' • ');
+      const dateContext=entry.kind==='transaction'
+        ? entry.status==='actual'
+          ? `Due ${entry.dueDate||'—'} • ${income?'Received':'Paid'} ${entry.actualDate||entry.date||'—'}`
+          : `Due ${entry.dueDate||entry.date||'—'}`
+        : '';
+      const details=[entry.party,dateContext,entry.category,entry.paymentMethod,entry.notes].filter(Boolean).map(escapeHtml).join(' • ');
 
       let controls='';
       if(entry.kind==='transaction'){
@@ -13215,7 +13297,7 @@
       let entries=allEntries.filter(entry=>financeLedgerEntryMatches(entry,filter));
       if(search){
         entries=entries.filter(entry=>[
-          entry.date,entry.party,entry.description,entry.category,entry.paymentMethod,entry.notes,
+          entry.date,entry.dueDate,entry.actualDate,entry.party,entry.description,entry.category,entry.paymentMethod,entry.notes,
           financeLedgerStatusLabel(entry),entry.amount,money(entry.amount)
         ].join(' ').toLowerCase().includes(search));
       }
@@ -13273,7 +13355,9 @@
 
     function renderFinanceTransactions(){
       const date=document.getElementById('financeDate').value||isoDate(new Date());const range=financeRange(document.getElementById('financeView').value,date);const filter=document.getElementById('financeItemFilter').value;
-      let items=(data.finance.transactions||[]).filter(i=>inRange(i.date,range.start,range.end)).sort((a,b)=>a.date.localeCompare(b.date));
+      let items=(data.finance.transactions||[])
+        .filter(item=>financeItemInRange(item,range.start,range.end))
+        .sort((a,b)=>financeItemReportingDate(a).localeCompare(financeItemReportingDate(b)));
       if(filter==='income'||filter==='expense')items=items.filter(i=>i.type===filter);else if(filter==='actual'||filter==='planned')items=items.filter(i=>i.status===filter);
       const list=document.getElementById('financeItemList');list.innerHTML=items.length?items.map(i=>financeItemHtml(i,true)).join(''):'<div class="empty">No saved cash-flow items in this view.</div>';
       list.querySelectorAll('.finance-edit').forEach(el=>el.addEventListener('click',()=>beginFinanceEdit(el.dataset.id)));

@@ -1,34 +1,45 @@
-Jess Life & CEO Planner — Version 44 Fixed Custom Agenda Times
+Jess Life & CEO Planner — Version 45 Corrected Finance Dates and Totals
 
-Exact problem corrected:
-- Version 43's timeInputValue helper expected text such as 10:30.
-- The time change handlers and quick-duration buttons passed minute totals
-  such as 630.
-- The helper interpreted 630 as 630 hours and attempted to place 630:00 in an
-  HTML time input.
-- Chrome rejected that invalid value and cleared the time field.
+Corrections made
+----------------
+1. Actual cash uses the received or paid date.
+   - A payment due July 1 but received July 23 now appears as recorded cash on July 23.
+   - The original due date remains visible in the ledger and entry details.
 
-What now works:
-- Manually entered Start and End times remain in the fields.
-- 10-minute duration button.
-- 15-minute duration button.
-- 30-minute duration button.
-- 45-minute duration button.
-- 1-hour duration button.
-- The selected duration button highlights correctly.
-- Duration preview updates while the time is being selected.
-- Blank time fields use the first available agenda time instead of failing.
-- Exact minute values such as 10:32, 10:42 and 11:17 remain valid.
+2. Planned cash uses the expected or due date.
+   - Unpaid July invoices remain in July as expected/overdue income.
+   - They no longer disappear from monthly or annual reports after the due date passes.
 
-Regression tests completed:
-- Numeric minute totals correctly convert to HTML time values.
-- Text time values correctly normalize to HH:MM.
-- 10-, 15-, 30-, 45- and 60-minute presets were tested from a 10:32 AM start.
-- Full planner JavaScript syntax passed.
-- No duplicate static HTML IDs.
+3. Historical recurring projections are included.
+   - The recurring projection engine no longer skips overdue occurrences merely because their due date is before today.
+   - Summer, Winter and 12-month totals now include collectible overdue entries plus future recurring entries.
 
-GitHub update:
-1. Replace the repository index.html with this Version 44 file.
+4. Cash-Flow Calendar is reconciled.
+   - July 1 shows unpaid income still due on July 1.
+   - July 23 shows payments actually received on July 23.
+   - Monthly, weekly and two-week views use the same date rules.
+
+5. Overdue carry-forward is explained.
+   - Today’s calendar cell shows the past-due income/expense carried into projections.
+   - Projected period-end and 30-day cards explain when overdue cash is included.
+
+6. Bookkeeper’s Ledger dates are clearer.
+   - Actual entries are sorted by received/paid date.
+   - Each actual row still shows its original due date.
+
+Verified with the screenshot totals
+-----------------------------------
+- Recorded July income: $11,706.05
+- Overdue July income: $15,285.26
+- Reconciled July income: $26,991.31
+- July 1 contains overdue expected income, not recorded receipts.
+- July 23 contains the recorded receipts.
+
+No saved data is deleted or rewritten. The correction changes how existing due-date and actual-date fields are interpreted across the planner.
+
+GitHub update
+-------------
+1. Replace the repository index.html with this Version 45 file.
 2. Commit directly to main.
 3. Wait approximately one minute.
-4. Hard-refresh using Command + Shift + R.
+4. Hard-refresh with Command + Shift + R.
