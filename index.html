@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Version 46: one-off invoices with optional description and optional received date -->
   <!-- Version 45: corrected finance cash dates, overdue reporting and seasonal totals -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7141,6 +7142,32 @@
       background:#FFF8EF;
     }
 
+    /* VERSION 46 — ONE-OFF INVOICE FORM GUIDANCE */
+    .field-optional {
+      margin-left:5px;
+      color:#8A8F89;
+      font-size:6.5px;
+      font-weight:700;
+      letter-spacing:0;
+      text-transform:none;
+    }
+
+    .finance-field-help {
+      display:block;
+      margin-top:4px;
+      color:#858A85;
+      font-size:7px;
+      line-height:1.35;
+    }
+
+    #financeModal .finance-detail-grid {
+      align-items:start;
+    }
+
+    #financeStatus {
+      font-size:9px;
+    }
+
   </style>
 </head>
 <body>
@@ -8480,14 +8507,32 @@
             <div class="card-header"><h3 id="financeFormTitle">Add income or expense</h3></div>
             <div class="edit-note">You are editing an existing cash-flow item. Save your changes or cancel to leave the original entry untouched.</div>
             <div class="field"><label class="label">Client / vendor</label><input class="input" id="financeParty" placeholder="Killam, Wajax, Payroll..." /></div>
-            <div class="field"><label class="label">Description</label><input class="input" id="financeDescription" placeholder="July service income, truck payment, materials..." /></div>
+            <div class="field">
+              <label class="label">Description <span class="field-optional">optional</span></label>
+              <input class="input" id="financeDescription" placeholder="Leave blank to use the client and category automatically" />
+              <small class="finance-field-help">Useful for extra detail, but not required for a one-off invoice or payment.</small>
+            </div>
             <div class="finance-detail-grid">
               <div class="field"><label class="label">Amount</label><input type="number" min="0" step="0.01" class="input" id="financeAmount" /></div>
               <div class="field"><label class="label">HST included</label><input type="number" min="0" step="0.01" class="input" id="financeHst" placeholder="0.00" /></div>
               <div class="field"><label class="label">Type</label><select class="select" id="financeType"><option value="income">Income</option><option value="expense">Expense</option></select></div>
-              <div class="field"><label class="label">Status</label><select class="select" id="financeStatus"><option value="planned">Expected / unpaid</option><option value="actual">Received / paid</option></select></div>
-              <div class="field"><label class="label">Expected / due date</label><input type="date" class="input" id="financeItemDate" /></div>
-              <div class="field"><label class="label">Received / paid date</label><input type="date" class="input" id="financeActualDate" /></div>
+              <div class="field">
+                <label class="label">Status</label>
+                <select class="select" id="financeStatus">
+                  <option value="planned">Expected / unpaid — money not cleared yet</option>
+                  <option value="actual">Received / paid — money has cleared</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="label">Invoice / expected date</label>
+                <input type="date" class="input" id="financeItemDate" />
+                <small class="finance-field-help">For income, use the invoice or expected deposit date.</small>
+              </div>
+              <div class="field">
+                <label class="label">Received / paid date <span class="field-optional">leave blank until cleared</span></label>
+                <input type="date" class="input" id="financeActualDate" />
+                <small class="finance-field-help">Only enter this once the deposit or payment appears in the bank.</small>
+              </div>
             </div>
             <div class="field"><label class="label">Category</label>
               <select class="select" id="financeCategory">
@@ -13037,11 +13082,25 @@
     document.getElementById('financeView').addEventListener('change',renderFinance);
     document.getElementById('financeItemFilter').addEventListener('change',renderFinanceTransactions);
     document.getElementById('financeType').addEventListener('change',e=>{const category=document.getElementById('financeCategory');const incomeCats=['Client Payment','Summer Contract','Winter Contract','Other Income'];if(e.target.value==='income'&&!incomeCats.includes(category.value))category.value='Client Payment';if(e.target.value==='expense'&&incomeCats.includes(category.value))category.value='Other';});
-    document.getElementById('financeStatus').addEventListener('change',e=>{if(e.target.value==='actual'&&!document.getElementById('financeActualDate').value)document.getElementById('financeActualDate').value=isoDate(new Date());});
+    document.getElementById('financeStatus').addEventListener('change',e=>{
+      const actualDate=document.getElementById('financeActualDate');
+      if(e.target.value==='actual'&&!actualDate.value)actualDate.value=isoDate(new Date());
+      if(e.target.value==='planned')actualDate.value='';
+    });
     document.getElementById('recurringFrequency').addEventListener('change',e=>{document.getElementById('recurringSecondDayWrap').style.display=e.target.value==='semimonthly'?'block':'none';});
     document.getElementById('financeToday').addEventListener('click',()=>{document.getElementById('financeDate').value=isoDate(new Date());renderFinance();});
     document.getElementById('financeOperatingYear').addEventListener('change',renderOperatingYear);
     document.getElementById('addBankBalance').addEventListener('click',()=>{const date=document.getElementById('bankBalanceDate').value, amount=Number(document.getElementById('bankBalanceAmount').value);if(!date||!Number.isFinite(amount)){alert('Add a date and bank balance.');return;}data.finance.bankHistory.push({id:uid(),date,amount,note:document.getElementById('bankBalanceNote').value.trim(),createdAt:new Date().toISOString()});data.finance.currentBalance=amount;document.getElementById('bankBalanceAmount').value='';document.getElementById('bankBalanceNote').value='';saveData('Bank balance saved');closeModal('bankModal');renderFinance();});
+
+    function automaticFinanceDescription({party='', category='', type='income'}={}) {
+      const cleanParty = String(party || '').trim();
+      const cleanCategory = String(category || '').trim();
+      const fallbackCategory = cleanCategory || (type === 'income' ? 'Income' : 'Expense');
+
+      if (cleanParty && fallbackCategory) return `${fallbackCategory} — ${cleanParty}`;
+      if (cleanParty) return cleanParty;
+      return fallbackCategory;
+    }
 
     function resetFinanceForm() {
       editingFinanceId = null;
@@ -13115,13 +13174,48 @@
     document.getElementById('cancelFinanceEdit').addEventListener('click',()=>{resetFinanceForm();closeModal('financeModal');});
     document.getElementById('cancelRecurringEdit').addEventListener('click',()=>{resetRecurringForm();closeModal('recurringModal');});
     document.getElementById('addFinanceItem').addEventListener('click',()=>{
-      const description=document.getElementById('financeDescription').value.trim(); const amount=Number(document.getElementById('financeAmount').value); const date=document.getElementById('financeItemDate').value;
-      if(!description || !(amount>0) || !date){alert('Add a description, amount and expected or due date.');return;}
+      const party=document.getElementById('financeParty').value.trim();
+      const enteredDescription=document.getElementById('financeDescription').value.trim();
+      const amount=Number(document.getElementById('financeAmount').value);
+      const date=document.getElementById('financeItemDate').value;
       const status=document.getElementById('financeStatus').value;
-      const values={party:document.getElementById('financeParty').value.trim(),description,amount,hst:Number(document.getElementById('financeHst').value)||0,type:document.getElementById('financeType').value,category:document.getElementById('financeCategory').value,date,actualDate:status==='actual'?(document.getElementById('financeActualDate').value||isoDate(new Date())):'',status,paymentMethod:document.getElementById('financePaymentMethod').value,notes:document.getElementById('financeNotes').value.trim()};
-      if(editingFinanceId){const item=data.finance.transactions.find(i=>i.id===editingFinanceId);if(!item)return;Object.assign(item,values);saveData('Cash-flow item updated');}
-      else {data.finance.transactions.unshift({id:uid(),...values});saveData('Cash-flow item added');}
-      resetFinanceForm();closeModal('financeModal');renderFinance();
+      const type=document.getElementById('financeType').value;
+      const category=document.getElementById('financeCategory').value;
+      const enteredActualDate=document.getElementById('financeActualDate').value;
+
+      if(!(amount>0) || !date){
+        alert('Add an amount and invoice or expected date. The description and received date may be left blank.');
+        return;
+      }
+
+      const description=enteredDescription || automaticFinanceDescription({party,category,type});
+      const values={
+        party,
+        description,
+        amount,
+        hst:Number(document.getElementById('financeHst').value)||0,
+        type,
+        category,
+        date,
+        actualDate:status==='actual'?(enteredActualDate||isoDate(new Date())):'',
+        status,
+        paymentMethod:document.getElementById('financePaymentMethod').value,
+        notes:document.getElementById('financeNotes').value.trim()
+      };
+
+      if(editingFinanceId){
+        const item=data.finance.transactions.find(i=>i.id===editingFinanceId);
+        if(!item)return;
+        Object.assign(item,values);
+        saveData('Cash-flow item updated');
+      } else {
+        data.finance.transactions.unshift({id:uid(),...values});
+        saveData(status==='planned'?'Expected payment saved':'Received payment saved');
+      }
+
+      resetFinanceForm();
+      closeModal('financeModal');
+      renderFinance();
     });
     document.getElementById('addRecurringItem').addEventListener('click',()=>{
       const description=document.getElementById('recurringDescription').value.trim(); const amount=Number(document.getElementById('recurringAmount').value); const nextDate=document.getElementById('recurringNextDate').value; const frequency=document.getElementById('recurringFrequency').value;

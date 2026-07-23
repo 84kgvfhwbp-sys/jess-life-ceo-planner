@@ -1,45 +1,47 @@
-Jess Life & CEO Planner — Version 45 Corrected Finance Dates and Totals
+Jess Life & CEO Planner — Version 46 One-Off Invoice Entries
 
-Corrections made
-----------------
-1. Actual cash uses the received or paid date.
-   - A payment due July 1 but received July 23 now appears as recorded cash on July 23.
-   - The original due date remains visible in the ledger and entry details.
+One-off expected income can now be saved without:
+- a written description
+- a received/paid date
 
-2. Planned cash uses the expected or due date.
-   - Unpaid July invoices remain in July as expected/overdue income.
-   - They no longer disappear from monthly or annual reports after the due date passes.
+Required information:
+- amount
+- invoice or expected date
 
-3. Historical recurring projections are included.
-   - The recurring projection engine no longer skips overdue occurrences merely because their due date is before today.
-   - Summer, Winter and 12-month totals now include collectible overdue entries plus future recurring entries.
+Recommended:
+- client/vendor
+- category
+- payment method
 
-4. Cash-Flow Calendar is reconciled.
-   - July 1 shows unpaid income still due on July 1.
-   - July 23 shows payments actually received on July 23.
-   - Monthly, weekly and two-week views use the same date rules.
+Automatic description:
+If Description is left blank, the planner creates one using the category and
+client/vendor.
 
-5. Overdue carry-forward is explained.
-   - Today’s calendar cell shows the past-due income/expense carried into projections.
-   - Projected period-end and 30-day cards explain when overdue cash is included.
+Example:
+Client: Corey Craig Group
+Category: Client Payment
+Automatic description: Client Payment — Corey Craig Group
 
-6. Bookkeeper’s Ledger dates are clearer.
-   - Actual entries are sorted by received/paid date.
-   - Each actual row still shows its original due date.
+Expected/unpaid status:
+- Received/paid date remains blank.
+- The entry stays expected until the money reaches the bank.
+- When status changes to Received/paid, the planner fills today's date unless
+  another received date is entered.
 
-Verified with the screenshot totals
------------------------------------
-- Recorded July income: $11,706.05
-- Overdue July income: $15,285.26
-- Reconciled July income: $26,991.31
-- July 1 contains overdue expected income, not recorded receipts.
-- July 23 contains the recorded receipts.
+The form now explains:
+- Description is optional.
+- Invoice/expected date records when the invoice or deposit is expected.
+- Received/paid date should remain blank until the money clears.
 
-No saved data is deleted or rewritten. The correction changes how existing due-date and actual-date fields are interpreted across the planner.
+Verification completed:
+- Full JavaScript syntax passed.
+- No duplicate static HTML IDs.
+- A $983.25 expected payment for Corey Craig Group was tested with no
+  description and no received date.
+- Automatic description and blank actual date both passed.
 
-GitHub update
--------------
-1. Replace the repository index.html with this Version 45 file.
+GitHub update:
+1. Replace the repository index.html with this file.
 2. Commit directly to main.
 3. Wait approximately one minute.
-4. Hard-refresh with Command + Shift + R.
+4. Hard-refresh using Command + Shift + R.
