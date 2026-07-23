@@ -6470,6 +6470,490 @@
       }
     }
 
+    /* VERSION 42 — BOOKKEEPER'S LEDGER DRAWER */
+    .finance-toolbar-compact .finance-controls {
+      grid-template-columns:minmax(165px,.7fr) minmax(210px,1fr) auto minmax(145px,.55fr) auto;
+    }
+
+    .finance-ledger-launch {
+      display:grid;
+      min-width:66px;
+      min-height:44px;
+      place-items:center;
+      align-content:center;
+      gap:2px;
+      padding:5px 9px;
+      border:1px solid #D7D1C8;
+      border-radius:7px;
+      background:#FFFDFC;
+      color:#5D6F61;
+      box-shadow:0 3px 10px rgba(67,59,51,.04);
+    }
+
+    .finance-ledger-launch:hover,
+    .finance-ledger-launch:focus-visible {
+      border-color:#95AA9A;
+      background:#F0F6F1;
+      outline:none;
+      transform:translateY(-1px);
+    }
+
+    .finance-ledger-launch svg,
+    .finance-ledger-title-icon svg {
+      width:21px;
+      height:21px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.55;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .finance-ledger-launch span {
+      font-size:6.7px;
+      font-weight:850;
+      letter-spacing:.045em;
+      text-transform:uppercase;
+    }
+
+    .finance-ledger-panel {
+      width:min(980px,97vw);
+    }
+
+    .finance-ledger-card {
+      display:flex;
+      min-height:calc(100dvh - 34px);
+      max-height:calc(100dvh - 34px);
+      flex-direction:column;
+      overflow:hidden;
+      padding:20px 20px 14px;
+      background:#FBFAF6;
+    }
+
+    .finance-ledger-heading {
+      display:flex;
+      flex:0 0 auto;
+      align-items:flex-start;
+      gap:12px;
+      padding-right:44px;
+    }
+
+    .finance-ledger-title-icon {
+      display:grid;
+      width:44px;
+      height:44px;
+      flex:0 0 auto;
+      place-items:center;
+      border:1px solid #D7D1C8;
+      border-radius:50%;
+      background:#EEF4EF;
+      color:#607967;
+    }
+
+    .finance-ledger-heading h3 {
+      margin:4px 0 4px;
+      color:#263029;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:27px;
+      font-weight:500;
+    }
+
+    .finance-ledger-heading p {
+      margin:0;
+      color:#747B75;
+      font-size:9px;
+      line-height:1.5;
+    }
+
+    .finance-ledger-summary {
+      display:grid;
+      flex:0 0 auto;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:8px;
+      margin-top:15px;
+    }
+
+    .finance-ledger-summary-item {
+      display:grid;
+      min-width:0;
+      gap:4px;
+      padding:10px 11px;
+      border:1px solid #DDD8D0;
+      border-radius:6px;
+    }
+
+    .finance-ledger-summary-item span {
+      color:#737A74;
+      font-size:6.8px;
+      font-weight:850;
+      letter-spacing:.045em;
+      text-transform:uppercase;
+    }
+
+    .finance-ledger-summary-item strong {
+      overflow:hidden;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:17px;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .finance-ledger-actions {
+      display:flex;
+      flex:0 0 auto;
+      align-items:center;
+      gap:7px;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+
+    .finance-ledger-tools {
+      display:grid;
+      flex:0 0 auto;
+      grid-template-columns:minmax(260px,1fr) minmax(150px,.45fr) minmax(135px,.4fr);
+      gap:8px;
+      margin-top:11px;
+      padding:10px;
+      border:1px solid #DDD8D0;
+      border-radius:6px;
+      background:#F4F1EB;
+    }
+
+    .finance-ledger-search-wrap {
+      position:relative;
+      min-width:0;
+    }
+
+    .finance-ledger-search-wrap svg {
+      position:absolute;
+      top:50%;
+      left:11px;
+      width:16px;
+      height:16px;
+      fill:none;
+      stroke:#788078;
+      stroke-width:1.7;
+      stroke-linecap:round;
+      transform:translateY(-50%);
+      pointer-events:none;
+    }
+
+    .finance-ledger-search-wrap .input {
+      width:100%;
+      padding-left:34px;
+    }
+
+    .finance-ledger-column-head,
+    .finance-ledger-row {
+      display:grid;
+      grid-template-columns:92px minmax(230px,1fr) 122px 115px 230px;
+      gap:10px;
+      align-items:center;
+    }
+
+    .finance-ledger-column-head {
+      flex:0 0 auto;
+      margin-top:11px;
+      padding:7px 11px;
+      border:1px solid #DCD6CD;
+      border-bottom:0;
+      border-radius:6px 6px 0 0;
+      background:#EDE8DF;
+      color:#686F69;
+      font-size:6.5px;
+      font-weight:900;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .finance-ledger-list {
+      min-height:0;
+      flex:1 1 auto;
+      overflow:auto;
+      border:1px solid #DCD6CD;
+      border-radius:0 0 6px 6px;
+      background-color:#FFF;
+      background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 49px,rgba(124,145,129,.055) 50px);
+      scrollbar-width:thin;
+      scrollbar-color:#AAB8AD #F1EEE8;
+    }
+
+    .finance-ledger-row {
+      min-width:850px;
+      min-height:61px;
+      padding:9px 11px;
+      border-bottom:1px solid #E5E0D8;
+      background:rgba(255,255,255,.88);
+    }
+
+    .finance-ledger-row:last-child {
+      border-bottom:0;
+    }
+
+    .finance-ledger-row:hover {
+      background:#F6F9F5;
+    }
+
+    .finance-ledger-date,
+    .finance-ledger-entry-copy {
+      display:grid;
+      min-width:0;
+      gap:3px;
+    }
+
+    .finance-ledger-date strong {
+      color:#4B544D;
+      font-size:8px;
+    }
+
+    .finance-ledger-date small,
+    .finance-ledger-entry-copy small {
+      overflow:hidden;
+      color:#858A85;
+      font-size:6.7px;
+      line-height:1.35;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .finance-ledger-entry-copy strong {
+      overflow:hidden;
+      color:#303731;
+      font-size:9px;
+      line-height:1.3;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .finance-ledger-amount {
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:12.5px;
+      font-weight:650;
+      text-align:right;
+      white-space:nowrap;
+    }
+
+    .finance-ledger-row-actions {
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:5px;
+      flex-wrap:wrap;
+    }
+
+    .ledger-row-action,
+    .ledger-row-delete {
+      min-height:27px;
+      padding:5px 7px;
+      border:1px solid #D7D1C8;
+      border-radius:5px;
+      background:#FFFDFC;
+      color:#555E57;
+      font-size:6.6px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .ledger-row-action:hover,
+    .ledger-row-action:focus-visible {
+      border-color:#9AAEA0;
+      background:#EDF4EE;
+      outline:none;
+    }
+
+    .ledger-row-delete {
+      display:grid;
+      width:27px;
+      padding:0;
+      place-items:center;
+      color:#AD5A55;
+      font-size:14px;
+    }
+
+    .ledger-row-delete:hover,
+    .ledger-row-delete:focus-visible {
+      border-color:#E0B6B2;
+      background:#FFF0EE;
+      outline:none;
+    }
+
+    .status-recurring {
+      background:#F0EBF7;
+      color:#735F88;
+    }
+
+    .status-bank {
+      background:#E7EFE8;
+      color:#55705D;
+    }
+
+    .finance-ledger-empty {
+      display:grid;
+      min-height:280px;
+      place-items:center;
+      align-content:center;
+      padding:30px;
+      color:#858B85;
+      text-align:center;
+    }
+
+    .finance-ledger-empty span {
+      font-size:27px;
+      color:#718476;
+    }
+
+    .finance-ledger-empty strong {
+      margin-top:8px;
+      color:#3F4841;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:18px;
+      font-weight:500;
+    }
+
+    .finance-ledger-empty p {
+      margin:4px 0 0;
+      font-size:8px;
+    }
+
+    .finance-ledger-footer {
+      display:flex;
+      flex:0 0 auto;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding-top:10px;
+      color:#777E78;
+      font-size:7.5px;
+    }
+
+    @media (max-width:1120px) {
+      .finance-toolbar-compact .finance-controls {
+        grid-template-columns:minmax(160px,1fr) minmax(190px,1fr) auto auto;
+      }
+
+      .finance-range-compact {
+        grid-column:1 / -2;
+        justify-self:start;
+        text-align:left;
+      }
+
+      .finance-ledger-summary {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .finance-ledger-tools {
+        grid-template-columns:1fr 1fr;
+      }
+
+      .finance-ledger-search-wrap {
+        grid-column:1 / -1;
+      }
+    }
+
+    @media (max-width:780px) {
+      .finance-toolbar-compact .finance-controls {
+        grid-template-columns:1fr auto;
+      }
+
+      .finance-toolbar-compact .finance-controls > .field,
+      .finance-range-compact {
+        grid-column:1 / -1;
+      }
+
+      .finance-ledger-card {
+        min-height:100dvh;
+        max-height:100dvh;
+        padding:16px 12px 10px;
+      }
+
+      .finance-ledger-heading h3 {
+        font-size:23px;
+      }
+
+      .finance-ledger-actions {
+        display:grid;
+        grid-template-columns:1fr 1fr;
+      }
+
+      .finance-ledger-actions .btn {
+        width:100%;
+      }
+
+      .finance-ledger-tools {
+        grid-template-columns:1fr;
+      }
+
+      .finance-ledger-search-wrap {
+        grid-column:auto;
+      }
+
+      .finance-ledger-column-head {
+        display:none;
+      }
+
+      .finance-ledger-list {
+        margin-top:10px;
+        border-radius:6px;
+      }
+
+      .finance-ledger-row {
+        min-width:0;
+        grid-template-columns:85px minmax(0,1fr) auto;
+        gap:7px;
+      }
+
+      .finance-ledger-status {
+        grid-column:1;
+      }
+
+      .finance-ledger-amount {
+        grid-column:3;
+        grid-row:1;
+      }
+
+      .finance-ledger-row-actions {
+        grid-column:2 / -1;
+        justify-content:flex-end;
+      }
+    }
+
+    @media (max-width:480px) {
+      .finance-ledger-summary {
+        grid-template-columns:1fr 1fr;
+      }
+
+      .finance-ledger-summary-item strong {
+        font-size:14px;
+      }
+
+      .finance-ledger-actions {
+        grid-template-columns:1fr;
+      }
+
+      .finance-ledger-row {
+        grid-template-columns:1fr auto;
+      }
+
+      .finance-ledger-date,
+      .finance-ledger-status {
+        grid-column:1;
+      }
+
+      .finance-ledger-entry-copy {
+        grid-column:1 / -1;
+      }
+
+      .finance-ledger-amount {
+        grid-column:2;
+        grid-row:1;
+      }
+
+      .finance-ledger-row-actions {
+        grid-column:1 / -1;
+        justify-content:flex-start;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -7002,6 +7486,14 @@
             </div>
             <button class="btn btn-light" id="financeToday">Use today</button>
             <div class="finance-range-compact" id="financeRangeLabel"></div>
+            <button class="finance-ledger-launch" type="button" id="openFinanceLedger" aria-label="Open Bookkeeper's Ledger" title="Open Bookkeeper's Ledger">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.5 4.5c2.8-.8 5.1-.2 7.5 1.4v13c-2.4-1.6-4.7-2.2-7.5-1.4v-13Z" />
+                <path d="M19.5 4.5c-2.8-.8-5.1-.2-7.5 1.4v13c2.4-1.6 4.7-2.2 7.5-1.4v-13Z" />
+                <path d="M7 8h2.5M7 11h2.5M14.5 8H17M14.5 11H17" />
+              </svg>
+              <span>Ledger</span>
+            </button>
           </div>
         </div>
 
@@ -7675,6 +8167,88 @@
           <button class="btn btn-danger" type="button" id="deleteEvent" style="display:none;">Delete</button>
           <button class="btn btn-light" type="button" data-close-modal="eventModal">Cancel</button>
           <div class="event-delete-hint" id="eventDeleteHint" hidden>Click <strong>Confirm delete</strong> again to permanently remove this event.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="financeLedgerModal" aria-hidden="true">
+    <div class="modal-panel finance-ledger-panel" role="dialog" aria-modal="true" aria-labelledby="financeLedgerTitle">
+      <div class="card modal-card finance-ledger-card">
+        <button class="modal-close" type="button" data-close-modal="financeLedgerModal" aria-label="Close">×</button>
+
+        <div class="finance-ledger-heading">
+          <div class="finance-ledger-title-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4.5 4.5c2.8-.8 5.1-.2 7.5 1.4v13c-2.4-1.6-4.7-2.2-7.5-1.4v-13Z" />
+              <path d="M19.5 4.5c-2.8-.8-5.1-.2-7.5 1.4v13c2.4-1.6 4.7-2.2 7.5-1.4v-13Z" />
+              <path d="M7 8h2.5M7 11h2.5M14.5 8H17M14.5 11H17" />
+            </svg>
+          </div>
+          <div>
+            <span class="eyebrow">Bookkeeper’s book</span>
+            <h3 id="financeLedgerTitle">Bookkeeper’s Ledger</h3>
+            <p>Every saved transaction, recurring commitment and bank-balance check in one place.</p>
+          </div>
+        </div>
+
+        <div class="finance-ledger-summary">
+          <div class="finance-ledger-summary-item soft-mint">
+            <span>Recorded income</span>
+            <strong class="money-positive" id="ledgerRecordedIncome">$0.00</strong>
+          </div>
+          <div class="finance-ledger-summary-item soft-coral">
+            <span>Recorded expenses</span>
+            <strong class="money-negative" id="ledgerRecordedExpenses">$0.00</strong>
+          </div>
+          <div class="finance-ledger-summary-item soft-wisteria">
+            <span>Expected net</span>
+            <strong id="ledgerExpectedNet">$0.00</strong>
+          </div>
+          <div class="finance-ledger-summary-item soft-sage">
+            <span>Book entries</span>
+            <strong id="ledgerEntryCount">0</strong>
+          </div>
+        </div>
+
+        <div class="finance-ledger-actions">
+          <button class="btn btn-primary" type="button" id="ledgerAddIncome">+ Income</button>
+          <button class="btn btn-coral" type="button" id="ledgerAddExpense">+ Expense / bill</button>
+          <button class="btn btn-light" type="button" id="ledgerAddRecurring">+ Recurring</button>
+          <button class="btn btn-light" type="button" id="ledgerAddBalance">+ Bank check</button>
+        </div>
+
+        <div class="finance-ledger-tools">
+          <div class="finance-ledger-search-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+            <input class="input" id="financeLedgerSearch" placeholder="Search client, vendor, category, amount or date…" />
+          </div>
+          <select class="select" id="financeLedgerFilter" aria-label="Filter ledger entries">
+            <option value="all">Everything</option>
+            <option value="transactions">All transactions</option>
+            <option value="income">Income</option>
+            <option value="expense">Expenses</option>
+            <option value="actual">Recorded / paid</option>
+            <option value="planned">Expected / unpaid</option>
+            <option value="recurring">Recurring commitments</option>
+            <option value="bank">Bank balance checks</option>
+          </select>
+          <select class="select" id="financeLedgerSort" aria-label="Sort ledger entries">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="highest">Highest amount</option>
+            <option value="lowest">Lowest amount</option>
+          </select>
+        </div>
+
+        <div class="finance-ledger-column-head" aria-hidden="true">
+          <span>Date</span><span>Entry</span><span>Status</span><span>Amount</span><span>Actions</span>
+        </div>
+        <div class="finance-ledger-list" id="financeLedgerList"></div>
+
+        <div class="finance-ledger-footer">
+          <span id="financeLedgerFooterCount">Showing 0 entries</span>
+          <button class="btn btn-light" type="button" data-close-modal="financeLedgerModal">Close book</button>
         </div>
       </div>
     </div>
@@ -12139,6 +12713,18 @@
       if(monthTrigger)cashFlowMonthDetail(monthTrigger.dataset.cashflowMonthDetail);
     });
 
+    document.getElementById('openFinanceLedger').addEventListener('click',()=>{
+      renderFinanceLedger();
+      openModal('financeLedgerModal');
+    });
+    document.getElementById('financeLedgerSearch').addEventListener('input',renderFinanceLedger);
+    document.getElementById('financeLedgerFilter').addEventListener('change',renderFinanceLedger);
+    document.getElementById('financeLedgerSort').addEventListener('change',renderFinanceLedger);
+    document.getElementById('ledgerAddIncome').addEventListener('click',()=>document.getElementById('openIncomeModal').click());
+    document.getElementById('ledgerAddExpense').addEventListener('click',()=>document.getElementById('openExpenseModal').click());
+    document.getElementById('ledgerAddRecurring').addEventListener('click',()=>document.getElementById('openRecurringModal').click());
+    document.getElementById('ledgerAddBalance').addEventListener('click',()=>openModal('bankModal'));
+
     document.getElementById('financeDate').value=isoDate(new Date());
     document.getElementById('financeItemDate').value=isoDate(new Date());
     document.getElementById('recurringNextDate').value=isoDate(new Date());
@@ -12275,6 +12861,183 @@
       const upcomingList=[...outstanding].sort((a,b)=>a.date.localeCompare(b.date)).slice(0,8);document.getElementById('financeUpcomingList').innerHTML=upcomingList.length?upcomingList.map(i=>financeItemHtml(i,false)).join(''):'<div class="empty">Nothing scheduled in the next 30 days.</div>';
       renderBankHistory();
     }
+    function financeLedgerEntries() {
+      const transactions=(data.finance.transactions||[]).map(item=>({
+        kind:'transaction',
+        id:item.id,
+        date:item.date||'',
+        amount:Number(item.amount)||0,
+        type:item.type||'expense',
+        status:item.status||'planned',
+        party:item.party||'',
+        description:item.description||'Untitled transaction',
+        category:item.category||'Other',
+        paymentMethod:item.paymentMethod||'',
+        notes:item.notes||'',
+        actualDate:item.actualDate||'',
+        original:item
+      }));
+
+      const recurring=(data.finance.recurring||[]).map(item=>({
+        kind:'recurring',
+        id:item.id,
+        date:item.nextDate||'',
+        amount:Number(item.amount)||0,
+        type:item.type||'expense',
+        status:'recurring',
+        party:item.party||'',
+        description:item.description||'Untitled recurring item',
+        category:item.category||'Other',
+        paymentMethod:item.paymentMethod||'',
+        notes:item.endDate?`Ends ${item.endDate}`:'',
+        frequency:item.frequency||'monthly',
+        original:item
+      }));
+
+      const bank=(data.finance.bankHistory||[]).map(item=>({
+        kind:'bank',
+        id:item.id,
+        date:item.date||'',
+        amount:Number(item.amount)||0,
+        type:'balance',
+        status:'bank',
+        party:'Bank balance',
+        description:item.note||'Bank balance check',
+        category:'Balance snapshot',
+        paymentMethod:'',
+        notes:'',
+        original:item
+      }));
+
+      return [...transactions,...recurring,...bank];
+    }
+
+    function financeLedgerEntryMatches(entry,filter='all') {
+      if(filter==='all')return true;
+      if(filter==='transactions')return entry.kind==='transaction';
+      if(filter==='recurring')return entry.kind==='recurring';
+      if(filter==='bank')return entry.kind==='bank';
+      if(filter==='income'||filter==='expense')return entry.type===filter;
+      if(filter==='actual'||filter==='planned')return entry.kind==='transaction'&&entry.status===filter;
+      return true;
+    }
+
+    function financeLedgerStatusLabel(entry) {
+      if(entry.kind==='recurring')return frequencyText(entry.frequency);
+      if(entry.kind==='bank')return 'Bank check';
+      return statusText(entry.original);
+    }
+
+    function financeLedgerRowMarkup(entry) {
+      const income=entry.type==='income';
+      const expense=entry.type==='expense';
+      const amountClass=income?'money-positive':expense?'money-negative':'money-neutral';
+      const sign=income?'+':expense?'−':'';
+      const kindLabel=entry.kind==='recurring'?'Recurring':entry.kind==='bank'?'Balance':'Transaction';
+      const statusClass=entry.kind==='bank'?'status-bank':entry.kind==='recurring'?'status-recurring':entry.status==='actual'?'status-actual':isOverdue(entry.original)?'status-overdue':'status-planned';
+      const details=[entry.party,entry.category,entry.paymentMethod,entry.notes].filter(Boolean).map(escapeHtml).join(' • ');
+
+      let controls='';
+      if(entry.kind==='transaction'){
+        const toggleLabel=entry.status==='actual'?'Make expected':income?'Mark received':'Mark paid';
+        controls=`<button class="ledger-row-action ledger-edit-transaction" type="button" data-id="${entry.id}">Edit</button>
+          <button class="ledger-row-action ledger-toggle-transaction" type="button" data-id="${entry.id}">${toggleLabel}</button>
+          <button class="ledger-row-delete ledger-delete-transaction" type="button" data-id="${entry.id}" aria-label="Remove transaction">×</button>`;
+      }else if(entry.kind==='recurring'){
+        controls=`<button class="ledger-row-action ledger-edit-recurring" type="button" data-id="${entry.id}">Edit</button>
+          <button class="ledger-row-action ledger-record-recurring" type="button" data-id="${entry.id}">${income?'Record received':'Record paid'}</button>
+          <button class="ledger-row-delete ledger-delete-recurring" type="button" data-id="${entry.id}" aria-label="Remove recurring item">×</button>`;
+      }else{
+        controls=`<button class="ledger-row-delete ledger-delete-bank" type="button" data-id="${entry.id}" aria-label="Remove bank balance check">×</button>`;
+      }
+
+      return `<div class="finance-ledger-row ledger-kind-${entry.kind}">
+        <div class="finance-ledger-date"><strong>${escapeHtml(entry.date||'No date')}</strong><small>${kindLabel}</small></div>
+        <div class="finance-ledger-entry-copy"><strong>${escapeHtml(entry.description)}</strong><small>${details||'No additional details'}</small></div>
+        <div class="finance-ledger-status"><span class="status-pill ${statusClass}">${escapeHtml(financeLedgerStatusLabel(entry))}</span></div>
+        <div class="finance-ledger-amount ${amountClass}">${sign}${money(entry.amount)}</div>
+        <div class="finance-ledger-row-actions">${controls}</div>
+      </div>`;
+    }
+
+    function renderFinanceLedger() {
+      const search=(document.getElementById('financeLedgerSearch')?.value||'').trim().toLowerCase();
+      const filter=document.getElementById('financeLedgerFilter')?.value||'all';
+      const sort=document.getElementById('financeLedgerSort')?.value||'newest';
+      const allEntries=financeLedgerEntries();
+
+      const transactions=allEntries.filter(entry=>entry.kind==='transaction');
+      const recordedIncome=transactions.filter(entry=>entry.type==='income'&&entry.status==='actual').reduce((sum,entry)=>sum+entry.amount,0);
+      const recordedExpenses=transactions.filter(entry=>entry.type==='expense'&&entry.status==='actual').reduce((sum,entry)=>sum+entry.amount,0);
+      const expectedIncome=transactions.filter(entry=>entry.type==='income'&&entry.status==='planned').reduce((sum,entry)=>sum+entry.amount,0);
+      const expectedExpenses=transactions.filter(entry=>entry.type==='expense'&&entry.status==='planned').reduce((sum,entry)=>sum+entry.amount,0);
+      const expectedNet=expectedIncome-expectedExpenses;
+
+      document.getElementById('ledgerRecordedIncome').textContent=money(recordedIncome);
+      document.getElementById('ledgerRecordedExpenses').textContent=money(recordedExpenses);
+      const expectedNetEl=document.getElementById('ledgerExpectedNet');
+      expectedNetEl.textContent=money(expectedNet);setMoneyClass(expectedNetEl,expectedNet);
+      document.getElementById('ledgerEntryCount').textContent=String(allEntries.length);
+
+      let entries=allEntries.filter(entry=>financeLedgerEntryMatches(entry,filter));
+      if(search){
+        entries=entries.filter(entry=>[
+          entry.date,entry.party,entry.description,entry.category,entry.paymentMethod,entry.notes,
+          financeLedgerStatusLabel(entry),entry.amount,money(entry.amount)
+        ].join(' ').toLowerCase().includes(search));
+      }
+
+      entries.sort((a,b)=>{
+        if(sort==='oldest')return String(a.date).localeCompare(String(b.date));
+        if(sort==='highest')return b.amount-a.amount||String(b.date).localeCompare(String(a.date));
+        if(sort==='lowest')return a.amount-b.amount||String(b.date).localeCompare(String(a.date));
+        return String(b.date).localeCompare(String(a.date));
+      });
+
+      const list=document.getElementById('financeLedgerList');
+      list.innerHTML=entries.length
+        ?entries.map(financeLedgerRowMarkup).join('')
+        :`<div class="finance-ledger-empty"><span>▤</span><strong>No matching book entries</strong><p>Change the search or filter, or add a new financial entry.</p></div>`;
+      document.getElementById('financeLedgerFooterCount').textContent=`Showing ${entries.length} of ${allEntries.length} entr${allEntries.length===1?'y':'ies'}`;
+
+      list.querySelectorAll('.ledger-edit-transaction').forEach(button=>button.addEventListener('click',()=>beginFinanceEdit(button.dataset.id)));
+      list.querySelectorAll('.ledger-toggle-transaction').forEach(button=>button.addEventListener('click',()=>{
+        const item=data.finance.transactions.find(entry=>entry.id===button.dataset.id);if(!item)return;
+        item.status=item.status==='actual'?'planned':'actual';
+        item.actualDate=item.status==='actual'?isoDate(new Date()):'';
+        saveData('Ledger status updated');renderFinance();
+      }));
+      list.querySelectorAll('.ledger-delete-transaction').forEach(button=>button.addEventListener('click',()=>{
+        const item=data.finance.transactions.find(entry=>entry.id===button.dataset.id);if(!item)return;
+        if(!confirm(`Remove “${item.description}” from the ledger?`))return;
+        data.finance.transactions=data.finance.transactions.filter(entry=>entry.id!==button.dataset.id);
+        saveData('Ledger transaction removed');renderFinance();
+      }));
+
+      list.querySelectorAll('.ledger-edit-recurring').forEach(button=>button.addEventListener('click',()=>beginRecurringEdit(button.dataset.id)));
+      list.querySelectorAll('.ledger-record-recurring').forEach(button=>button.addEventListener('click',()=>{
+        const item=data.finance.recurring.find(entry=>entry.id===button.dataset.id);if(!item)return;
+        data.finance.transactions.unshift({id:uid(),party:item.party||'',description:item.description,amount:Number(item.amount)||0,hst:Number(item.hst)||0,type:item.type,category:item.category,date:item.nextDate,actualDate:isoDate(new Date()),status:'actual',paymentMethod:item.paymentMethod||'',notes:'Recorded from recurring cash flow'});
+        item.nextDate=isoDate(advanceRecurring(localDate(item.nextDate),item.frequency,item));
+        saveData(item.type==='income'?'Recurring income recorded':'Recurring payment recorded');renderFinance();
+      }));
+      list.querySelectorAll('.ledger-delete-recurring').forEach(button=>button.addEventListener('click',()=>{
+        const item=data.finance.recurring.find(entry=>entry.id===button.dataset.id);if(!item)return;
+        if(!confirm(`Remove recurring entry “${item.description}”?`))return;
+        data.finance.recurring=data.finance.recurring.filter(entry=>entry.id!==button.dataset.id);
+        saveData('Recurring ledger entry removed');renderFinance();
+      }));
+
+      list.querySelectorAll('.ledger-delete-bank').forEach(button=>button.addEventListener('click',()=>{
+        const item=data.finance.bankHistory.find(entry=>entry.id===button.dataset.id);if(!item)return;
+        if(!confirm(`Remove the ${item.date} bank-balance check?`))return;
+        data.finance.bankHistory=data.finance.bankHistory.filter(entry=>entry.id!==button.dataset.id);
+        const latest=latestBankEntry();
+        data.finance.currentBalance=latest?Number(latest.amount)||0:0;
+        saveData('Bank check removed from ledger');renderFinance();
+      }));
+    }
+
     function renderFinanceTransactions(){
       const date=document.getElementById('financeDate').value||isoDate(new Date());const range=financeRange(document.getElementById('financeView').value,date);const filter=document.getElementById('financeItemFilter').value;
       let items=(data.finance.transactions||[]).filter(i=>inRange(i.date,range.start,range.end)).sort((a,b)=>a.date.localeCompare(b.date));
@@ -12329,6 +13092,7 @@
       }
       if(document.getElementById('cashflow-page')?.classList.contains('active'))renderCashFlowCalendar();
       if(document.getElementById('week-page')?.classList.contains('active'))renderWeek();
+      if(document.getElementById('financeLedgerModal')?.classList.contains('open'))renderFinanceLedger();
     }
 
     function renderDashboard(){
@@ -12416,7 +13180,7 @@
     function runPlannerIntegrityCheck() {
       const requiredIds = [
         'weekGrid','templateList','templateQuickSelect','templateApplySelect',
-        'taskQuickCapture','masterTaskList','todayEventTimeline','eventDeleteHint','templateLinkedEventNotice','financeDetailModal','financeCurrentBalanceDisplay','cashflowCalendarGrid','cashflowMonthLabel','dayTaskModal','dayTaskDrawerList'
+        'taskQuickCapture','masterTaskList','todayEventTimeline','eventDeleteHint','templateLinkedEventNotice','financeDetailModal','financeCurrentBalanceDisplay','cashflowCalendarGrid','cashflowMonthLabel','dayTaskModal','dayTaskDrawerList','financeLedgerModal','financeLedgerList'
       ];
       const missing = requiredIds.filter(id => !document.getElementById(id));
       const result = {

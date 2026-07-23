@@ -1,40 +1,43 @@
-Jess Life & CEO Planner — Version 41 Overlapping Tasks and Agenda Notes
+Jess Life & CEO Planner — Version 42 Bookkeeper's Ledger
 
-New overlap rules:
-- Time-block type Task may overlap any other agenda block.
-- Agenda note may overlap any other agenda block.
-- Tasks and agenda notes may overlap one another.
-- Appointments, meetings, on-site meetings, calls, office/admin, finance,
-  personal, travel, breaks and Other remain fixed commitments.
-- Two fixed commitments cannot occupy the same time.
+New Finance Centre book icon:
+- A small Ledger book button appears in the Finance Centre date/view toolbar.
+- Clicking it opens a right-side Bookkeeper's Ledger drawer.
+- No existing Finance Centre cards, calculations or sections were removed.
 
-Agenda display:
-- Simultaneous blocks are assigned side-by-side lanes.
-- Every overlapping block remains visible, clickable and editable.
-- The primary fixed commitment is placed first when blocks begin together.
-- Narrow overlapping blocks use a compact title/time layout.
-- Agenda notes remain italic and do not have completion checkboxes.
-- Tasks retain completion checkboxes.
+The Ledger includes:
+- Every saved income transaction.
+- Every saved expense or bill.
+- Recorded and expected entries.
+- Every recurring income or commitment.
+- Every saved bank-balance check.
 
-Free-time behaviour:
-- Tasks and notes no longer mark the underlying time as unavailable.
-- The automatic suggested start time looks only at fixed commitments.
+Ledger controls:
+- Search client, vendor, description, category, amount or date.
+- Filter Everything, transactions, income, expenses, recorded, expected,
+  recurring commitments or bank checks.
+- Sort newest, oldest, highest amount or lowest amount.
+- Add Income, Expense / Bill, Recurring or Bank Check from the book.
+- Edit transactions and recurring entries.
+- Mark transactions paid/received or expected/unpaid.
+- Record a recurring payment or recurring income occurrence.
+- Remove transactions, recurring commitments and bank checks.
+- Removal from the Ledger asks for confirmation first.
 
-Templates:
-- Template Tasks and Agenda notes may overlap existing blocks.
-- Fixed template blocks are still skipped when they conflict with another
-  fixed commitment.
+Ledger summary:
+- Total recorded income.
+- Total recorded expenses.
+- Expected net cash flow.
+- Total number of saved book entries.
 
-Editor guidance:
-- Task and Agenda note previews explain that overlap is allowed.
-- Fixed event types explain that another fixed commitment cannot overlap.
+The existing entry forms open above the Ledger. After saving or editing, the
+Ledger remains open and refreshes automatically.
 
 Verification completed:
 - Full planner JavaScript syntax passed.
 - No duplicate static HTML IDs.
-- Task and Agenda note overlap rules were tested.
-- Fixed meeting versus appointment conflict was tested.
-- Side-by-side lane assignment was tested for connected overlapping blocks.
+- Ledger conversion was tested with income, expense, recurring and bank data.
+- Search/filter source types and automatic Finance Centre refresh were checked.
 
 GitHub update:
 1. Replace the existing repository index.html with this file.
