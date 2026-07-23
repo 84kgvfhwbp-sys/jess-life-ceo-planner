@@ -1,38 +1,44 @@
-Jess Life & CEO Planner — Version 34 Compact Task Preview Drawer
+Jess Life & CEO Planner — Version 36 Recorded Cash Flow Visible
 
-Weekly Planner task layout:
-- Replaces the tall internal scrolling task box.
-- Every day uses the same compact fixed-height task area.
-- Shows up to two tasks at a glance.
-- Incomplete and higher-priority tasks appear first.
-- Completed tasks move behind unfinished work in the preview order.
-- When more tasks exist, a +N more tasks link appears.
-- Days without tasks show a small Nothing scheduled yet message.
-- The Add Task field remains visible at the bottom.
-- Cash Flow begins at the same height across every visible day.
+Problem corrected:
+- Cash-Flow Calendar day cells previously calculated In and Out using only
+  expected/planned transactions.
+- Recorded transactions were acknowledged only as a recorded-item count.
+- This caused a received payment to appear in the breakdown drawer while the
+  monthly calendar still displayed a dash or $0.00.
 
-Daily task drawer:
-- View All, +N more or the empty-state link opens a right-side drawer.
-- The drawer shows the complete task list for that date.
-- Tasks can be checked off and reopened.
-- Saved Task Inbox items can be opened in the full task editor.
-- New tasks can be added directly to the selected date.
-- Open Task Inbox provides access to the full inbox and filters.
-- All Weekly Planner, Today and Task Inbox views remain synchronized.
+New daily calculation:
+- In = recorded income + expected income scheduled for that date.
+- Out = recorded expenses + expected expenses scheduled for that date.
+- The daily item preview can show both recorded and expected sources.
+- Recorded sources appear slightly stronger than expected sources.
+- Expected sources retain a quieter outlined marker.
+- Recurring-source indicators continue to work.
 
-Space improvement:
-- The weekly task area was reduced from roughly 272–300 pixels to about
-  184–190 pixels.
-- This removes most of the empty vertical space while preserving perfectly
-  aligned Cash Flow and agenda sections.
+Past dates:
+- The bottom result now shows Recorded daily net.
+- Recorded daily net = recorded income less recorded expenses.
+- The planner does not invent a historical bank balance from today's current
+  balance.
+
+Today and future dates:
+- The bottom result continues to show projected account balance.
+- Projected balances remain based on the current bank balance plus outstanding
+  expected cash flow.
+
+Views corrected:
+- Monthly Cash-Flow Calendar
+- Weekly Cash-Flow Calendar
+- Bi-weekly Cash-Flow Calendar
+- Weekly Planner daily Cash Flow panels
 
 Verification completed:
 - Full planner JavaScript syntax passed.
 - No duplicate static HTML IDs.
-- Old scrolling-task markup is no longer rendered.
-- Exact production task-order and preview helpers were tested.
-- The test verified two-task preview, priority ordering, completed-task
-  placement and +N remaining-task count.
+- The exact production functions were tested using a July 1 recorded income
+  payment of $3,507.50 and an expected expense of $207.50.
+- The test verified that the recorded income amount, source, expected expense,
+  recorded-item styling and recorded daily net all appear in the day cell.
 
 GitHub update:
 1. Download a planner backup.

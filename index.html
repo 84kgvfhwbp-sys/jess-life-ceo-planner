@@ -5704,6 +5704,196 @@
       }
     }
 
+    /* VERSION 35 — MONTHLY / WEEKLY / BI-WEEKLY CASH-FLOW VIEWS */
+    .cashflow-toolbar-left {
+      display:flex;
+      align-items:center;
+      gap:13px;
+      flex-wrap:wrap;
+    }
+
+    .cashflow-period-navigation {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .cashflow-view-switch {
+      display:inline-flex;
+      align-items:center;
+      padding:3px;
+      border:1px solid #D8D2C9;
+      border-radius:7px;
+      background:#F6F3EE;
+    }
+
+    .cashflow-view-option {
+      min-width:72px;
+      padding:7px 11px;
+      border:0;
+      border-radius:5px;
+      background:transparent;
+      color:#777C76;
+      font-size:8px;
+      font-weight:800;
+      line-height:1;
+      white-space:nowrap;
+    }
+
+    .cashflow-view-option:hover,
+    .cashflow-view-option:focus-visible {
+      color:#536358;
+      outline:none;
+    }
+
+    .cashflow-view-option.active {
+      background:#829F89;
+      color:#FFF;
+      box-shadow:0 2px 7px rgba(70,91,76,.15);
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-cell {
+      min-height:300px;
+      padding:12px;
+    }
+
+    .cashflow-calendar-grid.view-biweekly .cashflow-day-cell {
+      min-height:225px;
+      padding:10px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-heading strong {
+      font-size:21px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-heading small {
+      font-size:8px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-totals > span {
+      padding:8px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-totals b {
+      font-size:13px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-items {
+      min-height:108px;
+      gap:7px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-items > span:not(.cashflow-no-items) {
+      font-size:7.5px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-balance strong {
+      font-size:13px;
+    }
+
+    .cashflow-calendar-grid.view-biweekly .cashflow-day-items {
+      min-height:70px;
+    }
+
+    .cashflow-calendar-grid.view-week,
+    .cashflow-calendar-grid.view-biweekly {
+      grid-template-columns:repeat(7,minmax(0,1fr));
+    }
+
+    @media (max-width:1180px) {
+      .cashflow-calendar-grid.view-week,
+      .cashflow-calendar-grid.view-biweekly,
+      .cashflow-weekday-row {
+        min-width:980px;
+      }
+    }
+
+    @media (max-width:780px) {
+      .cashflow-toolbar-left {
+        width:100%;
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .cashflow-period-navigation {
+        width:100%;
+      }
+
+      .cashflow-period-navigation .btn {
+        flex:1;
+      }
+
+      .cashflow-view-switch {
+        width:100%;
+      }
+
+      .cashflow-view-option {
+        min-width:0;
+        flex:1;
+      }
+    }
+
+    @media (max-width:480px) {
+      .cashflow-period-navigation {
+        display:grid;
+        grid-template-columns:1fr 1fr 1fr;
+      }
+
+      .cashflow-period-navigation .btn {
+        width:100%;
+        padding-left:6px;
+        padding-right:6px;
+      }
+
+      .cashflow-view-option {
+        padding-left:6px;
+        padding-right:6px;
+      }
+    }
+
+    /* VERSION 36 — RECORDED CASH FLOW IS VISIBLE IN CALENDAR CELLS */
+    .cashflow-day-cell.has-recorded-cashflow {
+      background:linear-gradient(155deg,#F8FCF8,#FFF);
+    }
+
+    .cashflow-day-items > span.is-recorded em,
+    .week-cashflow-items > span.is-recorded em {
+      color:#45554A;
+      font-weight:800;
+    }
+
+    .cashflow-day-items > span.is-expected i,
+    .week-cashflow-items > span.is-expected i {
+      border:1px solid currentColor;
+      background:transparent;
+    }
+
+    .cashflow-day-items > span.is-recorded i,
+    .week-cashflow-items > span.is-recorded i {
+      box-shadow:0 0 0 2px rgba(112,145,121,.14);
+    }
+
+    .cashflow-day-cell.has-recorded-cashflow .cashflow-day-totals {
+      position:relative;
+    }
+
+    .cashflow-day-cell.has-recorded-cashflow .cashflow-day-totals::after {
+      content:"Recorded activity included";
+      position:absolute;
+      right:0;
+      bottom:-8px;
+      color:#718176;
+      font-size:5.7px;
+      font-weight:800;
+      letter-spacing:.035em;
+      text-transform:uppercase;
+    }
+
+    .cashflow-day-cell.has-recorded-cashflow .cashflow-day-items {
+      padding-top:5px;
+    }
+
   </style>
 </head>
 <body>
@@ -6154,13 +6344,22 @@
 
       <section class="page" id="cashflow-page">
         <div class="card cashflow-calendar-toolbar">
-          <div class="row-wrap">
-            <button class="btn btn-light" type="button" id="cashflowPrevMonth">← Previous</button>
-            <button class="btn btn-light" type="button" id="cashflowThisMonth">This month</button>
-            <button class="btn btn-light" type="button" id="cashflowNextMonth">Next →</button>
+          <div class="cashflow-toolbar-left">
+            <div class="cashflow-period-navigation">
+              <button class="btn btn-light" type="button" id="cashflowPrevMonth">← Previous</button>
+              <button class="btn btn-light" type="button" id="cashflowThisMonth">This month</button>
+              <button class="btn btn-light" type="button" id="cashflowNextMonth">Next →</button>
+            </div>
+
+            <div class="cashflow-view-switch" role="group" aria-label="Cash-flow calendar view">
+              <button type="button" class="cashflow-view-option active" data-cashflow-view="month" aria-pressed="true">Monthly</button>
+              <button type="button" class="cashflow-view-option" data-cashflow-view="week" aria-pressed="false">Weekly</button>
+              <button type="button" class="cashflow-view-option" data-cashflow-view="biweekly" aria-pressed="false">Bi-weekly</button>
+            </div>
           </div>
+
           <div class="cashflow-calendar-title">
-            <span class="eyebrow">Cash-flow calendar</span>
+            <span class="eyebrow" id="cashflowViewLabel">Monthly cash-flow calendar</span>
             <strong id="cashflowMonthLabel"></strong>
           </div>
         </div>
@@ -6177,12 +6376,12 @@
             <small id="cashflowMonthExpenseCount">0 outgoing items</small>
           </button>
           <button class="cashflow-month-stat soft-wisteria" type="button" data-cashflow-month-detail="net">
-            <span>Expected monthly net</span>
+            <span id="cashflowNetPeriodLabel">Expected monthly net</span>
             <strong id="cashflowMonthNet">$0.00</strong>
             <small>Income less expenses</small>
           </button>
           <button class="cashflow-month-stat soft-sage" type="button" data-cashflow-month-detail="balance">
-            <span>Projected month-end</span>
+            <span id="cashflowEndPeriodLabel">Projected month-end</span>
             <strong id="cashflowMonthEndBalance">$0.00</strong>
             <small id="cashflowMonthEndNote">Based on current balance</small>
           </button>
@@ -7164,13 +7363,13 @@
       dailyCheck: { mood: '', energy: '', need: '' },
       days: {}, weeks: {}, monthResets: {}, tasks: [], templates: [], goals: [], habits: [], notes: [],
       finance: { currentBalance: 0, bankHistory: [], transactions: [], recurring: [] },
-      settings: { plannerName: 'Jess Life & CEO Planner', weekDayView: 3 }
+      settings: { plannerName: 'Jess Life & CEO Planner', weekDayView: 3, cashFlowCalendarView: 'month' }
     };
 
     let data = loadData();
     let selectedDate = isoDate(new Date());
     let weekAnchor = localDate(isoDate(new Date()));
-    let cashFlowMonthAnchor = new Date(new Date().getFullYear(), new Date().getMonth(), 1, 12);
+    let cashFlowCalendarAnchor = new Date(new Date().getFullYear(), new Date().getMonth(), 1, 12);
     let editingFinanceId = null;
     let editingRecurringId = null;
 
@@ -7341,6 +7540,9 @@
       data.days ??= {}; data.weeks ??= {}; data.tasks ??= []; data.templates ??= []; data.finance ??= {};
       data.settings ??= {};
       data.settings.weekDayView = Number(data.settings.weekDayView) === 5 ? 5 : 3;
+      data.settings.cashFlowCalendarView = ['month','week','biweekly'].includes(data.settings.cashFlowCalendarView)
+        ? data.settings.cashFlowCalendarView
+        : 'month';
       if (!data.settings.templatesInitialized) {
         data.templates = starterScheduleTemplates();
         data.settings.templatesInitialized = true;
@@ -10499,6 +10701,27 @@
         .sort((a,b)=>String(a.description||'').localeCompare(String(b.description||'')));
     }
 
+    function allFinanceItemsForDay(dateKey) {
+      return recordedFinanceItemsForDay(dateKey)
+        .concat(plannedFinanceItemsForDay(dateKey))
+        .sort((a,b)=>{
+          if(a.status!==b.status)return a.status==='actual'?-1:1;
+          if(a.type!==b.type)return a.type==='income'?-1:1;
+          return (Number(b.amount)||0)-(Number(a.amount)||0);
+        });
+    }
+
+    function recordedDayTotals(dateKey) {
+      const recorded=recordedFinanceItemsForDay(dateKey);
+      const income=recorded
+        .filter(item=>item.type==='income')
+        .reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+      const expenses=recorded
+        .filter(item=>item.type==='expense')
+        .reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+      return {items:recorded,income,expenses,net:income-expenses};
+    }
+
     function projectedBalanceThroughDate(dateKey) {
       const todayKey=isoDate(new Date());
       if(dateKey<todayKey)return null;
@@ -10532,17 +10755,20 @@
     }
 
     function weeklyCashFlowSummaryMarkup(dateKey) {
-      const items=plannedFinanceItemsForDay(dateKey);
+      const items=allFinanceItemsForDay(dateKey);
       const income=items.filter(item=>item.type==='income');
       const expenses=items.filter(item=>item.type==='expense');
       const incomeTotal=income.reduce((sum,item)=>sum+(Number(item.amount)||0),0);
       const expenseTotal=expenses.reduce((sum,item)=>sum+(Number(item.amount)||0),0);
       const projected=projectedBalanceThroughDate(dateKey);
+      const recorded=recordedDayTotals(dateKey);
+      const todayKey=isoDate(new Date());
+      const isPast=dateKey<todayKey;
       const important=cashFlowImportantItems(items,2);
 
       return `<button class="week-cashflow-card" type="button" data-cashflow-date="${dateKey}">
         <span class="week-cashflow-heading">
-          <span><strong>Cash flow</strong><small>${items.length} expected item${items.length===1?'':'s'}</small></span>
+          <span><strong>Cash flow</strong><small>${items.length} item${items.length===1?'':'s'} · ${recorded.items.length} recorded</small></span>
           <b>View details →</b>
         </span>
         <span class="week-cashflow-totals">
@@ -10555,29 +10781,30 @@
             <strong>${money(expenseTotal)}</strong>
           </span>
         </span>
-        ${important.length?`<span class="week-cashflow-items">${important.map(item=>`<span><i class="${item.type}"></i><em>${escapeHtml(item.party||item.description||cashFlowCategoryLabel(item))}</em><b>${money(item.amount)}</b></span>`).join('')}</span>`:'<span class="week-cashflow-empty">No expected income or bills this day.</span>'}
+        ${important.length?`<span class="week-cashflow-items">${important.map(item=>`<span class="${item.status==='actual'?'is-recorded':'is-expected'}"><i class="${item.type}"></i><em>${escapeHtml(item.party||item.description||cashFlowCategoryLabel(item))}</em><b>${money(item.amount)}</b></span>`).join('')}</span>`:'<span class="week-cashflow-empty">No recorded or expected cash flow this day.</span>'}
         <span class="week-cashflow-balance">
-          <small>Projected account balance after this day</small>
-          <strong>${projected===null?'—':money(projected)}</strong>
+          <small>${isPast?'Recorded daily net':'Projected account balance after this day'}</small>
+          <strong>${isPast?money(recorded.net):(projected===null?'—':money(projected))}</strong>
         </span>
       </button>`;
     }
 
-    function cashFlowDayCellMarkup(date,monthIndex) {
+    function cashFlowDayCellMarkup(date,monthIndex=null,isPeriodDate=true) {
       const dateKey=isoDate(date);
-      const isCurrentMonth=date.getMonth()===monthIndex;
+      const isCurrentMonth=isPeriodDate && (monthIndex===null || date.getMonth()===monthIndex);
       const todayKey=isoDate(new Date());
-      const items=plannedFinanceItemsForDay(dateKey);
+      const items=allFinanceItemsForDay(dateKey);
       const income=items.filter(item=>item.type==='income');
       const expenses=items.filter(item=>item.type==='expense');
       const incomeTotal=income.reduce((sum,item)=>sum+(Number(item.amount)||0),0);
       const expenseTotal=expenses.reduce((sum,item)=>sum+(Number(item.amount)||0),0);
       const projected=projectedBalanceThroughDate(dateKey);
       const important=cashFlowImportantItems(items,3);
-      const actual=recordedFinanceItemsForDay(dateKey);
+      const recorded=recordedDayTotals(dateKey);
       const isToday=dateKey===todayKey;
+      const isPast=dateKey<todayKey;
 
-      return `<button class="cashflow-day-cell ${isCurrentMonth?'':'is-outside'} ${isToday?'is-today':''} ${items.length?'has-cashflow':''}" type="button" data-cashflow-date="${dateKey}">
+      return `<button class="cashflow-day-cell ${isCurrentMonth?'':'is-outside'} ${isToday?'is-today':''} ${items.length?'has-cashflow':''} ${recorded.items.length?'has-recorded-cashflow':''}" type="button" data-cashflow-date="${dateKey}">
         <span class="cashflow-day-heading">
           <strong>${date.getDate()}</strong>
           ${isToday?'<small>Today</small>':`<small>${date.toLocaleDateString('en-CA',{weekday:'short'})}</small>`}
@@ -10587,45 +10814,140 @@
           <span class="expense"><small>Out</small><b>${expenseTotal?money(expenseTotal):'—'}</b></span>
         </span>
         <span class="cashflow-day-items">
-          ${important.length?important.map(item=>`<span class="${item.type} ${item.virtual?'is-recurring':''}"><i></i><em>${escapeHtml(item.party||item.description||cashFlowCategoryLabel(item))}</em><b>${money(item.amount)}</b></span>`).join(''):'<span class="cashflow-no-items">No expected cash flow</span>'}
+          ${important.length?important.map(item=>`<span class="${item.type} ${item.virtual?'is-recurring':''} ${item.status==='actual'?'is-recorded':'is-expected'}"><i></i><em>${escapeHtml(item.party||item.description||cashFlowCategoryLabel(item))}</em><b>${money(item.amount)}</b></span>`).join(''):'<span class="cashflow-no-items">No recorded or expected cash flow</span>'}
           ${items.length>3?`<small class="cashflow-more-items">+${items.length-3} more</small>`:''}
-          ${actual.length?`<small class="cashflow-recorded-count">${actual.length} recorded item${actual.length===1?'':'s'}</small>`:''}
+          ${recorded.items.length?`<small class="cashflow-recorded-count">${recorded.items.length} recorded item${recorded.items.length===1?'':'s'}</small>`:''}
         </span>
         <span class="cashflow-day-balance">
-          <small>${dateKey<todayKey?'Past date':'Projected balance'}</small>
-          <strong>${projected===null?'—':money(projected)}</strong>
+          <small>${isPast?'Recorded net':'Projected balance'}</small>
+          <strong>${isPast?money(recorded.net):(projected===null?'—':money(projected))}</strong>
         </span>
       </button>`;
     }
 
-    function cashFlowMonthRange(anchor=cashFlowMonthAnchor) {
-      const start=new Date(anchor.getFullYear(),anchor.getMonth(),1,12);
-      const end=lastDayOfMonth(anchor.getFullYear(),anchor.getMonth());
-      return {start,end};
+    function cashFlowCalendarView() {
+      return ['month','week','biweekly'].includes(data.settings?.cashFlowCalendarView)
+        ? data.settings.cashFlowCalendarView
+        : 'month';
     }
 
-    function cashFlowMonthPlannedItems(anchor=cashFlowMonthAnchor) {
-      const range=cashFlowMonthRange(anchor);
+    function cashFlowCalendarRange(anchor=cashFlowCalendarAnchor,view=cashFlowCalendarView()) {
+      const focus=localDate(isoDate(anchor));
+
+      if(view==='week'){
+        const start=startOfWeek(focus);
+        return {start,end:addDays(start,6),view};
+      }
+
+      if(view==='biweekly'){
+        const start=startOfWeek(focus);
+        return {start,end:addDays(start,13),view};
+      }
+
+      const start=new Date(focus.getFullYear(),focus.getMonth(),1,12);
+      const end=lastDayOfMonth(focus.getFullYear(),focus.getMonth());
+      return {start,end,view:'month'};
+    }
+
+    function cashFlowPeriodPlannedItems(anchor=cashFlowCalendarAnchor,view=cashFlowCalendarView()) {
+      const range=cashFlowCalendarRange(anchor,view);
       return financeItemsFor(range.start,range.end)
         .filter(item=>item.status==='planned')
         .sort((a,b)=>(a.date||'').localeCompare(b.date||''));
     }
 
-    function renderCashFlowCalendar() {
-      const anchor=new Date(cashFlowMonthAnchor.getFullYear(),cashFlowMonthAnchor.getMonth(),1,12);
-      cashFlowMonthAnchor=anchor;
-      const monthIndex=anchor.getMonth();
-      const monthStart=new Date(anchor.getFullYear(),monthIndex,1,12);
-      const monthEnd=lastDayOfMonth(anchor.getFullYear(),monthIndex);
-      document.getElementById('cashflowMonthLabel').textContent=anchor.toLocaleDateString('en-CA',{month:'long',year:'numeric'});
+    function cashFlowCalendarRangeLabel(range) {
+      if(range.view==='month'){
+        return range.start.toLocaleDateString('en-CA',{month:'long',year:'numeric'});
+      }
 
-      const items=cashFlowMonthPlannedItems(anchor);
+      const sameYear=range.start.getFullYear()===range.end.getFullYear();
+      const sameMonth=sameYear && range.start.getMonth()===range.end.getMonth();
+
+      if(sameMonth){
+        return `${range.start.toLocaleDateString('en-CA',{month:'short',day:'numeric'})} – ${range.end.toLocaleDateString('en-CA',{day:'numeric',year:'numeric'})}`;
+      }
+
+      if(sameYear){
+        return `${range.start.toLocaleDateString('en-CA',{month:'short',day:'numeric'})} – ${range.end.toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'})}`;
+      }
+
+      return `${range.start.toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'})} – ${range.end.toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'})}`;
+    }
+
+    function cashFlowViewCopy(view) {
+      if(view==='week'){
+        return {
+          heading:'Weekly cash-flow calendar',
+          net:'Expected weekly net',
+          end:'Projected week-end',
+          current:'This week',
+          count:7
+        };
+      }
+
+      if(view==='biweekly'){
+        return {
+          heading:'Bi-weekly cash-flow calendar',
+          net:'Expected two-week net',
+          end:'Projected two-week end',
+          current:'Current 2 weeks',
+          count:14
+        };
+      }
+
+      return {
+        heading:'Monthly cash-flow calendar',
+        net:'Expected monthly net',
+        end:'Projected month-end',
+        current:'This month',
+        count:42
+      };
+    }
+
+    function shiftCashFlowCalendar(direction) {
+      const view=cashFlowCalendarView();
+      const anchor=localDate(isoDate(cashFlowCalendarAnchor));
+
+      if(view==='week'){
+        cashFlowCalendarAnchor=addDays(anchor,7*direction);
+      } else if(view==='biweekly'){
+        cashFlowCalendarAnchor=addDays(anchor,14*direction);
+      } else {
+        const originalDay=anchor.getDate();
+        const target=new Date(anchor.getFullYear(),anchor.getMonth()+direction,1,12);
+        const last=lastDayOfMonth(target.getFullYear(),target.getMonth()).getDate();
+        target.setDate(Math.min(originalDay,last));
+        cashFlowCalendarAnchor=target;
+      }
+
+      renderCashFlowCalendar();
+    }
+
+    function renderCashFlowCalendar() {
+      const view=cashFlowCalendarView();
+      const range=cashFlowCalendarRange(cashFlowCalendarAnchor,view);
+      const copy=cashFlowViewCopy(view);
+
+      document.querySelectorAll('.cashflow-view-option').forEach(button=>{
+        const active=button.dataset.cashflowView===view;
+        button.classList.toggle('active',active);
+        button.setAttribute('aria-pressed',String(active));
+      });
+
+      document.getElementById('cashflowViewLabel').textContent=copy.heading;
+      document.getElementById('cashflowMonthLabel').textContent=cashFlowCalendarRangeLabel(range);
+      document.getElementById('cashflowThisMonth').textContent=copy.current;
+      document.getElementById('cashflowNetPeriodLabel').textContent=copy.net;
+      document.getElementById('cashflowEndPeriodLabel').textContent=copy.end;
+
+      const items=cashFlowPeriodPlannedItems(cashFlowCalendarAnchor,view);
       const income=items.filter(item=>item.type==='income');
       const expenses=items.filter(item=>item.type==='expense');
       const incomeTotal=income.reduce((sum,item)=>sum+(Number(item.amount)||0),0);
       const expenseTotal=expenses.reduce((sum,item)=>sum+(Number(item.amount)||0),0);
       const net=incomeTotal-expenseTotal;
-      const projectedEnd=projectedBalanceThroughDate(isoDate(monthEnd));
+      const projectedEnd=projectedBalanceThroughDate(isoDate(range.end));
 
       document.getElementById('cashflowMonthIncome').textContent=money(incomeTotal);
       document.getElementById('cashflowMonthExpenses').textContent=money(expenseTotal);
@@ -10635,27 +10957,42 @@
       if(projectedEnd!==null)setMoneyClass(document.getElementById('cashflowMonthEndBalance'),projectedEnd);
       document.getElementById('cashflowMonthIncomeCount').textContent=`${income.length} incoming item${income.length===1?'':'s'}`;
       document.getElementById('cashflowMonthExpenseCount').textContent=`${expenses.length} outgoing item${expenses.length===1?'':'s'}`;
-      document.getElementById('cashflowMonthEndNote').textContent=projectedEnd===null?'Historical projected balance unavailable':'Current balance plus expected cash flow';
+      document.getElementById('cashflowMonthEndNote').textContent=projectedEnd===null
+        ? 'Historical projected balance unavailable'
+        : `Projected balance after ${range.end.toLocaleDateString('en-CA',{month:'short',day:'numeric'})}`;
 
-      const mondayIndex=(monthStart.getDay()+6)%7;
-      const calendarStart=addDays(monthStart,-mondayIndex);
       const grid=document.getElementById('cashflowCalendarGrid');
-      grid.innerHTML=Array.from({length:42},(_,index)=>{
+      grid.classList.remove('view-month','view-week','view-biweekly');
+      grid.classList.add(`view-${view}`);
+
+      let calendarStart=range.start;
+      let cellCount=copy.count;
+      let monthIndex=null;
+
+      if(view==='month'){
+        const mondayIndex=(range.start.getDay()+6)%7;
+        calendarStart=addDays(range.start,-mondayIndex);
+        monthIndex=range.start.getMonth();
+      }
+
+      grid.innerHTML=Array.from({length:cellCount},(_,index)=>{
         const date=addDays(calendarStart,index);
-        return cashFlowDayCellMarkup(date,monthIndex);
+        const isPeriodDate=view==='month'
+          ? date>=range.start && date<=range.end
+          : true;
+        return cashFlowDayCellMarkup(date,monthIndex,isPeriodDate);
       }).join('');
 
       grid.querySelectorAll('[data-cashflow-date]').forEach(button=>button.addEventListener('click',()=>openFinanceDetail(`day:${button.dataset.cashflowDate}`)));
     }
 
     function cashFlowMonthDetail(kind) {
-      const range=cashFlowMonthRange();
+      const range=cashFlowCalendarRange();
       if(kind==='income')openFinanceDetail(`range-income:${isoDate(range.start)}:${isoDate(range.end)}`);
       if(kind==='expenses')openFinanceDetail(`range-expense:${isoDate(range.start)}:${isoDate(range.end)}`);
       if(kind==='net')openFinanceDetail(`range-net:${isoDate(range.start)}:${isoDate(range.end)}`);
       if(kind==='balance')openFinanceDetail(`day:${isoDate(range.end)}`);
     }
-
 
     let activeFinanceDetailType = '';
 
@@ -11106,19 +11443,21 @@
       openFinanceDetail(trigger.dataset.financeDetail);
     });
 
-    document.getElementById('cashflowPrevMonth').addEventListener('click',()=>{
-      cashFlowMonthAnchor=new Date(cashFlowMonthAnchor.getFullYear(),cashFlowMonthAnchor.getMonth()-1,1,12);
+    document.querySelectorAll('.cashflow-view-option').forEach(button=>button.addEventListener('click',()=>{
+      const view=button.dataset.cashflowView;
+      if(!['month','week','biweekly'].includes(view))return;
+      if(data.settings.cashFlowCalendarView===view)return;
+      data.settings.cashFlowCalendarView=view;
+      saveData(`${button.textContent.trim()} cash-flow view selected`);
       renderCashFlowCalendar();
-    });
+    }));
+
+    document.getElementById('cashflowPrevMonth').addEventListener('click',()=>shiftCashFlowCalendar(-1));
     document.getElementById('cashflowThisMonth').addEventListener('click',()=>{
-      const now=new Date();
-      cashFlowMonthAnchor=new Date(now.getFullYear(),now.getMonth(),1,12);
+      cashFlowCalendarAnchor=localDate(isoDate(new Date()));
       renderCashFlowCalendar();
     });
-    document.getElementById('cashflowNextMonth').addEventListener('click',()=>{
-      cashFlowMonthAnchor=new Date(cashFlowMonthAnchor.getFullYear(),cashFlowMonthAnchor.getMonth()+1,1,12);
-      renderCashFlowCalendar();
-    });
+    document.getElementById('cashflowNextMonth').addEventListener('click',()=>shiftCashFlowCalendar(1));
     document.getElementById('cashflow-page').addEventListener('click',event=>{
       const monthTrigger=event.target.closest('[data-cashflow-month-detail]');
       if(monthTrigger)cashFlowMonthDetail(monthTrigger.dataset.cashflowMonthDetail);
