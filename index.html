@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Version 43: exact agenda times with minute-level entry and quick durations -->
+  <!-- Version 44: corrected exact-time inputs and working quick-duration buttons -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#5E7464" />
@@ -7100,6 +7100,22 @@
       }
     }
 
+    /* VERSION 44 — WORKING EXACT-TIME CONTROLS */
+    .event-duration-presets button.active {
+      transform:translateY(-1px);
+      box-shadow:0 2px 6px rgba(69,91,75,.14);
+    }
+
+    .agenda-time-input:valid {
+      border-color:#B8C8BA;
+      background:#FCFEFC;
+    }
+
+    .agenda-time-input:focus {
+      border-color:#829F89;
+      box-shadow:0 0 0 3px rgba(130,159,137,.12);
+    }
+
   </style>
 </head>
 <body>
@@ -9515,7 +9531,10 @@
     }
 
     function timeInputValue(value='0:00') {
-      const total = timeToMinutes(value);
+      const rawTotal = typeof value === 'number' && Number.isFinite(value)
+        ? Math.round(value)
+        : timeToMinutes(value);
+      const total = Math.max(0, Math.min(24 * 60 - 1, Number(rawTotal) || 0));
       return `${String(Math.floor(total / 60)).padStart(2,'0')}:${String(total % 60).padStart(2,'0')}`;
     }
 
@@ -10456,16 +10475,18 @@
     function setEventDuration(minutes) {
       const startInput = document.getElementById('eventStart');
       const endInput = document.getElementById('eventEnd');
-      const startMinutes = clampAgendaTime(timeToMinutes(startInput.value), false);
+      const dateKey = document.getElementById('eventDate').value || isoDate(new Date());
+      const fallbackStart = timeToMinutes(firstFreeStart(dateKey));
+      const enteredStart = startInput.value ? timeToMinutes(startInput.value) : fallbackStart;
+      const startMinutes = clampAgendaTime(enteredStart, false);
       const duration = Math.max(1, Number(minutes) || 1);
       const endMinutes = clampAgendaTime(startMinutes + duration, true);
+
       startInput.value = timeInputValue(startMinutes);
       endInput.value = timeInputValue(endMinutes);
       updateEventDurationPreview();
-
-      document.querySelectorAll('[data-event-duration]').forEach(button => {
-        button.classList.toggle('active', Number(button.dataset.eventDuration) === endMinutes - startMinutes);
-      });
+      startInput.dispatchEvent(new Event('input', {bubbles:true}));
+      endInput.dispatchEvent(new Event('input', {bubbles:true}));
     }
 
     document.querySelectorAll('[data-event-duration]').forEach(button => button.addEventListener('click', () => {
@@ -10474,11 +10495,17 @@
 
     document.getElementById('addWeekEvent').addEventListener('click', () => openEventEditor(isoDate(weekAnchor)));
     document.getElementById('addTodayEvent').addEventListener('click', () => openEventEditor(selectedDate));
+    document.getElementById('eventStart').addEventListener('input', updateEventDurationPreview);
+    document.getElementById('eventEnd').addEventListener('input', updateEventDurationPreview);
     document.getElementById('eventStart').addEventListener('change', () => {
       const startInput = document.getElementById('eventStart');
       const endInput = document.getElementById('eventEnd');
-      const startMinutes = clampAgendaTime(timeToMinutes(startInput.value), false);
-      const currentEnd = timeToMinutes(endInput.value);
+      const dateKey = document.getElementById('eventDate').value || isoDate(new Date());
+      const fallbackStart = timeToMinutes(firstFreeStart(dateKey));
+      const enteredStart = startInput.value ? timeToMinutes(startInput.value) : fallbackStart;
+      const startMinutes = clampAgendaTime(enteredStart, false);
+      const currentEnd = endInput.value ? timeToMinutes(endInput.value) : 0;
+
       startInput.value = timeInputValue(startMinutes);
       if (currentEnd <= startMinutes) {
         endInput.value = timeInputValue(clampAgendaTime(startMinutes + 30, true));
@@ -10486,8 +10513,16 @@
       updateEventDurationPreview();
     });
     document.getElementById('eventEnd').addEventListener('change', () => {
+      const startInput = document.getElementById('eventStart');
       const endInput = document.getElementById('eventEnd');
-      endInput.value = timeInputValue(clampAgendaTime(timeToMinutes(endInput.value), true));
+      const startMinutes = startInput.value
+        ? clampAgendaTime(timeToMinutes(startInput.value), false)
+        : timeToMinutes(firstFreeStart(document.getElementById('eventDate').value || isoDate(new Date())));
+      const enteredEnd = endInput.value ? timeToMinutes(endInput.value) : startMinutes + 30;
+      const endMinutes = clampAgendaTime(enteredEnd, true);
+
+      startInput.value = timeInputValue(startMinutes);
+      endInput.value = timeInputValue(endMinutes <= startMinutes ? clampAgendaTime(startMinutes + 30, true) : endMinutes);
       updateEventDurationPreview();
     });
     document.getElementById('eventType').addEventListener('change', updateEventColourPreview);

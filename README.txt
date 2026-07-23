@@ -1,48 +1,34 @@
-Jess Life & CEO Planner — Version 43 Custom Agenda Times
+Jess Life & CEO Planner — Version 44 Fixed Custom Agenda Times
 
-Agenda time entry:
-- Start and End are now manual time fields rather than 30-minute dropdowns.
-- Times may be entered down to the exact minute.
-- The available agenda window remains 6:00 AM through 10:30 PM.
-- Existing saved events continue to load correctly.
+Exact problem corrected:
+- Version 43's timeInputValue helper expected text such as 10:30.
+- The time change handlers and quick-duration buttons passed minute totals
+  such as 630.
+- The helper interpreted 630 as 630 hours and attempted to place 630:00 in an
+  HTML time input.
+- Chrome rejected that invalid value and cleared the time field.
 
-Quick duration buttons:
-- 10 minutes
-- 15 minutes
-- 30 minutes
-- 45 minutes
-- 1 hour
+What now works:
+- Manually entered Start and End times remain in the fields.
+- 10-minute duration button.
+- 15-minute duration button.
+- 30-minute duration button.
+- 45-minute duration button.
+- 1-hour duration button.
+- The selected duration button highlights correctly.
+- Duration preview updates while the time is being selected.
+- Blank time fields use the first available agenda time instead of failing.
+- Exact minute values such as 10:32, 10:42 and 11:17 remain valid.
 
-Select a start time and press a duration button to set the end time instantly.
-The duration preview updates automatically.
-
-Agenda display:
-- The visible agenda still uses clean 30-minute guide lines.
-- Events are positioned between those lines using their exact start minute.
-- Event height reflects the exact duration.
-- 10- and 15-minute events use a compact layout so they remain readable,
-  clickable and editable.
-- Overlapping Task and Agenda note behaviour remains intact.
-
-Routine templates:
-- Template time blocks now also use exact time fields.
-- Template events can use 10-, 15- or any other minute-level duration.
-
-Examples now supported:
-- 9:05 AM–9:15 AM
-- 10:00 AM–10:15 AM
-- 11:10 AM–11:55 AM
-- 2:03 PM–2:28 PM
-
-Verification completed:
-- Full JavaScript syntax passed.
+Regression tests completed:
+- Numeric minute totals correctly convert to HTML time values.
+- Text time values correctly normalize to HH:MM.
+- 10-, 15-, 30-, 45- and 60-minute presets were tested from a 10:32 AM start.
+- Full planner JavaScript syntax passed.
 - No duplicate static HTML IDs.
-- Exact-minute normalization passed.
-- 10-minute, 15-minute and 45-minute duration calculations passed.
-- Short-event agenda geometry passed.
 
 GitHub update:
-1. Replace the repository index.html with this file.
+1. Replace the repository index.html with this Version 44 file.
 2. Commit directly to main.
 3. Wait approximately one minute.
 4. Hard-refresh using Command + Shift + R.
