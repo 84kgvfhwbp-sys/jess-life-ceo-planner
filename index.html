@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Version 43: exact agenda times with minute-level entry and quick durations -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#5E7464" />
@@ -6954,6 +6955,151 @@
       }
     }
 
+    /* VERSION 43 — EXACT AGENDA TIMES AND SHORT EVENTS */
+    .event-time-grid {
+      align-items:end;
+    }
+
+    .agenda-time-input {
+      min-height:42px;
+      font-variant-numeric:tabular-nums;
+    }
+
+    .event-duration-tools {
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr);
+      align-items:center;
+      gap:12px;
+    }
+
+    .event-duration-tools > div:first-child {
+      display:grid;
+      gap:3px;
+    }
+
+    .event-duration-presets {
+      display:flex;
+      min-width:0;
+      align-items:center;
+      justify-content:flex-end;
+      gap:5px;
+      flex-wrap:wrap;
+    }
+
+    .event-duration-presets button {
+      padding:6px 8px;
+      border:1px solid #D9D3CA;
+      border-radius:5px;
+      background:#FFF;
+      color:#697069;
+      font-size:7px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .event-duration-presets button:hover,
+    .event-duration-presets button:focus-visible {
+      border-color:#9CAF9F;
+      color:#4D6252;
+      outline:none;
+    }
+
+    .event-duration-presets button.active {
+      border-color:#829F89;
+      background:#EAF2EB;
+      color:#47604E;
+    }
+
+    .agenda-event-block.is-short-event {
+      grid-template-columns:15px minmax(0,1fr);
+      gap:3px;
+      padding:2px 4px 2px 3px;
+      min-height:18px;
+      overflow:hidden;
+    }
+
+    .agenda-event-block.is-short-event .agenda-event-check span {
+      width:13px;
+      height:13px;
+      font-size:8px;
+    }
+
+    .agenda-event-block.is-short-event .agenda-event-copy {
+      gap:0;
+      min-height:0;
+    }
+
+    .agenda-event-block.is-short-event .agenda-event-copy strong {
+      font-size:7.4px;
+      line-height:1.05;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .agenda-event-block.is-short-event .agenda-event-copy span {
+      font-size:5.8px;
+      line-height:1;
+      white-space:nowrap;
+    }
+
+    .agenda-event-block.is-short-event .agenda-event-copy small {
+      display:none;
+    }
+
+    .agenda-event-block.is-micro-event {
+      grid-template-columns:12px minmax(0,1fr);
+      padding-top:1px;
+      padding-bottom:1px;
+    }
+
+    .agenda-event-block.is-micro-event .agenda-event-check span {
+      width:11px;
+      height:11px;
+      font-size:7px;
+    }
+
+    .agenda-event-block.is-micro-event .agenda-event-copy span {
+      display:none;
+    }
+
+    .agenda-event-block.is-note.is-short-event,
+    .agenda-event-block.is-note.is-micro-event {
+      grid-template-columns:minmax(0,1fr);
+      padding-left:6px;
+    }
+
+    .template-event-row input[type="time"] {
+      min-width:96px;
+      font-size:8px;
+      font-variant-numeric:tabular-nums;
+    }
+
+    @media (max-width:780px) {
+      .event-duration-tools {
+        grid-template-columns:1fr;
+      }
+
+      .event-duration-presets {
+        justify-content:flex-start;
+      }
+
+      .event-duration-presets button {
+        flex:1 1 calc(20% - 5px);
+        text-align:center;
+      }
+    }
+
+    @media (max-width:430px) {
+      .event-time-grid {
+        grid-template-columns:1fr;
+      }
+
+      .event-duration-presets button {
+        flex:1 1 calc(33.333% - 5px);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -8088,7 +8234,7 @@
           <div>
             <span class="eyebrow">Time block</span>
             <h3 id="eventFormTitle">Add event</h3>
-            <div class="card-subtitle">Choose what it is, when it starts and when it ends. Tasks and agenda notes may overlap other blocks.</div>
+            <div class="card-subtitle">Choose exact start and end times. Events can be as short as a few minutes, and tasks or agenda notes may overlap other blocks.</div>
           </div>
         </div>
 
@@ -8120,20 +8266,29 @@
           <input type="date" class="input" id="eventDate" />
         </div>
 
-        <div class="finance-detail-grid">
+        <div class="finance-detail-grid event-time-grid">
           <div class="field">
             <label class="label">Start time</label>
-            <select class="select" id="eventStart"></select>
+            <input type="time" class="input agenda-time-input" id="eventStart" min="06:00" max="22:29" step="60" />
           </div>
           <div class="field">
             <label class="label">End time</label>
-            <select class="select" id="eventEnd"></select>
+            <input type="time" class="input agenda-time-input" id="eventEnd" min="06:01" max="22:30" step="60" />
           </div>
         </div>
 
-        <div class="event-duration-summary">
-          <span>Length</span>
-          <strong id="eventDurationPreview">1 hour</strong>
+        <div class="event-duration-summary event-duration-tools">
+          <div>
+            <span>Length</span>
+            <strong id="eventDurationPreview">1 hour</strong>
+          </div>
+          <div class="event-duration-presets" aria-label="Quick event duration">
+            <button type="button" data-event-duration="10">10 min</button>
+            <button type="button" data-event-duration="15">15 min</button>
+            <button type="button" data-event-duration="30">30 min</button>
+            <button type="button" data-event-duration="45">45 min</button>
+            <button type="button" data-event-duration="60">1 hour</button>
+          </div>
         </div>
 
         <div class="field">
@@ -9359,6 +9514,17 @@
       return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2,'0')}`;
     }
 
+    function timeInputValue(value='0:00') {
+      const total = timeToMinutes(value);
+      return `${String(Math.floor(total / 60)).padStart(2,'0')}:${String(total % 60).padStart(2,'0')}`;
+    }
+
+    function clampAgendaTime(total, isEnd=false) {
+      const minimum = isEnd ? AGENDA_START_MINUTES + 1 : AGENDA_START_MINUTES;
+      const maximum = isEnd ? AGENDA_END_MINUTES : AGENDA_END_MINUTES - 1;
+      return Math.max(minimum, Math.min(maximum, Number(total) || minimum));
+    }
+
     function formatClock(value) {
       const minutes = typeof value === 'number' ? value : timeToMinutes(value);
       const hour24 = Math.floor(minutes / 60);
@@ -9604,13 +9770,17 @@
       const blocks = events.map(event => {
         const startMinutes = Math.max(AGENDA_START_MINUTES, timeToMinutes(event.start));
         const endMinutes = Math.min(AGENDA_END_MINUTES, timeToMinutes(event.end));
+        const durationMinutes = Math.max(1, endMinutes - startMinutes);
         const top = ((startMinutes - AGENDA_START_MINUTES) / AGENDA_SLOT_MINUTES) * AGENDA_SLOT_HEIGHT + 2;
-        const height = Math.max(AGENDA_SLOT_HEIGHT - 4, ((endMinutes - startMinutes) / AGENDA_SLOT_MINUTES) * AGENDA_SLOT_HEIGHT - 4);
+        const proportionalHeight = (durationMinutes / AGENDA_SLOT_MINUTES) * AGENDA_SLOT_HEIGHT - 3;
+        const height = Math.max(durationMinutes <= 15 ? 18 : 20, proportionalHeight);
         const type = eventTypeDetails(event.type);
         const isNote = event.type === 'note';
+        const isShort = durationMinutes < 30;
+        const isMicro = durationMinutes <= 15;
         const layout = eventLayout.get(event.id) || {lane:0, lanes:1};
         const isOverlapping = layout.lanes > 1;
-        return `<article class="agenda-event-block ${eventTypeClass(event.type)} ${isNote ? 'is-note' : ''} ${isOverlapping ? 'is-overlapping' : ''} ${!isNote && event.done ? 'is-complete' : ''}" style="top:${top}px;height:${height}px;--event-lane:${layout.lane};--event-lanes:${layout.lanes};" data-event-id="${event.id}" data-date="${dateKey}" tabindex="0" role="button">
+        return `<article class="agenda-event-block ${eventTypeClass(event.type)} ${isNote ? 'is-note' : ''} ${isShort ? 'is-short-event' : ''} ${isMicro ? 'is-micro-event' : ''} ${isOverlapping ? 'is-overlapping' : ''} ${!isNote && event.done ? 'is-complete' : ''}" style="top:${top}px;height:${height}px;--event-lane:${layout.lane};--event-lanes:${layout.lanes};" data-event-id="${event.id}" data-date="${dateKey}" tabindex="0" role="button">
           ${isNote ? '' : `<label class="agenda-event-check" title="Mark complete">
             <input type="checkbox" data-event-id="${event.id}" data-date="${dateKey}" ${event.done ? 'checked' : ''}>
             <span>✓</span>
@@ -9946,7 +10116,11 @@
     function updateEventDurationPreview() {
       const start = timeToMinutes(document.getElementById('eventStart').value);
       const end = timeToMinutes(document.getElementById('eventEnd').value);
-      document.getElementById('eventDurationPreview').textContent = end > start ? formatDuration(end - start) : 'Choose a later end time';
+      const duration = end - start;
+      document.getElementById('eventDurationPreview').textContent = duration > 0 ? formatDuration(duration) : 'Choose a later end time';
+      document.querySelectorAll('[data-event-duration]').forEach(button => {
+        button.classList.toggle('active', Number(button.dataset.eventDuration) === duration);
+      });
     }
 
     function updateEventColourPreview() {
@@ -9997,10 +10171,8 @@
       document.getElementById('eventTitle').value = '';
       document.getElementById('eventType').value = 'task';
       document.getElementById('eventDate').value = dateKey;
-      document.getElementById('eventStart').innerHTML = agendaTimeOptions(start, false);
-      document.getElementById('eventEnd').innerHTML = agendaTimeOptions(end, true);
-      document.getElementById('eventStart').value = start;
-      document.getElementById('eventEnd').value = end;
+      document.getElementById('eventStart').value = timeInputValue(start);
+      document.getElementById('eventEnd').value = timeInputValue(end);
       document.getElementById('eventNotes').value = '';
       document.getElementById('eventDone').checked = false;
       document.getElementById('deleteEvent').style.display = 'none';
@@ -10020,10 +10192,8 @@
         document.getElementById('eventTitle').value = eventItem.title || '';
         document.getElementById('eventType').value = eventItem.type || 'other';
         document.getElementById('eventDate').value = dateKey;
-        document.getElementById('eventStart').innerHTML = agendaTimeOptions(eventItem.start, false);
-        document.getElementById('eventEnd').innerHTML = agendaTimeOptions(eventItem.end, true);
-        document.getElementById('eventStart').value = eventItem.start;
-        document.getElementById('eventEnd').value = eventItem.end;
+        document.getElementById('eventStart').value = timeInputValue(eventItem.start);
+        document.getElementById('eventEnd').value = timeInputValue(eventItem.end);
         document.getElementById('eventNotes').value = eventItem.notes || '';
         document.getElementById('eventDone').checked = eventItem.type === 'note' ? false : !!eventItem.done;
         document.getElementById('deleteEvent').style.display = '';
@@ -10049,8 +10219,8 @@
       const title = document.getElementById('eventTitle').value.trim();
       const type = document.getElementById('eventType').value;
       const dateKey = document.getElementById('eventDate').value;
-      const start = document.getElementById('eventStart').value;
-      const end = document.getElementById('eventEnd').value;
+      const start = timeInputValue(document.getElementById('eventStart').value);
+      const end = timeInputValue(document.getElementById('eventEnd').value);
       const notes = document.getElementById('eventNotes').value.trim();
       const done = type === 'note' ? false : document.getElementById('eventDone').checked;
 
@@ -10283,23 +10453,48 @@
       if (foundDate === selectedDate) renderTodayTasks();
     }
 
+    function setEventDuration(minutes) {
+      const startInput = document.getElementById('eventStart');
+      const endInput = document.getElementById('eventEnd');
+      const startMinutes = clampAgendaTime(timeToMinutes(startInput.value), false);
+      const duration = Math.max(1, Number(minutes) || 1);
+      const endMinutes = clampAgendaTime(startMinutes + duration, true);
+      startInput.value = timeInputValue(startMinutes);
+      endInput.value = timeInputValue(endMinutes);
+      updateEventDurationPreview();
+
+      document.querySelectorAll('[data-event-duration]').forEach(button => {
+        button.classList.toggle('active', Number(button.dataset.eventDuration) === endMinutes - startMinutes);
+      });
+    }
+
+    document.querySelectorAll('[data-event-duration]').forEach(button => button.addEventListener('click', () => {
+      setEventDuration(Number(button.dataset.eventDuration));
+    }));
+
     document.getElementById('addWeekEvent').addEventListener('click', () => openEventEditor(isoDate(weekAnchor)));
     document.getElementById('addTodayEvent').addEventListener('click', () => openEventEditor(selectedDate));
     document.getElementById('eventStart').addEventListener('change', () => {
-      const startMinutes = timeToMinutes(document.getElementById('eventStart').value);
-      const currentEnd = timeToMinutes(document.getElementById('eventEnd').value);
+      const startInput = document.getElementById('eventStart');
+      const endInput = document.getElementById('eventEnd');
+      const startMinutes = clampAgendaTime(timeToMinutes(startInput.value), false);
+      const currentEnd = timeToMinutes(endInput.value);
+      startInput.value = timeInputValue(startMinutes);
       if (currentEnd <= startMinutes) {
-        const adjustedEnd = minutesToTime(Math.min(startMinutes + 60, AGENDA_END_MINUTES));
-        document.getElementById('eventEnd').value = adjustedEnd;
+        endInput.value = timeInputValue(clampAgendaTime(startMinutes + 30, true));
       }
       updateEventDurationPreview();
     });
-    document.getElementById('eventEnd').addEventListener('change', updateEventDurationPreview);
+    document.getElementById('eventEnd').addEventListener('change', () => {
+      const endInput = document.getElementById('eventEnd');
+      endInput.value = timeInputValue(clampAgendaTime(timeToMinutes(endInput.value), true));
+      updateEventDurationPreview();
+    });
     document.getElementById('eventType').addEventListener('change', updateEventColourPreview);
     document.getElementById('eventDate').addEventListener('change', event => {
       const start = firstFreeStart(event.target.value);
-      document.getElementById('eventStart').value = start;
-      document.getElementById('eventEnd').value = minutesToTime(Math.min(timeToMinutes(start) + 60, AGENDA_END_MINUTES));
+      document.getElementById('eventStart').value = timeInputValue(start);
+      document.getElementById('eventEnd').value = timeInputValue(Math.min(timeToMinutes(start) + 60, AGENDA_END_MINUTES));
       updateEventDurationPreview();
     });
     document.getElementById('saveEvent').addEventListener('click', saveEventFromEditor);
@@ -10723,8 +10918,8 @@
         <select class="select template-event-type">
           ${WEEK_EVENT_TYPES.map(type => `<option value="${type.value}" ${type.value === event.type ? 'selected' : ''}>${escapeHtml(type.label)}</option>`).join('')}
         </select>
-        <select class="select template-event-start">${agendaTimeOptions(event.start || '9:00',false)}</select>
-        <select class="select template-event-end">${agendaTimeOptions(event.end || '10:00',true)}</select>
+        <input type="time" class="input template-event-start" min="06:00" max="22:29" step="60" value="${timeInputValue(event.start || '9:00')}">
+        <input type="time" class="input template-event-end" min="06:01" max="22:30" step="60" value="${timeInputValue(event.end || '10:00')}">
         <input class="input template-event-notes" value="${escapeHtml(event.notes || '')}" placeholder="Details (optional)">
         <button class="delete-btn template-event-remove" type="button" title="Remove">×</button>
       </div>`).join('');
@@ -10734,13 +10929,16 @@
         row.querySelector('.template-event-title').addEventListener('input', event => templateDraftEvents[index].title = event.target.value);
         row.querySelector('.template-event-type').addEventListener('change', event => templateDraftEvents[index].type = event.target.value);
         row.querySelector('.template-event-start').addEventListener('change', event => {
-          templateDraftEvents[index].start = event.target.value;
-          if (timeToMinutes(templateDraftEvents[index].end) <= timeToMinutes(event.target.value)) {
-            templateDraftEvents[index].end = minutesToTime(Math.min(timeToMinutes(event.target.value) + 60, AGENDA_END_MINUTES));
+          const startMinutes = clampAgendaTime(timeToMinutes(event.target.value), false);
+          templateDraftEvents[index].start = timeInputValue(startMinutes);
+          if (timeToMinutes(templateDraftEvents[index].end) <= startMinutes) {
+            templateDraftEvents[index].end = timeInputValue(clampAgendaTime(startMinutes + 30, true));
             renderTemplateEventRows();
           }
         });
-        row.querySelector('.template-event-end').addEventListener('change', event => templateDraftEvents[index].end = event.target.value);
+        row.querySelector('.template-event-end').addEventListener('change', event => {
+          templateDraftEvents[index].end = timeInputValue(clampAgendaTime(timeToMinutes(event.target.value), true));
+        });
         row.querySelector('.template-event-notes').addEventListener('input', event => templateDraftEvents[index].notes = event.target.value);
         row.querySelector('.template-event-remove').addEventListener('click', () => {
           templateDraftEvents.splice(index,1);
