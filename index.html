@@ -5894,6 +5894,151 @@
       padding-top:5px;
     }
 
+    /* VERSION 38 — STACKED INCOME FIRST, EXPENSE SECOND */
+    .cashflow-day-totals {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:5px;
+    }
+
+    .cashflow-day-totals > span {
+      display:flex;
+      min-width:0;
+      min-height:31px;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      padding:6px 8px;
+      border:1px solid #E4E0D8;
+      border-radius:4px;
+      background:#FAF9F6;
+    }
+
+    .cashflow-day-totals > span.income {
+      border-left:3px solid #82A18A;
+      background:linear-gradient(90deg,#F3F8F4,#FBFAF7);
+    }
+
+    .cashflow-day-totals > span.expense {
+      border-left:3px solid #D68E88;
+      background:linear-gradient(90deg,#FDF3F2,#FBFAF7);
+    }
+
+    .cashflow-day-totals small {
+      flex:0 0 auto;
+      color:#7D837D;
+      font-size:6.3px;
+      font-weight:850;
+      letter-spacing:.045em;
+      text-transform:uppercase;
+    }
+
+    .cashflow-day-totals b {
+      min-width:0;
+      overflow:hidden;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:10.5px;
+      font-weight:600;
+      line-height:1;
+      text-align:right;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .cashflow-day-totals .income b {
+      color:#55765D;
+    }
+
+    .cashflow-day-totals .expense b {
+      color:#B25955;
+    }
+
+    /* Recorded-activity note becomes a normal line below the two totals. */
+    .cashflow-day-cell.has-recorded-cashflow .cashflow-day-totals {
+      position:static;
+    }
+
+    .cashflow-day-cell.has-recorded-cashflow .cashflow-day-totals::after {
+      content:"Recorded activity included";
+      position:static;
+      right:auto;
+      bottom:auto;
+      justify-self:end;
+      margin-top:-1px;
+      color:#718176;
+      font-size:5.7px;
+      font-weight:800;
+      letter-spacing:.035em;
+      text-transform:uppercase;
+    }
+
+    .cashflow-day-cell.has-recorded-cashflow .cashflow-day-items {
+      padding-top:0;
+    }
+
+    /* Monthly cells need a little more height for the vertical totals. */
+    .cashflow-calendar-grid.view-month .cashflow-day-cell {
+      min-height:194px;
+    }
+
+    /* One-week view has the most room, so use slightly larger figures. */
+    .cashflow-calendar-grid.view-week .cashflow-day-totals {
+      gap:7px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-totals > span {
+      min-height:43px;
+      padding:9px 10px;
+      border-radius:5px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-totals small {
+      font-size:7px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-totals b {
+      font-size:14px;
+    }
+
+    .cashflow-calendar-grid.view-week .cashflow-day-items {
+      min-height:82px;
+    }
+
+    /* Two-week view stays compact while keeping the vertical hierarchy. */
+    .cashflow-calendar-grid.view-biweekly .cashflow-day-totals > span {
+      min-height:35px;
+      padding:7px 8px;
+    }
+
+    .cashflow-calendar-grid.view-biweekly .cashflow-day-totals b {
+      font-size:11.5px;
+    }
+
+    .cashflow-calendar-grid.view-biweekly .cashflow-day-cell {
+      min-height:246px;
+    }
+
+    @media (max-width:1180px) {
+      .cashflow-calendar-grid.view-month .cashflow-day-cell {
+        min-height:190px;
+      }
+    }
+
+    @media (max-width:780px) {
+      .cashflow-day-totals > span,
+      .cashflow-calendar-grid.view-week .cashflow-day-totals > span,
+      .cashflow-calendar-grid.view-biweekly .cashflow-day-totals > span {
+        min-height:39px;
+        padding:8px 9px;
+      }
+
+      .cashflow-day-totals b,
+      .cashflow-calendar-grid.view-week .cashflow-day-totals b,
+      .cashflow-calendar-grid.view-biweekly .cashflow-day-totals b {
+        font-size:12.5px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -10810,8 +10955,14 @@
           ${isToday?'<small>Today</small>':`<small>${date.toLocaleDateString('en-CA',{weekday:'short'})}</small>`}
         </span>
         <span class="cashflow-day-totals">
-          <span class="income"><small>In</small><b>${incomeTotal?money(incomeTotal):'—'}</b></span>
-          <span class="expense"><small>Out</small><b>${expenseTotal?money(expenseTotal):'—'}</b></span>
+          <span class="income">
+            <small>Income</small>
+            <b>${incomeTotal?money(incomeTotal):'—'}</b>
+          </span>
+          <span class="expense">
+            <small>Expense</small>
+            <b>${expenseTotal?money(expenseTotal):'—'}</b>
+          </span>
         </span>
         <span class="cashflow-day-items">
           ${important.length?important.map(item=>`<span class="${item.type} ${item.virtual?'is-recurring':''} ${item.status==='actual'?'is-recorded':'is-expected'}"><i></i><em>${escapeHtml(item.party||item.description||cashFlowCategoryLabel(item))}</em><b>${money(item.amount)}</b></span>`).join(''):'<span class="cashflow-no-items">No recorded or expected cash flow</span>'}

@@ -1,49 +1,44 @@
-Jess Life & CEO Planner — Version 36 Recorded Cash Flow Visible
+Jess Life & CEO Planner — Version 38 Stacked Income and Expense
 
-Problem corrected:
-- Cash-Flow Calendar day cells previously calculated In and Out using only
-  expected/planned transactions.
-- Recorded transactions were acknowledged only as a recorded-item count.
-- This caused a received payment to appear in the breakdown drawer while the
-  monthly calendar still displayed a dash or $0.00.
+Cash-Flow Calendar day layout:
+- Income and Expense are no longer displayed side by side.
+- Income always appears first.
+- Expense appears directly underneath.
+- Each line places the label on the left and the amount on the right.
+- Income has a quiet green accent.
+- Expense has a quiet coral accent.
+- Full amounts have substantially more horizontal room.
 
-New daily calculation:
-- In = recorded income + expected income scheduled for that date.
-- Out = recorded expenses + expected expenses scheduled for that date.
-- The daily item preview can show both recorded and expected sources.
-- Recorded sources appear slightly stronger than expected sources.
-- Expected sources retain a quieter outlined marker.
-- Recurring-source indicators continue to work.
+Applies to:
+- Monthly view
+- Weekly view
+- Bi-weekly view
 
-Past dates:
-- The bottom result now shows Recorded daily net.
-- Recorded daily net = recorded income less recorded expenses.
-- The planner does not invent a historical bank balance from today's current
-  balance.
+View-specific spacing:
+- Monthly remains compact but gains enough height for both stacked lines.
+- Weekly uses larger totals because the day columns are wider.
+- Bi-weekly uses a slightly tighter stacked layout.
+- Mobile uses full-width stacked lines.
 
-Today and future dates:
-- The bottom result continues to show projected account balance.
-- Projected balances remain based on the current bank balance plus outstanding
-  expected cash flow.
-
-Views corrected:
-- Monthly Cash-Flow Calendar
-- Weekly Cash-Flow Calendar
-- Bi-weekly Cash-Flow Calendar
-- Weekly Planner daily Cash Flow panels
+Recorded cash flow:
+- Recorded and expected transactions remain combined in the visible totals.
+- Recorded source names remain visible below the totals.
+- Past dates continue to show Recorded net.
+- July 1 example tested:
+  Income $3,507.50
+  Expense $1,667.50
+  Recorded net $1,840.00
 
 Verification completed:
 - Full planner JavaScript syntax passed.
 - No duplicate static HTML IDs.
-- The exact production functions were tested using a July 1 recorded income
-  payment of $3,507.50 and an expected expense of $207.50.
-- The test verified that the recorded income amount, source, expected expense,
-  recorded-item styling and recorded daily net all appear in the day cell.
+- Income appears before Expense in production day-cell markup.
+- Income, Expense and recorded-net amounts were tested.
+- Monthly, Weekly and Bi-weekly CSS layouts were verified.
 
 GitHub update:
-1. Download a planner backup.
-2. Upload this index.html to the jess-life-ceo-planner repository.
-3. Replace the existing index.html.
-4. Commit directly to main.
-5. Wait approximately one minute.
-6. Refresh with Command + Shift + R on Mac.
+1. Upload this index.html to the repository.
+2. Replace the existing index.html.
+3. Commit directly to main.
+4. Wait approximately one minute.
+5. Hard-refresh with Command + Shift + R.
