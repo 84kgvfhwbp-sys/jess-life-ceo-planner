@@ -6039,6 +6039,194 @@
       }
     }
 
+    /* VERSION 39 — RESPONSIVE TODAY TASK CARDS */
+    .today-tasks-card {
+      container-type:inline-size;
+      min-width:0;
+    }
+
+    .today-tasks-header {
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+
+    .today-tasks-header > div {
+      min-width:0;
+    }
+
+    .today-tasks-header #moveUnfinishedTomorrow {
+      max-width:100%;
+      white-space:normal;
+      text-align:center;
+    }
+
+    .today-tasks-card .task-list {
+      min-width:0;
+    }
+
+    .today-tasks-card .task-item {
+      position:relative;
+      display:grid;
+      grid-template-columns:24px minmax(0,1fr);
+      align-items:start;
+      gap:10px;
+      min-width:0;
+      padding:14px 2px;
+    }
+
+    .today-tasks-card .task-check {
+      margin-top:2px;
+    }
+
+    .today-tasks-card .task-item-copy {
+      min-width:0;
+      padding-right:2px;
+    }
+
+    .today-tasks-card .task-text {
+      display:block;
+      min-width:0;
+      overflow-wrap:break-word;
+      word-break:normal;
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .today-tasks-card .task-chip-row {
+      max-width:100%;
+      flex-wrap:wrap;
+    }
+
+    .today-tasks-card .task-meta,
+    .today-tasks-card .task-note-preview {
+      overflow-wrap:break-word;
+      word-break:normal;
+    }
+
+    .today-tasks-card .today-task-actions {
+      display:flex;
+      grid-column:2;
+      width:100%;
+      min-width:0;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-top:9px;
+      padding:0;
+    }
+
+    .today-task-move-controls {
+      display:flex;
+      min-width:0;
+      flex:1 1 auto;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    .today-task-move-controls .today-tomorrow,
+    .today-task-move-controls .today-move {
+      flex:0 0 auto;
+      white-space:nowrap;
+    }
+
+    .today-task-move-controls .today-move-date {
+      width:auto;
+      min-width:136px;
+      max-width:190px;
+      flex:1 1 145px;
+      padding:7px 8px;
+      font-size:10px;
+      border-radius:5px;
+    }
+
+    .today-task-record-controls {
+      display:flex;
+      flex:0 0 auto;
+      align-items:center;
+      justify-content:flex-end;
+      gap:5px;
+    }
+
+    .today-task-record-controls .today-delete {
+      display:grid;
+      width:28px;
+      height:28px;
+      flex:0 0 auto;
+      place-items:center;
+      border:1px solid transparent;
+      border-radius:5px;
+      font-size:17px;
+    }
+
+    .today-task-record-controls .today-delete:hover,
+    .today-task-record-controls .today-delete:focus-visible {
+      border-color:#E5C2BE;
+      background:#FFF3F1;
+      outline:none;
+    }
+
+    @container (max-width:420px) {
+      .today-tasks-header {
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .today-tasks-header #moveUnfinishedTomorrow {
+        width:100%;
+      }
+
+      .today-tasks-card .today-task-actions {
+        align-items:stretch;
+        flex-direction:column;
+      }
+
+      .today-task-move-controls {
+        display:grid;
+        width:100%;
+        grid-template-columns:minmax(0,1fr) auto;
+      }
+
+      .today-task-move-controls .today-tomorrow {
+        grid-column:1 / -1;
+        justify-self:start;
+      }
+
+      .today-task-move-controls .today-move-date {
+        width:100%;
+        min-width:0;
+        max-width:none;
+      }
+
+      .today-task-record-controls {
+        width:100%;
+        justify-content:flex-end;
+        padding-top:2px;
+      }
+    }
+
+    @container (max-width:300px) {
+      .today-tasks-card .task-item {
+        grid-template-columns:22px minmax(0,1fr);
+        gap:8px;
+      }
+
+      .today-task-move-controls {
+        grid-template-columns:1fr;
+      }
+
+      .today-task-move-controls .today-tomorrow,
+      .today-task-move-controls .today-move,
+      .today-task-move-controls .today-move-date {
+        width:100%;
+        grid-column:1;
+      }
+
+      .today-task-move-controls .today-tomorrow {
+        justify-self:stretch;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -6294,8 +6482,8 @@
             <div id="todayEventTimeline" class="today-event-timeline"></div>
           </div>
 
-          <div class="card">
-            <div class="card-header">
+          <div class="card today-tasks-card">
+            <div class="card-header today-tasks-header">
               <div><h3>Today’s tasks</h3><div class="task-progress-summary"><strong id="todayTaskProgressText">0% complete</strong><span id="todayTaskCountText">0 of 0</span></div></div>
               <button class="btn btn-light btn-small" id="moveUnfinishedTomorrow">Move unfinished → tomorrow</button>
             </div>
@@ -8289,12 +8477,16 @@
           ${task.notes?`<div class="task-note-preview">${escapeHtml(task.notes)}</div>`:''}
           <div class="task-meta">${escapeHtml(task.movedFrom?`Moved from ${task.movedFrom}`:taskSecondaryMeta(task))}</div>
         </div>
-        <div class="task-actions">
-          <button class="btn btn-light btn-small today-tomorrow" data-source="${task.source}" data-id="${task.id}">Tomorrow</button>
-          <input type="date" class="input today-move-date" data-key="${taskKey(task)}">
-          <button class="btn btn-light btn-small today-move" data-source="${task.source}" data-id="${task.id}">Move</button>
-          ${task.source==='master'?`<button class="btn btn-light btn-small today-edit-task" data-id="${task.id}">Edit</button>`:''}
-          <button class="delete-btn today-delete" data-source="${task.source}" data-id="${task.id}" title="${task.source==='master'?'Remove from this day':'Delete'}">×</button>
+        <div class="task-actions today-task-actions">
+          <div class="today-task-move-controls">
+            <button class="btn btn-light btn-small today-tomorrow" data-source="${task.source}" data-id="${task.id}">Tomorrow</button>
+            <input type="date" class="input today-move-date" data-key="${taskKey(task)}" aria-label="Move task to date">
+            <button class="btn btn-light btn-small today-move" data-source="${task.source}" data-id="${task.id}">Move</button>
+          </div>
+          <div class="today-task-record-controls">
+            ${task.source==='master'?`<button class="btn btn-light btn-small today-edit-task" data-id="${task.id}">Edit</button>`:''}
+            <button class="delete-btn today-delete" data-source="${task.source}" data-id="${task.id}" title="${task.source==='master'?'Remove from this day':'Delete'}" aria-label="${task.source==='master'?'Remove task from this day':'Delete task'}">×</button>
+          </div>
         </div>
       </div>`).join('');
       list.querySelectorAll('.today-check').forEach(el => el.addEventListener('change', () => { setTaskDone(el.dataset.source,el.dataset.id,selectedDate,el.checked); saveData(); renderTodayTasks(); }));
