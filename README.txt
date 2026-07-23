@@ -1,44 +1,43 @@
-Jess Life & CEO Planner — Version 39 Fixed Today Task Layout
+Jess Life & CEO Planner — Version 41 Overlapping Tasks and Agenda Notes
 
-Problem corrected:
-- The Today task row used three grid columns:
-  checkbox, task information and all move/edit/delete controls.
-- Inside the narrow Today card, the controls consumed nearly all available
-  width and forced the task title to break one word per line.
+New overlap rules:
+- Time-block type Task may overlap any other agenda block.
+- Agenda note may overlap any other agenda block.
+- Tasks and agenda notes may overlap one another.
+- Appointments, meetings, on-site meetings, calls, office/admin, finance,
+  personal, travel, breaks and Other remain fixed commitments.
+- Two fixed commitments cannot occupy the same time.
 
-New task layout:
-- Row 1: checkbox, task title, badges, notes and date information.
-- Row 2: Tomorrow, date selector, Move, Edit and delete controls.
-- The controls can wrap without reducing the task-title column.
-- Date selectors expand or contract within the available card width.
-- Task text uses normal word wrapping and will no longer stack vertically.
+Agenda display:
+- Simultaneous blocks are assigned side-by-side lanes.
+- Every overlapping block remains visible, clickable and editable.
+- The primary fixed commitment is placed first when blocks begin together.
+- Narrow overlapping blocks use a compact title/time layout.
+- Agenda notes remain italic and do not have completion checkboxes.
+- Tasks retain completion checkboxes.
 
-Responsive behaviour:
-- The Today task card uses its own container width rather than the overall
-  browser width.
-- Narrow card: the Move unfinished button moves below the heading.
-- Narrow task row: Tomorrow appears first, with date and Move below it.
-- Very narrow task row: each move control becomes full width.
-- Edit and delete remain grouped neatly at the end.
+Free-time behaviour:
+- Tasks and notes no longer mark the underlying time as unavailable.
+- The automatic suggested start time looks only at fixed commitments.
 
-Preserved functionality:
-- Complete and reopen tasks.
-- Move directly to tomorrow.
-- Move to a selected date.
-- Edit Task Inbox tasks.
-- Remove or delete tasks.
-- Progress percentage and carryover review.
-- Cash-Flow Calendar Version 38 stacked Income and Expense layout.
+Templates:
+- Template Tasks and Agenda notes may overlap existing blocks.
+- Fixed template blocks are still skipped when they conflict with another
+  fixed commitment.
+
+Editor guidance:
+- Task and Agenda note previews explain that overlap is allowed.
+- Fixed event types explain that another fixed commitment cannot overlap.
 
 Verification completed:
-- Full JavaScript syntax passed.
+- Full planner JavaScript syntax passed.
 - No duplicate static HTML IDs.
-- Today task controls render in separate wrappers below the task content.
-- Responsive container rules were verified.
+- Task and Agenda note overlap rules were tested.
+- Fixed meeting versus appointment conflict was tested.
+- Side-by-side lane assignment was tested for connected overlapping blocks.
 
 GitHub update:
-1. Upload this index.html to the repository.
-2. Replace the existing index.html.
-3. Commit directly to main.
-4. Wait approximately one minute.
-5. Hard-refresh using Command + Shift + R.
+1. Replace the existing repository index.html with this file.
+2. Commit directly to main.
+3. Wait approximately one minute.
+4. Hard-refresh with Command + Shift + R.

@@ -6227,6 +6227,249 @@
       }
     }
 
+    /* VERSION 40 — TASK TITLE ABOVE INFORMATION AND ACTIONS */
+    .today-tasks-card .today-task-card-item {
+      display:flex;
+      width:100%;
+      min-width:0;
+      flex-direction:column;
+      gap:10px;
+      padding:15px 0;
+      border-bottom:1px solid #EAE5DD;
+    }
+
+    .today-tasks-card .today-task-card-item:last-child {
+      border-bottom:0;
+    }
+
+    .today-tasks-card .today-task-card-item.is-overdue {
+      padding-left:10px;
+      border-left:4px solid #C56E67;
+    }
+
+    .today-task-main-row {
+      display:grid;
+      width:100%;
+      min-width:0;
+      grid-template-columns:28px minmax(0,1fr);
+      align-items:start;
+      gap:10px;
+    }
+
+    .today-task-main-row .task-check {
+      margin:2px 0 0;
+    }
+
+    .today-task-title {
+      min-width:0;
+      color:#303531;
+      font-size:13px;
+      font-weight:650;
+      line-height:1.42;
+      overflow-wrap:anywhere;
+      word-break:normal;
+    }
+
+    .today-task-title .task-origin {
+      display:inline-flex;
+      margin-left:7px;
+      vertical-align:middle;
+    }
+
+    .today-task-card-item.done .today-task-title {
+      color:#777B77;
+      opacity:.68;
+      text-decoration:line-through;
+    }
+
+    .today-task-info {
+      display:grid;
+      min-width:0;
+      gap:6px;
+      padding-left:38px;
+    }
+
+    .today-task-info .task-chip-row {
+      display:flex;
+      max-width:100%;
+      flex-wrap:wrap;
+      gap:5px;
+      margin:0;
+    }
+
+    .today-task-info .task-note-preview {
+      margin:0;
+      color:#707670;
+      font-size:9px;
+      line-height:1.45;
+      overflow-wrap:anywhere;
+    }
+
+    .today-task-info .task-meta {
+      margin:0;
+      color:#858A84;
+      font-size:8px;
+      line-height:1.35;
+      overflow-wrap:normal;
+      word-break:normal;
+    }
+
+    .today-tasks-card .today-task-actions {
+      display:flex;
+      width:100%;
+      min-width:0;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin:0;
+      padding:10px 0 0 38px;
+      border-top:1px solid #EFEAE3;
+    }
+
+    .today-task-move-controls {
+      display:flex;
+      min-width:0;
+      flex:1 1 auto;
+      align-items:center;
+      gap:7px;
+      flex-wrap:wrap;
+    }
+
+    .today-task-move-controls .today-move-date {
+      width:auto;
+      min-width:145px;
+      max-width:220px;
+      flex:1 1 160px;
+    }
+
+    .today-task-record-controls {
+      display:flex;
+      flex:0 0 auto;
+      align-items:center;
+      gap:6px;
+    }
+
+    @container (max-width:520px) {
+      .today-tasks-card .today-task-actions {
+        align-items:stretch;
+        flex-direction:column;
+      }
+
+      .today-task-move-controls,
+      .today-task-record-controls {
+        width:100%;
+      }
+
+      .today-task-record-controls {
+        justify-content:flex-end;
+      }
+    }
+
+    @container (max-width:400px) {
+      .today-task-info,
+      .today-tasks-card .today-task-actions {
+        padding-left:0;
+      }
+
+      .today-task-main-row {
+        grid-template-columns:26px minmax(0,1fr);
+      }
+
+      .today-task-move-controls {
+        display:grid;
+        grid-template-columns:minmax(0,1fr) auto;
+      }
+
+      .today-task-move-controls .today-tomorrow {
+        grid-column:1 / -1;
+        justify-self:start;
+      }
+
+      .today-task-move-controls .today-move-date {
+        width:100%;
+        min-width:0;
+        max-width:none;
+      }
+    }
+
+    @container (max-width:300px) {
+      .today-task-move-controls {
+        grid-template-columns:1fr;
+      }
+
+      .today-task-move-controls .today-tomorrow,
+      .today-task-move-controls .today-move-date,
+      .today-task-move-controls .today-move {
+        width:100%;
+        grid-column:1;
+      }
+    }
+
+    /* VERSION 41 — OVERLAPPING TASKS AND AGENDA NOTES */
+    .agenda-event-block {
+      right:auto;
+      left:calc((100% / var(--event-lanes, 1)) * var(--event-lane, 0) + 3px);
+      width:calc((100% / var(--event-lanes, 1)) - 6px);
+    }
+
+    .agenda-event-block.is-overlapping {
+      grid-template-columns:18px minmax(0,1fr);
+      gap:4px;
+      padding:4px 5px 4px 4px;
+      box-shadow:0 4px 10px rgba(55,50,45,.08);
+    }
+
+    .agenda-event-block.is-overlapping .agenda-event-check span {
+      width:15px;
+      height:15px;
+      font-size:9px;
+    }
+
+    .agenda-event-block.is-overlapping .agenda-event-copy {
+      gap:1px;
+    }
+
+    .agenda-event-block.is-overlapping .agenda-event-copy strong {
+      font-size:8px;
+      line-height:1.1;
+    }
+
+    .agenda-event-block.is-overlapping .agenda-event-copy span {
+      font-size:6.4px;
+      line-height:1.1;
+      white-space:nowrap;
+    }
+
+    .agenda-event-block.is-overlapping .agenda-event-copy small {
+      font-size:6px;
+      line-height:1.15;
+      -webkit-line-clamp:1;
+    }
+
+    .agenda-event-block.is-note.is-overlapping {
+      grid-template-columns:minmax(0,1fr);
+      padding-left:7px;
+    }
+
+    .agenda-event-block.is-note.is-overlapping .agenda-event-copy {
+      padding-right:0;
+    }
+
+    .agenda-event-block.is-note.is-overlapping::after {
+      display:none;
+    }
+
+    .agenda-event-block.is-overlapping:hover,
+    .agenda-event-block.is-overlapping:focus {
+      z-index:5;
+    }
+
+    @media (max-width:780px) {
+      .agenda-event-block.is-overlapping .agenda-event-copy small {
+        display:none;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -7353,7 +7596,7 @@
           <div>
             <span class="eyebrow">Time block</span>
             <h3 id="eventFormTitle">Add event</h3>
-            <div class="card-subtitle">Choose what it is, when it starts and when it ends.</div>
+            <div class="card-subtitle">Choose what it is, when it starts and when it ends. Tasks and agenda notes may overlap other blocks.</div>
           </div>
         </div>
 
@@ -8469,14 +8712,18 @@
       document.getElementById('todayTaskProgressBar').style.width=pct+'%';
       renderCarryoverReview();
       if (!tasks.length) { list.innerHTML='<div class="empty">No tasks yet.</div>'; return; }
-      list.innerHTML = tasks.map(task => `<div class="task-item ${task.done?'done':''} ${taskDueStatus(task)==='overdue'?'is-overdue':''}">
-        <input class="task-check today-check" data-source="${task.source}" data-id="${task.id}" type="checkbox" ${task.done?'checked':''}>
-        <div class="task-item-copy">
-          <div class="task-text">${escapeHtml(task.text)}${task.source==='master'?'<span class="task-origin">Inbox</span>':''}</div>
+      list.innerHTML = tasks.map(task => `<div class="task-item today-task-card-item ${task.done?'done':''} ${taskDueStatus(task)==='overdue'?'is-overdue':''}">
+        <div class="today-task-main-row">
+          <input class="task-check today-check" data-source="${task.source}" data-id="${task.id}" type="checkbox" ${task.done?'checked':''}>
+          <div class="today-task-title">${escapeHtml(task.text)}${task.source==='master'?'<span class="task-origin">Inbox</span>':''}</div>
+        </div>
+
+        <div class="today-task-info">
           ${taskBadgeMarkup(task,true)}
           ${task.notes?`<div class="task-note-preview">${escapeHtml(task.notes)}</div>`:''}
           <div class="task-meta">${escapeHtml(task.movedFrom?`Moved from ${task.movedFrom}`:taskSecondaryMeta(task))}</div>
         </div>
+
         <div class="task-actions today-task-actions">
           <div class="today-task-move-controls">
             <button class="btn btn-light btn-small today-tomorrow" data-source="${task.source}" data-id="${task.id}">Tomorrow</button>
@@ -8659,11 +8906,21 @@
       return day.weekly;
     }
 
-    function eventOverlaps(dateKey, start, end, ignoreId='') {
+    function eventAllowsOverlap(type='other') {
+      return type === 'task' || type === 'note';
+    }
+
+    function eventBlocksTime(type='other') {
+      return !eventAllowsOverlap(type);
+    }
+
+    function eventOverlaps(dateKey, start, end, ignoreId='', candidateType='other') {
+      if (!eventBlocksTime(candidateType)) return false;
+
       const startMinutes = timeToMinutes(start);
       const endMinutes = timeToMinutes(end);
       return ensureDayEvents(dateKey).some(event => {
-        if (event.id === ignoreId) return false;
+        if (event.id === ignoreId || !eventBlocksTime(event.type)) return false;
         const eventStart = timeToMinutes(event.start);
         const eventEnd = timeToMinutes(event.end);
         return startMinutes < eventEnd && endMinutes > eventStart;
@@ -8680,11 +8937,77 @@
       const events = ensureDayEvents(dateKey);
       while (candidate < AGENDA_END_MINUTES) {
         const end = candidate + 60 <= AGENDA_END_MINUTES ? candidate + 60 : candidate + AGENDA_SLOT_MINUTES;
-        const blocked = events.some(event => candidate < timeToMinutes(event.end) && end > timeToMinutes(event.start));
+        const blocked = events.some(event =>
+          eventBlocksTime(event.type)
+          && candidate < timeToMinutes(event.end)
+          && end > timeToMinutes(event.start)
+        );
         if (!blocked) return minutesToTime(candidate);
         candidate += AGENDA_SLOT_MINUTES;
       }
       return '9:00';
+    }
+
+    function arrangeAgendaEventLanes(events=[]) {
+      const sorted = [...events].sort((a,b) => {
+        const startDifference = timeToMinutes(a.start) - timeToMinutes(b.start);
+        if (startDifference) return startDifference;
+
+        const blockingDifference = Number(eventAllowsOverlap(a.type)) - Number(eventAllowsOverlap(b.type));
+        if (blockingDifference) return blockingDifference;
+
+        return timeToMinutes(b.end) - timeToMinutes(a.end);
+      });
+
+      const groups = [];
+      let currentGroup = [];
+      let currentGroupEnd = -1;
+
+      sorted.forEach(event => {
+        const start = timeToMinutes(event.start);
+        const end = timeToMinutes(event.end);
+
+        if (!currentGroup.length || start < currentGroupEnd) {
+          currentGroup.push(event);
+          currentGroupEnd = Math.max(currentGroupEnd, end);
+          return;
+        }
+
+        groups.push(currentGroup);
+        currentGroup = [event];
+        currentGroupEnd = end;
+      });
+
+      if (currentGroup.length) groups.push(currentGroup);
+
+      const layout = new Map();
+
+      groups.forEach(group => {
+        const laneEnds = [];
+
+        group.forEach(event => {
+          const start = timeToMinutes(event.start);
+          const end = timeToMinutes(event.end);
+          let lane = laneEnds.findIndex(laneEnd => laneEnd <= start);
+
+          if (lane === -1) {
+            lane = laneEnds.length;
+            laneEnds.push(end);
+          } else {
+            laneEnds[lane] = end;
+          }
+
+          layout.set(event.id, {lane, lanes:1});
+        });
+
+        const laneCount = Math.max(1, laneEnds.length);
+        group.forEach(event => {
+          const current = layout.get(event.id) || {lane:0, lanes:1};
+          layout.set(event.id, {...current, lanes:laneCount});
+        });
+      });
+
+      return layout;
     }
 
     function eventTimelineMarkup(dateKey, mode='week') {
@@ -8692,13 +9015,18 @@
       const slots = [];
       for (let minute = AGENDA_START_MINUTES; minute < AGENDA_END_MINUTES; minute += AGENDA_SLOT_MINUTES) {
         const slotEnd = minute + AGENDA_SLOT_MINUTES;
-        const occupied = events.some(event => minute < timeToMinutes(event.end) && slotEnd > timeToMinutes(event.start));
+        const occupied = events.some(event =>
+          eventBlocksTime(event.type)
+          && minute < timeToMinutes(event.end)
+          && slotEnd > timeToMinutes(event.start)
+        );
         slots.push(`<div class="agenda-slot ${minute % 60 === 0 ? 'is-hour' : 'is-half'}">
           <span class="agenda-slot-time">${formatClock(minute)}</span>
           <span class="agenda-slot-free">${occupied ? '' : 'Free'}</span>
         </div>`);
       }
 
+      const eventLayout = arrangeAgendaEventLanes(events);
       const blocks = events.map(event => {
         const startMinutes = Math.max(AGENDA_START_MINUTES, timeToMinutes(event.start));
         const endMinutes = Math.min(AGENDA_END_MINUTES, timeToMinutes(event.end));
@@ -8706,7 +9034,9 @@
         const height = Math.max(AGENDA_SLOT_HEIGHT - 4, ((endMinutes - startMinutes) / AGENDA_SLOT_MINUTES) * AGENDA_SLOT_HEIGHT - 4);
         const type = eventTypeDetails(event.type);
         const isNote = event.type === 'note';
-        return `<article class="agenda-event-block ${eventTypeClass(event.type)} ${isNote ? 'is-note' : ''} ${!isNote && event.done ? 'is-complete' : ''}" style="top:${top}px;height:${height}px;" data-event-id="${event.id}" data-date="${dateKey}" tabindex="0" role="button">
+        const layout = eventLayout.get(event.id) || {lane:0, lanes:1};
+        const isOverlapping = layout.lanes > 1;
+        return `<article class="agenda-event-block ${eventTypeClass(event.type)} ${isNote ? 'is-note' : ''} ${isOverlapping ? 'is-overlapping' : ''} ${!isNote && event.done ? 'is-complete' : ''}" style="top:${top}px;height:${height}px;--event-lane:${layout.lane};--event-lanes:${layout.lanes};" data-event-id="${event.id}" data-date="${dateKey}" tabindex="0" role="button">
           ${isNote ? '' : `<label class="agenda-event-check" title="Mark complete">
             <input type="checkbox" data-event-id="${event.id}" data-date="${dateKey}" ${event.done ? 'checked' : ''}>
             <span>✓</span>
@@ -9048,13 +9378,16 @@
     function updateEventColourPreview() {
       const type = document.getElementById('eventType').value;
       const isNote = type === 'note';
+      const isTask = type === 'task';
       const preview = document.getElementById('eventColourPreview');
       WEEK_EVENT_TYPES.forEach(item => preview.classList.remove(eventTypeClass(item.value)));
       preview.classList.add(eventTypeClass(type));
       document.getElementById('eventPreviewType').textContent = eventTypeDetails(type).label;
       document.getElementById('eventPreviewHelp').textContent = isNote
-        ? 'Notes appear in italics and do not need to be checked off.'
-        : 'This colour will appear on the agenda.';
+        ? 'Agenda notes may overlap other time blocks, appear in italics and do not need to be checked off.'
+        : isTask
+          ? 'Tasks may overlap other time blocks and can still be checked off.'
+          : 'This is a fixed time block and cannot overlap another fixed commitment.';
       document.getElementById('eventCompleteToggle').style.display = isNote ? 'none' : '';
       if (isNote) document.getElementById('eventDone').checked = false;
     }
@@ -9160,8 +9493,8 @@
         showToast('End time must be after start time');
         return;
       }
-      if (eventOverlaps(dateKey, start, end, editingEventId || '')) {
-        alert('That time overlaps another event on this day. Choose another time or edit the existing event.');
+      if (eventOverlaps(dateKey, start, end, editingEventId || '', type)) {
+        alert('That time overlaps another fixed commitment on this day. Tasks and agenda notes may overlap, but appointments, meetings and other fixed blocks need a different time.');
         return;
       }
 
@@ -10030,7 +10363,7 @@
 
       if (includeEvents) {
         template.events.forEach(source => {
-          if (eventOverlaps(dateKey,source.start,source.end,'')) {
+          if (eventOverlaps(dateKey,source.start,source.end,'',source.type || 'other')) {
             result.skippedEvents += 1;
             return;
           }
