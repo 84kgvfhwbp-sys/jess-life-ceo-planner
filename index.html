@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Version 48: corrected historical recurring payment months and date-confirmed recording -->
+  <!-- Version 47: scrollable Transactions and Recurring Commitments lists with eight visible entries -->
   <!-- Version 46: one-off invoices with optional description and optional received date -->
   <!-- Version 45: corrected finance cash dates, overdue reporting and seasonal totals -->
   <meta charset="UTF-8" />
@@ -7168,6 +7170,153 @@
       font-size:9px;
     }
 
+    /* VERSION 47 — EIGHT-ENTRY SCROLLABLE FINANCE LISTS */
+    .finance-scroll-card-header {
+      align-items:center;
+      gap:14px;
+    }
+
+    .finance-scroll-header-controls {
+      display:flex;
+      min-width:0;
+      align-items:center;
+      justify-content:flex-end;
+      gap:9px;
+      flex-wrap:wrap;
+    }
+
+    .finance-scroll-count {
+      color:#7B817B;
+      font-size:7.5px;
+      font-weight:750;
+      line-height:1.25;
+      white-space:nowrap;
+    }
+
+    .finance-scroll-shell {
+      position:relative;
+      min-width:0;
+      min-height:0;
+    }
+
+    .finance-scroll-list {
+      min-width:0;
+      padding-right:2px;
+      overscroll-behavior:contain;
+      scroll-behavior:smooth;
+      scrollbar-gutter:stable;
+    }
+
+    .finance-scroll-list.is-scrollable {
+      padding-right:8px;
+      border-top:1px solid #ECE8E1;
+      border-bottom:1px solid #ECE8E1;
+    }
+
+    .finance-scroll-list.is-scrollable::after {
+      content:"";
+      display:block;
+      height:1px;
+    }
+
+    .finance-scroll-list::-webkit-scrollbar {
+      width:9px;
+    }
+
+    .finance-scroll-list::-webkit-scrollbar-track {
+      border-radius:8px;
+      background:#F0EEE9;
+    }
+
+    .finance-scroll-list::-webkit-scrollbar-thumb {
+      border:2px solid #F0EEE9;
+      border-radius:8px;
+      background:#9BAA9E;
+    }
+
+    .finance-scroll-list::-webkit-scrollbar-thumb:hover {
+      background:#7F9584;
+    }
+
+    .finance-scroll-list {
+      scrollbar-width:thin;
+      scrollbar-color:#9BAA9E #F0EEE9;
+    }
+
+    .finance-scroll-list .finance-item {
+      min-height:68px;
+    }
+
+    .finance-scroll-list.is-scrollable .finance-item {
+      scroll-margin-block:4px;
+      scroll-snap-align:start;
+    }
+
+    @media (max-width:780px) {
+      .finance-scroll-card-header {
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .finance-scroll-header-controls {
+        width:100%;
+        justify-content:space-between;
+      }
+
+      .finance-scroll-header-controls .compact-select {
+        flex:1 1 140px;
+      }
+
+      .finance-scroll-list .finance-item {
+        min-height:82px;
+      }
+    }
+
+    @media (max-width:480px) {
+      .finance-scroll-header-controls {
+        align-items:stretch;
+        flex-direction:column;
+      }
+
+      .finance-scroll-count {
+        white-space:normal;
+      }
+
+      .finance-scroll-header-controls .btn,
+      .finance-scroll-header-controls .select {
+        width:100%;
+      }
+    }
+
+    /* VERSION 48 — DATE-CONFIRMED RECURRING RECORDS */
+    #financeEntryCard.recording-recurring-card {
+      border-top:4px solid #829F89;
+    }
+
+    #financeEntryCard.recording-recurring-card .edit-note {
+      display:block;
+      border-color:#C9D8CB;
+      background:#F0F6F1;
+      color:#53685A;
+    }
+
+    #financeEntryCard.recording-recurring-card .edit-note::before {
+      content:"Confirm the received or paid date before recording this recurring entry. ";
+      font-weight:800;
+    }
+
+    #financeEntryCard select:disabled,
+    #financeEntryCard input:disabled {
+      color:#6F756F;
+      opacity:1;
+      background:#F2F0EB;
+      cursor:not-allowed;
+    }
+
+    .finance-detail-item-copy span {
+      line-height:1.45;
+    }
+
   </style>
 </head>
 <body>
@@ -7807,11 +7956,19 @@
 
         <div class="grid grid-3 finance-lists-layout" style="margin-bottom:18px;">
           <div class="card finance-transactions-card" style="grid-column:span 2;">
-            <div class="card-header">
-              <div><h3>Transactions</h3><div class="card-subtitle">Income and expenses inside the selected period.</div></div>
-              <select class="select compact-select" id="financeItemFilter"><option value="all">All</option><option value="income">Income</option><option value="expense">Expenses</option><option value="actual">Actual</option><option value="planned">Expected</option></select>
+            <div class="card-header finance-scroll-card-header">
+              <div>
+                <h3>Transactions</h3>
+                <div class="card-subtitle">Income and expenses inside the selected period.</div>
+              </div>
+              <div class="finance-scroll-header-controls">
+                <span class="finance-scroll-count" id="financeTransactionListCount">0 entries</span>
+                <select class="select compact-select" id="financeItemFilter"><option value="all">All</option><option value="income">Income</option><option value="expense">Expenses</option><option value="actual">Actual</option><option value="planned">Expected</option></select>
+              </div>
             </div>
-            <div id="financeItemList" class="finance-list finance-table-list"></div>
+            <div class="finance-scroll-shell">
+              <div id="financeItemList" class="finance-list finance-table-list finance-scroll-list" data-visible-rows="8"></div>
+            </div>
           </div>
           <div class="card">
             <div class="card-header"><h3>Next 30 days</h3><span class="card-subtitle">What is coming</span></div>
@@ -7819,9 +7976,20 @@
           </div>
         </div>
 
-        <div class="card" style="margin-bottom:18px;">
-          <div class="card-header"><div><h3>Recurring commitments</h3><div class="card-subtitle">Loans, equipment, payroll, insurance and repeating income.</div></div><button class="btn btn-light btn-small" id="openRecurringModalSecondary">+ Add recurring</button></div>
-          <div id="recurringItemList" class="finance-list finance-table-list"></div>
+        <div class="card finance-recurring-card" style="margin-bottom:18px;">
+          <div class="card-header finance-scroll-card-header">
+            <div>
+              <h3>Recurring commitments</h3>
+              <div class="card-subtitle">Loans, equipment, payroll, insurance and repeating income.</div>
+            </div>
+            <div class="finance-scroll-header-controls">
+              <span class="finance-scroll-count" id="recurringItemListCount">0 entries</span>
+              <button class="btn btn-light btn-small" id="openRecurringModalSecondary">+ Add recurring</button>
+            </div>
+          </div>
+          <div class="finance-scroll-shell">
+            <div id="recurringItemList" class="finance-list finance-table-list finance-scroll-list" data-visible-rows="8"></div>
+          </div>
         </div>
 
         <div class="card" style="margin-bottom:18px;">
@@ -8531,7 +8699,7 @@
               <div class="field">
                 <label class="label">Received / paid date <span class="field-optional">leave blank until cleared</span></label>
                 <input type="date" class="input" id="financeActualDate" />
-                <small class="finance-field-help">Only enter this once the deposit or payment appears in the bank.</small>
+                <small class="finance-field-help">Only enter this once the deposit or payment appears in the bank. This date determines which month receives the actual amount.</small>
               </div>
             </div>
             <div class="field"><label class="label">Category</label>
@@ -8763,6 +8931,7 @@
     let cashFlowCalendarAnchor = new Date(new Date().getFullYear(), new Date().getMonth(), 1, 12);
     let editingFinanceId = null;
     let editingRecurringId = null;
+    let recordingRecurringId = null;
 
     function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
     function loadData() {
@@ -9027,6 +9196,37 @@
         note.createdAt ??= new Date(`${note.entryDate}T12:00:00`).toISOString();
         note.updatedAt ??= note.createdAt;
       });
+    }
+
+    function repairHistoricalRecurringPaymentMonths() {
+      data.settings ??= {};
+      if (data.settings.financeRecurringMonthRepairV48) return 0;
+
+      let repaired = 0;
+      (data.finance.transactions || []).forEach(item => {
+        const note = String(item.notes || '').toLowerCase();
+        const dueDate = String(item.date || '');
+        const actualDate = String(item.actualDate || '');
+
+        if (
+          item.status === 'actual'
+          && note.includes('recorded from recurring cash flow')
+          && /^\d{4}-\d{2}-\d{2}$/.test(dueDate)
+          && /^\d{4}-\d{2}-\d{2}$/.test(actualDate)
+          && dueDate.slice(0,7) < actualDate.slice(0,7)
+        ) {
+          item.previousActualDate ??= actualDate;
+          item.actualDate = dueDate;
+          item.dateRepair = 'v48-recurring-backfill-month';
+          repaired += 1;
+        }
+      });
+
+      data.settings.financeRecurringMonthRepairV48 = {
+        completedAt: new Date().toISOString(),
+        repaired
+      };
+      return repaired;
     }
 
     function getDay(date=selectedDate) {
@@ -12605,7 +12805,12 @@
       const sign = item.type === 'income' ? '+' : '−';
       const source = item.virtual ? `Recurring · ${frequencyText(item.frequency || '')}` : statusText(item);
       const party = item.party ? `${escapeHtml(item.party)} · ` : '';
-      const meta = `${escapeHtml(item.date || '')} · ${party}${escapeHtml(item.category || 'Other')} · ${escapeHtml(source)}`;
+      const dateContext = item.virtual
+        ? `Due ${escapeHtml(item.date || '—')}`
+        : item.status === 'actual'
+          ? `Due ${escapeHtml(item.date || '—')} · ${item.type === 'income' ? 'Received' : 'Paid'} ${escapeHtml(item.actualDate || item.date || '—')}`
+          : `Due ${escapeHtml(item.date || '—')}`;
+      const meta = `${dateContext} · ${party}${escapeHtml(item.category || 'Other')} · ${escapeHtml(source)}`;
       const action = item.virtual && item.recurringId
         ? `<button class="btn btn-light btn-small finance-detail-edit-recurring" type="button" data-id="${item.recurringId}">Edit recurring</button>`
         : (!item.virtual && item.id
@@ -13104,6 +13309,9 @@
 
     function resetFinanceForm() {
       editingFinanceId = null;
+      recordingRecurringId = null;
+      document.getElementById('financeStatus').disabled = false;
+      document.getElementById('financeItemDate').disabled = false;
       ['financeParty','financeDescription','financeAmount','financeHst','financeActualDate','financeNotes'].forEach(id=>document.getElementById(id).value='');
       document.getElementById('financeItemDate').value=isoDate(new Date());
       document.getElementById('financeType').value='income';
@@ -13113,10 +13321,13 @@
       document.getElementById('financeFormTitle').textContent='Add income or expense';
       document.getElementById('addFinanceItem').textContent='Add cash-flow item';
       document.getElementById('cancelFinanceEdit').style.display='none';
-      document.getElementById('financeEntryCard').classList.remove('editing-card');
+      document.getElementById('financeEntryCard').classList.remove('editing-card','recording-recurring-card');
     }
     function beginFinanceEdit(id) {
       const item=data.finance.transactions.find(i=>i.id===id); if(!item)return;
+      recordingRecurringId = null;
+      document.getElementById('financeStatus').disabled = false;
+      document.getElementById('financeItemDate').disabled = false;
       editingFinanceId=id;
       document.getElementById('financeParty').value=item.party||'';
       document.getElementById('financeDescription').value=item.description||'';
@@ -13135,6 +13346,40 @@
       document.getElementById('financeEntryCard').classList.add('editing-card');
       openModal('financeModal');
     }
+    function beginRecurringRecord(id) {
+      const item = data.finance.recurring.find(entry => entry.id === id);
+      if (!item) return;
+
+      resetFinanceForm();
+      recordingRecurringId = id;
+
+      const today = isoDate(new Date());
+      const dueDate = item.nextDate || today;
+      const defaultActualDate = dueDate.slice(0,7) < today.slice(0,7) ? dueDate : today;
+      const income = item.type === 'income';
+
+      document.getElementById('financeParty').value = item.party || '';
+      document.getElementById('financeDescription').value = item.description || '';
+      document.getElementById('financeAmount').value = Number(item.amount) || '';
+      document.getElementById('financeHst').value = Number(item.hst) || '';
+      document.getElementById('financeType').value = item.type || 'expense';
+      document.getElementById('financeStatus').value = 'actual';
+      document.getElementById('financeItemDate').value = dueDate;
+      document.getElementById('financeActualDate').value = defaultActualDate;
+      document.getElementById('financeCategory').value = item.category || 'Other';
+      document.getElementById('financePaymentMethod').value = item.paymentMethod || '';
+      document.getElementById('financeNotes').value = 'Recorded from recurring cash flow';
+
+      document.getElementById('financeStatus').disabled = true;
+      document.getElementById('financeItemDate').disabled = true;
+      document.getElementById('financeFormTitle').textContent = income ? 'Record recurring income' : 'Record recurring payment';
+      document.getElementById('addFinanceItem').textContent = income ? 'Record received' : 'Record paid';
+      document.getElementById('cancelFinanceEdit').style.display = 'inline-flex';
+      document.getElementById('financeEntryCard').classList.add('editing-card','recording-recurring-card');
+
+      openModal('financeModal');
+    }
+
     function resetRecurringForm() {
       editingRecurringId = null;
       ['recurringParty','recurringDescription','recurringAmount','recurringHst','recurringEndDate','recurringSecondDay'].forEach(id=>document.getElementById(id).value='');
@@ -13208,6 +13453,19 @@
         if(!item)return;
         Object.assign(item,values);
         saveData('Cash-flow item updated');
+      } else if(recordingRecurringId) {
+        const recurringItem = data.finance.recurring.find(i => i.id === recordingRecurringId);
+        if(!recurringItem)return;
+
+        values.status = 'actual';
+        values.notes = values.notes || 'Recorded from recurring cash flow';
+        data.finance.transactions.unshift({
+          id:uid(),
+          ...values,
+          recurringSourceId:recurringItem.id
+        });
+        recurringItem.nextDate = isoDate(advanceRecurring(localDate(recurringItem.nextDate),recurringItem.frequency,recurringItem));
+        saveData(values.type==='income'?'Recurring income recorded':'Recurring payment recorded');
       } else {
         data.finance.transactions.unshift({id:uid(),...values});
         saveData(status==='planned'?'Expected payment saved':'Received payment saved');
@@ -13226,6 +13484,25 @@
       else {data.finance.recurring.push({id:uid(),...values});saveData('Recurring item added');}
       resetRecurringForm();closeModal('recurringModal');renderFinance();
     });
+
+    function toggleFinanceTransactionStatus(id) {
+      const item = data.finance.transactions.find(entry => entry.id === id);
+      if (!item) return;
+
+      if (item.status === 'actual') {
+        item.status = 'planned';
+        item.actualDate = '';
+        saveData('Status changed to expected');
+        renderFinance();
+        return;
+      }
+
+      beginFinanceEdit(id);
+      document.getElementById('financeStatus').value = 'actual';
+      document.getElementById('financeActualDate').value = isoDate(new Date());
+      document.getElementById('financeFormTitle').textContent = item.type === 'income' ? 'Mark income received' : 'Mark expense paid';
+      document.getElementById('addFinanceItem').textContent = item.type === 'income' ? 'Save received date' : 'Save paid date';
+    }
 
     function renderBankHistory(){
       const wrap=document.getElementById('bankBalanceHistory');const entries=[...(data.finance.bankHistory||[])].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
@@ -13411,10 +13688,7 @@
 
       list.querySelectorAll('.ledger-edit-transaction').forEach(button=>button.addEventListener('click',()=>beginFinanceEdit(button.dataset.id)));
       list.querySelectorAll('.ledger-toggle-transaction').forEach(button=>button.addEventListener('click',()=>{
-        const item=data.finance.transactions.find(entry=>entry.id===button.dataset.id);if(!item)return;
-        item.status=item.status==='actual'?'planned':'actual';
-        item.actualDate=item.status==='actual'?isoDate(new Date()):'';
-        saveData('Ledger status updated');renderFinance();
+        toggleFinanceTransactionStatus(button.dataset.id);
       }));
       list.querySelectorAll('.ledger-delete-transaction').forEach(button=>button.addEventListener('click',()=>{
         const item=data.finance.transactions.find(entry=>entry.id===button.dataset.id);if(!item)return;
@@ -13425,10 +13699,7 @@
 
       list.querySelectorAll('.ledger-edit-recurring').forEach(button=>button.addEventListener('click',()=>beginRecurringEdit(button.dataset.id)));
       list.querySelectorAll('.ledger-record-recurring').forEach(button=>button.addEventListener('click',()=>{
-        const item=data.finance.recurring.find(entry=>entry.id===button.dataset.id);if(!item)return;
-        data.finance.transactions.unshift({id:uid(),party:item.party||'',description:item.description,amount:Number(item.amount)||0,hst:Number(item.hst)||0,type:item.type,category:item.category,date:item.nextDate,actualDate:isoDate(new Date()),status:'actual',paymentMethod:item.paymentMethod||'',notes:'Recorded from recurring cash flow'});
-        item.nextDate=isoDate(advanceRecurring(localDate(item.nextDate),item.frequency,item));
-        saveData(item.type==='income'?'Recurring income recorded':'Recurring payment recorded');renderFinance();
+        beginRecurringRecord(button.dataset.id);
       }));
       list.querySelectorAll('.ledger-delete-recurring').forEach(button=>button.addEventListener('click',()=>{
         const item=data.finance.recurring.find(entry=>entry.id===button.dataset.id);if(!item)return;
@@ -13447,22 +13718,77 @@
       }));
     }
 
+    function financeEntryCountLabel(count, visibleRows=8) {
+      const total = Number(count) || 0;
+      if (!total) return '0 entries';
+      const base = `${total} ${total === 1 ? 'entry' : 'entries'}`;
+      return total > visibleRows ? `${base} • scroll for more` : base;
+    }
+
+    function sizeScrollableFinanceList(list, visibleRows=8) {
+      if (!list) return;
+
+      list.classList.remove('is-scrollable');
+      list.style.maxHeight = '';
+      list.style.overflowY = '';
+
+      const rows = [...list.children].filter(row => row.classList.contains('finance-item'));
+      if (rows.length <= visibleRows) return;
+
+      requestAnimationFrame(() => {
+        const currentRows = [...list.children].filter(row => row.classList.contains('finance-item'));
+        if (currentRows.length <= visibleRows) return;
+
+        const styles = getComputedStyle(list);
+        const gap = Number.parseFloat(styles.rowGap || styles.gap) || 0;
+        const visibleHeight = currentRows
+          .slice(0, visibleRows)
+          .reduce((sum, row) => sum + row.getBoundingClientRect().height, 0)
+          + gap * Math.max(0, visibleRows - 1)
+          + 2;
+
+        list.style.maxHeight = `${Math.ceil(visibleHeight)}px`;
+        list.style.overflowY = 'auto';
+        list.classList.add('is-scrollable');
+      });
+    }
+
+    let financeListResizeFrame = 0;
+    function resizeFinanceScrollLists() {
+      cancelAnimationFrame(financeListResizeFrame);
+      financeListResizeFrame = requestAnimationFrame(() => {
+        document.querySelectorAll('.finance-scroll-list').forEach(list => {
+          sizeScrollableFinanceList(list, Number(list.dataset.visibleRows) || 8);
+        });
+      });
+    }
+
     function renderFinanceTransactions(){
       const date=document.getElementById('financeDate').value||isoDate(new Date());const range=financeRange(document.getElementById('financeView').value,date);const filter=document.getElementById('financeItemFilter').value;
       let items=(data.finance.transactions||[])
         .filter(item=>financeItemInRange(item,range.start,range.end))
         .sort((a,b)=>financeItemReportingDate(a).localeCompare(financeItemReportingDate(b)));
       if(filter==='income'||filter==='expense')items=items.filter(i=>i.type===filter);else if(filter==='actual'||filter==='planned')items=items.filter(i=>i.status===filter);
-      const list=document.getElementById('financeItemList');list.innerHTML=items.length?items.map(i=>financeItemHtml(i,true)).join(''):'<div class="empty">No saved cash-flow items in this view.</div>';
+
+      const list=document.getElementById('financeItemList');
+      document.getElementById('financeTransactionListCount').textContent=financeEntryCountLabel(items.length,8);
+      list.innerHTML=items.length?items.map(i=>financeItemHtml(i,true)).join(''):'<div class="empty">No saved cash-flow items in this view.</div>';
+      list.scrollTop=0;
+      sizeScrollableFinanceList(list,8);
+
       list.querySelectorAll('.finance-edit').forEach(el=>el.addEventListener('click',()=>beginFinanceEdit(el.dataset.id)));
-      list.querySelectorAll('.finance-toggle').forEach(el=>el.addEventListener('click',()=>{const item=data.finance.transactions.find(i=>i.id===el.dataset.id);item.status=item.status==='actual'?'planned':'actual';item.actualDate=item.status==='actual'?isoDate(new Date()):'';saveData('Status updated');renderFinance();}));
+      list.querySelectorAll('.finance-toggle').forEach(el=>el.addEventListener('click',()=>toggleFinanceTransactionStatus(el.dataset.id)));
       list.querySelectorAll('.finance-delete').forEach(el=>el.addEventListener('click',()=>{data.finance.transactions=data.finance.transactions.filter(i=>i.id!==el.dataset.id);saveData('Cash-flow item removed');renderFinance();}));
     }
     function renderRecurringItems(){
       const list=document.getElementById('recurringItemList'); const items=[...(data.finance.recurring||[])].sort((a,b)=>a.nextDate.localeCompare(b.nextDate));
+      document.getElementById('recurringItemListCount').textContent=financeEntryCountLabel(items.length,8);
       list.innerHTML=items.length?items.map(i=>`<div class="finance-item"><div class="finance-item-main"><div class="finance-item-title">${escapeHtml(i.description)}</div><div class="finance-item-meta">${i.party?escapeHtml(i.party)+' • ':''}Next: ${escapeHtml(i.nextDate)} • ${escapeHtml(frequencyText(i.frequency))} • ${escapeHtml(i.category||'Other')}${i.endDate?' • Ends '+escapeHtml(i.endDate):''}${Number(i.hst)?' • HST '+money(i.hst):''}</div></div><div class="finance-amount ${i.type==='income'?'money-positive':'money-negative'}">${i.type==='income'?'+':'−'}${money(i.amount)}</div><div class="finance-actions"><button class="btn btn-light btn-small recurring-edit" data-id="${i.id}">Edit</button><button class="btn btn-light btn-small recurring-record" data-id="${i.id}">${i.type==='income'?'Record received':'Record paid'}</button><button class="delete-btn recurring-delete" data-id="${i.id}">×</button></div></div>`).join(''):'<div class="empty">No recurring items yet.</div>';
+      list.scrollTop=0;
+      sizeScrollableFinanceList(list,8);
+
       list.querySelectorAll('.recurring-edit').forEach(el=>el.addEventListener('click',()=>beginRecurringEdit(el.dataset.id)));
-      list.querySelectorAll('.recurring-record').forEach(el=>el.addEventListener('click',()=>{const item=data.finance.recurring.find(i=>i.id===el.dataset.id);if(!item)return;data.finance.transactions.unshift({id:uid(),party:item.party||'',description:item.description,amount:Number(item.amount)||0,hst:Number(item.hst)||0,type:item.type,category:item.category,date:item.nextDate,actualDate:isoDate(new Date()),status:'actual',paymentMethod:item.paymentMethod||'',notes:'Recorded from recurring cash flow'});item.nextDate=isoDate(advanceRecurring(localDate(item.nextDate),item.frequency,item));saveData(item.type==='income'?'Income recorded':'Payment recorded');renderFinance();}));
+      list.querySelectorAll('.recurring-record').forEach(el=>el.addEventListener('click',()=>beginRecurringRecord(el.dataset.id)));
       list.querySelectorAll('.recurring-delete').forEach(el=>el.addEventListener('click',()=>{data.finance.recurring=data.finance.recurring.filter(i=>i.id!==el.dataset.id);saveData('Recurring item removed');renderFinance();}));
     }
     function renderOperatingYear(){
@@ -13606,10 +13932,18 @@
     }
 
     normalizePlannerData();
+    const repairedHistoricalFinanceDates = repairHistoricalRecurringPaymentMonths();
+    if (repairedHistoricalFinanceDates) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+    }
     if(data.settings?.plannerName) document.title=data.settings.plannerName;
     migrateAllScheduleEvents();
     operatingYearOptions(); renderToday(); renderWeek(); renderTasks(); renderTemplates(); renderFinance(); renderCashFlowCalendar(); renderGoals(); renderHabits(); renderMonthly(); renderNotes(); renderDashboard();
     runPlannerIntegrityCheck();
+    if (repairedHistoricalFinanceDates) {
+      setTimeout(() => showToast(`${repairedHistoricalFinanceDates} historical payment date${repairedHistoricalFinanceDates===1?'':'s'} corrected`), 350);
+    }
+    window.addEventListener('resize', resizeFinanceScrollLists);
   </script>
 </body>
 </html>
