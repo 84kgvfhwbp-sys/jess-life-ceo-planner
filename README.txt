@@ -1,47 +1,63 @@
-Jess Life & CEO Planner — Version 48 Corrected Historical Payment Months
+Jess Life & CEO Planner — Version 49 Social Media Content Hub
 
-The discrepancy:
-- The visible row date was the recurring due/scheduled date.
-- The hidden received date had been automatically set to the day the Record
-  button was clicked.
-- May and June backfills were therefore counted as July income.
+New Business page: Social Media
 
-One-time correction:
-- Actual entries created from "Recorded from recurring cash flow" are reviewed.
-- If their due date is in an earlier month than the auto-assigned actual date,
-  the actual date returns to the due month.
-- Same-month entries are not changed.
-- Manual late payments are not changed.
-- The previous date is retained internally as previousActualDate.
+Content Calendar
+- Monthly calendar with Monday-first layout.
+- Previous, current and next month controls.
+- Brand and platform filters.
+- Add content directly to a date.
+- Up to three visible entries per day, with a link to additional content.
+- Upcoming-content list.
 
-Examples:
-- Due May 1 / auto-recorded July 23 -> counted in May.
-- Due June 1 / auto-recorded July 23 -> counted in June.
-- Due July 1 / received July 23 -> remains counted in July.
+Content Library
+- Search title, caption, campaign, client, brand, category or date.
+- Filter by status and format.
+- Edit every saved entry.
+- Cover image previews and manual performance summaries.
 
-Future recurring records:
-- Record received / Record paid opens the regular transaction form.
-- The received/paid date is visible before saving.
-- Historical recurring entries default to the scheduled date.
-- Current-month entries default to today.
-- You can change the date before saving.
-- The recurring schedule advances only after saving.
+Ideas & Templates
+- Fast Idea Inbox capture.
+- Eight reusable R2R content starters:
+  Before & after, property-care tip, equipment spotlight, meet the crew,
+  seasonal reminder, testimonial, winter storm update and hiring.
 
-Finance breakdowns:
-- Rows now display both Due and Received/Paid dates.
-- Marking an expected transaction received also opens the form so the date can
-  be confirmed rather than silently using today.
+Content editor
+- Brand: R2R Property Care, Jesca Bakes, Personal or Other.
+- Facebook, Instagram or both.
+- Post, Reel, Story, Carousel or Video.
+- Idea, Draft, Ready, Scheduled or Published workflow.
+- Category, date, time, campaign, client/location, caption, hashtags,
+  call to action, link and internal notes.
+- One compressed cover image stored locally.
+- Manual reach, views, likes, comments, shares and saves.
+- Duplicate and delete controls.
 
-Verification:
-- JavaScript syntax passed.
+Performance
+- Published-post count.
+- Total reach, views and engagements.
+- Ranked top-content list.
+
+Meta connection preparation
+- Facebook and Instagram connection area is included.
+- Live connection is intentionally not active in this static GitHub file.
+- No passwords, access tokens or app secrets are stored in the planner.
+- The interface and post data structure are prepared for a later secure backend.
+
+Data safety
+- Existing planner data is preserved.
+- Social content is included in the planner's existing browser storage and JSON backup.
+- Large image libraries are not recommended in browser-only storage. Use the cover
+  image for a compact preview and keep full media in Drive, Canva or another library.
+
+Verification
+- Full JavaScript syntax passed.
 - No duplicate static HTML IDs.
-- May and June backfills moved out of July in testing.
-- Same-month July entries remained in July.
-- Manual late payments remained unchanged.
+- Social page, calendar, modal, library and analytics functions are present.
+- Performance-total logic passed.
 
-GitHub update:
-1. Replace the repository index.html with this file.
-2. Commit to main.
+GitHub update
+1. Replace the repository index.html with this Version 49 file.
+2. Commit directly to main.
 3. Wait approximately one minute.
 4. Hard-refresh with Command + Shift + R.
-5. The first load will report how many historical dates were corrected.

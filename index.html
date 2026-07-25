@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Version 49: Social Media Content Hub, calendar, library, ideas and manual analytics -->
   <!-- Version 48: corrected historical recurring payment months and date-confirmed recording -->
   <!-- Version 47: scrollable Transactions and Recurring Commitments lists with eight visible entries -->
   <!-- Version 46: one-off invoices with optional description and optional received date -->
@@ -7317,6 +7318,12 @@
       line-height:1.45;
     }
 
+    /* VERSION 49 — SOCIAL MEDIA CONTENT HUB */
+    .social-page{padding-bottom:40px}.social-command-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:12px;border-left:4px solid #829F89}.social-command-bar h3{margin:3px 0 4px;font-family:Georgia,serif;font-size:24px;font-weight:500}.social-command-bar p{margin:0;color:#717771}.social-command-actions{display:flex;gap:8px;flex-wrap:wrap}.social-tab-bar{display:flex;gap:4px;margin:0 0 14px;padding:4px;border:1px solid #DED9D1;border-radius:8px;background:#F5F2ED;overflow-x:auto}.social-tab-button{flex:1 1 150px;min-width:max-content;border:0;border-radius:5px;padding:10px 14px;background:transparent;color:#656B66;font-weight:800}.social-tab-button.active{background:#829F89;color:#fff}.social-metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}.social-metric{display:grid;gap:5px;min-height:98px;padding:15px;border:1px solid #E2DDD5;border-radius:8px;text-align:left}.social-metric span{font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}.social-metric strong{font-family:Georgia,serif;font-size:28px;font-weight:600}.social-metric small{color:#777D77}.social-tab-panel{display:none}.social-tab-panel.active{display:block}.social-calendar-card{padding:0;overflow:hidden}.social-calendar-toolbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid #E3DED6}.social-calendar-nav,.social-calendar-filter-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.social-calendar-filter-row{justify-content:flex-end}.social-calendar-heading{text-align:center}.social-calendar-heading strong{display:block;margin-top:2px;font-family:Georgia,serif;font-size:20px}.social-weekday-row{display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid #DED9D1;background:#F6F3EE}.social-weekday-row span{padding:8px;text-align:center;font-size:7px;font-weight:850;text-transform:uppercase;letter-spacing:.06em}.social-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}.social-calendar-day{position:relative;min-height:145px;padding:8px;border-right:1px solid #E2DDD5;border-bottom:1px solid #E2DDD5;background:#fff}.social-calendar-day:nth-child(7n){border-right:0}.social-calendar-day.outside{background:#F4F1EC;color:#9B9E9A}.social-calendar-day.today{box-shadow:inset 0 0 0 2px #829F89}.social-calendar-day-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}.social-calendar-day-head strong{font-family:Georgia,serif;font-size:16px}.social-calendar-day-head span{padding:2px 5px;border-radius:4px;background:#E6F0E8;color:#56705C;font-size:6px;font-weight:800}.social-calendar-day-posts{display:grid;gap:4px}.social-calendar-post{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:4px;width:100%;padding:5px 6px;border:1px solid #DED9D1;border-left-width:4px;border-radius:5px;background:#FAFAF8;text-align:left}.social-calendar-post b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:7px}.social-calendar-post-time{font-size:6px;color:#727772}.social-calendar-post.status-idea{border-left-color:#C6A878;background:#FBF6EB}.social-calendar-post.status-draft{border-left-color:#B6A5C9;background:#F6F1FA}.social-calendar-post.status-ready{border-left-color:#7FA68A;background:#EEF6F0}.social-calendar-post.status-scheduled{border-left-color:#D98F8A;background:#FCF0EF}.social-calendar-post.status-published{border-left-color:#58755F;background:#EAF2EC}.social-calendar-more{border:0;background:transparent;color:#667C6B;font-size:7px;font-weight:800;text-align:left}.social-day-add{position:absolute;right:7px;bottom:7px;width:24px;height:24px;border:1px solid #D8D1C7;border-radius:50%;background:#fff;color:#607665;font-size:16px;opacity:0}.social-calendar-day:hover .social-day-add,.social-day-add:focus{opacity:1}.social-mini-platform{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:2px;border-radius:50%;font-size:7px;font-weight:900}.social-mini-platform.facebook{background:#E4ECF6;color:#385D8A}.social-mini-platform.instagram{background:#F4E6EC;color:#8C556D}.social-mini-platform.empty{background:#EEEAE4;color:#888}.social-calendar-support{margin-top:14px}.social-upcoming-list{display:grid}.social-upcoming-row{display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px 0;border:0;border-bottom:1px solid #E8E3DC;background:transparent;text-align:left}.social-upcoming-row:last-child{border-bottom:0}.social-upcoming-date{display:grid;place-items:center;padding:7px;border-radius:6px;background:#F2EFEA}.social-upcoming-date strong{font-family:Georgia,serif;font-size:18px}.social-upcoming-date span{font-size:7px;text-transform:uppercase}.social-upcoming-row>div:nth-child(2){display:grid;gap:3px}.social-upcoming-row>div:nth-child(2)>span{font-size:7px;color:#737873}.social-upcoming-side{display:flex;align-items:center;gap:4px}.social-status-pill{display:inline-flex;padding:4px 7px;border-radius:4px;font-size:6.5px;font-weight:850;text-transform:uppercase}.social-status-pill.status-idea{background:#F5EAD6;color:#876B3D}.social-status-pill.status-draft{background:#ECE5F3;color:#665579}.social-status-pill.status-ready{background:#E5F0E7;color:#4E6B55}.social-status-pill.status-scheduled{background:#F8E3E1;color:#934F4A}.social-status-pill.status-published{background:#DDEADF;color:#45604B}.social-meta-card{border-top:4px solid #A4B3A6}.social-meta-platforms{display:grid;gap:9px;margin:5px 0 15px}.social-meta-platforms>div{display:grid;grid-template-columns:36px minmax(0,1fr);column-gap:9px;align-items:center;padding:10px;border:1px solid #E5E0D8;border-radius:6px}.social-platform-mark{grid-row:span 2;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;font-size:18px;font-weight:900}.social-platform-mark.facebook{background:#E5EDF7;color:#395F8B}.social-platform-mark.instagram{background:#F5E8EE;color:#925875}.social-meta-platforms small{color:#797E79}.social-connection-status{padding:5px 8px;border-radius:4px;background:#EFEAE3;color:#786F65;font-size:7px;font-weight:800;text-transform:uppercase}.social-library-toolbar{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.social-library-filters{display:grid;grid-template-columns:minmax(240px,1.6fr) repeat(2,minmax(130px,.7fr));gap:8px;min-width:min(650px,65%)}.social-library-count{padding:9px 0;color:#7A807A;font-size:8px;font-weight:800;border-bottom:1px solid #E4DFD7}.social-library-list{max-height:720px;overflow-y:auto;scrollbar-gutter:stable}.social-library-item{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:13px;padding:13px 0;border-bottom:1px solid #E6E1DA}.social-library-thumb{display:grid;place-items:center;height:76px;border-radius:6px;overflow:hidden;background:#F0EEE9}.social-library-thumb img{width:100%;height:100%;object-fit:cover}.social-library-copy{display:grid;gap:5px}.social-library-title-line{display:flex;align-items:center;gap:8px;justify-content:space-between}.social-library-meta,.social-library-footer{color:#747A75;font-size:7px}.social-library-copy p{margin:0;line-height:1.45}.social-library-footer{display:flex;gap:16px}.social-library-actions{display:flex;align-items:center}.social-quick-capture{display:grid;grid-template-columns:minmax(0,1fr) 160px auto;gap:8px;margin-bottom:13px}.social-idea-list{display:grid}.social-idea-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #E5E0D9}.social-idea-row>div:first-child{display:grid;gap:3px}.social-idea-row span{color:#757B76;font-size:7px}.social-idea-row>div:last-child{display:flex;gap:6px}.social-template-list{display:grid;gap:7px}.social-template-row{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:9px;padding:10px;border:1px solid #E4DFD7;border-radius:6px;background:#FCFBF9;text-align:left}.social-template-row:hover{border-color:#9CAF9F;background:#F2F7F2}.social-template-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#E9F0E9;color:#5C735F;font-size:16px}.social-template-row>span:nth-child(2){display:grid;gap:2px}.social-template-row small{color:#777D77}.social-analytics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.social-analytics-stat{display:grid;gap:7px;padding:16px;border:1px solid #DFDAD2;border-radius:8px;background:#fff}.social-analytics-stat span{font-size:8px;font-weight:800;text-transform:uppercase}.social-analytics-stat strong{font-family:Georgia,serif;font-size:27px;color:#57705D}.social-top-content{display:grid}.social-top-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 0;border:0;border-bottom:1px solid #E6E1D9;background:transparent;text-align:left}.social-top-row>b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#EEF2EB;color:#5C715F}.social-top-row>span{display:grid;gap:3px}.social-top-row small{color:#787D78}.social-meta-copy{line-height:1.6;color:#666D67}.social-sync-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.social-sync-list span{padding:9px;border-radius:5px;background:#EEF4EF;color:#526958;font-size:8px}.social-editor-panel{width:min(1180px,94vw)}.social-editor-card{max-width:none}.social-editor-header{align-items:flex-start}.social-editor-header-actions{display:flex;gap:7px;padding-right:38px}.social-editor-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(310px,.65fr);gap:18px}.social-editor-main{min-width:0}.social-editor-aside{display:grid;align-content:start;gap:12px}.social-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.social-platform-picker{display:flex;gap:8px}.social-platform-picker label{cursor:pointer}.social-platform-picker input{position:absolute;opacity:0;pointer-events:none}.social-platform-picker span{display:flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid #DDD7CE;border-radius:6px;background:#fff}.social-platform-picker input:checked+span{border-color:#829F89;background:#EAF2EB;color:#4D6653}.social-platform-picker b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#F0EDE8}.social-caption{min-height:150px}.social-character-count{text-align:right;color:#868B86;font-size:7px}.social-editor-section{padding:13px;border:1px solid #E2DDD5;border-radius:7px;background:#FAF8F4}.social-editor-section-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.social-editor-section-heading>div{display:grid;gap:3px}.social-cover-preview{display:grid;place-items:center;min-height:190px;margin:10px 0;border:1px dashed #D5CFC6;border-radius:7px;overflow:hidden;background:#F0EEE9;color:#8B8F8B}.social-cover-preview img{width:100%;height:240px;object-fit:cover}.social-image-url-field{margin:12px 0 0}.social-performance-section>div:first-child{display:grid;gap:3px;margin-bottom:9px}.social-performance-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.social-performance-grid .field{margin:0}.social-performance-grid label{font-size:7px;font-weight:800;text-transform:uppercase}.social-preview-card{display:grid;gap:7px}.social-preview-card strong{font-family:Georgia,serif;font-size:19px}.social-preview-card>div{color:#747A75;font-size:7px}.social-preview-card p{margin:0;line-height:1.5;white-space:pre-wrap}.social-editor-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid #E2DDD5}.social-meta-modal-card{max-width:720px}.social-meta-modal-card>p{line-height:1.65;color:#656C66}.social-meta-roadmap{display:grid;gap:9px;margin:15px 0}.social-meta-roadmap>div{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;padding:11px;border:1px solid #E4DFD7;border-radius:6px}.social-meta-roadmap b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#E8F0E9;color:#58705E}.social-meta-roadmap span{display:grid;gap:3px}.social-meta-roadmap small{color:#777D77;line-height:1.45}.social-meta-security-note{margin-bottom:14px;padding:12px;border-left:4px solid #829F89;background:#EEF4EF;line-height:1.5}
+    @media(max-width:1100px){.social-metric-grid,.social-analytics-grid{grid-template-columns:repeat(2,1fr)}.social-calendar-toolbar{grid-template-columns:1fr auto}.social-calendar-filter-row{grid-column:1/-1;justify-content:flex-start}.social-library-toolbar{display:grid}.social-library-filters{min-width:0;width:100%}.social-editor-layout{grid-template-columns:1fr}.social-editor-aside{grid-template-columns:1fr 1fr}.social-preview-card{grid-column:1/-1}}
+    @media(max-width:780px){.social-command-bar{align-items:flex-start;flex-direction:column}.social-command-actions{width:100%}.social-command-actions .btn{flex:1}.social-calendar-grid{grid-template-columns:1fr}.social-weekday-row{display:none}.social-calendar-day{min-height:90px;border-right:0}.social-calendar-day.outside{display:none}.social-day-add{opacity:1}.social-calendar-post{grid-template-columns:60px minmax(0,1fr) auto}.social-calendar-toolbar{grid-template-columns:1fr}.social-calendar-heading{text-align:left}.social-library-filters{grid-template-columns:1fr}.social-library-item{grid-template-columns:68px minmax(0,1fr)}.social-library-actions{grid-column:2;justify-content:flex-end}.social-quick-capture{grid-template-columns:1fr}.social-editor-aside{grid-template-columns:1fr}.social-form-grid,.social-performance-grid{grid-template-columns:1fr}.social-upcoming-row{grid-template-columns:44px minmax(0,1fr)}.social-upcoming-side{grid-column:2}.social-sync-list{grid-template-columns:1fr}}
+    @media(max-width:480px){.social-metric-grid,.social-analytics-grid{grid-template-columns:1fr 1fr}.social-metric{min-height:82px;padding:11px}.social-metric strong{font-size:23px}.social-tab-button{flex-basis:auto}.social-library-item{grid-template-columns:1fr}.social-library-thumb{height:140px}.social-library-actions{grid-column:1}.social-editor-header{display:grid}.social-editor-header-actions{padding:0}.social-platform-picker{display:grid}.social-calendar-nav,.social-calendar-filter-row{display:grid;grid-template-columns:1fr}.social-calendar-nav .btn,.social-calendar-filter-row .select{width:100%}}
+
   </style>
 </head>
 <body>
@@ -7347,6 +7354,7 @@
         <div class="nav-label">Business</div>
         <button class="nav-button" data-page="finance"><span class="nav-icon nav-money">$</span>Finance Centre</button>
         <button class="nav-button" data-page="cashflow"><span class="nav-icon">▥</span>Cash-Flow Calendar</button>
+        <button class="nav-button" data-page="social"><span class="nav-icon">✦</span>Social Media</button>
         <button class="nav-button feature-link" data-feature="Clients"><span class="nav-icon">♧</span>Clients</button>
         <button class="nav-button feature-link" data-feature="Quotes"><span class="nav-icon">▤</span>Quotes</button>
         <button class="nav-button feature-link" data-feature="R2R Hub"><span class="nav-icon">▦</span>R2R Hub</button>
@@ -7765,6 +7773,154 @@
 
 
 
+
+      <section class="page social-page" id="social-page">
+        <div class="card social-command-bar">
+          <div>
+            <span class="eyebrow">Content studio</span>
+            <h3>Social Media Content Hub</h3>
+            <p>Plan, write, schedule and review content for every brand in one place.</p>
+          </div>
+          <div class="social-command-actions">
+            <button class="btn btn-light" type="button" id="socialQuickIdea">+ Quick idea</button>
+            <button class="btn btn-primary" type="button" id="socialNewContent">+ New content</button>
+          </div>
+        </div>
+
+        <div class="social-tab-bar" role="tablist" aria-label="Social Media sections">
+          <button type="button" class="social-tab-button active" data-social-tab="calendar" role="tab" aria-selected="true">Calendar</button>
+          <button type="button" class="social-tab-button" data-social-tab="library" role="tab" aria-selected="false">Content Library</button>
+          <button type="button" class="social-tab-button" data-social-tab="ideas" role="tab" aria-selected="false">Ideas & Templates</button>
+          <button type="button" class="social-tab-button" data-social-tab="analytics" role="tab" aria-selected="false">Performance</button>
+        </div>
+
+        <div class="social-metric-grid">
+          <button type="button" class="social-metric soft-sage" data-social-metric="upcoming">
+            <span>Next 30 days</span><strong id="socialUpcomingCount">0</strong><small>planned posts</small>
+          </button>
+          <button type="button" class="social-metric soft-wisteria" data-social-metric="ready">
+            <span>Ready to schedule</span><strong id="socialReadyCount">0</strong><small>approved content</small>
+          </button>
+          <button type="button" class="social-metric soft-coral" data-social-metric="ideas">
+            <span>Idea inbox</span><strong id="socialIdeaCount">0</strong><small>unscheduled ideas</small>
+          </button>
+          <button type="button" class="social-metric soft-mint" data-social-metric="published">
+            <span>Published this month</span><strong id="socialPublishedCount">0</strong><small>completed posts</small>
+          </button>
+        </div>
+
+        <div class="social-tab-panel active" id="social-tab-calendar" data-social-panel="calendar">
+          <div class="card social-calendar-card">
+            <div class="social-calendar-toolbar">
+              <div class="social-calendar-nav">
+                <button class="btn btn-light" type="button" id="socialPrevMonth">← Previous</button>
+                <button class="btn btn-light" type="button" id="socialThisMonth">This month</button>
+                <button class="btn btn-light" type="button" id="socialNextMonth">Next →</button>
+              </div>
+              <div class="social-calendar-heading">
+                <span class="eyebrow">Content calendar</span>
+                <strong id="socialCalendarLabel"></strong>
+              </div>
+              <div class="social-calendar-filter-row">
+                <select class="select compact-select" id="socialCalendarBrandFilter" aria-label="Filter calendar by brand">
+                  <option value="all">All brands</option>
+                  <option value="R2R Property Care">R2R Property Care</option>
+                  <option value="Jesca Bakes">Jesca Bakes</option>
+                  <option value="Personal">Personal</option>
+                  <option value="Other">Other</option>
+                </select>
+                <select class="select compact-select" id="socialCalendarPlatformFilter" aria-label="Filter calendar by platform">
+                  <option value="all">All platforms</option>
+                  <option value="facebook">Facebook</option>
+                  <option value="instagram">Instagram</option>
+                </select>
+              </div>
+            </div>
+            <div class="social-weekday-row" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+            <div class="social-calendar-grid" id="socialCalendarGrid"></div>
+          </div>
+
+          <div class="grid grid-2 social-calendar-support">
+            <div class="card">
+              <div class="card-header">
+                <div><h3>Coming up</h3><div class="card-subtitle">The next posts that need your attention.</div></div>
+                <button class="btn btn-light btn-small" type="button" id="socialViewLibrary">View library</button>
+              </div>
+              <div class="social-upcoming-list" id="socialUpcomingList"></div>
+            </div>
+            <div class="card social-meta-card">
+              <div class="card-header"><div><h3>Facebook & Instagram</h3><div class="card-subtitle">Connection-ready, but not linked yet.</div></div><span class="social-connection-status">Not connected</span></div>
+              <div class="social-meta-platforms">
+                <div><span class="social-platform-mark facebook">f</span><strong>Facebook Page</strong><small>Publishing and Page performance</small></div>
+                <div><span class="social-platform-mark instagram">◎</span><strong>Instagram Professional</strong><small>Posts, Reels and insights</small></div>
+              </div>
+              <button class="btn btn-light" type="button" id="socialMetaSetup">View connection setup</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-tab-panel" id="social-tab-library" data-social-panel="library">
+          <div class="card social-library-card">
+            <div class="social-library-toolbar">
+              <div>
+                <h3>Content Library</h3>
+                <p class="card-subtitle">Every idea, draft, scheduled post and published result.</p>
+              </div>
+              <div class="social-library-filters">
+                <input class="input" id="socialSearch" placeholder="Search title, caption, campaign or client…" />
+                <select class="select" id="socialStatusFilter">
+                  <option value="all">All statuses</option><option value="idea">Ideas</option><option value="draft">Drafts</option><option value="ready">Ready</option><option value="scheduled">Scheduled</option><option value="published">Published</option>
+                </select>
+                <select class="select" id="socialFormatFilter">
+                  <option value="all">All formats</option><option value="post">Post</option><option value="reel">Reel</option><option value="story">Story</option><option value="carousel">Carousel</option><option value="video">Video</option>
+                </select>
+              </div>
+            </div>
+            <div class="social-library-count" id="socialLibraryCount">0 entries</div>
+            <div class="social-library-list" id="socialLibraryList"></div>
+          </div>
+        </div>
+
+        <div class="social-tab-panel" id="social-tab-ideas" data-social-panel="ideas">
+          <div class="grid grid-2 social-ideas-layout">
+            <div class="card">
+              <div class="card-header"><div><h3>Idea Inbox</h3><div class="card-subtitle">Capture the thought now. Shape and schedule it later.</div></div></div>
+              <div class="social-quick-capture">
+                <input class="input" id="socialIdeaTitle" placeholder="What could you post about?" />
+                <select class="select" id="socialIdeaBrand"><option>R2R Property Care</option><option>Jesca Bakes</option><option>Personal</option><option>Other</option></select>
+                <button class="btn btn-primary" type="button" id="socialSaveIdea">Save idea</button>
+              </div>
+              <div class="social-idea-list" id="socialIdeaList"></div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div><h3>Reusable content starters</h3><div class="card-subtitle">Start with a proven R2R-style structure, then make it your own.</div></div></div>
+              <div class="social-template-list" id="socialTemplateList"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-tab-panel" id="social-tab-analytics" data-social-panel="analytics">
+          <div class="social-analytics-grid">
+            <div class="social-analytics-stat"><span>Published posts</span><strong id="socialAnalyticsPublished">0</strong></div>
+            <div class="social-analytics-stat"><span>Total reach</span><strong id="socialAnalyticsReach">0</strong></div>
+            <div class="social-analytics-stat"><span>Views</span><strong id="socialAnalyticsViews">0</strong></div>
+            <div class="social-analytics-stat"><span>Engagements</span><strong id="socialAnalyticsEngagements">0</strong></div>
+          </div>
+          <div class="grid grid-2 social-analytics-detail">
+            <div class="card">
+              <div class="card-header"><div><h3>Top content</h3><div class="card-subtitle">Based on the performance numbers entered on published posts.</div></div></div>
+              <div id="socialTopContent" class="social-top-content"></div>
+            </div>
+            <div class="card social-meta-card">
+              <div class="card-header"><div><h3>Live analytics connection</h3><div class="card-subtitle">Prepared for a secure Meta connection.</div></div><span class="social-connection-status">Manual mode</span></div>
+              <p class="social-meta-copy">For now, performance can be entered manually on each published post. Once a secure cloud backend is added, this area can automatically collect Facebook and Instagram results.</p>
+              <div class="social-sync-list"><span>✓ Reach and impressions</span><span>✓ Likes, comments, shares and saves</span><span>✓ Reel and video views</span><span>✓ Published-post matching</span></div>
+              <button class="btn btn-light" type="button" data-social-open-meta>Review future connection</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="page" id="cashflow-page">
         <div class="card cashflow-calendar-toolbar">
           <div class="cashflow-toolbar-left">
@@ -8168,6 +8324,97 @@
     </main>
   </div>
 
+
+
+  <div class="modal-overlay" id="socialContentModal" aria-hidden="true">
+    <div class="modal-panel social-editor-panel" role="dialog" aria-modal="true" aria-labelledby="socialEditorTitle">
+      <div class="card modal-card social-editor-card">
+        <button class="modal-close" type="button" data-close-modal="socialContentModal" aria-label="Close">×</button>
+        <div class="card-header social-editor-header">
+          <div><span class="eyebrow">Content entry</span><h3 id="socialEditorTitle">New social content</h3><div class="card-subtitle">Plan the message, media, timing and performance in one record.</div></div>
+          <div class="social-editor-header-actions"><button class="btn btn-light" type="button" id="socialDuplicatePost" style="display:none;">Duplicate</button><button class="btn btn-danger" type="button" id="socialDeletePost" style="display:none;">Delete</button></div>
+        </div>
+
+        <div class="social-editor-layout">
+          <div class="social-editor-main">
+            <div class="field"><label class="label">Working title</label><input class="input" id="socialPostTitle" placeholder="Holiday Inn garden transformation" /></div>
+            <div class="social-form-grid">
+              <div class="field"><label class="label">Brand</label><select class="select" id="socialPostBrand"><option>R2R Property Care</option><option>Jesca Bakes</option><option>Personal</option><option>Other</option></select></div>
+              <div class="field"><label class="label">Content format</label><select class="select" id="socialPostFormat"><option value="post">Post</option><option value="reel">Reel</option><option value="story">Story</option><option value="carousel">Carousel</option><option value="video">Video</option></select></div>
+              <div class="field"><label class="label">Status</label><select class="select" id="socialPostStatus"><option value="idea">Idea</option><option value="draft">Draft</option><option value="ready">Ready</option><option value="scheduled">Scheduled</option><option value="published">Published</option></select></div>
+              <div class="field"><label class="label">Content category</label><select class="select" id="socialPostCategory"><option>Before & After</option><option>Project Spotlight</option><option>Crew & Equipment</option><option>Seasonal Advice</option><option>Client Testimonial</option><option>Educational Tip</option><option>Behind the Scenes</option><option>Promotion</option><option>Hiring</option><option>Community</option><option>Personal</option><option>Other</option></select></div>
+            </div>
+
+            <div class="field">
+              <label class="label">Platforms</label>
+              <div class="social-platform-picker">
+                <label><input type="checkbox" id="socialPlatformFacebook" value="facebook"><span><b>f</b> Facebook</span></label>
+                <label><input type="checkbox" id="socialPlatformInstagram" value="instagram"><span><b>◎</b> Instagram</span></label>
+              </div>
+            </div>
+
+            <div class="social-form-grid">
+              <div class="field"><label class="label">Planned / published date</label><input type="date" class="input" id="socialPostDate" /></div>
+              <div class="field"><label class="label">Time</label><input type="time" class="input" id="socialPostTime" value="09:00" /></div>
+              <div class="field"><label class="label">Campaign or project</label><input class="input" id="socialPostCampaign" placeholder="Summer commercial care" /></div>
+              <div class="field"><label class="label">Client / location</label><input class="input" id="socialPostClient" placeholder="Prisma Dental, Holiday Inn…" /></div>
+            </div>
+
+            <div class="field"><label class="label">Caption</label><textarea class="textarea social-caption" id="socialPostCaption" placeholder="Write the full caption here…"></textarea><div class="social-character-count" id="socialCaptionCount">0 characters</div></div>
+            <div class="field"><label class="label">Hashtags</label><textarea class="textarea" id="socialPostHashtags" placeholder="#R2RPropertyCare #MonctonLandscaping"></textarea></div>
+            <div class="social-form-grid">
+              <div class="field"><label class="label">Call to action</label><input class="input" id="socialPostCta" placeholder="Request a quote, Save this tip…" /></div>
+              <div class="field"><label class="label">Published or destination link</label><input type="url" class="input" id="socialPostLink" placeholder="https://…" /></div>
+            </div>
+            <div class="field"><label class="label">Internal notes</label><textarea class="textarea" id="socialPostNotes" placeholder="Photo order, approvals, reminders, alternate wording…"></textarea></div>
+          </div>
+
+          <aside class="social-editor-aside">
+            <section class="social-editor-section">
+              <div class="social-editor-section-heading"><div><label class="label">Cover image</label><small>One compressed preview image can be stored in this browser.</small></div><label class="btn btn-light btn-small social-cover-upload">Choose image<input type="file" id="socialCoverInput" accept="image/*" hidden></label></div>
+              <div class="social-cover-preview" id="socialCoverPreview"><span>No image selected</span></div>
+              <button class="btn btn-light btn-small" type="button" id="socialRemoveCover" style="display:none;">Remove image</button>
+              <div class="field social-image-url-field"><label class="label">Or image reference / URL</label><input class="input" id="socialPostMediaReference" placeholder="Drive folder, Canva link or image URL" /></div>
+            </section>
+
+            <section class="social-editor-section social-performance-section">
+              <div><label class="label">Published performance</label><small>Optional manual tracking until Meta is connected.</small></div>
+              <div class="social-performance-grid">
+                <div class="field"><label>Reach</label><input type="number" min="0" class="input" id="socialMetricReach" /></div>
+                <div class="field"><label>Views</label><input type="number" min="0" class="input" id="socialMetricViews" /></div>
+                <div class="field"><label>Likes</label><input type="number" min="0" class="input" id="socialMetricLikes" /></div>
+                <div class="field"><label>Comments</label><input type="number" min="0" class="input" id="socialMetricComments" /></div>
+                <div class="field"><label>Shares</label><input type="number" min="0" class="input" id="socialMetricShares" /></div>
+                <div class="field"><label>Saves</label><input type="number" min="0" class="input" id="socialMetricSaves" /></div>
+              </div>
+            </section>
+
+            <section class="social-editor-section social-preview-card" id="socialPostPreviewCard">
+              <span class="eyebrow">Preview</span><strong id="socialPreviewTitle">Untitled content</strong><div id="socialPreviewMeta">Draft · R2R Property Care</div><p id="socialPreviewCaption">Your caption preview will appear here.</p>
+            </section>
+          </aside>
+        </div>
+        <div class="social-editor-footer"><button class="btn btn-primary" type="button" id="socialSavePost">Save content</button><button class="btn btn-light" type="button" data-close-modal="socialContentModal">Cancel</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="socialMetaModal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="socialMetaTitle">
+      <div class="card modal-card social-meta-modal-card">
+        <button class="modal-close" type="button" data-close-modal="socialMetaModal" aria-label="Close">×</button>
+        <span class="eyebrow">Future connection</span><h3 id="socialMetaTitle">Connect Facebook & Instagram securely</h3>
+        <p>The planner interface is ready, but a live connection cannot safely store Meta credentials inside the public GitHub page. The next connection phase will add a small secure cloud backend.</p>
+        <div class="social-meta-roadmap">
+          <div><b>1</b><span><strong>Secure account connection</strong><small>Sign in with Meta and choose the R2R Facebook Page and Instagram professional account.</small></span></div>
+          <div><b>2</b><span><strong>Publishing and scheduling</strong><small>Send approved content from this calendar to supported Facebook and Instagram destinations.</small></span></div>
+          <div><b>3</b><span><strong>Automatic performance</strong><small>Pull reach, views, reactions, comments, shares and saves back into each content record.</small></span></div>
+        </div>
+        <div class="social-meta-security-note"><strong>Current status:</strong> Planning, storage and manual analytics work now. No account passwords, tokens or private credentials are stored in this file.</div>
+        <button class="btn btn-primary" type="button" data-close-modal="socialMetaModal">Done</button>
+      </div>
+    </div>
+  </div>
 
   <div class="modal-overlay" id="templateEditorModal" aria-hidden="true">
     <div class="modal-panel template-editor-panel" role="dialog" aria-modal="true" aria-labelledby="templateEditorTitle">
@@ -8922,6 +9169,7 @@
       dailyCheck: { mood: '', energy: '', need: '' },
       days: {}, weeks: {}, monthResets: {}, tasks: [], templates: [], goals: [], habits: [], notes: [],
       finance: { currentBalance: 0, bankHistory: [], transactions: [], recurring: [] },
+      social: { posts: [], settings: { activeTab: 'calendar', calendarAnchor: '', calendarBrandFilter: 'all', calendarPlatformFilter: 'all' }, connections: { facebook: { connected:false }, instagram: { connected:false } } },
       settings: { plannerName: 'Jess Life & CEO Planner', weekDayView: 3, cashFlowCalendarView: 'month' }
     };
 
@@ -8932,6 +9180,9 @@
     let editingFinanceId = null;
     let editingRecurringId = null;
     let recordingRecurringId = null;
+    let socialCalendarAnchor = new Date(new Date().getFullYear(), new Date().getMonth(), 1, 12);
+    let editingSocialPostId = null;
+    let socialCoverDraft = '';
 
     function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
     function loadData() {
@@ -8987,6 +9238,7 @@
       templates: ['Routines & Templates', 'Build normal days once, then reuse them whenever you need.'],
       finance: ['Finance Centre', 'See where the money is now—and where it is headed.'],
       cashflow: ['Cash-Flow Calendar', 'See what is coming in, what is due and where the account could sit after each day.'],
+      social: ['Social Media', 'Plan content, schedule posts and understand what is working.'],
       goals: ['Goals', 'Turn bigger intentions into visible progress.'],
       habits: ['Habit Tracker', 'Build consistency one check-in at a time.'],
       monthly: ['Monthly Reset', 'Reflect, reset and plan forward.'],
@@ -9010,6 +9262,7 @@
       if (page === 'templates') renderTemplates();
       if (page === 'finance') renderFinance();
       if (page === 'cashflow') renderCashFlowCalendar();
+      if (page === 'social') renderSocial();
       if (page === 'goals') renderGoals();
       if (page === 'habits') renderHabits();
       if (page === 'monthly') renderMonthly();
@@ -9109,6 +9362,38 @@
       }
       data.templates.forEach(normalizeScheduleTemplate);
       data.finance.transactions ??= []; data.finance.recurring ??= []; data.finance.bankHistory ??= [];
+      data.social ??= {};
+      data.social.posts ??= [];
+      data.social.settings ??= {};
+      data.social.connections ??= {facebook:{connected:false},instagram:{connected:false}};
+      data.social.settings.activeTab = ['calendar','library','ideas','analytics'].includes(data.social.settings.activeTab) ? data.social.settings.activeTab : 'calendar';
+      data.social.settings.calendarAnchor ??= '';
+      data.social.settings.calendarBrandFilter ??= 'all';
+      data.social.settings.calendarPlatformFilter ??= 'all';
+      data.social.posts.forEach(post => {
+        post.id ??= uid();
+        post.title ??= 'Untitled content';
+        post.brand ??= 'R2R Property Care';
+        post.platforms = Array.isArray(post.platforms) ? post.platforms.filter(platform => ['facebook','instagram'].includes(platform)) : [];
+        post.format ??= 'post';
+        post.status ??= 'draft';
+        post.category ??= 'Other';
+        post.date ??= '';
+        post.time ??= '09:00';
+        post.campaign ??= '';
+        post.client ??= '';
+        post.caption ??= '';
+        post.hashtags ??= '';
+        post.cta ??= '';
+        post.link ??= '';
+        post.notes ??= '';
+        post.coverImage ??= '';
+        post.mediaReference ??= '';
+        post.metrics ??= {};
+        ['reach','views','likes','comments','shares','saves'].forEach(key => post.metrics[key] = Number(post.metrics[key]) || 0);
+        post.createdAt ??= new Date().toISOString();
+        post.updatedAt ??= post.createdAt;
+      });
       Object.entries(data.days).forEach(([date, day]) => {
         day.tasks ??= []; day.schedule ??= {}; day.scheduleMeta ??= {}; day.events ??= []; day.templateApplications ??= []; day.templateSuppressions ??= [];
         day.events.forEach(event => {
@@ -12620,6 +12905,294 @@
         </span>
       </button>`;
     }
+
+
+    const SOCIAL_STATUS = {
+      idea:{label:'Idea',className:'idea'}, draft:{label:'Draft',className:'draft'}, ready:{label:'Ready',className:'ready'}, scheduled:{label:'Scheduled',className:'scheduled'}, published:{label:'Published',className:'published'}
+    };
+    const SOCIAL_FORMAT_LABELS = {post:'Post',reel:'Reel',story:'Story',carousel:'Carousel',video:'Video'};
+    const SOCIAL_TEMPLATES = [
+      {id:'before-after',name:'Before & after project',category:'Before & After',format:'carousel',platforms:['facebook','instagram'],title:'Before & after: [project or property]',caption:'A simple look at where this property started, what our crew completed, and the difference thoughtful property care can make.\n\nProject: [details]\nLocation: [area]\n\nReady to improve your property? [call to action]'},
+      {id:'property-tip',name:'Weekly property-care tip',category:'Educational Tip',format:'post',platforms:['facebook','instagram'],title:'Property care tip: [topic]',caption:'A quick property-care tip from the R2R crew:\n\n[Helpful advice]\n\nSave this for later or send us a message if you need a hand.'},
+      {id:'equipment',name:'Equipment spotlight',category:'Crew & Equipment',format:'reel',platforms:['facebook','instagram'],title:'Equipment spotlight: [machine]',caption:'Today’s equipment spotlight: [machine].\n\nHere is where it helps us work more safely, efficiently and consistently for our clients: [details].'},
+      {id:'crew',name:'Meet the crew',category:'Behind the Scenes',format:'post',platforms:['facebook','instagram'],title:'Meet the R2R crew: [name]',caption:'Meet [name], one of the people helping us care for properties from the ground up.\n\nRole: [role]\nFavourite part of the work: [answer]\nSomething clients may not know: [answer]'},
+      {id:'seasonal',name:'Seasonal reminder',category:'Seasonal Advice',format:'post',platforms:['facebook','instagram'],title:'Seasonal reminder: [topic]',caption:'A seasonal reminder for property owners in Greater Moncton:\n\n[Reminder and timing]\n\nPlanning ahead can make a big difference. Contact R2R if you would like this added to your property-care plan.'},
+      {id:'testimonial',name:'Client testimonial',category:'Client Testimonial',format:'post',platforms:['facebook','instagram'],title:'Client feedback: [client or project]',caption:'We appreciate hearing from the people and businesses who trust us with their properties.\n\n“[testimonial]”\n\nThank you, [client], for choosing R2R Property Care.'},
+      {id:'storm',name:'Winter storm update',category:'Seasonal Advice',format:'story',platforms:['facebook','instagram'],title:'Storm operations update',caption:'Storm operations update:\n\n[Conditions]\n[Current crew status]\n[What clients should expect]\n\nSnow does not stop—and neither do we.'},
+      {id:'hiring',name:'Hiring announcement',category:'Hiring',format:'post',platforms:['facebook','instagram'],title:'We are hiring: [role]',caption:'R2R Property Care is looking for a [role] to join our team.\n\nWhat the role includes: [details]\nWhat we value: [details]\nHow to apply: [instructions]'}
+    ];
+
+    function socialStatusDetails(status='draft') { return SOCIAL_STATUS[status] || SOCIAL_STATUS.draft; }
+    function socialPlatformLabel(platforms=[]) {
+      const values=[];
+      if(platforms.includes('facebook')) values.push('Facebook');
+      if(platforms.includes('instagram')) values.push('Instagram');
+      return values.length ? values.join(' + ') : 'Platform not chosen';
+    }
+    function socialPlatformMarks(platforms=[]) {
+      return `${platforms.includes('facebook')?'<span class="social-mini-platform facebook">f</span>':''}${platforms.includes('instagram')?'<span class="social-mini-platform instagram">◎</span>':''}` || '<span class="social-mini-platform empty">—</span>';
+    }
+    function socialDateTime(post) {
+      if(!post.date) return 'Unscheduled';
+      const date = localDate(post.date);
+      const dateLabel = date.toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'});
+      return `${dateLabel}${post.time ? ` · ${formatClock(post.time)}` : ''}`;
+    }
+    function socialPostEngagement(post) {
+      const metrics=post.metrics||{};
+      return ['likes','comments','shares','saves'].reduce((sum,key)=>sum+(Number(metrics[key])||0),0);
+    }
+    function socialFilteredPosts({calendarOnly=false}={}) {
+      let posts=[...(data.social.posts||[])];
+      if(calendarOnly) {
+        const brand=document.getElementById('socialCalendarBrandFilter')?.value || data.social.settings.calendarBrandFilter || 'all';
+        const platform=document.getElementById('socialCalendarPlatformFilter')?.value || data.social.settings.calendarPlatformFilter || 'all';
+        if(brand!=='all') posts=posts.filter(post=>post.brand===brand);
+        if(platform!=='all') posts=posts.filter(post=>(post.platforms||[]).includes(platform));
+      }
+      return posts;
+    }
+    function setSocialTab(tab='calendar') {
+      const safe=['calendar','library','ideas','analytics'].includes(tab)?tab:'calendar';
+      data.social.settings.activeTab=safe;
+      document.querySelectorAll('.social-tab-button').forEach(button=>{
+        const active=button.dataset.socialTab===safe;
+        button.classList.toggle('active',active);
+        button.setAttribute('aria-selected',String(active));
+      });
+      document.querySelectorAll('.social-tab-panel').forEach(panel=>panel.classList.toggle('active',panel.dataset.socialPanel===safe));
+      try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch{}
+      if(safe==='calendar') renderSocialCalendar();
+      if(safe==='library') renderSocialLibrary();
+      if(safe==='ideas') renderSocialIdeas();
+      if(safe==='analytics') renderSocialAnalytics();
+    }
+    function renderSocial() {
+      const today=localDate(isoDate(new Date()));
+      const thirty=addDays(today,30);
+      const posts=data.social.posts||[];
+      const upcoming=posts.filter(post=>post.date && localDate(post.date)>=today && localDate(post.date)<=thirty && post.status!=='published');
+      const ready=posts.filter(post=>post.status==='ready').length;
+      const ideas=posts.filter(post=>post.status==='idea').length;
+      const monthKey=isoDate(today).slice(0,7);
+      const published=posts.filter(post=>post.status==='published' && String(post.date||'').slice(0,7)===monthKey).length;
+      document.getElementById('socialUpcomingCount').textContent=upcoming.length;
+      document.getElementById('socialReadyCount').textContent=ready;
+      document.getElementById('socialIdeaCount').textContent=ideas;
+      document.getElementById('socialPublishedCount').textContent=published;
+      if(data.social.settings.calendarAnchor) socialCalendarAnchor=localDate(data.social.settings.calendarAnchor);
+      document.getElementById('socialCalendarBrandFilter').value=data.social.settings.calendarBrandFilter||'all';
+      document.getElementById('socialCalendarPlatformFilter').value=data.social.settings.calendarPlatformFilter||'all';
+      setSocialTab(data.social.settings.activeTab||'calendar');
+    }
+
+    function socialCalendarCellMarkup(date,monthIndex,posts) {
+      const key=isoDate(date);
+      const todayKey=isoDate(new Date());
+      const dayPosts=posts.filter(post=>post.date===key).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+      const outside=date.getMonth()!==monthIndex;
+      const visible=dayPosts.slice(0,3);
+      return `<div class="social-calendar-day ${outside?'outside':''} ${key===todayKey?'today':''}" data-social-date="${key}">
+        <div class="social-calendar-day-head"><strong>${date.getDate()}</strong>${key===todayKey?'<span>Today</span>':''}</div>
+        <div class="social-calendar-day-posts">
+          ${visible.map(post=>`<button type="button" class="social-calendar-post status-${socialStatusDetails(post.status).className}" data-social-post-id="${post.id}">
+            <span class="social-calendar-post-time">${post.time?formatClock(post.time).replace(' AM','a').replace(' PM','p'):socialStatusDetails(post.status).label}</span>
+            <b>${escapeHtml(post.title)}</b><span class="social-calendar-post-meta">${socialPlatformMarks(post.platforms)}</span>
+          </button>`).join('')}
+          ${dayPosts.length>3?`<button type="button" class="social-calendar-more" data-social-library-date="${key}">+${dayPosts.length-3} more</button>`:''}
+        </div>
+        <button type="button" class="social-day-add" data-social-add-date="${key}" aria-label="Add content on ${key}">+</button>
+      </div>`;
+    }
+    function renderSocialCalendar() {
+      const anchor=new Date(socialCalendarAnchor.getFullYear(),socialCalendarAnchor.getMonth(),1,12);
+      data.social.settings.calendarAnchor=isoDate(anchor);
+      const monthIndex=anchor.getMonth();
+      document.getElementById('socialCalendarLabel').textContent=anchor.toLocaleDateString('en-CA',{month:'long',year:'numeric'});
+      const mondayIndex=(anchor.getDay()+6)%7;
+      const start=addDays(anchor,-mondayIndex);
+      const posts=socialFilteredPosts({calendarOnly:true});
+      const grid=document.getElementById('socialCalendarGrid');
+      grid.innerHTML=Array.from({length:42},(_,index)=>socialCalendarCellMarkup(addDays(start,index),monthIndex,posts)).join('');
+      grid.querySelectorAll('[data-social-post-id]').forEach(button=>button.addEventListener('click',event=>{event.stopPropagation();openSocialEditor(button.dataset.socialPostId);}));
+      grid.querySelectorAll('[data-social-add-date]').forEach(button=>button.addEventListener('click',event=>{event.stopPropagation();openSocialEditor('',{date:button.dataset.socialAddDate,status:'draft'});}));
+      grid.querySelectorAll('[data-social-library-date]').forEach(button=>button.addEventListener('click',()=>{document.getElementById('socialSearch').value=button.dataset.socialLibraryDate;setSocialTab('library');}));
+      renderSocialUpcoming();
+    }
+    function renderSocialUpcoming() {
+      const today=isoDate(new Date());
+      const items=(data.social.posts||[]).filter(post=>post.date && post.date>=today && post.status!=='published').sort((a,b)=>`${a.date} ${a.time||''}`.localeCompare(`${b.date} ${b.time||''}`)).slice(0,7);
+      const list=document.getElementById('socialUpcomingList');
+      list.innerHTML=items.length?items.map(post=>`<button type="button" class="social-upcoming-row" data-social-post-id="${post.id}">
+        <div class="social-upcoming-date"><strong>${localDate(post.date).getDate()}</strong><span>${localDate(post.date).toLocaleDateString('en-CA',{month:'short'})}</span></div>
+        <div><strong>${escapeHtml(post.title)}</strong><span>${socialDateTime(post)} · ${escapeHtml(post.brand)}</span></div>
+        <div class="social-upcoming-side">${socialPlatformMarks(post.platforms)}<span class="social-status-pill status-${socialStatusDetails(post.status).className}">${socialStatusDetails(post.status).label}</span></div>
+      </button>`).join(''):'<div class="empty">No upcoming content yet. Add a post or save an idea to get started.</div>';
+      list.querySelectorAll('[data-social-post-id]').forEach(button=>button.addEventListener('click',()=>openSocialEditor(button.dataset.socialPostId)));
+    }
+
+    function socialLibraryCard(post) {
+      const caption=String(post.caption||'').trim();
+      return `<article class="social-library-item" data-social-post-id="${post.id}">
+        <div class="social-library-thumb">${post.coverImage?`<img src="${escapeHtml(post.coverImage)}" alt="">`:`<span>${socialPlatformMarks(post.platforms)}</span>`}</div>
+        <div class="social-library-copy">
+          <div class="social-library-title-line"><strong>${escapeHtml(post.title)}</strong><span class="social-status-pill status-${socialStatusDetails(post.status).className}">${socialStatusDetails(post.status).label}</span></div>
+          <div class="social-library-meta">${escapeHtml(post.brand)} · ${escapeHtml(SOCIAL_FORMAT_LABELS[post.format]||post.format)} · ${escapeHtml(post.category)} · ${socialDateTime(post)}</div>
+          <p>${caption?escapeHtml(caption.slice(0,180))+(caption.length>180?'…':''):'No caption written yet.'}</p>
+          <div class="social-library-footer"><span>${socialPlatformLabel(post.platforms)}</span>${post.status==='published'?`<span>${Number(post.metrics?.reach)||0} reach · ${socialPostEngagement(post)} engagements</span>`:''}</div>
+        </div>
+        <div class="social-library-actions"><button class="btn btn-light btn-small social-edit-post" type="button" data-id="${post.id}">Edit</button></div>
+      </article>`;
+    }
+    function renderSocialLibrary() {
+      const query=String(document.getElementById('socialSearch').value||'').trim().toLowerCase();
+      const status=document.getElementById('socialStatusFilter').value;
+      const format=document.getElementById('socialFormatFilter').value;
+      let posts=[...(data.social.posts||[])];
+      if(status!=='all')posts=posts.filter(post=>post.status===status);
+      if(format!=='all')posts=posts.filter(post=>post.format===format);
+      if(query)posts=posts.filter(post=>[post.title,post.caption,post.campaign,post.client,post.brand,post.category,post.date].some(value=>String(value||'').toLowerCase().includes(query)));
+      posts.sort((a,b)=>`${b.date||''} ${b.time||''} ${b.updatedAt||''}`.localeCompare(`${a.date||''} ${a.time||''} ${a.updatedAt||''}`));
+      document.getElementById('socialLibraryCount').textContent=`${posts.length} ${posts.length===1?'entry':'entries'}`;
+      const list=document.getElementById('socialLibraryList');
+      list.innerHTML=posts.length?posts.map(socialLibraryCard).join(''):'<div class="empty">No content matches these filters.</div>';
+      list.querySelectorAll('.social-edit-post').forEach(button=>button.addEventListener('click',()=>openSocialEditor(button.dataset.id)));
+    }
+    function renderSocialIdeas() {
+      const ideas=(data.social.posts||[]).filter(post=>post.status==='idea').sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
+      const list=document.getElementById('socialIdeaList');
+      list.innerHTML=ideas.length?ideas.map(post=>`<div class="social-idea-row"><div><strong>${escapeHtml(post.title)}</strong><span>${escapeHtml(post.brand)} · ${escapeHtml(post.category)}</span></div><div><button class="btn btn-light btn-small social-shape-idea" type="button" data-id="${post.id}">Shape idea</button><button class="delete-btn social-delete-idea" type="button" data-id="${post.id}">×</button></div></div>`).join(''):'<div class="empty">Your idea inbox is empty.</div>';
+      list.querySelectorAll('.social-shape-idea').forEach(button=>button.addEventListener('click',()=>openSocialEditor(button.dataset.id)));
+      list.querySelectorAll('.social-delete-idea').forEach(button=>button.addEventListener('click',()=>{data.social.posts=data.social.posts.filter(post=>post.id!==button.dataset.id);saveData('Idea removed');renderSocial();}));
+      const templates=document.getElementById('socialTemplateList');
+      templates.innerHTML=SOCIAL_TEMPLATES.map(template=>`<button type="button" class="social-template-row" data-social-template="${template.id}"><span class="social-template-icon">${template.format==='reel'?'▶':template.format==='carousel'?'▦':template.format==='story'?'◫':'✦'}</span><span><strong>${escapeHtml(template.name)}</strong><small>${escapeHtml(template.category)} · ${escapeHtml(SOCIAL_FORMAT_LABELS[template.format])}</small></span><b>Use →</b></button>`).join('');
+      templates.querySelectorAll('[data-social-template]').forEach(button=>button.addEventListener('click',()=>openSocialTemplate(button.dataset.socialTemplate)));
+    }
+    function renderSocialAnalytics() {
+      const published=(data.social.posts||[]).filter(post=>post.status==='published');
+      const total=key=>published.reduce((sum,post)=>sum+(Number(post.metrics?.[key])||0),0);
+      const engagement=published.reduce((sum,post)=>sum+socialPostEngagement(post),0);
+      document.getElementById('socialAnalyticsPublished').textContent=published.length.toLocaleString('en-CA');
+      document.getElementById('socialAnalyticsReach').textContent=total('reach').toLocaleString('en-CA');
+      document.getElementById('socialAnalyticsViews').textContent=total('views').toLocaleString('en-CA');
+      document.getElementById('socialAnalyticsEngagements').textContent=engagement.toLocaleString('en-CA');
+      const ranked=[...published].sort((a,b)=>((Number(b.metrics?.reach)||0)+socialPostEngagement(b))-((Number(a.metrics?.reach)||0)+socialPostEngagement(a))).slice(0,8);
+      const list=document.getElementById('socialTopContent');
+      list.innerHTML=ranked.length?ranked.map((post,index)=>`<button type="button" class="social-top-row" data-social-post-id="${post.id}"><b>${index+1}</b><span><strong>${escapeHtml(post.title)}</strong><small>${socialDateTime(post)} · ${socialPlatformLabel(post.platforms)}</small></span><span><strong>${(Number(post.metrics?.reach)||0).toLocaleString('en-CA')}</strong><small>reach</small></span></button>`).join(''):'<div class="empty">Publish content and add performance numbers to see your strongest posts here.</div>';
+      list.querySelectorAll('[data-social-post-id]').forEach(button=>button.addEventListener('click',()=>openSocialEditor(button.dataset.socialPostId)));
+    }
+
+    function socialBlankPost(overrides={}) {
+      return {id:'',title:'',brand:'R2R Property Care',platforms:['facebook','instagram'],format:'post',status:'draft',category:'Project Spotlight',date:isoDate(new Date()),time:'09:00',campaign:'',client:'',caption:'',hashtags:'',cta:'',link:'',notes:'',coverImage:'',mediaReference:'',metrics:{reach:0,views:0,likes:0,comments:0,shares:0,saves:0},...overrides};
+    }
+    function fillSocialEditor(post) {
+      document.getElementById('socialPostTitle').value=post.title||'';
+      document.getElementById('socialPostBrand').value=post.brand||'R2R Property Care';
+      document.getElementById('socialPostFormat').value=post.format||'post';
+      document.getElementById('socialPostStatus').value=post.status||'draft';
+      document.getElementById('socialPostCategory').value=post.category||'Other';
+      document.getElementById('socialPlatformFacebook').checked=(post.platforms||[]).includes('facebook');
+      document.getElementById('socialPlatformInstagram').checked=(post.platforms||[]).includes('instagram');
+      document.getElementById('socialPostDate').value=post.date||'';
+      document.getElementById('socialPostTime').value=post.time||'09:00';
+      document.getElementById('socialPostCampaign').value=post.campaign||'';
+      document.getElementById('socialPostClient').value=post.client||'';
+      document.getElementById('socialPostCaption').value=post.caption||'';
+      document.getElementById('socialPostHashtags').value=post.hashtags||'';
+      document.getElementById('socialPostCta').value=post.cta||'';
+      document.getElementById('socialPostLink').value=post.link||'';
+      document.getElementById('socialPostNotes').value=post.notes||'';
+      document.getElementById('socialPostMediaReference').value=post.mediaReference||'';
+      ['reach','views','likes','comments','shares','saves'].forEach(key=>document.getElementById(`socialMetric${key[0].toUpperCase()+key.slice(1)}`).value=Number(post.metrics?.[key])||'');
+      socialCoverDraft=post.coverImage||'';
+      renderSocialCoverPreview();
+      updateSocialEditorPreview();
+    }
+    function openSocialEditor(id='',overrides={}) {
+      const existing=id?(data.social.posts||[]).find(post=>post.id===id):null;
+      editingSocialPostId=existing?.id||'';
+      const post=existing?clone(existing):socialBlankPost(overrides);
+      document.getElementById('socialEditorTitle').textContent=existing?'Edit social content':post.status==='idea'?'Capture an idea':'New social content';
+      document.getElementById('socialDuplicatePost').style.display=existing?'inline-flex':'none';
+      document.getElementById('socialDeletePost').style.display=existing?'inline-flex':'none';
+      fillSocialEditor(post);
+      openModal('socialContentModal');
+    }
+    function openSocialTemplate(templateId) {
+      const template=SOCIAL_TEMPLATES.find(item=>item.id===templateId);if(!template)return;
+      openSocialEditor('',{title:template.title,brand:'R2R Property Care',platforms:template.platforms,format:template.format,status:'draft',category:template.category,caption:template.caption,date:isoDate(new Date())});
+    }
+    function socialEditorPlatforms() {
+      const platforms=[];
+      if(document.getElementById('socialPlatformFacebook').checked)platforms.push('facebook');
+      if(document.getElementById('socialPlatformInstagram').checked)platforms.push('instagram');
+      return platforms;
+    }
+    function socialEditorValues() {
+      const metric=id=>Number(document.getElementById(id).value)||0;
+      return {title:document.getElementById('socialPostTitle').value.trim(),brand:document.getElementById('socialPostBrand').value,platforms:socialEditorPlatforms(),format:document.getElementById('socialPostFormat').value,status:document.getElementById('socialPostStatus').value,category:document.getElementById('socialPostCategory').value,date:document.getElementById('socialPostDate').value,time:document.getElementById('socialPostTime').value||'09:00',campaign:document.getElementById('socialPostCampaign').value.trim(),client:document.getElementById('socialPostClient').value.trim(),caption:document.getElementById('socialPostCaption').value.trim(),hashtags:document.getElementById('socialPostHashtags').value.trim(),cta:document.getElementById('socialPostCta').value.trim(),link:document.getElementById('socialPostLink').value.trim(),notes:document.getElementById('socialPostNotes').value.trim(),coverImage:socialCoverDraft,mediaReference:document.getElementById('socialPostMediaReference').value.trim(),metrics:{reach:metric('socialMetricReach'),views:metric('socialMetricViews'),likes:metric('socialMetricLikes'),comments:metric('socialMetricComments'),shares:metric('socialMetricShares'),saves:metric('socialMetricSaves')}};
+    }
+    function saveSocialPost() {
+      const values=socialEditorValues();
+      if(!values.title){alert('Add a working title for this content.');return;}
+      if(['ready','scheduled','published'].includes(values.status) && !values.date){alert('Choose a date before marking this content ready, scheduled or published.');return;}
+      const now=new Date().toISOString();
+      if(editingSocialPostId){const post=data.social.posts.find(item=>item.id===editingSocialPostId);if(!post)return;Object.assign(post,values,{updatedAt:now});}
+      else data.social.posts.unshift({id:uid(),...values,createdAt:now,updatedAt:now});
+      saveData(editingSocialPostId?'Content updated':'Content saved');
+      closeModal('socialContentModal');editingSocialPostId='';socialCoverDraft='';renderSocial();
+    }
+    function duplicateSocialPost() {
+      if(!editingSocialPostId)return;
+      const source=data.social.posts.find(post=>post.id===editingSocialPostId);if(!source)return;
+      const copyPost=clone(source);copyPost.id=uid();copyPost.title=`${source.title} — Copy`;copyPost.status='draft';copyPost.date='';copyPost.createdAt=new Date().toISOString();copyPost.updatedAt=copyPost.createdAt;data.social.posts.unshift(copyPost);saveData('Content duplicated');closeModal('socialContentModal');renderSocial();
+    }
+    function deleteSocialPost() {
+      if(!editingSocialPostId)return;
+      if(!confirm('Delete this social media content entry?'))return;
+      data.social.posts=data.social.posts.filter(post=>post.id!==editingSocialPostId);saveData('Content deleted');closeModal('socialContentModal');editingSocialPostId='';renderSocial();
+    }
+    function updateSocialEditorPreview() {
+      const title=document.getElementById('socialPostTitle').value.trim()||'Untitled content';
+      const caption=document.getElementById('socialPostCaption').value.trim();
+      const status=socialStatusDetails(document.getElementById('socialPostStatus').value).label;
+      const brand=document.getElementById('socialPostBrand').value;
+      document.getElementById('socialPreviewTitle').textContent=title;
+      document.getElementById('socialPreviewMeta').textContent=`${status} · ${brand} · ${socialPlatformLabel(socialEditorPlatforms())}`;
+      document.getElementById('socialPreviewCaption').textContent=caption||'Your caption preview will appear here.';
+      document.getElementById('socialCaptionCount').textContent=`${document.getElementById('socialPostCaption').value.length} characters`;
+    }
+    function renderSocialCoverPreview() {
+      const preview=document.getElementById('socialCoverPreview');
+      preview.innerHTML=socialCoverDraft?`<img src="${escapeHtml(socialCoverDraft)}" alt="Selected social content cover image">`:'<span>No image selected</span>';
+      document.getElementById('socialRemoveCover').style.display=socialCoverDraft?'inline-flex':'none';
+    }
+    function compressSocialImage(file) {
+      return new Promise((resolve,reject)=>{
+        const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const image=new Image();image.onerror=reject;image.onload=()=>{const max=1000;const scale=Math.min(1,max/Math.max(image.width,image.height));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(image.width*scale));canvas.height=Math.max(1,Math.round(image.height*scale));canvas.getContext('2d').drawImage(image,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',.76));};image.src=reader.result;};reader.readAsDataURL(file);});
+    }
+
+    document.querySelectorAll('.social-tab-button').forEach(button=>button.addEventListener('click',()=>setSocialTab(button.dataset.socialTab)));
+    document.getElementById('socialNewContent').addEventListener('click',()=>openSocialEditor());
+    document.getElementById('socialQuickIdea').addEventListener('click',()=>openSocialEditor('',{status:'idea',date:'',time:'09:00',platforms:[]}));
+    document.getElementById('socialSavePost').addEventListener('click',saveSocialPost);
+    document.getElementById('socialDuplicatePost').addEventListener('click',duplicateSocialPost);
+    document.getElementById('socialDeletePost').addEventListener('click',deleteSocialPost);
+    document.getElementById('socialPrevMonth').addEventListener('click',()=>{socialCalendarAnchor.setMonth(socialCalendarAnchor.getMonth()-1);renderSocialCalendar();});
+    document.getElementById('socialThisMonth').addEventListener('click',()=>{socialCalendarAnchor=new Date(new Date().getFullYear(),new Date().getMonth(),1,12);renderSocialCalendar();});
+    document.getElementById('socialNextMonth').addEventListener('click',()=>{socialCalendarAnchor.setMonth(socialCalendarAnchor.getMonth()+1);renderSocialCalendar();});
+    document.getElementById('socialCalendarBrandFilter').addEventListener('change',event=>{data.social.settings.calendarBrandFilter=event.target.value;saveData('Calendar filter updated');renderSocialCalendar();});
+    document.getElementById('socialCalendarPlatformFilter').addEventListener('change',event=>{data.social.settings.calendarPlatformFilter=event.target.value;saveData('Calendar filter updated');renderSocialCalendar();});
+    document.getElementById('socialViewLibrary').addEventListener('click',()=>setSocialTab('library'));
+    ['socialSearch','socialStatusFilter','socialFormatFilter'].forEach(id=>document.getElementById(id).addEventListener(id==='socialSearch'?'input':'change',renderSocialLibrary));
+    document.getElementById('socialSaveIdea').addEventListener('click',()=>{const title=document.getElementById('socialIdeaTitle').value.trim();if(!title)return;const now=new Date().toISOString();data.social.posts.unshift({...socialBlankPost({id:uid(),title,brand:document.getElementById('socialIdeaBrand').value,status:'idea',date:'',platforms:[]}),createdAt:now,updatedAt:now});document.getElementById('socialIdeaTitle').value='';saveData('Idea saved');renderSocial();});
+    document.querySelectorAll('[data-social-open-meta]').forEach(button=>button.addEventListener('click',()=>openModal('socialMetaModal')));
+    document.getElementById('socialMetaSetup').addEventListener('click',()=>openModal('socialMetaModal'));
+    document.querySelectorAll('[data-social-metric]').forEach(button=>button.addEventListener('click',()=>{const metric=button.dataset.socialMetric;if(metric==='ideas')setSocialTab('ideas');else if(metric==='published'){document.getElementById('socialStatusFilter').value='published';setSocialTab('library');}else if(metric==='ready'){document.getElementById('socialStatusFilter').value='ready';setSocialTab('library');}else setSocialTab('calendar');}));
+    ['socialPostTitle','socialPostBrand','socialPostStatus','socialPostCaption','socialPlatformFacebook','socialPlatformInstagram'].forEach(id=>document.getElementById(id).addEventListener(id.includes('Platform')?'change':'input',updateSocialEditorPreview));
+    document.getElementById('socialCoverInput').addEventListener('change',async event=>{const file=event.target.files?.[0];if(!file)return;try{socialCoverDraft=await compressSocialImage(file);renderSocialCoverPreview();}catch(error){console.error(error);showToast('Image could not be prepared');}event.target.value='';});
+    document.getElementById('socialRemoveCover').addEventListener('click',()=>{socialCoverDraft='';renderSocialCoverPreview();});
+
 
     function cashFlowCalendarView() {
       return ['month','week','biweekly'].includes(data.settings?.cashFlowCalendarView)
