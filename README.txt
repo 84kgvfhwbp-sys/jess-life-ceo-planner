@@ -1,85 +1,74 @@
-Jess Life & CEO Planner — Version 50 Coastal Executive Workspace
+Jess Life & CEO Planner — Version 51 Focus Home
 
-This is a production redesign of the complete Version 49 planner. Existing
-planner records remain in the browser's saved localStorage and are not erased
-by replacing index.html.
+The front page is now a calm Focus Home rather than a dense executive report.
 
-DESIGN DIRECTION
-- 70% polished business operating system
-- 30% warm modern coastal planner
-- Warm ivory workspace with white primary surfaces
-- Coastal sage as the principal action and navigation colour
-- Clay/coral reserved for expenses, warnings and overdue items
-- Wisteria used for personal/content accents
-- Warm sand used for neutral and recurring information
-- Sharper 8–11px corners and lighter shadows
-- Serif typography reserved for identity and major page headings
-- Clean sans-serif typography for navigation, forms, lists and tables
+DEFAULT: SIMPLE VIEW
+The planner opens with only:
 
-NAVIGATION
-- Narrower and cleaner desktop sidebar
-- Plan, Business, Grow and Data are collapsible sections
-- Grow and Data start collapsed on the first load
-- Section choices are remembered
-- Desktop sidebar can collapse to a compact icon rail
-- Sidebar state is remembered
-- Mobile navigation continues using the existing slide-out menu
-- Feature-only buttons no longer accidentally attempt to open an undefined page
+1. Today
+   - Current date
+   - Next agenda item
+   - Remaining priority count
+   - Open Today link
 
-GLOBAL COMMAND BAR
-- Sticky page header
-- Desktop sidebar collapse control
-- Global Quick Add menu available from every page
-- Quick Add can open:
-  • Task
-  • Agenda event
-  • Income
-  • Expense or bill
-  • Social content
-  • Journal entry
+2. Cash Position
+   - Current bank balance
+   - Coming in over the next seven days
+   - Going out over the next seven days
+   - Projected week-end balance
 
-DASHBOARD
-- More compact financial summary cards
-- Reduced decorative colour fills
-- Clearer hierarchy between financial position, today, priorities and activity
-- Smaller action cards and cleaner tables
+3. Needs Attention
+   - Overdue invoices
+   - Overdue or due bills
+   - Tasks due or unfinished
+   - Social content requiring review
 
-FINANCE CENTRE
-- Sticky section navigation:
-  • Overview
-  • Quick entry
-  • Transactions
-  • Recurring
-  • Reports
-  • Ledger
-- Compact KPI and supporting-number cards
-- Accounting-style lists and tables
-- Cleaner recurring, transaction and attention sections
-- Existing calculations, corrected dates, ledger and scrollable lists remain intact
+4. Today's Agenda
+   - Up to six unfinished time blocks
+   - Clear, readable times and event types
+   - Click an item to edit it
 
-SOCIAL MEDIA HUB
-- Cleaner content-studio heading
-- Sticky workspace tabs
-- Calendar remains the primary focus
-- Compact pipeline metrics
-- Cleaner content library, ideas and analytics surfaces
-- Meta connection area remains prepared but secure credentials are not stored
+5. Priority Tasks
+   - Up to five priorities
+   - Complete or reopen tasks directly
+   - Task Inbox remains one click away
 
-FORMS AND DRAWERS
-- Sharper inputs and buttons
-- Clear focus states
-- Cleaner side drawers and modal overlays
-- Existing task, event, finance, journal and social forms continue to work
+6. Upcoming Week
+   - Expected income
+   - Bills and expenses
+   - Appointments
+   - Planned social content
+
+FULL OVERVIEW
+- The complete previous Version 50 dashboard remains available.
+- Use the Simple / Full Overview switch at the top of the front page.
+- The planner remembers which view was last selected.
+- No dashboard functionality or financial reporting was removed.
+
+DESIGN CHANGES
+- Larger readable type
+- Fewer visible boxes
+- Three main summary cards only
+- Two comfortable working sections
+- One quiet upcoming-week strip
+- Mostly white, ivory and stone surfaces
+- Sage for navigation and positive states
+- Coral reserved for attention and overdue information
+
+DATA
+- Existing tasks, agenda events, finance records, social content and settings
+  remain unchanged in localStorage.
+- Replacing index.html does not erase the saved planner information.
 
 VERIFICATION
 - Full JavaScript syntax passed
 - No duplicate static HTML IDs
-- Four collapsible navigation sections confirmed
-- Six global Quick Add actions confirmed
-- Existing Version 49 features and data schema retained
+- Original detailed dashboard retained
+- Simple and Full Overview controls verified
+- Dashboard view preference verified
 
 GITHUB UPDATE
-1. Replace the existing repository index.html with this Version 50 file.
+1. Replace the current repository index.html with this Version 51 file.
 2. Commit directly to main.
-3. Wait approximately one minute for GitHub Pages.
+3. Wait approximately one minute.
 4. Hard-refresh using Command + Shift + R.

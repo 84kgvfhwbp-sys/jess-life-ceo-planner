@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Version 50: Coastal Executive Workspace production redesign -->
+  <!-- Version 51: simplified Focus Home with optional Full Overview -->
   <!-- Version 49: Social Media Content Hub, calendar, library, ideas and manual analytics -->
   <!-- Version 48: corrected historical recurring payment months and date-confirmed recording -->
   <!-- Version 47: scrollable Transactions and Recurring Commitments lists with eight visible entries -->
@@ -8480,6 +8480,625 @@
       }
     }
 
+    /* =====================================================================
+       VERSION 51 — FOCUS HOME
+       A calm front page with an optional detailed Full Overview.
+       ===================================================================== */
+
+    .focus-home-page {
+      max-width:1380px;
+    }
+
+    .focus-home-heading {
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:24px;
+      margin:0 0 18px;
+      padding:3px 1px 17px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .focus-home-heading h3 {
+      margin:5px 0 5px;
+      color:#26302A;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:29px;
+      font-weight:500;
+      letter-spacing:-.03em;
+    }
+
+    .focus-home-heading p {
+      max-width:670px;
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .dashboard-view-switch {
+      display:inline-flex;
+      flex:0 0 auto;
+      padding:4px;
+      border:1px solid #DCD7CE;
+      border-radius:9px;
+      background:#EFEEE9;
+    }
+
+    .dashboard-view-switch button {
+      min-height:35px;
+      padding:8px 14px;
+      border:0;
+      border-radius:6px;
+      color:#687168;
+      background:transparent;
+      font-size:11px;
+      font-weight:750;
+      white-space:nowrap;
+    }
+
+    .dashboard-view-switch button.active {
+      color:#FFF;
+      background:var(--sage-deep);
+      box-shadow:0 2px 7px rgba(65,83,70,.14);
+    }
+
+    .dashboard-view-panel {
+      display:none;
+    }
+
+    .dashboard-view-panel.active {
+      display:block;
+    }
+
+    .focus-summary-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .focus-summary-card {
+      display:flex;
+      min-width:0;
+      min-height:222px;
+      flex-direction:column;
+      padding:21px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#FFF;
+      box-shadow:0 7px 22px rgba(44,50,46,.045);
+    }
+
+    .focus-today-card { border-top:3px solid var(--sage); }
+    .focus-cash-card { border-top:3px solid #88A899; }
+    .focus-attention-card { border-top:3px solid var(--coral); }
+
+    .focus-card-heading {
+      display:flex;
+      min-width:0;
+      align-items:center;
+      gap:11px;
+    }
+
+    .focus-card-heading > div {
+      min-width:0;
+    }
+
+    .focus-card-heading strong {
+      display:block;
+      margin-top:3px;
+      overflow:hidden;
+      color:#303832;
+      font-size:15px;
+      font-weight:730;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .focus-card-icon {
+      display:grid;
+      width:38px;
+      height:38px;
+      flex:0 0 38px;
+      place-items:center;
+      border-radius:9px;
+      color:var(--sage-deep);
+      background:#EDF2EE;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:17px;
+      font-weight:700;
+    }
+
+    .focus-attention-card .focus-card-icon {
+      color:#9B4F49;
+      background:#F8ECEA;
+    }
+
+    .focus-card-primary {
+      display:grid;
+      gap:6px;
+      margin:25px 0 20px;
+    }
+
+    .focus-card-primary > span {
+      color:#777E78;
+      font-size:11px;
+    }
+
+    .focus-card-primary > strong {
+      overflow:hidden;
+      color:#29312C;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:23px;
+      font-weight:500;
+      line-height:1.22;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .focus-card-primary > small {
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.4;
+    }
+
+    .focus-card-footer {
+      display:flex;
+      min-height:35px;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:auto;
+      padding-top:13px;
+      border-top:1px solid #ECE8E1;
+      color:#697069;
+      font-size:10px;
+    }
+
+    .focus-card-footer b {
+      color:#34463A;
+      font-size:14px;
+    }
+
+    .focus-card-footer button,
+    .focus-section-heading button,
+    .focus-empty-state button {
+      padding:4px 0;
+      border:0;
+      color:var(--sage-deep);
+      background:transparent;
+      font-size:10px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .focus-cash-lines {
+      display:grid;
+      gap:0;
+      margin:18px 0 15px;
+      border-top:1px solid #ECE8E1;
+    }
+
+    .focus-cash-lines > div {
+      display:flex;
+      min-height:39px;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      border-bottom:1px solid #ECE8E1;
+      color:#687069;
+      font-size:10px;
+    }
+
+    .focus-cash-lines b {
+      color:#303832;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:15px;
+      font-weight:600;
+      white-space:nowrap;
+    }
+
+    .focus-cash-projected {
+      margin-top:4px;
+      padding-top:5px;
+      color:#34463A !important;
+      font-weight:750;
+    }
+
+    .focus-cash-projected b {
+      font-size:18px;
+    }
+
+    .focus-attention-list {
+      display:grid;
+      gap:0;
+      margin-top:17px;
+      border-top:1px solid #ECE8E1;
+    }
+
+    .focus-attention-list button {
+      display:flex;
+      min-height:38px;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:0;
+      border:0;
+      border-bottom:1px solid #ECE8E1;
+      color:#626A64;
+      background:transparent;
+      font-size:10px;
+      text-align:left;
+    }
+
+    .focus-attention-list button:hover {
+      color:#303832;
+    }
+
+    .focus-attention-list b {
+      display:grid;
+      min-width:27px;
+      height:25px;
+      place-items:center;
+      border-radius:6px;
+      color:#8F4C47;
+      background:#F7EBE9;
+      font-size:11px;
+    }
+
+    .focus-workspace-grid {
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(330px,.85fr);
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .focus-workspace-section,
+    .focus-upcoming-section {
+      min-width:0;
+      padding:21px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#FFF;
+      box-shadow:0 7px 22px rgba(44,50,46,.04);
+    }
+
+    .focus-section-heading {
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:10px;
+      padding-bottom:13px;
+      border-bottom:1px solid #EAE6DF;
+    }
+
+    .focus-section-heading h3 {
+      margin:4px 0 0;
+      color:#29312C;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:20px;
+      font-weight:500;
+      letter-spacing:-.02em;
+    }
+
+    .focus-section-heading > small {
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .focus-agenda-list,
+    .focus-priority-list {
+      display:grid;
+      min-height:290px;
+      align-content:start;
+    }
+
+    .focus-agenda-row {
+      display:grid;
+      min-height:59px;
+      grid-template-columns:76px 8px minmax(0,1fr);
+      align-items:center;
+      gap:11px;
+      padding:8px 3px;
+      border:0;
+      border-bottom:1px solid #ECE8E1;
+      color:var(--ink);
+      background:transparent;
+      text-align:left;
+    }
+
+    .focus-agenda-row:last-child {
+      border-bottom:0;
+    }
+
+    .focus-agenda-row:hover {
+      background:#FAFBF9;
+    }
+
+    .focus-agenda-time {
+      color:#58615A;
+      font-size:11px;
+      font-weight:730;
+      white-space:nowrap;
+    }
+
+    .focus-agenda-row > i {
+      width:8px;
+      height:8px;
+      border-radius:50%;
+    }
+
+    .focus-agenda-copy {
+      display:grid;
+      min-width:0;
+      gap:3px;
+    }
+
+    .focus-agenda-copy strong {
+      overflow:hidden;
+      color:#303832;
+      font-size:13px;
+      font-weight:680;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .focus-agenda-copy small {
+      overflow:hidden;
+      color:var(--muted);
+      font-size:10px;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .focus-priority-row {
+      display:grid;
+      min-height:58px;
+      grid-template-columns:23px minmax(0,1fr) auto;
+      align-items:center;
+      gap:11px;
+      border-bottom:1px solid #ECE8E1;
+    }
+
+    .focus-priority-row:last-child {
+      border-bottom:0;
+    }
+
+    .focus-priority-row.is-done > span {
+      opacity:.5;
+      text-decoration:line-through;
+    }
+
+    .focus-priority-check {
+      width:18px;
+      height:18px;
+      appearance:none;
+      border:1px solid #AAB4AC;
+      border-radius:5px;
+      background:#FFF;
+    }
+
+    .focus-priority-check:checked {
+      border-color:var(--sage);
+      background:var(--sage);
+    }
+
+    .focus-priority-check:checked::after {
+      content:"✓";
+      display:block;
+      color:#FFF;
+      font-size:12px;
+      line-height:16px;
+      text-align:center;
+    }
+
+    .focus-priority-row > span {
+      min-width:0;
+      color:#303832;
+      font-size:12px;
+      line-height:1.4;
+    }
+
+    .focus-priority-row > small {
+      padding:4px 7px;
+      border-radius:5px;
+      color:#687069;
+      background:#F0EEE9;
+      font-size:7px;
+      font-weight:800;
+      text-transform:capitalize;
+    }
+
+    .focus-empty-state {
+      display:grid;
+      min-height:230px;
+      place-items:center;
+      align-content:center;
+      gap:7px;
+      padding:28px;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    .focus-empty-state strong {
+      color:#3D4740;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:18px;
+      font-weight:500;
+    }
+
+    .focus-empty-state span {
+      font-size:11px;
+    }
+
+    .focus-upcoming-section {
+      padding-bottom:16px;
+    }
+
+    .focus-upcoming-strip {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+    }
+
+    .focus-upcoming-strip button {
+      display:grid;
+      min-height:92px;
+      align-content:center;
+      gap:8px;
+      padding:11px 20px;
+      border:0;
+      border-right:1px solid #E8E4DD;
+      color:var(--ink);
+      background:transparent;
+      text-align:left;
+    }
+
+    .focus-upcoming-strip button:last-child {
+      border-right:0;
+    }
+
+    .focus-upcoming-strip button:hover {
+      background:#FAFBF9;
+    }
+
+    .focus-upcoming-strip span {
+      color:#6F766F;
+      font-size:10px;
+    }
+
+    .focus-upcoming-strip strong {
+      color:#303832;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:22px;
+      font-weight:600;
+    }
+
+    /* The detailed dashboard remains intact but is intentionally secondary. */
+    #dashboardFullView {
+      padding-top:3px;
+    }
+
+    body:not(.dashboard-full-overview) #dashboardFullView {
+      display:none;
+    }
+
+    body.dashboard-full-overview #dashboardSimpleView {
+      display:none;
+    }
+
+    body[data-active-page="dashboard"] .topbar p {
+      max-width:620px;
+    }
+
+    @media (max-width:1100px) {
+      .focus-summary-grid {
+        grid-template-columns:1fr 1fr;
+      }
+
+      .focus-attention-card {
+        grid-column:1 / -1;
+        min-height:190px;
+      }
+
+      .focus-workspace-grid {
+        grid-template-columns:1fr;
+      }
+
+      .focus-agenda-list,
+      .focus-priority-list {
+        min-height:230px;
+      }
+    }
+
+    @media (max-width:760px) {
+      .focus-home-heading {
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .dashboard-view-switch {
+        width:100%;
+      }
+
+      .dashboard-view-switch button {
+        flex:1;
+      }
+
+      .focus-summary-grid {
+        grid-template-columns:1fr;
+      }
+
+      .focus-attention-card {
+        grid-column:auto;
+      }
+
+      .focus-summary-card {
+        min-height:205px;
+        padding:18px;
+      }
+
+      .focus-workspace-section,
+      .focus-upcoming-section {
+        padding:17px;
+      }
+
+      .focus-upcoming-strip {
+        grid-template-columns:1fr 1fr;
+      }
+
+      .focus-upcoming-strip button:nth-child(2) {
+        border-right:0;
+      }
+
+      .focus-upcoming-strip button:nth-child(-n+2) {
+        border-bottom:1px solid #E8E4DD;
+      }
+    }
+
+    @media (max-width:460px) {
+      .focus-home-heading h3 {
+        font-size:25px;
+      }
+
+      .focus-home-heading p {
+        font-size:12px;
+      }
+
+      .focus-card-primary > strong {
+        font-size:20px;
+      }
+
+      .focus-card-footer {
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .focus-section-heading {
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .focus-upcoming-strip {
+        grid-template-columns:1fr;
+      }
+
+      .focus-upcoming-strip button {
+        min-height:75px;
+        border-right:0;
+        border-bottom:1px solid #E8E4DD;
+      }
+
+      .focus-upcoming-strip button:last-child {
+        border-bottom:0;
+      }
+
+      .focus-agenda-row {
+        grid-template-columns:65px 7px minmax(0,1fr);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -8585,8 +9204,146 @@
         </div>
       </header>
 
-      <section class="page active dashboard-production" id="dashboard-page">
-        <div class="dashboard-metric-grid">
+      <section class="page active dashboard-production focus-home-page" id="dashboard-page">
+        <div class="focus-home-heading">
+          <div>
+            <span class="eyebrow">Focus home</span>
+            <h3>Today at a glance</h3>
+            <p>Only what you need to understand the day, the money and what requires attention.</p>
+          </div>
+
+          <div class="dashboard-view-switch" role="group" aria-label="Dashboard view">
+            <button type="button" class="active" data-dashboard-view="simple" aria-pressed="true">Simple</button>
+            <button type="button" data-dashboard-view="full" aria-pressed="false">Full overview</button>
+          </div>
+        </div>
+
+        <div class="dashboard-view-panel active" id="dashboardSimpleView" data-dashboard-panel="simple">
+          <div class="focus-summary-grid">
+            <section class="focus-summary-card focus-today-card">
+              <div class="focus-card-heading">
+                <span class="focus-card-icon" aria-hidden="true">◷</span>
+                <div>
+                  <span class="eyebrow">Today</span>
+                  <strong id="focusTodayDate">Today</strong>
+                </div>
+              </div>
+
+              <div class="focus-card-primary">
+                <span>Next on the agenda</span>
+                <strong id="focusTodayNext">Nothing scheduled yet</strong>
+                <small id="focusTodayNextTime">Your day is open.</small>
+              </div>
+
+              <div class="focus-card-footer">
+                <span><b id="focusTodayTaskCount">0</b> priorities remaining</span>
+                <button type="button" data-jump="today">Open today →</button>
+              </div>
+            </section>
+
+            <section class="focus-summary-card focus-cash-card">
+              <div class="focus-card-heading">
+                <span class="focus-card-icon" aria-hidden="true">$</span>
+                <div>
+                  <span class="eyebrow">Cash position</span>
+                  <strong id="focusCashBalance">$0.00</strong>
+                </div>
+              </div>
+
+              <div class="focus-cash-lines">
+                <div><span>Coming in this week</span><b class="money-positive" id="focusCashIn">$0.00</b></div>
+                <div><span>Going out this week</span><b class="money-negative" id="focusCashOut">$0.00</b></div>
+                <div class="focus-cash-projected"><span>Projected week-end</span><b id="focusCashProjected">$0.00</b></div>
+              </div>
+
+              <div class="focus-card-footer">
+                <small>Outstanding items through the next seven days</small>
+                <button type="button" data-jump="finance">Open finance →</button>
+              </div>
+            </section>
+
+            <section class="focus-summary-card focus-attention-card">
+              <div class="focus-card-heading">
+                <span class="focus-card-icon" aria-hidden="true">!</span>
+                <div>
+                  <span class="eyebrow">Needs attention</span>
+                  <strong><b id="focusAttentionTotal">0</b> items</strong>
+                </div>
+              </div>
+
+              <div class="focus-attention-list">
+                <button type="button" data-jump="finance">
+                  <span>Overdue invoices</span><b id="focusOverdueInvoices">0</b>
+                </button>
+                <button type="button" data-jump="finance">
+                  <span>Overdue or due bills</span><b id="focusDueBills">0</b>
+                </button>
+                <button type="button" data-jump="tasks">
+                  <span>Tasks due or unfinished</span><b id="focusAttentionTasks">0</b>
+                </button>
+                <button type="button" data-jump="social">
+                  <span>Content needing review</span><b id="focusAttentionSocial">0</b>
+                </button>
+              </div>
+            </section>
+          </div>
+
+          <div class="focus-workspace-grid">
+            <section class="focus-workspace-section">
+              <div class="focus-section-heading">
+                <div>
+                  <span class="eyebrow">Your day</span>
+                  <h3>Today’s agenda</h3>
+                </div>
+                <button type="button" data-jump="today">See full day →</button>
+              </div>
+              <div class="focus-agenda-list" id="focusAgendaList"></div>
+            </section>
+
+            <section class="focus-workspace-section">
+              <div class="focus-section-heading">
+                <div>
+                  <span class="eyebrow">What matters most</span>
+                  <h3>Priority tasks</h3>
+                </div>
+                <button type="button" data-jump="tasks">Task inbox →</button>
+              </div>
+              <div class="focus-priority-list" id="focusPriorityList"></div>
+            </section>
+          </div>
+
+          <section class="focus-upcoming-section">
+            <div class="focus-section-heading">
+              <div>
+                <span class="eyebrow">Next seven days</span>
+                <h3>Upcoming week</h3>
+              </div>
+              <small id="focusWeekRange"></small>
+            </div>
+
+            <div class="focus-upcoming-strip">
+              <button type="button" data-jump="finance">
+                <span>Expected income</span>
+                <strong class="money-positive" id="focusWeekIncome">$0.00</strong>
+              </button>
+              <button type="button" data-jump="finance">
+                <span>Bills and expenses</span>
+                <strong class="money-negative" id="focusWeekBills">$0.00</strong>
+              </button>
+              <button type="button" data-jump="week">
+                <span>Appointments</span>
+                <strong id="focusWeekAppointments">0</strong>
+              </button>
+              <button type="button" data-jump="social">
+                <span>Planned content</span>
+                <strong id="focusWeekContent">0</strong>
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <div class="dashboard-view-panel" id="dashboardFullView" data-dashboard-panel="full">
+          <div class="dashboard-metric-grid">
           <button class="dashboard-metric dashboard-metric-sage" type="button" data-open-modal="bankModal">
             <div>
               <div class="dashboard-metric-label">Current bank balance</div>
@@ -8707,6 +9464,7 @@
           <button class="dashboard-action dashboard-action-cream" type="button" id="dashRunReport">
             <span class="dashboard-action-icon">▥</span><span><strong>Run report</strong><small>View financial reports</small></span><b>›</b>
           </button>
+        </div>
         </div>
       </section>
 
@@ -10369,7 +11127,7 @@
       days: {}, weeks: {}, monthResets: {}, tasks: [], templates: [], goals: [], habits: [], notes: [],
       finance: { currentBalance: 0, bankHistory: [], transactions: [], recurring: [] },
       social: { posts: [], settings: { activeTab: 'calendar', calendarAnchor: '', calendarBrandFilter: 'all', calendarPlatformFilter: 'all' }, connections: { facebook: { connected:false }, instagram: { connected:false } } },
-      settings: { plannerName: 'Jess Life & CEO Planner', weekDayView: 3, cashFlowCalendarView: 'month' }
+      settings: { plannerName: 'Jess Life & CEO Planner', weekDayView: 3, cashFlowCalendarView: 'month', dashboardView: 'simple' }
     };
 
     let data = loadData();
@@ -10465,6 +11223,10 @@
       }
 
       setMenu(false);
+      if (page === 'dashboard') {
+        renderDashboard();
+        setDashboardView(data.settings.dashboardView || 'simple', false);
+      }
       if (page === 'today') renderToday();
       if (page === 'week') renderWeek();
       if (page === 'tasks') renderTasks();
@@ -10558,6 +11320,38 @@
     document.querySelectorAll('.nav-button').forEach(button => {
       const navText = button.querySelector('.nav-text')?.textContent?.trim();
       if (navText) button.title = navText;
+    });
+
+    function setDashboardView(view='simple', persist=true) {
+      const safe = view === 'full' ? 'full' : 'simple';
+      data.settings.dashboardView = safe;
+
+      document.querySelectorAll('[data-dashboard-view]').forEach(button => {
+        const active = button.dataset.dashboardView === safe;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-pressed', String(active));
+      });
+
+      document.querySelectorAll('[data-dashboard-panel]').forEach(panel => {
+        panel.classList.toggle('active', panel.dataset.dashboardPanel === safe);
+      });
+
+      document.body.classList.toggle('dashboard-full-overview', safe === 'full');
+
+      if (persist) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+      }
+
+      setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
+    }
+
+    document.querySelectorAll('[data-dashboard-view]').forEach(button => {
+      button.addEventListener('click', () => setDashboardView(button.dataset.dashboardView));
+    });
+
+    document.getElementById('dashboardSimpleView').addEventListener('click', event => {
+      const jump = event.target.closest('[data-jump]');
+      if (jump) openPage(jump.dataset.jump);
     });
 
     function setQuickAddOpen(open) {
@@ -10684,6 +11478,9 @@
       data.settings.cashFlowCalendarView = ['month','week','biweekly'].includes(data.settings.cashFlowCalendarView)
         ? data.settings.cashFlowCalendarView
         : 'month';
+      data.settings.dashboardView = ['simple','full'].includes(data.settings.dashboardView)
+        ? data.settings.dashboardView
+        : 'simple';
       if (!data.settings.templatesInitialized) {
         data.templates = starterScheduleTemplates();
         data.settings.templatesInitialized = true;
@@ -15803,6 +16600,139 @@
       document.getElementById('dashboardCashProjected').textContent=money(projected30);
       setMoneyClass(document.getElementById('dashboardCashNet'),actualNet);
       setMoneyClass(document.getElementById('dashboardCashProjected'),projected30);
+
+      // Version 51 — simplified Focus Home
+      const focusDateLabel = todayObj.toLocaleDateString('en-CA',{
+        weekday:'long',
+        month:'long',
+        day:'numeric'
+      });
+      document.getElementById('focusTodayDate').textContent = focusDateLabel;
+
+      const nextAgendaItem = ensureDayEvents(todayDate).find(eventItem => !eventItem.done);
+      document.getElementById('focusTodayNext').textContent = nextAgendaItem
+        ? nextAgendaItem.title
+        : 'Nothing scheduled yet';
+      document.getElementById('focusTodayNextTime').textContent = nextAgendaItem
+        ? `${formatClock(nextAgendaItem.start)} – ${formatClock(nextAgendaItem.end)} · ${eventTypeDetails(nextAgendaItem.type).label}`
+        : 'Your day is open.';
+
+      const remainingPriorities = priorityRows.filter(item => !item.done).length;
+      document.getElementById('focusTodayTaskCount').textContent = remainingPriorities;
+
+      const weekEnd = addDays(todayObj,6);
+      const weekOutstanding = outstandingThrough(weekEnd);
+      const weekTotals = cashTotals(weekOutstanding);
+      const weekProjected = currentBalance + weekTotals.plannedIncome - weekTotals.plannedExpenses;
+
+      document.getElementById('focusCashBalance').textContent = money(currentBalance);
+      document.getElementById('focusCashIn').textContent = money(weekTotals.plannedIncome);
+      document.getElementById('focusCashOut').textContent = money(weekTotals.plannedExpenses);
+      document.getElementById('focusCashProjected').textContent = money(weekProjected);
+      setMoneyClass(document.getElementById('focusCashProjected'),weekProjected);
+
+      const overdueEnd = addDays(todayObj,-1);
+      const overdueItems = outstandingThrough(overdueEnd);
+      const overdueIncomeCount = overdueItems.filter(item => item.type === 'income').length;
+      const overdueBillCount = overdueItems.filter(item => item.type === 'expense').length;
+
+      const attentionTaskCount = (data.tasks || []).filter(task =>
+        !task.done && (!task.due || task.due <= todayDate)
+      ).length;
+
+      const socialReviewCount = (data.social?.posts || []).filter(post => {
+        if (post.status === 'ready') return true;
+        if (!post.date || post.status === 'published' || post.status === 'idea') return false;
+        return post.date <= todayDate;
+      }).length;
+
+      document.getElementById('focusOverdueInvoices').textContent = overdueIncomeCount;
+      document.getElementById('focusDueBills').textContent = overdueBillCount;
+      document.getElementById('focusAttentionTasks').textContent = attentionTaskCount;
+      document.getElementById('focusAttentionSocial').textContent = socialReviewCount;
+      document.getElementById('focusAttentionTotal').textContent =
+        overdueIncomeCount + overdueBillCount + attentionTaskCount + socialReviewCount;
+
+      const focusAgenda = ensureDayEvents(todayDate).filter(eventItem => !eventItem.done).slice(0,6);
+      const focusAgendaWrap = document.getElementById('focusAgendaList');
+      focusAgendaWrap.innerHTML = focusAgenda.length
+        ? focusAgenda.map(eventItem => `
+          <button class="focus-agenda-row" type="button" data-focus-event="${eventItem.id}">
+            <span class="focus-agenda-time">${formatClock(eventItem.start)}</span>
+            <i style="background:${agendaTypeColours[eventItem.type] || '#748E7B'}"></i>
+            <span class="focus-agenda-copy">
+              <strong>${escapeHtml(eventItem.title)}</strong>
+              <small>${escapeHtml(eventTypeDetails(eventItem.type).label)} · ${formatClock(eventItem.start)}–${formatClock(eventItem.end)}</small>
+            </span>
+          </button>
+        `).join('')
+        : `<div class="focus-empty-state">
+            <strong>Your agenda is clear.</strong>
+            <span>Add a time block when you are ready.</span>
+            <button type="button" data-jump="today">Open Today</button>
+          </div>`;
+
+      focusAgendaWrap.querySelectorAll('[data-focus-event]').forEach(button => {
+        button.addEventListener('click', () => {
+          openEventEditor(todayDate,button.dataset.focusEvent);
+        });
+      });
+
+      const focusPriorityWrap = document.getElementById('focusPriorityList');
+      focusPriorityWrap.innerHTML = priorityRows.length
+        ? priorityRows.slice(0,5).map(item => `
+          <label class="focus-priority-row ${item.done?'is-done':''}">
+            <input class="focus-priority-check" type="checkbox" ${item.done?'checked':''}
+              data-kind="${item.kind}"
+              ${item.kind==='priority'
+                ? `data-index="${item.index}"`
+                : `data-source="${item.source}" data-id="${item.id}"`}>
+            <span>${escapeHtml(item.text)}</span>
+            <small>${escapeHtml(item.priority)}</small>
+          </label>
+        `).join('')
+        : `<div class="focus-empty-state">
+            <strong>No priority tasks yet.</strong>
+            <span>Add only the work that truly matters today.</span>
+            <button type="button" data-jump="tasks">Open Task Inbox</button>
+          </div>`;
+
+      focusPriorityWrap.querySelectorAll('.focus-priority-check').forEach(check => {
+        check.addEventListener('change', () => {
+          if (check.dataset.kind === 'priority') {
+            today.priorityDone[check.dataset.index] = check.checked;
+          } else {
+            setTaskDone(check.dataset.source,check.dataset.id,todayDate,check.checked);
+          }
+          saveData(check.checked ? 'Priority completed' : 'Priority reopened');
+          renderToday();
+        });
+      });
+
+      const weekStartKey = todayDate;
+      const weekEndKey = isoDate(weekEnd);
+      let appointmentCount = 0;
+      for (let index=0; index<7; index+=1) {
+        const dateKey = isoDate(addDays(todayObj,index));
+        appointmentCount += ensureDayEvents(dateKey).filter(eventItem =>
+          !eventItem.done && !['task','note','break'].includes(eventItem.type)
+        ).length;
+      }
+
+      const contentCount = (data.social?.posts || []).filter(post =>
+        post.date
+        && post.date >= weekStartKey
+        && post.date <= weekEndKey
+        && post.status !== 'published'
+        && post.status !== 'idea'
+      ).length;
+
+      document.getElementById('focusWeekRange').textContent =
+        `${todayObj.toLocaleDateString('en-CA',{month:'short',day:'numeric'})} – ${weekEnd.toLocaleDateString('en-CA',{month:'short',day:'numeric'})}`;
+      document.getElementById('focusWeekIncome').textContent = money(weekTotals.plannedIncome);
+      document.getElementById('focusWeekBills').textContent = money(weekTotals.plannedExpenses);
+      document.getElementById('focusWeekAppointments').textContent = appointmentCount;
+      document.getElementById('focusWeekContent').textContent = contentCount;
     }
 
     document.getElementById('exportBtn').addEventListener('click',()=>{
@@ -15840,6 +16770,7 @@
     if(data.settings?.plannerName) document.title=data.settings.plannerName;
     migrateAllScheduleEvents();
     operatingYearOptions(); renderToday(); renderWeek(); renderTasks(); renderTemplates(); renderFinance(); renderCashFlowCalendar(); renderGoals(); renderHabits(); renderMonthly(); renderNotes(); renderDashboard();
+    setDashboardView(data.settings.dashboardView || 'simple', false);
     runPlannerIntegrityCheck();
     if (repairedHistoricalFinanceDates) {
       setTimeout(() => showToast(`${repairedHistoricalFinanceDates} historical payment date${repairedHistoricalFinanceDates===1?'':'s'} corrected`), 350);
