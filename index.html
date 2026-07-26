@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Version 52: Jess Life OS warm visual home dashboard -->
+  <!-- Version 53: dual-menu editorial CEO Dashboard -->
   <!-- Version 49: Social Media Content Hub, calendar, library, ideas and manual analytics -->
   <!-- Version 48: corrected historical recurring payment months and date-confirmed recording -->
   <!-- Version 47: scrollable Transactions and Recurring Commitments lists with eight visible entries -->
@@ -10077,78 +10077,1019 @@
       }
     }
 
+    /* =====================================================================
+       VERSION 53 — DUAL-MENU EDITORIAL CEO DASHBOARD
+       Reference direction: slim icon menu on the left, numbered chapter
+       menu on the right, and an editorial planner canvas in the centre.
+       ===================================================================== */
+
+    :root {
+      --ceo-ivory:#F5F1E8;
+      --ceo-paper:#FAF7F1;
+      --ceo-green:#27382C;
+      --ceo-green-2:#344A39;
+      --ceo-sage:#A8B4A4;
+      --ceo-blush:#D9B7A8;
+      --ceo-tan:#C8AE98;
+      --ceo-ink:#2E2A27;
+      --ceo-muted:#817870;
+      --ceo-line:#DDD5CA;
+    }
+
+    .app-shell,
+    body.sidebar-is-collapsed .app-shell {
+      display:grid;
+      grid-template-columns:104px minmax(0,1fr) 96px;
+      min-height:100vh;
+      background:#EAE7E1;
+      transition:none;
+    }
+
+    .sidebar,
+    body.sidebar-is-collapsed .sidebar {
+      position:sticky;
+      top:0;
+      z-index:110;
+      display:flex;
+      width:auto;
+      height:100vh;
+      flex-direction:column;
+      overflow:hidden;
+      border-right:1px solid rgba(63,54,47,.1);
+      background:#F2EEE7;
+      box-shadow:none;
+      transform:none;
+    }
+
+    .dual-left-brand {
+      display:grid;
+      min-height:128px;
+      place-items:center;
+      align-content:center;
+      gap:7px;
+      color:#EDE7DC;
+      background:var(--ceo-green);
+    }
+
+    .dual-left-monogram {
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:32px;
+      line-height:1;
+    }
+
+    .dual-left-brand > span {
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:.22em;
+    }
+
+    .dual-left-nav {
+      display:grid;
+      align-content:start;
+      flex:1;
+      padding:16px 10px 10px;
+      overflow:auto;
+      scrollbar-width:none;
+    }
+
+    .dual-left-nav::-webkit-scrollbar {
+      display:none;
+    }
+
+    .dual-left-menu .nav-button,
+    body.sidebar-is-collapsed .dual-left-menu .nav-button {
+      display:grid;
+      min-height:62px;
+      grid-template-columns:1fr;
+      place-items:center;
+      align-content:center;
+      gap:5px;
+      margin:0 0 5px;
+      padding:8px 3px;
+      border:0;
+      border-radius:12px;
+      color:#646058;
+      background:transparent;
+      text-align:center;
+      box-shadow:none;
+    }
+
+    .dual-left-menu .nav-button:hover {
+      color:#344437;
+      background:#E9E3D9;
+      transform:none;
+    }
+
+    .dual-left-menu .nav-button.active {
+      color:#2D4232;
+      background:#E2D9CC;
+      box-shadow:0 7px 14px rgba(75,62,51,.08);
+    }
+
+    .dual-left-menu .nav-icon,
+    body.sidebar-is-collapsed .dual-left-menu .nav-icon {
+      display:grid;
+      width:26px;
+      height:26px;
+      flex-basis:auto;
+      place-items:center;
+      color:currentColor;
+      font-size:18px;
+    }
+
+    .dual-left-menu .nav-text,
+    body.sidebar-is-collapsed .dual-left-menu .nav-text {
+      display:block;
+      max-width:86px;
+      overflow:hidden;
+      font-size:9px;
+      font-weight:700;
+      line-height:1.15;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .dual-left-utilities {
+      display:grid;
+      padding:8px 10px 12px;
+      border-top:1px solid rgba(72,61,52,.1);
+    }
+
+    .dual-left-utilities .nav-button {
+      min-height:54px;
+    }
+
+    .dual-left-utilities .sidebar-signout {
+      color:#8A625E;
+    }
+
+    .main {
+      min-width:0;
+      padding:0 22px 42px;
+      background:var(--ceo-paper);
+    }
+
+    .dual-right-menu {
+      position:sticky;
+      top:0;
+      z-index:105;
+      display:flex;
+      height:100vh;
+      flex-direction:column;
+      border-left:1px solid rgba(66,57,50,.1);
+      background:#EEE8DF;
+      box-shadow:none;
+    }
+
+    .dual-right-top-mark {
+      display:grid;
+      min-height:90px;
+      place-items:center;
+      color:#EDE7DC;
+      background:var(--ceo-green);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:18px;
+      letter-spacing:.08em;
+    }
+
+    .dual-right-nav {
+      display:grid;
+      flex:1;
+      overflow:auto;
+      scrollbar-width:none;
+    }
+
+    .dual-right-nav::-webkit-scrollbar {
+      display:none;
+    }
+
+    .chapter-button.nav-button {
+      display:grid;
+      min-height:84px;
+      place-items:center;
+      align-content:center;
+      gap:5px;
+      margin:0;
+      padding:8px 3px;
+      border:0;
+      border-bottom:1px solid rgba(85,72,62,.1);
+      border-radius:0;
+      color:#9A9086;
+      background:#F1ECE4;
+      text-align:center;
+      box-shadow:none;
+    }
+
+    .chapter-button.nav-button:hover {
+      color:#4F514A;
+      background:#E8E0D5;
+      transform:none;
+    }
+
+    .chapter-button.nav-button.active {
+      color:#EEE8DE;
+      background:var(--ceo-green-2);
+      box-shadow:none;
+    }
+
+    .chapter-button strong {
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:24px;
+      font-weight:500;
+      line-height:1;
+    }
+
+    .chapter-button span {
+      font-size:7px;
+      font-weight:800;
+      letter-spacing:.07em;
+      text-transform:uppercase;
+    }
+
+    .dual-right-action {
+      display:grid;
+      min-height:112px;
+      place-items:center;
+      align-content:center;
+      gap:8px;
+      border:0;
+      color:#EEE8DE;
+      background:var(--ceo-green);
+    }
+
+    .dual-right-action span {
+      font-size:23px;
+    }
+
+    .dual-right-action small {
+      font-size:7px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .desktop-sidebar-toggle {
+      display:none !important;
+    }
+
+    body[data-active-page="dashboard"] .topbar {
+      display:none;
+    }
+
+    #dashboard-page {
+      max-width:none;
+      margin:0;
+      padding:22px 0 0;
+    }
+
+    #dashboard-page > .life-os-home,
+    #dashboard-page > .focus-home-heading,
+    #dashboard-page > #dashboardSimpleView,
+    #dashboard-page > #dashboardFullView {
+      display:none !important;
+    }
+
+    .ceo-flow-home {
+      min-height:calc(100vh - 64px);
+      padding:18px 18px 0;
+      color:var(--ceo-ink);
+      font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,sans-serif;
+      background:var(--ceo-paper);
+    }
+
+    .ceo-flow-topline {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:20px;
+      min-height:66px;
+      padding:4px 8px 18px;
+      border-bottom:1px solid var(--ceo-line);
+    }
+
+    .ceo-flow-greeting {
+      color:#635B54;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .ceo-flow-date {
+      display:grid;
+      gap:5px;
+      text-align:right;
+    }
+
+    .ceo-flow-date strong,
+    .ceo-flow-date span {
+      color:#716961;
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:.09em;
+    }
+
+    .ceo-flow-grid {
+      display:grid;
+      grid-template-columns:minmax(280px,.72fr) minmax(610px,1.58fr);
+      grid-template-areas:
+        "intro main"
+        "intro bottom";
+      gap:18px 24px;
+      padding:24px 0 18px;
+    }
+
+    .ceo-flow-intro {
+      grid-area:intro;
+      display:grid;
+      grid-template-rows:auto minmax(300px,1fr) auto;
+      min-height:690px;
+      padding:8px 8px 0;
+    }
+
+    .ceo-flow-title > span {
+      color:#A58F83;
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+    }
+
+    .ceo-flow-title h1 {
+      margin:15px 0 13px;
+      color:#211F1D;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:53px;
+      font-weight:500;
+      line-height:.9;
+      letter-spacing:-.055em;
+    }
+
+    .ceo-flow-title p {
+      margin:0;
+      color:#655D56;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:14px;
+      line-height:1.55;
+    }
+
+    .ceo-flow-botanical {
+      display:grid;
+      min-height:340px;
+      place-items:center;
+      overflow:hidden;
+      margin:12px 0;
+    }
+
+    .ceo-flow-botanical svg {
+      width:min(100%,265px);
+      height:auto;
+      filter:drop-shadow(0 13px 17px rgba(60,50,42,.08));
+    }
+
+    .ceo-flow-quote {
+      display:grid;
+      min-height:142px;
+      align-content:center;
+      gap:12px;
+      padding:21px;
+      border-radius:14px;
+      color:#ECE6DA;
+      background:var(--ceo-green);
+    }
+
+    .ceo-flow-quote span {
+      font-size:18px;
+    }
+
+    .ceo-flow-quote p {
+      margin:0;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:15px;
+      line-height:1.7;
+      letter-spacing:.035em;
+    }
+
+    .ceo-flow-main {
+      grid-area:main;
+      display:grid;
+      gap:18px;
+    }
+
+    .ceo-position-card {
+      position:relative;
+      min-height:266px;
+      overflow:hidden;
+      padding:24px 25px 0;
+      border-radius:18px;
+      color:#F3ECE2;
+      background:linear-gradient(145deg,#24372B 0%,#314437 100%);
+      box-shadow:0 16px 30px rgba(30,43,34,.15);
+    }
+
+    .ceo-position-copy {
+      position:relative;
+      z-index:2;
+      display:grid;
+      width:max-content;
+      max-width:56%;
+      gap:8px;
+    }
+
+    .ceo-position-copy > span {
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+    }
+
+    .ceo-position-copy > strong {
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:38px;
+      font-weight:500;
+      letter-spacing:-.035em;
+    }
+
+    .ceo-position-copy > small {
+      color:#A6C5AD;
+      font-size:10px;
+      line-height:1.4;
+    }
+
+    .ceo-position-chart {
+      position:absolute;
+      inset:18px 18px 38px auto;
+      z-index:1;
+      width:69%;
+      height:190px;
+      opacity:.96;
+    }
+
+    .ceo-position-periods {
+      position:absolute;
+      right:0;
+      bottom:0;
+      left:0;
+      z-index:3;
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      min-height:48px;
+      padding:5px 16px;
+      background:rgba(20,31,24,.45);
+    }
+
+    .ceo-position-periods button {
+      border:0;
+      border-radius:8px;
+      color:#D7D0C7;
+      background:transparent;
+      font-size:9px;
+      font-weight:700;
+    }
+
+    .ceo-position-periods button.active {
+      background:rgba(236,226,214,.12);
+    }
+
+    .ceo-snapshot-section {
+      display:grid;
+      gap:12px;
+    }
+
+    .ceo-section-title {
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      padding:0 2px 6px;
+    }
+
+    .ceo-section-title > div {
+      display:grid;
+      gap:3px;
+    }
+
+    .ceo-section-title span {
+      color:#635B55;
+      font-size:9px;
+      font-weight:850;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .ceo-section-title h2 {
+      margin:0;
+      color:#302C28;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:17px;
+      font-weight:500;
+    }
+
+    .ceo-section-title button {
+      border:0;
+      color:#796F67;
+      background:transparent;
+      font-size:9px;
+      font-weight:700;
+    }
+
+    .ceo-snapshot-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:13px;
+    }
+
+    .ceo-snapshot-card {
+      display:grid;
+      min-height:126px;
+      grid-template-columns:minmax(0,1fr) 48px;
+      align-items:center;
+      gap:13px;
+      padding:17px 18px;
+      border:1px solid #DED6CB;
+      border-radius:15px;
+      color:var(--ceo-ink);
+      background:#FBF8F3;
+      text-align:left;
+      box-shadow:0 9px 18px rgba(70,59,50,.055);
+    }
+
+    .ceo-snapshot-card:hover {
+      transform:translateY(-2px);
+      box-shadow:0 13px 23px rgba(70,59,50,.09);
+    }
+
+    .ceo-snapshot-card > div {
+      display:grid;
+      min-width:0;
+      gap:6px;
+    }
+
+    .ceo-snapshot-card span {
+      color:#615A54;
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .ceo-snapshot-card strong {
+      overflow:hidden;
+      color:#302C28;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:26px;
+      font-weight:500;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .ceo-snapshot-card small {
+      color:#789182;
+      font-size:9px;
+    }
+
+    .ceo-snapshot-card > i {
+      display:grid;
+      width:48px;
+      height:48px;
+      place-items:center;
+      border-radius:50%;
+      font-style:normal;
+      font-size:20px;
+    }
+
+    .snapshot-sage {
+      color:#415748;
+      background:#DCE1D9;
+    }
+
+    .snapshot-peach {
+      color:#795A4D;
+      background:#EED9CE;
+    }
+
+    .ceo-flow-bottom {
+      grid-area:bottom;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(300px,.82fr);
+      gap:22px;
+      padding-top:3px;
+    }
+
+    .ceo-priority-panel,
+    .ceo-calendar-panel {
+      min-width:0;
+      border-top:1px solid var(--ceo-line);
+      padding-top:15px;
+    }
+
+    .ceo-section-title.compact {
+      align-items:flex-start;
+      padding-bottom:10px;
+    }
+
+    .ceo-priority-list {
+      display:grid;
+    }
+
+    .ceo-priority-row {
+      display:grid;
+      min-height:66px;
+      grid-template-columns:43px 18px minmax(0,1fr);
+      align-items:center;
+      gap:10px;
+      border-bottom:1px solid var(--ceo-line);
+    }
+
+    .ceo-priority-number {
+      color:#BE9682;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:25px;
+    }
+
+    .ceo-priority-check {
+      width:16px;
+      height:16px;
+      accent-color:#526A58;
+    }
+
+    .ceo-priority-copy {
+      display:grid;
+      min-width:0;
+      gap:4px;
+    }
+
+    .ceo-priority-copy strong {
+      overflow:hidden;
+      color:#332F2B;
+      font-size:11px;
+      font-weight:750;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .ceo-priority-copy small {
+      color:#817870;
+      font-size:9px;
+    }
+
+    .ceo-priority-row.is-done .ceo-priority-copy {
+      opacity:.45;
+      text-decoration:line-through;
+    }
+
+    .ceo-mini-calendar {
+      display:grid;
+      gap:8px;
+    }
+
+    .ceo-calendar-weekdays,
+    .ceo-calendar-days {
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      gap:3px;
+    }
+
+    .ceo-calendar-weekdays b {
+      display:grid;
+      height:22px;
+      place-items:center;
+      color:#8B8178;
+      font-size:8px;
+      font-weight:800;
+    }
+
+    .ceo-calendar-days > button,
+    .ceo-calendar-days > span {
+      display:grid;
+      min-height:39px;
+      place-items:center;
+      align-content:center;
+      gap:3px;
+      border:0;
+      border-radius:50%;
+      color:#403B37;
+      background:transparent;
+      font-size:10px;
+    }
+
+    .ceo-calendar-days > button:hover {
+      background:#ECE5DB;
+    }
+
+    .ceo-calendar-days > button.is-today {
+      color:#F3EDE4;
+      background:var(--ceo-green-2);
+    }
+
+    .ceo-calendar-days strong {
+      font-size:10px;
+      font-weight:700;
+    }
+
+    .ceo-calendar-days em {
+      display:flex;
+      min-height:4px;
+      justify-content:center;
+      gap:2px;
+    }
+
+    .ceo-calendar-days em i {
+      width:3px;
+      height:3px;
+      border-radius:50%;
+    }
+
+    .dot-agenda { background:#789B88; }
+    .dot-finance { background:#C49278; }
+    .dot-social { background:#9B84A9; }
+    .dot-task { background:#7089A0; }
+
+    .ceo-quick-actions {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      padding:10px 0 4px;
+      border-top:1px solid var(--ceo-line);
+    }
+
+    .ceo-quick-actions button {
+      display:grid;
+      min-height:54px;
+      grid-template-columns:31px minmax(0,1fr) auto;
+      align-items:center;
+      gap:9px;
+      padding:9px 13px;
+      border:1px solid #E1D9CE;
+      border-radius:10px;
+      color:#504943;
+      background:#F5F1EA;
+      text-align:left;
+    }
+
+    .ceo-quick-actions button:hover {
+      background:#ECE5DA;
+    }
+
+    .ceo-quick-actions i {
+      display:grid;
+      width:31px;
+      height:31px;
+      place-items:center;
+      border-radius:50%;
+      color:#F2EBE1;
+      background:#536B59;
+      font-style:normal;
+      font-size:13px;
+    }
+
+    .ceo-quick-actions button:nth-child(even) i {
+      background:#C58D74;
+    }
+
+    .ceo-quick-actions span {
+      font-size:9px;
+      font-weight:750;
+    }
+
+    .ceo-quick-actions b {
+      color:#91867C;
+      font-size:15px;
+    }
+
+    .ceo-flow-empty {
+      display:grid;
+      min-height:130px;
+      place-items:center;
+      align-content:center;
+      gap:8px;
+      color:#7F766E;
+      text-align:center;
+    }
+
+    .ceo-flow-empty strong {
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:16px;
+      font-weight:500;
+    }
+
+    .ceo-flow-empty button {
+      border:0;
+      color:#536B59;
+      background:transparent;
+      font-size:10px;
+      font-weight:800;
+    }
+
+    @media (max-width:1320px) {
+      .app-shell,
+      body.sidebar-is-collapsed .app-shell {
+        grid-template-columns:92px minmax(0,1fr) 86px;
+      }
+
+      .ceo-flow-grid {
+        grid-template-columns:minmax(245px,.65fr) minmax(560px,1.55fr);
+      }
+
+      .ceo-flow-title h1 {
+        font-size:46px;
+      }
+
+      .ceo-snapshot-card strong {
+        font-size:22px;
+      }
+    }
+
+    @media (max-width:1120px) {
+      .dual-right-menu {
+        display:none;
+      }
+
+      .app-shell,
+      body.sidebar-is-collapsed .app-shell {
+        grid-template-columns:88px minmax(0,1fr);
+      }
+
+      .ceo-flow-grid {
+        grid-template-columns:1fr;
+        grid-template-areas:
+          "intro"
+          "main"
+          "bottom";
+      }
+
+      .ceo-flow-intro {
+        grid-template-columns:minmax(260px,.75fr) minmax(240px,.6fr) minmax(230px,.6fr);
+        grid-template-rows:auto;
+        align-items:center;
+        min-height:auto;
+        gap:18px;
+      }
+
+      .ceo-flow-botanical {
+        min-height:260px;
+      }
+
+      .ceo-flow-quote {
+        min-height:190px;
+      }
+    }
+
+    @media (max-width:900px) {
+      .app-shell,
+      body.sidebar-is-collapsed .app-shell {
+        display:block;
+      }
+
+      .sidebar,
+      body.sidebar-is-collapsed .sidebar {
+        position:fixed;
+        width:min(82vw,310px);
+        transform:translateX(-105%);
+        transition:transform .2s ease;
+      }
+
+      .sidebar.mobile-open,
+      body.sidebar-is-collapsed .sidebar.mobile-open {
+        transform:translateX(0);
+      }
+
+      .dual-left-brand {
+        min-height:90px;
+      }
+
+      .dual-left-nav {
+        grid-template-columns:1fr 1fr;
+      }
+
+      .dual-left-menu .nav-button,
+      body.sidebar-is-collapsed .dual-left-menu .nav-button {
+        min-height:70px;
+      }
+
+      .main {
+        padding:0 14px 34px;
+      }
+
+      body[data-active-page="dashboard"] .topbar {
+        display:flex;
+        min-height:60px;
+        margin:0 -14px 8px;
+        padding:9px 14px;
+      }
+
+      body[data-active-page="dashboard"] .topbar-title {
+        display:flex;
+      }
+
+      body[data-active-page="dashboard"] .topbar-actions {
+        display:flex;
+      }
+
+      .ceo-flow-home {
+        padding:8px 0 0;
+      }
+
+      .ceo-flow-intro {
+        grid-template-columns:1fr;
+      }
+
+      .ceo-flow-title h1 {
+        font-size:43px;
+      }
+
+      .ceo-flow-botanical {
+        min-height:300px;
+      }
+    }
+
+    @media (max-width:700px) {
+      .ceo-flow-topline {
+        align-items:flex-start;
+      }
+
+      .ceo-flow-grid {
+        padding-top:18px;
+      }
+
+      .ceo-position-card {
+        min-height:300px;
+      }
+
+      .ceo-position-copy {
+        max-width:100%;
+      }
+
+      .ceo-position-chart {
+        inset:85px 8px 42px auto;
+        width:95%;
+        opacity:.55;
+      }
+
+      .ceo-snapshot-grid,
+      .ceo-flow-bottom,
+      .ceo-quick-actions {
+        grid-template-columns:1fr;
+      }
+
+      .ceo-flow-bottom {
+        gap:18px;
+      }
+
+      .ceo-calendar-days > button,
+      .ceo-calendar-days > span {
+        min-height:34px;
+      }
+    }
+
   </style>
 </head>
 <body>
   <div class="app-shell">
-    <aside class="sidebar" id="sidebar">
-      <div class="coastal-brand sidebar-brand-fixed">
-        <div class="coastal-brand-title">Life &amp; CEO Planner</div>
-        <div class="coastal-brand-art" aria-hidden="true">
-          <svg viewBox="0 0 150 42" role="img">
-            <path d="M4 25c18-8 30 8 48 0s31 8 49 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M9 31c15-6 28 6 43 0s27 6 42 0" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".65"/>
-            <path d="M118 36c7-14 7-25 3-34M121 16c-8-6-14-7-19-6M121 21c8-7 15-9 23-9M120 27c-8-4-14-4-20-2M121 31c8-4 15-4 22-1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </div>
+    <aside class="sidebar dual-left-menu" id="sidebar">
+      <div class="dual-left-brand">
+        <div class="dual-left-monogram">J</div>
+        <span>CEO</span>
       </div>
 
-      <div class="sidebar-scroll">
-      <div class="nav-group" data-nav-section="plan">
-        <button class="nav-label nav-group-toggle" type="button" aria-expanded="true">
-          <span>Plan</span><span class="nav-group-chevron" aria-hidden="true">⌄</span>
+      <nav class="dual-left-nav" aria-label="Primary planner navigation">
+        <button class="nav-button active" data-page="dashboard" title="Dashboard">
+          <span class="nav-icon">⌂</span><span class="nav-text">Dashboard</span>
         </button>
-        <div class="nav-group-items">
-          <button class="nav-button active" data-page="dashboard"><span class="nav-icon">⌂</span><span class="nav-text">Dashboard</span></button>
-        <button class="nav-button" data-page="today"><span class="nav-icon">☼</span><span class="nav-text">Today</span></button>
-        <button class="nav-button" data-page="week"><span class="nav-icon">▣</span><span class="nav-text">Weekly Planner</span></button>
-        <button class="nav-button" data-page="tasks"><span class="nav-icon">☑</span><span class="nav-text">Task Inbox</span></button>
-        <button class="nav-button" data-page="templates"><span class="nav-icon">▦</span><span class="nav-text">Routines &amp; Templates</span></button>
-        </div>
-      </div>
-
-      <div class="nav-group" data-nav-section="business">
-        <button class="nav-label nav-group-toggle" type="button" aria-expanded="true">
-          <span>Business</span><span class="nav-group-chevron" aria-hidden="true">⌄</span>
+        <button class="nav-button" data-page="today" title="Today">
+          <span class="nav-icon">☼</span><span class="nav-text">Today</span>
         </button>
-        <div class="nav-group-items">
-          <button class="nav-button" data-page="finance"><span class="nav-icon nav-money">$</span><span class="nav-text">Finance Centre</span></button>
-        <button class="nav-button" data-page="cashflow"><span class="nav-icon">▥</span><span class="nav-text">Cash-Flow Calendar</span></button>
-        <button class="nav-button" data-page="social"><span class="nav-icon">✦</span><span class="nav-text">Social Media</span></button>
-        <button class="nav-button feature-link" data-feature="Clients"><span class="nav-icon">♧</span><span class="nav-text">Clients</span></button>
-        <button class="nav-button feature-link" data-feature="Quotes"><span class="nav-icon">▤</span><span class="nav-text">Quotes</span></button>
-        <button class="nav-button feature-link" data-feature="R2R Hub"><span class="nav-icon">▦</span><span class="nav-text">R2R Hub</span></button>
-        <button class="nav-button feature-link" data-feature="Equipment"><span class="nav-icon">▱</span><span class="nav-text">Equipment</span></button>
-        <button class="nav-button feature-link" data-feature="Employees"><span class="nav-icon">♧</span><span class="nav-text">Employees</span></button>
-        </div>
-      </div>
-
-      <div class="nav-group" data-nav-section="grow">
-        <button class="nav-label nav-group-toggle" type="button" aria-expanded="true">
-          <span>Grow</span><span class="nav-group-chevron" aria-hidden="true">⌄</span>
+        <button class="nav-button" data-page="week" title="Plan">
+          <span class="nav-icon">▣</span><span class="nav-text">Plan</span>
         </button>
-        <div class="nav-group-items">
-          <button class="nav-button" data-page="goals"><span class="nav-icon">◎</span><span class="nav-text">Goals</span></button>
-        <button class="nav-button" data-page="habits"><span class="nav-icon">○</span><span class="nav-text">Habits</span></button>
-        <button class="nav-button feature-link" data-feature="Health"><span class="nav-icon">♡</span><span class="nav-text">Health</span></button>
-        <button class="nav-button" data-page="notes"><span class="nav-icon">▢</span><span class="nav-text">Journal</span></button>
-        <button class="nav-button feature-link" data-feature="Knowledge Vault"><span class="nav-icon">□</span><span class="nav-text">Knowledge Vault</span></button>
-        </div>
-      </div>
-
-      <div class="nav-group data-nav-group" data-nav-section="data">
-        <button class="nav-label nav-group-toggle" type="button" aria-expanded="true">
-          <span>Data</span><span class="nav-group-chevron" aria-hidden="true">⌄</span>
+        <button class="nav-button" data-page="tasks" title="Tasks">
+          <span class="nav-icon">☑</span><span class="nav-text">Tasks</span>
         </button>
-        <div class="nav-group-items">
-          <button class="nav-button" data-jump="finance"><span class="nav-icon">▥</span><span class="nav-text">Reports</span></button>
-        <button class="nav-button" data-page="settings"><span class="nav-icon">⚙</span><span class="nav-text">Settings</span></button>
-        </div>
-      </div>
+        <button class="nav-button" data-page="finance" title="Money">
+          <span class="nav-icon nav-money">$</span><span class="nav-text">Money</span>
+        </button>
+        <button class="nav-button" data-page="social" title="Content">
+          <span class="nav-icon">✦</span><span class="nav-text">Content</span>
+        </button>
+        <button class="nav-button" data-page="goals" title="Goals">
+          <span class="nav-icon">◎</span><span class="nav-text">Goals</span>
+        </button>
+        <button class="nav-button" data-page="notes" title="Notes">
+          <span class="nav-icon">▢</span><span class="nav-text">Notes</span>
+        </button>
+      </nav>
 
-      <button class="nav-button sidebar-signout" id="signOutBtn"><span class="nav-icon">⇥</span><span class="nav-text">Sign out</span></button>
+      <div class="dual-left-utilities">
+        <button class="nav-button" data-page="templates" title="Routines and templates">
+          <span class="nav-icon">▦</span><span class="nav-text">Routines</span>
+        </button>
+        <button class="nav-button" data-page="settings" title="Settings">
+          <span class="nav-icon">⚙</span><span class="nav-text">Settings</span>
+        </button>
+        <button class="nav-button sidebar-signout" id="signOutBtn" title="Sign out">
+          <span class="nav-icon">⇥</span><span class="nav-text">Sign out</span>
+        </button>
       </div>
-      <div class="sidebar-art-spacer" aria-hidden="true"></div>
     </aside>
     <div class="menu-backdrop" id="menuBackdrop" aria-hidden="true"></div>
 
@@ -10183,6 +11124,146 @@
       </header>
 
       <section class="page active dashboard-production focus-home-page" id="dashboard-page">
+
+        <div class="ceo-flow-home" id="ceoFlowHome">
+          <div class="ceo-flow-topline">
+            <div>
+              <span class="ceo-flow-greeting">✦ Good morning, you’ve got this.</span>
+            </div>
+            <div class="ceo-flow-date">
+              <strong id="ceoFlowDate">July 26, 2026</strong>
+              <span id="ceoFlowDay">Sunday</span>
+            </div>
+          </div>
+
+          <section class="ceo-flow-grid">
+            <article class="ceo-flow-intro">
+              <div class="ceo-flow-title">
+                <span>Minimal · Focused · Yours</span>
+                <h1>CEO<br>Command<br>Centre</h1>
+                <p>Lead the day.<br>Protect the cash.<br>Move the work.</p>
+              </div>
+
+              <div class="ceo-flow-botanical" aria-label="Calm botanical illustration">
+                <svg viewBox="0 0 250 360" role="img" aria-label="A vase with leafy branches">
+                  <defs>
+                    <linearGradient id="ceoArchFill" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#efe6d9"/>
+                      <stop offset="100%" stop-color="#dfe6dc"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M45 340V148C45 77 82 30 125 30s80 47 80 118v192Z" fill="url(#ceoArchFill)"/>
+                  <path d="M45 340V148C45 77 82 30 125 30s80 47 80 118" fill="none" stroke="#bda990" stroke-width="2"/>
+                  <path d="M105 307h42l-6 30h-30Z" fill="#e8e2d8" stroke="#a99886" stroke-width="2"/>
+                  <path d="M126 306c0-74-7-128-12-183M126 306c4-66 23-116 45-155M126 306c-11-58-29-93-49-120" fill="none" stroke="#536957" stroke-width="3" stroke-linecap="round"/>
+                  <g fill="#6f876f">
+                    <ellipse cx="111" cy="136" rx="15" ry="7" transform="rotate(-28 111 136)"/>
+                    <ellipse cx="117" cy="165" rx="14" ry="7" transform="rotate(26 117 165)"/>
+                    <ellipse cx="108" cy="199" rx="16" ry="7" transform="rotate(-32 108 199)"/>
+                    <ellipse cx="140" cy="194" rx="15" ry="7" transform="rotate(-29 140 194)"/>
+                    <ellipse cx="155" cy="170" rx="15" ry="7" transform="rotate(32 155 170)"/>
+                    <ellipse cx="169" cy="151" rx="13" ry="6" transform="rotate(-23 169 151)"/>
+                    <ellipse cx="91" cy="211" rx="15" ry="7" transform="rotate(26 91 211)"/>
+                    <ellipse cx="77" cy="187" rx="13" ry="6" transform="rotate(-29 77 187)"/>
+                  </g>
+                  <rect x="74" y="331" width="104" height="8" rx="4" fill="#cfc4b7"/>
+                  <rect x="84" y="340" width="87" height="8" rx="4" fill="#b7aa9a"/>
+                </svg>
+              </div>
+
+              <div class="ceo-flow-quote">
+                <span>✦</span>
+                <p>A strong business grows through clear decisions, one focused day at a time.</p>
+              </div>
+            </article>
+
+            <div class="ceo-flow-main">
+              <article class="ceo-position-card">
+                <div class="ceo-position-copy">
+                  <span>30-day business position</span>
+                  <strong id="ceoPositionValue">$0.00</strong>
+                  <small id="ceoPositionChange">Current balance plus expected cash flow</small>
+                </div>
+
+                <svg class="ceo-position-chart" viewBox="0 0 520 180" role="img" aria-label="Projected 30-day balance trend">
+                  <defs>
+                    <linearGradient id="ceoChartFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#d9c7b8" stop-opacity=".55"/>
+                      <stop offset="100%" stop-color="#d9c7b8" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path id="ceoChartArea" d="" fill="url(#ceoChartFill)"/>
+                  <path id="ceoChartLine" d="" fill="none" stroke="#e9ded4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle id="ceoChartPoint" cx="475" cy="35" r="7" fill="#f5e9df" stroke="#fff" stroke-width="4"/>
+                </svg>
+
+                <div class="ceo-position-periods">
+                  <button type="button">1W</button>
+                  <button type="button" class="active">1M</button>
+                  <button type="button">3M</button>
+                  <button type="button">6M</button>
+                  <button type="button">1Y</button>
+                  <button type="button">ALL</button>
+                </div>
+              </article>
+
+              <section class="ceo-snapshot-section">
+                <div class="ceo-section-title">
+                  <div>
+                    <span>Financial snapshot</span>
+                    <h2>Where the business stands</h2>
+                  </div>
+                  <button type="button" data-ceo-jump="finance">This month⌄</button>
+                </div>
+
+                <div class="ceo-snapshot-grid">
+                  <button type="button" class="ceo-snapshot-card" data-ceo-jump="finance">
+                    <div><span>Expected income</span><strong id="ceoExpectedIncome">$0.00</strong><small id="ceoExpectedIncomeNote">Next 30 days</small></div>
+                    <i class="snapshot-sage">↓</i>
+                  </button>
+                  <button type="button" class="ceo-snapshot-card" data-ceo-jump="finance">
+                    <div><span>Expected expenses</span><strong id="ceoExpectedExpenses">$0.00</strong><small id="ceoExpectedExpensesNote">Next 30 days</small></div>
+                    <i class="snapshot-peach">↑</i>
+                  </button>
+                  <button type="button" class="ceo-snapshot-card" data-ceo-jump="finance">
+                    <div><span>Outstanding</span><strong id="ceoOutstandingIncome">$0.00</strong><small id="ceoOutstandingNote">Overdue income</small></div>
+                    <i class="snapshot-sage">◎</i>
+                  </button>
+                  <button type="button" class="ceo-snapshot-card" data-ceo-jump="finance">
+                    <div><span>Current balance</span><strong id="ceoCurrentBalance">$0.00</strong><small id="ceoCurrentBalanceNote">Newest bank snapshot</small></div>
+                    <i class="snapshot-peach">▥</i>
+                  </button>
+                </div>
+              </section>
+            </div>
+
+            <section class="ceo-flow-bottom">
+              <article class="ceo-priority-panel">
+                <div class="ceo-section-title compact">
+                  <div><span>Top priorities</span><h2>What moves today</h2></div>
+                  <button type="button" data-ceo-jump="tasks">Edit</button>
+                </div>
+                <div id="ceoPriorityList" class="ceo-priority-list"></div>
+              </article>
+
+              <article class="ceo-calendar-panel">
+                <div class="ceo-section-title compact">
+                  <div><span>Monthly calendar</span><h2 id="ceoCalendarMonth">July 2026</h2></div>
+                  <button type="button" data-ceo-jump="week">Open plan</button>
+                </div>
+                <div class="ceo-mini-calendar" id="ceoMiniCalendar"></div>
+              </article>
+            </section>
+          </section>
+
+          <section class="ceo-quick-actions">
+            <button type="button" data-ceo-action="income"><i>↓</i><span>Add income</span><b>›</b></button>
+            <button type="button" data-ceo-action="expense"><i>↑</i><span>Add expense</span><b>›</b></button>
+            <button type="button" data-ceo-action="task"><i>☑</i><span>New task</span><b>›</b></button>
+            <button type="button" data-ceo-action="social"><i>✦</i><span>New content</span><b>›</b></button>
+          </section>
+        </div>
+
 
         <div class="life-os-home" id="lifeOSHome">
           <header class="life-os-hero">
@@ -11412,7 +12493,42 @@
         </div>
       </section>
     </main>
-  </div>
+  
+    <aside class="dual-right-menu" id="chapterMenu" aria-label="CEO Dashboard chapters">
+      <div class="dual-right-top-mark" aria-hidden="true">JL</div>
+
+      <nav class="dual-right-nav">
+        <button class="nav-button chapter-button active" data-page="dashboard">
+          <strong>01</strong><span>Dashboard</span>
+        </button>
+        <button class="nav-button chapter-button" data-page="week">
+          <strong>02</strong><span>Plan</span>
+        </button>
+        <button class="nav-button chapter-button" data-page="finance">
+          <strong>03</strong><span>Finances</span>
+        </button>
+        <button class="nav-button chapter-button" data-page="habits">
+          <strong>04</strong><span>Trackers</span>
+        </button>
+        <button class="nav-button chapter-button" data-page="goals">
+          <strong>05</strong><span>Goals</span>
+        </button>
+        <button class="nav-button chapter-button" data-page="social">
+          <strong>06</strong><span>Content</span>
+        </button>
+        <button class="nav-button chapter-button" data-page="tasks">
+          <strong>07</strong><span>Projects</span>
+        </button>
+        <button class="nav-button chapter-button" data-page="notes">
+          <strong>08</strong><span>Notes</span>
+        </button>
+      </nav>
+
+      <button class="dual-right-action" type="button" data-quick-add="task" title="Quick add">
+        <span>✦</span><small>Quick add</small>
+      </button>
+    </aside>
+</div>
 
 
 
@@ -12519,6 +13635,18 @@
       document.getElementById('lifeOSJournalStatus').textContent = 'Saved just now.';
       renderNotes();
       renderLifeOSHome();
+    });
+
+    document.getElementById('ceoFlowHome').addEventListener('click', event => {
+      const jump = event.target.closest('[data-ceo-jump]');
+      if (jump) openPage(jump.dataset.ceoJump);
+
+      const action = event.target.closest('[data-ceo-action]');
+      if (action) runGlobalQuickAdd(action.dataset.ceoAction);
+    });
+
+    document.querySelector('.dual-right-action')?.addEventListener('click', () => {
+      runGlobalQuickAdd('task');
     });
 
     function setQuickAddOpen(open) {
@@ -18019,6 +19147,178 @@
         latestEntry ? `Last entry · ${prettyDate(latestEntry.entryDate)}` : 'Capture the day';
     }
 
+
+    function ceoFlowTrendValues(currentBalance, transactions, todayObj) {
+      const checkpoints = [0,7,14,21,30];
+      return checkpoints.map(days => {
+        const end = addDays(todayObj,days);
+        const totals = cashTotals(transactions.filter(item => {
+          const dateKey = financeItemReportingDate(item);
+          return dateKey <= isoDate(end);
+        }));
+        return currentBalance + totals.plannedIncome - totals.plannedExpenses;
+      });
+    }
+
+    function ceoFlowChartPath(values) {
+      const width = 470;
+      const height = 120;
+      const left = 20;
+      const top = 25;
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const range = Math.max(1,max-min);
+
+      const points = values.map((value,index) => {
+        const x = left + (index/(values.length-1))*width;
+        const y = top + height - ((value-min)/range)*height;
+        return [x,y];
+      });
+
+      let line = `M ${points[0][0].toFixed(1)} ${points[0][1].toFixed(1)}`;
+      for (let index=1; index<points.length; index+=1) {
+        const previous = points[index-1];
+        const current = points[index];
+        const midX = (previous[0]+current[0])/2;
+        line += ` C ${midX.toFixed(1)} ${previous[1].toFixed(1)}, ${midX.toFixed(1)} ${current[1].toFixed(1)}, ${current[0].toFixed(1)} ${current[1].toFixed(1)}`;
+      }
+
+      const area = `${line} L ${points[points.length-1][0].toFixed(1)} 170 L ${points[0][0].toFixed(1)} 170 Z`;
+      return {line,area,last:points[points.length-1]};
+    }
+
+    function ceoFlowCalendarActivity(dateKey) {
+      const day = getDay(dateKey);
+      const hasAgenda = ensureDayEvents(dateKey).length > 0;
+      const hasTasks = tasksForDate(dateKey).length > 0
+        || ['priority1','priority2','priority3'].some(key => String(day[key] || '').trim());
+      const hasSocial = (data.social?.posts || []).some(post => post.date === dateKey);
+      const hasFinance = (data.finance.transactions || []).some(item =>
+        financeItemReportingDate(item) === dateKey
+      );
+      return {hasAgenda,hasTasks,hasSocial,hasFinance};
+    }
+
+    function renderCEOFlowHome() {
+      const todayObj = new Date();
+      const todayDate = isoDate(todayObj);
+      const currentBalance = currentBankBalance();
+      const end30 = addDays(todayObj,30);
+      const outstanding30 = outstandingThrough(end30);
+      const totals30 = cashTotals(outstanding30);
+      const projected30 = currentBalance + totals30.plannedIncome - totals30.plannedExpenses;
+      const overdueItems = outstandingThrough(addDays(todayObj,-1));
+      const overdueIncome = overdueItems
+        .filter(item => item.type === 'income')
+        .reduce((sum,item) => sum + Number(item.amount || 0),0);
+
+      document.getElementById('ceoFlowDate').textContent =
+        todayObj.toLocaleDateString('en-CA',{month:'long',day:'numeric',year:'numeric'}).toUpperCase();
+      document.getElementById('ceoFlowDay').textContent =
+        todayObj.toLocaleDateString('en-CA',{weekday:'long'}).toUpperCase();
+
+      document.getElementById('ceoPositionValue').textContent = money(projected30);
+      document.getElementById('ceoPositionChange').textContent =
+        `${money(totals30.plannedIncome)} expected in · ${money(totals30.plannedExpenses)} expected out`;
+
+      document.getElementById('ceoExpectedIncome').textContent = money(totals30.plannedIncome);
+      document.getElementById('ceoExpectedExpenses').textContent = money(totals30.plannedExpenses);
+      document.getElementById('ceoOutstandingIncome').textContent = money(overdueIncome);
+      document.getElementById('ceoCurrentBalance').textContent = money(currentBalance);
+
+      document.getElementById('ceoExpectedIncomeNote').textContent =
+        `${outstanding30.filter(item => item.type === 'income').length} expected items`;
+      document.getElementById('ceoExpectedExpensesNote').textContent =
+        `${outstanding30.filter(item => item.type === 'expense').length} expected items`;
+      document.getElementById('ceoOutstandingNote').textContent =
+        overdueIncome ? 'Past due and still collectible' : 'Nothing overdue';
+      document.getElementById('ceoCurrentBalanceNote').textContent =
+        (data.finance.bankHistory || []).length ? 'Newest saved bank snapshot' : 'No saved bank snapshot';
+
+      const trendTransactions = outstandingThrough(end30);
+      const trendValues = ceoFlowTrendValues(currentBalance,trendTransactions,todayObj);
+      const chart = ceoFlowChartPath(trendValues);
+      document.getElementById('ceoChartLine').setAttribute('d',chart.line);
+      document.getElementById('ceoChartArea').setAttribute('d',chart.area);
+      document.getElementById('ceoChartPoint').setAttribute('cx',chart.last[0]);
+      document.getElementById('ceoChartPoint').setAttribute('cy',chart.last[1]);
+
+      const priorities = lifeOSTodayTasks(todayDate).slice(0,3);
+      const priorityWrap = document.getElementById('ceoPriorityList');
+      priorityWrap.innerHTML = priorities.length
+        ? priorities.map((item,index) => `
+          <label class="ceo-priority-row ${item.done ? 'is-done' : ''}">
+            <span class="ceo-priority-number">${String(index+1).padStart(2,'0')}</span>
+            <input type="checkbox" class="ceo-priority-check" ${item.done ? 'checked' : ''}
+              data-kind="${item.kind}"
+              ${item.kind === 'priority'
+                ? `data-index="${item.index}"`
+                : `data-source="${item.source}" data-id="${item.id}"`}>
+            <span class="ceo-priority-copy">
+              <strong>${escapeHtml(item.text)}</strong>
+              <small>${item.project ? escapeHtml(item.project) : escapeHtml(taskPriorityLabel(item.priority))}</small>
+            </span>
+          </label>
+        `).join('')
+        : `<div class="ceo-flow-empty">
+            <strong>No priorities set yet.</strong>
+            <button type="button" data-ceo-jump="tasks">Add your top priorities</button>
+          </div>`;
+
+      priorityWrap.querySelectorAll('.ceo-priority-check').forEach(check => {
+        check.addEventListener('change', () => {
+          const day = getDay(todayDate);
+          if (check.dataset.kind === 'priority') {
+            day.priorityDone ??= [];
+            day.priorityDone[Number(check.dataset.index)] = check.checked;
+          } else {
+            setTaskDone(check.dataset.source,check.dataset.id,todayDate,check.checked);
+          }
+          saveData(check.checked ? 'Priority completed' : 'Priority reopened');
+          renderToday();
+        });
+      });
+
+      const monthStart = new Date(todayObj.getFullYear(),todayObj.getMonth(),1);
+      const monthEnd = new Date(todayObj.getFullYear(),todayObj.getMonth()+1,0);
+      const startOffset = monthStart.getDay();
+      const calendarCells = [];
+      for (let index=0; index<startOffset; index+=1) calendarCells.push(null);
+      for (let day=1; day<=monthEnd.getDate(); day+=1) {
+        calendarCells.push(new Date(todayObj.getFullYear(),todayObj.getMonth(),day));
+      }
+
+      document.getElementById('ceoCalendarMonth').textContent =
+        todayObj.toLocaleDateString('en-CA',{month:'long',year:'numeric'});
+
+      document.getElementById('ceoMiniCalendar').innerHTML =
+        `<div class="ceo-calendar-weekdays">${['S','M','T','W','T','F','S'].map(day => `<b>${day}</b>`).join('')}</div>`
+        + `<div class="ceo-calendar-days">${
+          calendarCells.map(date => {
+            if (!date) return '<span class="is-empty"></span>';
+            const dateKey = isoDate(date);
+            const activity = ceoFlowCalendarActivity(dateKey);
+            const dots = [
+              activity.hasAgenda ? '<i class="dot-agenda"></i>' : '',
+              activity.hasFinance ? '<i class="dot-finance"></i>' : '',
+              activity.hasSocial ? '<i class="dot-social"></i>' : '',
+              activity.hasTasks ? '<i class="dot-task"></i>' : ''
+            ].join('');
+            return `<button type="button" data-ceo-date="${dateKey}" class="${dateKey === todayDate ? 'is-today' : ''}">
+              <strong>${date.getDate()}</strong><em>${dots}</em>
+            </button>`;
+          }).join('')
+        }</div>`;
+
+      document.querySelectorAll('[data-ceo-date]').forEach(button => {
+        button.addEventListener('click', () => {
+          selectedDate = button.dataset.ceoDate;
+          openPage('today');
+          renderToday();
+        });
+      });
+    }
+
     function renderDashboard(){
       const todayDate=isoDate(new Date());
       const todayObj=localDate(todayDate);
@@ -18223,6 +19523,7 @@
       document.getElementById('focusWeekAppointments').textContent = appointmentCount;
       document.getElementById('focusWeekContent').textContent = contentCount;
       renderLifeOSHome();
+      renderCEOFlowHome();
     }
 
     document.getElementById('exportBtn').addEventListener('click',()=>{

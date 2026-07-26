@@ -1,66 +1,89 @@
-Jess Life & CEO Planner — Version 52 Jess Life OS Home
+Jess Life & CEO Planner — Version 53 Dual-Menu CEO Dashboard
 
-This is the first production phase of the new warm Life OS direction inspired
-by the three dashboard references.
+This version implements the exact layout direction established by the new
+Financial Reset Planner reference.
 
-THE NEW HOME
-- Warm welcome hero with Jess Life OS identity
-- Real live clock
-- Saved Moncton weather from the planner's daily weather record
-- Monthly task progress
-- Today's real agenda
-- Active goals with progress bars
-- Top tasks with working completion checkboxes
-- Weekly habit tracking with working checkboxes
-- Quick journal capture
-- Active project summaries generated from task project names
-- Money, Content and Journal launch cards
+TWO MENUS
 
-REAL PLANNER DATA
-The Home screen reads from the existing:
-- daily agenda events
-- day priorities
-- Task Inbox
+LEFT MENU
+- Slim icon-and-label navigation
+- Dashboard
+- Today
+- Plan
+- Tasks
+- Money
+- Content
 - Goals
-- Habit Tracker
-- Finance Centre
-- Social Media Hub
-- Journal
-- weather records
+- Notes
+- Routines and Settings remain available at the bottom
 
-QUICK JOURNAL
-- Text entered on Home saves as a dated Journal entry.
-- It immediately appears in the full Journal page.
-- Existing journal entries are not changed.
+RIGHT NUMBERED MENU
+- 01 Dashboard
+- 02 Plan
+- 03 Finances
+- 04 Trackers
+- 05 Goals
+- 06 Content
+- 07 Projects
+- 08 Notes
+- Dark-green active chapter treatment
+- Quick Add action at the bottom
 
-ACTIVE WORK
-- Project cards are generated automatically from tasks with a Project value.
-- Each card shows open, completed and due-soon work.
-- Clicking a project opens the Task Inbox and applies its project filter.
+The left and right menus both navigate through the real planner pages.
 
-DESIGN DIRECTION
-- Warm cream, sage, peach, powder blue, mint and wisteria
-- Larger readable typography
-- Varied card sizes and shapes
-- Soft depth and subtle glow rather than flat accounting cards
-- Clear visual hierarchy inspired by digital Life OS dashboards
-- Mature and comfortable rather than cartoon-heavy
+NEW CEO DASHBOARD FLOW
 
-EXISTING PLANNER
-- All detailed planner pages remain intact.
-- The previous dashboards remain hidden for compatibility with existing
-  calculations and render functions.
-- Existing localStorage data is preserved when index.html is replaced.
+Editorial introduction:
+- CEO Command Centre title
+- Calm botanical arch illustration
+- Business leadership statement
+- Dark-green motivational block
+
+30-day business position:
+- Current projected position based on the saved bank balance
+- Expected incoming and outgoing cash
+- Dynamic projected trend line
+
+Financial snapshot:
+- Expected income
+- Expected expenses
+- Outstanding overdue income
+- Current bank balance
+
+Bottom workspace:
+- Three real priorities with working completion checkboxes
+- Current-month mini calendar
+- Calendar activity dots for agenda, finance, social content and tasks
+
+Quick actions:
+- Add income
+- Add expense
+- New task
+- New content
+
+DATA AND FUNCTIONALITY
+- Uses the existing Finance Centre calculations
+- Uses the current bank balance and recurring projections
+- Uses the actual Task Inbox and daily priorities
+- Uses saved agenda, finance, social and task dates for calendar activity
+- All detailed planner pages remain present
+- Existing browser localStorage information is preserved
+
+RESPONSIVE BEHAVIOUR
+- Both menus display on large desktop screens
+- The right numbered chapter menu hides on narrower screens
+- The left menu becomes the existing mobile slide-out navigation
+- The dashboard stacks into a readable mobile layout
 
 VERIFICATION
-- Full JavaScript syntax passed.
-- No duplicate static HTML IDs.
-- Existing main planner pages remain present.
-- Clock, weather, tasks, goals, habits, projects, finance, content and journal
-  bindings were verified in the generated source.
+- Full JavaScript syntax passed
+- No duplicate static HTML IDs
+- Eight numbered right-menu chapters confirmed
+- All existing planner pages retained
+- Dynamic chart, priorities and mini-calendar bindings confirmed
 
 GITHUB UPDATE
-1. Replace the current repository index.html with this Version 52 file.
+1. Replace the repository index.html with this Version 53 file.
 2. Commit directly to main.
 3. Wait approximately one minute.
 4. Hard-refresh using Command + Shift + R.
