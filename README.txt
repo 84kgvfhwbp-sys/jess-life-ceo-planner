@@ -1,12 +1,9 @@
-Jess Life & CEO Planner — Version 53 Dual-Menu CEO Dashboard
+Jess Life & CEO Planner — Version 54 Contextual Right Menu
 
-This version implements the exact layout direction established by the new
-Financial Reset Planner reference.
-
-TWO MENUS
+The two side menus now have different jobs.
 
 LEFT MENU
-- Slim icon-and-label navigation
+The left side chooses the main destination:
 - Dashboard
 - Today
 - Plan
@@ -15,75 +12,84 @@ LEFT MENU
 - Content
 - Goals
 - Notes
-- Routines and Settings remain available at the bottom
+- Routines
+- Settings
 
-RIGHT NUMBERED MENU
-- 01 Dashboard
-- 02 Plan
-- 03 Finances
-- 04 Trackers
-- 05 Goals
-- 06 Content
-- 07 Projects
-- 08 Notes
-- Dark-green active chapter treatment
-- Quick Add action at the bottom
+RIGHT MENU
+The right side now changes automatically to show what is available inside the
+page currently open.
 
-The left and right menus both navigate through the real planner pages.
+EXAMPLES
 
-NEW CEO DASHBOARD FLOW
+Dashboard:
+01 Top
+02 Position
+03 Snapshot
+04 Priorities
+05 Calendar
+06 Quick Actions
 
-Editorial introduction:
-- CEO Command Centre title
-- Calm botanical arch illustration
-- Business leadership statement
-- Dark-green motivational block
+Today:
+01 Date & Weather
+02 Agenda
+03 Task Progress
+04 Today Tasks
+05 Carryover
 
-30-day business position:
-- Current projected position based on the saved bank balance
-- Expected incoming and outgoing cash
-- Dynamic projected trend line
+Money:
+01 Overview
+02 Quick Entry
+03 Transactions
+04 Recurring
+05 Reports
+06 Ledger
+07 Cash Calendar
 
-Financial snapshot:
-- Expected income
-- Expected expenses
-- Outstanding overdue income
-- Current bank balance
+Content:
+01 Calendar
+02 Library
+03 Ideas
+04 Performance
+05 Connections
+06 Quick Idea
 
-Bottom workspace:
-- Three real priorities with working completion checkboxes
-- Current-month mini calendar
-- Calendar activity dots for agenda, finance, social content and tasks
+The right-side buttons may:
+- smoothly scroll to a section
+- switch a page tab or view
+- open a drawer or ledger
+- focus the correct form field
+- move to a closely related page
 
-Quick actions:
-- Add income
-- Add expense
-- New task
-- New content
+DYNAMIC QUICK ACTION
+The dark-green block at the bottom also changes by page:
+- Dashboard: Add Task
+- Today / Plan: Add Event
+- Tasks: New Task
+- Money: Add Income
+- Content: New Content
+- Goals: Add Goal
+- Trackers: New Habit
+- Notes: New Entry
+- Settings: Download Backup
 
-DATA AND FUNCTIONALITY
-- Uses the existing Finance Centre calculations
-- Uses the current bank balance and recurring projections
-- Uses the actual Task Inbox and daily priorities
-- Uses saved agenda, finance, social and task dates for calendar activity
-- All detailed planner pages remain present
-- Existing browser localStorage information is preserved
+ACTIVE SECTION
+For long pages, the right menu updates as the user scrolls so the current
+section remains highlighted.
 
-RESPONSIVE BEHAVIOUR
-- Both menus display on large desktop screens
-- The right numbered chapter menu hides on narrower screens
-- The left menu becomes the existing mobile slide-out navigation
-- The dashboard stacks into a readable mobile layout
+DATA AND FEATURES
+- No planner data was changed.
+- All existing calculations and detailed pages remain intact.
+- Existing localStorage records remain preserved.
 
 VERIFICATION
-- Full JavaScript syntax passed
-- No duplicate static HTML IDs
-- Eight numbered right-menu chapters confirmed
-- All existing planner pages retained
-- Dynamic chart, priorities and mini-calendar bindings confirmed
+- Full JavaScript syntax passed.
+- No duplicate static HTML IDs.
+- Old duplicate right-side page navigation removed.
+- Context menus provided for all thirteen planner pages.
+- Initial Dashboard context menu verified.
 
 GITHUB UPDATE
-1. Replace the repository index.html with this Version 53 file.
+1. Replace the repository index.html with this Version 54 file.
 2. Commit directly to main.
 3. Wait approximately one minute.
 4. Hard-refresh using Command + Shift + R.

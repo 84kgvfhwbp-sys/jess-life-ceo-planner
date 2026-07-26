@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Version 53: dual-menu editorial CEO Dashboard -->
+  <!-- Version 54: contextual right-side page menu -->
   <!-- Version 49: Social Media Content Hub, calendar, library, ideas and manual analytics -->
   <!-- Version 48: corrected historical recurring payment months and date-confirmed recording -->
   <!-- Version 47: scrollable Transactions and Recurring Commitments lists with eight visible entries -->
@@ -11042,6 +11042,153 @@
       }
     }
 
+    /* =====================================================================
+       VERSION 54 — CONTEXTUAL RIGHT-SIDE MENU
+       Left chooses the destination. Right explains and navigates the page.
+       ===================================================================== */
+
+    .contextual-right-menu .dual-right-top-mark {
+      display:grid;
+      min-height:90px;
+      place-items:center;
+      align-content:center;
+      gap:5px;
+      padding:8px 3px;
+      text-align:center;
+    }
+
+    .contextual-right-menu .dual-right-top-mark strong {
+      color:#EEE8DE;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:19px;
+      font-weight:500;
+      line-height:1;
+      letter-spacing:.06em;
+    }
+
+    .contextual-right-menu .dual-right-top-mark span {
+      max-width:82px;
+      overflow:hidden;
+      color:#C9C3B8;
+      font-size:7px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-overflow:ellipsis;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+    .contextual-right-menu .dual-right-nav {
+      display:grid;
+      align-content:start;
+      flex:1;
+      overflow:auto;
+      scrollbar-width:none;
+    }
+
+    .contextual-right-menu .dual-right-nav::-webkit-scrollbar {
+      display:none;
+    }
+
+    .context-button {
+      display:grid;
+      min-height:84px;
+      place-items:center;
+      align-content:center;
+      gap:5px;
+      padding:8px 3px;
+      border:0;
+      border-bottom:1px solid rgba(85,72,62,.1);
+      color:#978D83;
+      background:#F1ECE4;
+      text-align:center;
+    }
+
+    .context-button:hover {
+      color:#4F514A;
+      background:#E8E0D5;
+    }
+
+    .context-button.active {
+      color:#EEE8DE;
+      background:var(--ceo-green-2);
+    }
+
+    .context-button strong {
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:23px;
+      font-weight:500;
+      line-height:1;
+    }
+
+    .context-button span {
+      display:block;
+      width:86px;
+      overflow:hidden;
+      font-size:7px;
+      font-weight:800;
+      line-height:1.25;
+      letter-spacing:.055em;
+      text-overflow:ellipsis;
+      text-transform:uppercase;
+      white-space:normal;
+    }
+
+    .contextual-right-menu .dual-right-action {
+      min-height:112px;
+      padding:8px 3px;
+      text-align:center;
+    }
+
+    .contextual-right-menu .dual-right-action small {
+      display:block;
+      width:82px;
+      overflow:hidden;
+      line-height:1.25;
+      text-overflow:ellipsis;
+      white-space:normal;
+    }
+
+    #finance-overview-anchor,
+    #finance-entry-anchor,
+    #finance-transactions-anchor,
+    #finance-recurring-anchor,
+    #finance-reports-anchor,
+    .ceo-position-card,
+    .ceo-snapshot-section,
+    .ceo-priority-panel,
+    .ceo-calendar-panel,
+    .ceo-quick-actions,
+    .today-date-weather-card,
+    .weekly-planner-card,
+    .task-inbox-hero,
+    .task-inbox-toolbar,
+    .template-hero,
+    .journal-library-header,
+    .journal-library-tools,
+    .cashflow-calendar-toolbar,
+    .cashflow-month-summary {
+      scroll-margin-top:105px;
+    }
+
+    @media (max-height:820px) and (min-width:1121px) {
+      .context-button {
+        min-height:70px;
+      }
+
+      .contextual-right-menu .dual-right-top-mark {
+        min-height:76px;
+      }
+
+      .contextual-right-menu .dual-right-action {
+        min-height:88px;
+      }
+
+      .context-button strong {
+        font-size:20px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -12494,38 +12641,17 @@
       </section>
     </main>
   
-    <aside class="dual-right-menu" id="chapterMenu" aria-label="CEO Dashboard chapters">
-      <div class="dual-right-top-mark" aria-hidden="true">JL</div>
+    <aside class="dual-right-menu contextual-right-menu" id="chapterMenu" aria-label="Current page sections">
+      <div class="dual-right-top-mark">
+        <strong id="contextMenuInitials">CEO</strong>
+        <span id="contextMenuPage">Dashboard</span>
+      </div>
 
-      <nav class="dual-right-nav">
-        <button class="nav-button chapter-button active" data-page="dashboard">
-          <strong>01</strong><span>Dashboard</span>
-        </button>
-        <button class="nav-button chapter-button" data-page="week">
-          <strong>02</strong><span>Plan</span>
-        </button>
-        <button class="nav-button chapter-button" data-page="finance">
-          <strong>03</strong><span>Finances</span>
-        </button>
-        <button class="nav-button chapter-button" data-page="habits">
-          <strong>04</strong><span>Trackers</span>
-        </button>
-        <button class="nav-button chapter-button" data-page="goals">
-          <strong>05</strong><span>Goals</span>
-        </button>
-        <button class="nav-button chapter-button" data-page="social">
-          <strong>06</strong><span>Content</span>
-        </button>
-        <button class="nav-button chapter-button" data-page="tasks">
-          <strong>07</strong><span>Projects</span>
-        </button>
-        <button class="nav-button chapter-button" data-page="notes">
-          <strong>08</strong><span>Notes</span>
-        </button>
-      </nav>
+      <nav class="dual-right-nav" id="contextMenuList" aria-label="Sections on this page"></nav>
 
-      <button class="dual-right-action" type="button" data-quick-add="task" title="Quick add">
-        <span>✦</span><small>Quick add</small>
+      <button class="dual-right-action" id="contextPrimaryAction" type="button" title="Quick action">
+        <span id="contextPrimaryIcon">✦</span>
+        <small id="contextPrimaryLabel">Add task</small>
       </button>
     </aside>
 </div>
@@ -13452,6 +13578,281 @@
       settings: ['Backup & Settings', 'Protect your planner data.']
     };
 
+
+    const contextMenuConfig = {
+      dashboard: {
+        title:'Dashboard', initials:'CEO',
+        items:[
+          {label:'Top', kind:'scroll', target:'#ceoFlowHome'},
+          {label:'Position', kind:'scroll', target:'.ceo-position-card'},
+          {label:'Snapshot', kind:'scroll', target:'.ceo-snapshot-section'},
+          {label:'Priorities', kind:'scroll', target:'.ceo-priority-panel'},
+          {label:'Calendar', kind:'scroll', target:'.ceo-calendar-panel'},
+          {label:'Quick actions', kind:'scroll', target:'.ceo-quick-actions'}
+        ],
+        primary:{label:'Add task', icon:'✦', kind:'quick', target:'task'}
+      },
+      today: {
+        title:'Today', initials:'DAY',
+        items:[
+          {label:'Date & weather', kind:'scroll', target:'.today-date-weather-card'},
+          {label:'Agenda', kind:'scroll', target:'#todayEventTimeline'},
+          {label:'Task progress', kind:'scroll', target:'#todayTaskProgressBar'},
+          {label:'Today tasks', kind:'scroll', target:'#todayTaskList'},
+          {label:'Carryover', kind:'scroll', target:'#carryoverReview'}
+        ],
+        primary:{label:'Add event', icon:'＋', kind:'click', target:'#addTodayEvent'}
+      },
+      week: {
+        title:'Plan', initials:'PLAN',
+        items:[
+          {label:'Week controls', kind:'scroll', target:'.week-toolbar-card'},
+          {label:'Weekly plan', kind:'scroll', target:'.weekly-planner-card'},
+          {label:'3-day view', kind:'click', target:'[data-week-days="3"]'},
+          {label:'5-day view', kind:'click', target:'[data-week-days="5"]'},
+          {label:'Apply routine', kind:'click', target:'#applyWeekTemplate'}
+        ],
+        primary:{label:'Add event', icon:'＋', kind:'click', target:'#addWeekEvent'}
+      },
+      tasks: {
+        title:'Tasks', initials:'TASK',
+        items:[
+          {label:'Capture', kind:'scroll', target:'.task-inbox-hero'},
+          {label:'Filters', kind:'scroll', target:'.task-inbox-toolbar'},
+          {label:'All tasks', kind:'scroll', target:'#masterTaskList'},
+          {label:'Inbox', kind:'click', target:'[data-task-status="inbox"]'},
+          {label:'Scheduled', kind:'click', target:'[data-task-status="scheduled"]'},
+          {label:'Due soon', kind:'click', target:'[data-task-status="due"]'},
+          {label:'Completed', kind:'click', target:'[data-task-status="completed"]'}
+        ],
+        primary:{label:'New task', icon:'＋', kind:'click', target:'#openTaskEditor'}
+      },
+      templates: {
+        title:'Routines', initials:'RTN',
+        items:[
+          {label:'Overview', kind:'scroll', target:'.template-hero'},
+          {label:'Quick apply', kind:'focus', target:'#templateQuickSelect'},
+          {label:'Saved routines', kind:'scroll', target:'#templateList'},
+          {label:'Apply today', kind:'click', target:'#templateQuickApply'}
+        ],
+        primary:{label:'New routine', icon:'＋', kind:'click', target:'#newTemplateButton'}
+      },
+      finance: {
+        title:'Money', initials:'FIN',
+        items:[
+          {label:'Overview', kind:'scroll', target:'#finance-overview-anchor'},
+          {label:'Quick entry', kind:'scroll', target:'#finance-entry-anchor'},
+          {label:'Transactions', kind:'scroll', target:'#finance-transactions-anchor'},
+          {label:'Recurring', kind:'scroll', target:'#finance-recurring-anchor'},
+          {label:'Reports', kind:'scroll', target:'#finance-reports-anchor'},
+          {label:'Ledger', kind:'click', target:'#openFinanceLedger'},
+          {label:'Cash calendar', kind:'page', target:'cashflow'}
+        ],
+        primary:{label:'Add income', icon:'↓', kind:'quick', target:'income'}
+      },
+      cashflow: {
+        title:'Cash flow', initials:'FLOW',
+        items:[
+          {label:'Period', kind:'scroll', target:'.cashflow-calendar-toolbar'},
+          {label:'Summary', kind:'scroll', target:'.cashflow-month-summary'},
+          {label:'Calendar', kind:'scroll', target:'#cashflowCalendarGrid'},
+          {label:'Monthly', kind:'click', target:'[data-cashflow-view="month"]'},
+          {label:'Weekly', kind:'click', target:'[data-cashflow-view="week"]'},
+          {label:'Bi-weekly', kind:'click', target:'[data-cashflow-view="biweekly"]'},
+          {label:'Finance Centre', kind:'page', target:'finance'}
+        ],
+        primary:{label:'Add income', icon:'↓', kind:'quick', target:'income'}
+      },
+      social: {
+        title:'Content', initials:'SOC',
+        items:[
+          {label:'Calendar', kind:'click', target:'[data-social-tab="calendar"]'},
+          {label:'Library', kind:'click', target:'[data-social-tab="library"]'},
+          {label:'Ideas', kind:'click', target:'[data-social-tab="ideas"]'},
+          {label:'Performance', kind:'click', target:'[data-social-tab="analytics"]'},
+          {label:'Connections', kind:'scroll', target:'#socialMetaSetup'},
+          {label:'Quick idea', kind:'click', target:'#socialQuickIdea'}
+        ],
+        primary:{label:'New content', icon:'＋', kind:'click', target:'#socialNewContent'}
+      },
+      goals: {
+        title:'Goals', initials:'GOAL',
+        items:[
+          {label:'New goal', kind:'focus', target:'#goalTitle'},
+          {label:'Goal area', kind:'focus', target:'#goalArea'},
+          {label:'Target date', kind:'focus', target:'#goalDate'},
+          {label:'Current goals', kind:'scroll', target:'#goalList'}
+        ],
+        primary:{label:'Add goal', icon:'＋', kind:'focus', target:'#goalTitle'}
+      },
+      habits: {
+        title:'Trackers', initials:'HAB',
+        items:[
+          {label:'Add habit', kind:'focus', target:'#habitName'},
+          {label:'This week', kind:'scroll', target:'#habitList'},
+          {label:'Monthly reset', kind:'page', target:'monthly'}
+        ],
+        primary:{label:'New habit', icon:'＋', kind:'focus', target:'#habitName'}
+      },
+      monthly: {
+        title:'Reset', initials:'MON',
+        items:[
+          {label:'Choose month', kind:'focus', target:'#resetMonth'},
+          {label:'Wins', kind:'focus', target:'[data-monthkey="wins"]'},
+          {label:'Lessons', kind:'focus', target:'[data-monthkey="lessons"]'},
+          {label:'Unfinished', kind:'focus', target:'[data-monthkey="unfinished"]'},
+          {label:'Financial', kind:'focus', target:'[data-monthkey="financial"]'},
+          {label:'Priorities', kind:'focus', target:'[data-monthkey="priorities"]'},
+          {label:'Protecting', kind:'focus', target:'[data-monthkey="protecting"]'}
+        ],
+        primary:{label:'Journal', icon:'✎', kind:'page', target:'notes'}
+      },
+      notes: {
+        title:'Notes', initials:'NOTE',
+        items:[
+          {label:'Overview', kind:'scroll', target:'.journal-library-header'},
+          {label:'Search', kind:'focus', target:'#journalSearch'},
+          {label:'Mood filter', kind:'focus', target:'#journalMoodFilter'},
+          {label:'Entries', kind:'scroll', target:'#notesGrid'},
+          {label:'Monthly reset', kind:'page', target:'monthly'}
+        ],
+        primary:{label:'New entry', icon:'＋', kind:'click', target:'#addNote'}
+      },
+      settings: {
+        title:'Settings', initials:'SET',
+        items:[
+          {label:'Backup', kind:'scroll', target:'#exportBtn'},
+          {label:'Restore', kind:'scroll', target:'#importFile'},
+          {label:'Planner name', kind:'focus', target:'[data-path="settings.plannerName"]'},
+          {label:'Start fresh', kind:'scroll', target:'#clearBtn'}
+        ],
+        primary:{label:'Download backup', icon:'↓', kind:'click', target:'#exportBtn'}
+      }
+    };
+
+    let activeContextPage = 'dashboard';
+    let activeContextItems = [];
+    let activeContextIndex = 0;
+    let contextScrollFrame = 0;
+
+    function contextTargetElement(selector) {
+      const target = document.querySelector(selector);
+      if (!target) return null;
+      return target.closest('.card, article, section') || target;
+    }
+
+    function setActiveContextItem(index) {
+      activeContextIndex = Number(index) || 0;
+      document.querySelectorAll('.context-button').forEach((button,buttonIndex) => {
+        button.classList.toggle('active', buttonIndex === activeContextIndex);
+        button.setAttribute('aria-current', buttonIndex === activeContextIndex ? 'location' : 'false');
+      });
+    }
+
+    function executeContextAction(action, index=null) {
+      if (!action) return;
+      if (index !== null) setActiveContextItem(index);
+
+      if (action.kind === 'page') {
+        openPage(action.target);
+        return;
+      }
+
+      if (action.kind === 'quick') {
+        runGlobalQuickAdd(action.target);
+        return;
+      }
+
+      const target = document.querySelector(action.target);
+      if (!target) {
+        showToast(`${action.label || 'This section'} is not available on this page.`);
+        return;
+      }
+
+      if (action.kind === 'click') {
+        target.click();
+        const section = target.closest('.card, article, section');
+        section?.scrollIntoView({behavior:'smooth',block:'start'});
+        return;
+      }
+
+      if (action.kind === 'focus') {
+        const section = target.closest('.card, article, section');
+        section?.scrollIntoView({behavior:'smooth',block:'center'});
+        setTimeout(() => target.focus(),250);
+        return;
+      }
+
+      contextTargetElement(action.target)?.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    function renderContextMenu(page) {
+      const config = contextMenuConfig[page] || contextMenuConfig.dashboard;
+      activeContextPage = page;
+      activeContextItems = config.items || [];
+      activeContextIndex = 0;
+
+      document.getElementById('contextMenuInitials').textContent = config.initials || 'CEO';
+      document.getElementById('contextMenuPage').textContent = config.title || page;
+      document.getElementById('chapterMenu').setAttribute('aria-label', `${config.title || page} page sections`);
+
+      const list = document.getElementById('contextMenuList');
+      list.innerHTML = activeContextItems.map((item,index) => `
+        <button class="context-button ${index === 0 ? 'active' : ''}" type="button"
+          data-context-index="${index}" aria-current="${index === 0 ? 'location' : 'false'}">
+          <strong>${String(index+1).padStart(2,'0')}</strong>
+          <span>${escapeHtml(item.label)}</span>
+        </button>
+      `).join('');
+
+      const primary = config.primary || {label:'Quick add',icon:'✦',kind:'quick',target:'task'};
+      const primaryButton = document.getElementById('contextPrimaryAction');
+      primaryButton.dataset.contextPrimaryPage = page;
+      document.getElementById('contextPrimaryIcon').textContent = primary.icon || '✦';
+      document.getElementById('contextPrimaryLabel').textContent = primary.label || 'Quick add';
+      primaryButton.title = primary.label || 'Quick action';
+
+      requestAnimationFrame(updateContextActiveFromScroll);
+    }
+
+    function updateContextActiveFromScroll() {
+      if (!activeContextItems.length) return;
+      const topGuide = 150;
+      let bestIndex = 0;
+      let bestDistance = Infinity;
+
+      activeContextItems.forEach((item,index) => {
+        if (item.kind !== 'scroll') return;
+        const element = contextTargetElement(item.target);
+        if (!element) return;
+        const rect = element.getBoundingClientRect();
+        const distance = Math.abs(rect.top - topGuide);
+        if (rect.top <= topGuide + 80 && distance < bestDistance) {
+          bestDistance = distance;
+          bestIndex = index;
+        }
+      });
+
+      setActiveContextItem(bestIndex);
+    }
+
+    document.getElementById('contextMenuList').addEventListener('click', event => {
+      const button = event.target.closest('[data-context-index]');
+      if (!button) return;
+      const index = Number(button.dataset.contextIndex);
+      executeContextAction(activeContextItems[index], index);
+    });
+
+    document.getElementById('contextPrimaryAction').addEventListener('click', () => {
+      const config = contextMenuConfig[activeContextPage] || contextMenuConfig.dashboard;
+      executeContextAction(config.primary);
+    });
+
+    window.addEventListener('scroll', () => {
+      cancelAnimationFrame(contextScrollFrame);
+      contextScrollFrame = requestAnimationFrame(updateContextActiveFromScroll);
+    }, {passive:true});
+
     document.querySelectorAll('.nav-button[data-page]').forEach(btn => btn.addEventListener('click', () => openPage(btn.dataset.page)));
     document.querySelectorAll('[data-jump]').forEach(btn => btn.addEventListener('click', () => openPage(btn.dataset.jump)));
     document.querySelectorAll('[data-feature]').forEach(btn => btn.addEventListener('click', () => showToast(btn.dataset.feature + ' is ready for a future build.')));
@@ -13487,7 +13888,9 @@
       if (page === 'habits') renderHabits();
       if (page === 'monthly') renderMonthly();
       if (page === 'notes') renderNotes();
+      renderContextMenu(page);
       window.scrollTo({top:0, behavior:'smooth'});
+      setTimeout(updateContextActiveFromScroll,320);
     }
     const sidebar = document.getElementById('sidebar');
     const menuBtn = document.getElementById('menuBtn');
@@ -13643,10 +14046,6 @@
 
       const action = event.target.closest('[data-ceo-action]');
       if (action) runGlobalQuickAdd(action.dataset.ceoAction);
-    });
-
-    document.querySelector('.dual-right-action')?.addEventListener('click', () => {
-      runGlobalQuickAdd('task');
     });
 
     function setQuickAddOpen(open) {
@@ -19565,6 +19964,7 @@
     setDashboardView(data.settings.dashboardView || 'simple', false);
     updateLifeOSClock();
     setInterval(updateLifeOSClock, 30000);
+    renderContextMenu('dashboard');
     runPlannerIntegrityCheck();
     if (repairedHistoricalFinanceDates) {
       setTimeout(() => showToast(`${repairedHistoricalFinanceDates} historical payment date${repairedHistoricalFinanceDates===1?'':'s'} corrected`), 350);
