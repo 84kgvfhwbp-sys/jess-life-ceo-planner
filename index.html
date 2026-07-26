@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Version 50: Coastal Executive Workspace production redesign -->
   <!-- Version 49: Social Media Content Hub, calendar, library, ideas and manual analytics -->
   <!-- Version 48: corrected historical recurring payment months and date-confirmed recording -->
   <!-- Version 47: scrollable Transactions and Recurring Commitments lists with eight visible entries -->
@@ -8,7 +9,7 @@
   <!-- Version 45: corrected finance cash dates, overdue reporting and seasonal totals -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#5E7464" />
+  <meta name="theme-color" content="#F7F5F0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Jess Planner" />
@@ -7324,6 +7325,1161 @@
     @media(max-width:780px){.social-command-bar{align-items:flex-start;flex-direction:column}.social-command-actions{width:100%}.social-command-actions .btn{flex:1}.social-calendar-grid{grid-template-columns:1fr}.social-weekday-row{display:none}.social-calendar-day{min-height:90px;border-right:0}.social-calendar-day.outside{display:none}.social-day-add{opacity:1}.social-calendar-post{grid-template-columns:60px minmax(0,1fr) auto}.social-calendar-toolbar{grid-template-columns:1fr}.social-calendar-heading{text-align:left}.social-library-filters{grid-template-columns:1fr}.social-library-item{grid-template-columns:68px minmax(0,1fr)}.social-library-actions{grid-column:2;justify-content:flex-end}.social-quick-capture{grid-template-columns:1fr}.social-editor-aside{grid-template-columns:1fr}.social-form-grid,.social-performance-grid{grid-template-columns:1fr}.social-upcoming-row{grid-template-columns:44px minmax(0,1fr)}.social-upcoming-side{grid-column:2}.social-sync-list{grid-template-columns:1fr}}
     @media(max-width:480px){.social-metric-grid,.social-analytics-grid{grid-template-columns:1fr 1fr}.social-metric{min-height:82px;padding:11px}.social-metric strong{font-size:23px}.social-tab-button{flex-basis:auto}.social-library-item{grid-template-columns:1fr}.social-library-thumb{height:140px}.social-library-actions{grid-column:1}.social-editor-header{display:grid}.social-editor-header-actions{padding:0}.social-platform-picker{display:grid}.social-calendar-nav,.social-calendar-filter-row{display:grid;grid-template-columns:1fr}.social-calendar-nav .btn,.social-calendar-filter-row .select{width:100%}}
 
+    /* =====================================================================
+       VERSION 50 — COASTAL EXECUTIVE WORKSPACE
+       White space and structure organize the interface.
+       Colour is reserved for meaning, state and emphasis.
+       ===================================================================== */
+
+    :root {
+      --coral:#B8645D;
+      --coral-soft:#F6E8E5;
+      --wisteria:#A79CB6;
+      --wisteria-soft:#EEEAF3;
+      --sage:#748E7B;
+      --sage-soft:#E8EFE9;
+      --mint:#C9D9D0;
+      --brown:#6D5A4B;
+      --cream:#F3F0EA;
+      --paper:#FFFFFF;
+      --ink:#29312C;
+      --muted:#747B75;
+      --line:#E2DED6;
+      --danger:#B45852;
+      --shadow:0 6px 20px rgba(44,50,46,.055);
+      --shadow-strong:0 16px 44px rgba(43,48,45,.12);
+      --radius:11px;
+      --workspace-bg:#F7F5F0;
+      --surface-muted:#F1EFEA;
+      --sage-deep:#5C7463;
+      --sand:#C6A27E;
+      --topbar-height:82px;
+    }
+
+    html {
+      background:var(--workspace-bg);
+    }
+
+    body {
+      color:var(--ink);
+      background:var(--workspace-bg);
+      font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+      letter-spacing:0;
+    }
+
+    h1,h2,.coastal-brand-title,.section-heading-row h3,.template-hero h3,.social-command-bar h3 {
+      font-family:Georgia,"Times New Roman",serif;
+      font-weight:500;
+      letter-spacing:-.025em;
+    }
+
+    .app-shell {
+      grid-template-columns:228px minmax(0,1fr);
+      transition:grid-template-columns .2s ease;
+    }
+
+    body.sidebar-is-collapsed .app-shell {
+      grid-template-columns:72px minmax(0,1fr);
+    }
+
+    .sidebar {
+      z-index:110;
+      padding:0;
+      overflow:hidden;
+      border-right:1px solid var(--line);
+      background:#FCFBF8;
+      backdrop-filter:none;
+      box-shadow:none;
+    }
+
+    .sidebar-brand-fixed {
+      position:relative;
+      display:flex;
+      height:126px;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      padding:19px 14px 14px;
+      border-bottom:1px solid var(--line);
+      background:#FCFBF8;
+      color:var(--brown);
+      transition:height .2s ease,padding .2s ease;
+    }
+
+    .coastal-brand-title {
+      font-size:22px;
+      line-height:1.15;
+      white-space:nowrap;
+    }
+
+    .coastal-brand-art {
+      width:138px;
+      margin-top:5px;
+      opacity:.75;
+    }
+
+    .sidebar-scroll {
+      position:absolute;
+      inset:126px 0 146px;
+      overflow:auto;
+      padding:12px 10px 20px;
+      scrollbar-width:thin;
+      scrollbar-color:#BEC6BF transparent;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar { width:6px; }
+    .sidebar-scroll::-webkit-scrollbar-thumb { background:#BEC6BF; border-radius:6px; }
+
+    .nav-group {
+      margin:0 0 7px;
+      border-bottom:1px solid rgba(226,222,214,.65);
+      padding-bottom:5px;
+    }
+
+    .nav-group:last-of-type {
+      border-bottom:0;
+    }
+
+    .nav-label.nav-group-toggle {
+      display:flex;
+      width:100%;
+      align-items:center;
+      justify-content:space-between;
+      margin:0;
+      padding:8px 9px 6px;
+      border:0;
+      background:transparent;
+      color:#697069;
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .nav-group-chevron {
+      font-size:12px;
+      transition:transform .18s ease;
+    }
+
+    .nav-section-collapsed .nav-group-chevron {
+      transform:rotate(-90deg);
+    }
+
+    .nav-group-items {
+      display:grid;
+      gap:2px;
+      overflow:hidden;
+      max-height:520px;
+      opacity:1;
+      transition:max-height .22s ease,opacity .16s ease;
+    }
+
+    .nav-section-collapsed .nav-group-items {
+      max-height:0;
+      opacity:0;
+    }
+
+    .nav-button {
+      min-height:39px;
+      margin:0;
+      padding:9px 10px;
+      gap:9px;
+      border:1px solid transparent;
+      border-radius:8px;
+      color:#4B534D;
+      font-size:12px;
+      font-weight:560;
+      transition:background .15s ease,color .15s ease,border-color .15s ease;
+    }
+
+    .nav-button:hover {
+      transform:none;
+      background:#F1F0EB;
+      border-color:#E6E2DA;
+    }
+
+    .nav-button.active {
+      color:#34463A;
+      background:#E6EDE7;
+      border-color:#D4E0D6;
+      box-shadow:none;
+      font-weight:750;
+    }
+
+    .nav-icon {
+      display:grid;
+      width:23px;
+      place-items:center;
+      color:#708177;
+      font-size:15px;
+      flex:0 0 23px;
+    }
+
+    .nav-button.active .nav-icon {
+      color:var(--sage-deep);
+    }
+
+    .nav-text {
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .sidebar-signout {
+      margin-top:8px;
+      color:#7B6B61;
+    }
+
+    .sidebar-art-spacer {
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      height:146px;
+      border-top:1px solid var(--line);
+      background-size:cover;
+      background-position:center bottom;
+    }
+
+    body.sidebar-is-collapsed .sidebar-brand-fixed {
+      height:76px;
+      padding:12px 8px;
+    }
+
+    body.sidebar-is-collapsed .coastal-brand-title,
+    body.sidebar-is-collapsed .coastal-brand-art,
+    body.sidebar-is-collapsed .nav-group-toggle,
+    body.sidebar-is-collapsed .nav-text,
+    body.sidebar-is-collapsed .sidebar-art-spacer {
+      display:none;
+    }
+
+    body.sidebar-is-collapsed .sidebar-brand-fixed::after {
+      content:"J";
+      display:grid;
+      width:38px;
+      height:38px;
+      place-items:center;
+      border:1px solid #D9D4CC;
+      border-radius:10px;
+      color:var(--brown);
+      background:#FFF;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:21px;
+    }
+
+    body.sidebar-is-collapsed .sidebar-scroll {
+      inset:76px 0 0;
+      padding:10px 8px;
+    }
+
+    body.sidebar-is-collapsed .nav-group {
+      margin:0 0 4px;
+      padding:0;
+      border:0;
+    }
+
+    body.sidebar-is-collapsed .nav-group-items,
+    body.sidebar-is-collapsed .nav-section-collapsed .nav-group-items {
+      display:grid;
+      max-height:none;
+      opacity:1;
+      gap:4px;
+    }
+
+    body.sidebar-is-collapsed .nav-button {
+      justify-content:center;
+      min-height:44px;
+      padding:9px;
+    }
+
+    body.sidebar-is-collapsed .nav-icon {
+      width:24px;
+      flex-basis:24px;
+      font-size:17px;
+    }
+
+    .main {
+      min-width:0;
+      padding:0 28px 58px;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:90;
+      min-height:var(--topbar-height);
+      margin:0 -28px 22px;
+      padding:14px 28px;
+      border-bottom:1px solid rgba(226,222,214,.92);
+      background:rgba(247,245,240,.94);
+      backdrop-filter:blur(16px);
+      box-shadow:none;
+    }
+
+    .topbar-title {
+      min-width:0;
+      gap:10px;
+    }
+
+    .desktop-sidebar-toggle,
+    .topbar-quick-add {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      border:1px solid #DCD7CE;
+      border-radius:8px;
+      background:#FFF;
+      color:#4F5D53;
+      box-shadow:0 1px 2px rgba(48,55,50,.03);
+    }
+
+    .desktop-sidebar-toggle {
+      width:38px;
+      padding:0;
+      font-size:14px;
+      flex:0 0 38px;
+    }
+
+    .desktop-sidebar-toggle:hover,
+    .topbar-quick-add:hover {
+      border-color:#BAC8BD;
+      background:#FBFCFB;
+    }
+
+    .topbar-copy {
+      min-width:0;
+    }
+
+    .topbar h2 {
+      margin:0 0 3px;
+      color:#26302A;
+      font-size:27px;
+      line-height:1.08;
+    }
+
+    .topbar p {
+      margin:0;
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .topbar-actions {
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:9px;
+    }
+
+    .date-chip {
+      min-height:38px;
+      padding:10px 13px;
+      border:1px solid #DDD8CF;
+      border-radius:8px;
+      background:#FFF;
+      color:#4C534E;
+      box-shadow:none;
+      font-size:10px;
+    }
+
+    .quick-add-wrap {
+      position:relative;
+    }
+
+    .topbar-quick-add {
+      gap:5px;
+      padding:0 13px;
+      border-color:var(--sage-deep);
+      color:#FFF;
+      background:var(--sage-deep);
+      font-size:10px;
+      font-weight:800;
+    }
+
+    .topbar-quick-add:hover {
+      border-color:#506858;
+      color:#FFF;
+      background:#506858;
+    }
+
+    .quick-add-menu {
+      position:absolute;
+      top:calc(100% + 8px);
+      right:0;
+      z-index:180;
+      display:grid;
+      width:292px;
+      padding:7px;
+      border:1px solid #DED9D0;
+      border-radius:10px;
+      background:#FFF;
+      box-shadow:var(--shadow-strong);
+    }
+
+    .quick-add-menu[hidden] {
+      display:none !important;
+    }
+
+    .quick-add-menu button {
+      display:grid;
+      grid-template-columns:30px minmax(0,1fr);
+      grid-template-rows:auto auto;
+      gap:1px 9px;
+      padding:10px;
+      border:0;
+      border-radius:7px;
+      color:var(--ink);
+      background:transparent;
+      text-align:left;
+    }
+
+    .quick-add-menu button:hover {
+      background:#F1F4F1;
+    }
+
+    .quick-add-menu button > span {
+      grid-row:1 / 3;
+      display:grid;
+      width:29px;
+      height:29px;
+      place-items:center;
+      border-radius:7px;
+      color:var(--sage-deep);
+      background:#E9F0EA;
+      font-size:14px;
+    }
+
+    .quick-add-menu button b {
+      font-size:10px;
+    }
+
+    .quick-add-menu button small {
+      color:var(--muted);
+      font-size:8px;
+    }
+
+    .page {
+      max-width:1540px;
+      margin:0 auto;
+    }
+
+    .card,
+    .dashboard-panel,
+    .dashboard-metric,
+    .finance-kpi-card,
+    .finance-mini-card,
+    .social-metric,
+    .social-analytics-stat,
+    .task-stat-card {
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:#FFF;
+      box-shadow:var(--shadow);
+    }
+
+    .card {
+      padding:17px;
+    }
+
+    .card-header {
+      padding-bottom:11px;
+      border-bottom:1px solid #EBE7E0;
+    }
+
+    .card-header h3,
+    .dashboard-panel-header h3 {
+      color:#303832;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:-.01em;
+    }
+
+    .card-subtitle,
+    .stat-note {
+      color:var(--muted);
+      font-size:8.5px;
+      line-height:1.45;
+    }
+
+    .eyebrow,
+    .stat-label,
+    .label {
+      color:#687168;
+      font-size:7px;
+      font-weight:850;
+      letter-spacing:.1em;
+    }
+
+    .grid {
+      gap:12px;
+    }
+
+    .soft-sage,
+    .soft-mint,
+    .soft-coral,
+    .soft-wisteria,
+    .soft-sand {
+      background:#FFF !important;
+    }
+
+    .soft-sage { border-top:3px solid var(--sage) !important; }
+    .soft-mint { border-top:3px solid #8DAE9D !important; }
+    .soft-coral { border-top:3px solid var(--coral) !important; }
+    .soft-wisteria { border-top:3px solid var(--wisteria) !important; }
+    .soft-sand { border-top:3px solid var(--sand) !important; }
+
+    .btn {
+      min-height:37px;
+      border-radius:8px;
+      font-size:9px;
+      font-weight:780;
+      box-shadow:none;
+    }
+
+    .btn-primary,
+    .btn-coral {
+      border-color:var(--sage-deep) !important;
+      color:#FFF !important;
+      background:var(--sage-deep) !important;
+    }
+
+    .btn-primary:hover,
+    .btn-coral:hover {
+      border-color:#4E6656 !important;
+      background:#4E6656 !important;
+      transform:none;
+    }
+
+    .btn-light {
+      border-color:#DDD8CF;
+      color:#526057;
+      background:#FFF;
+    }
+
+    .btn-light:hover {
+      border-color:#BFCBC1;
+      background:#F7F9F7;
+      transform:none;
+    }
+
+    .input,.select,.textarea {
+      border:1px solid #DCD7CF;
+      border-radius:8px;
+      background:#FFF;
+      color:var(--ink);
+      box-shadow:none;
+    }
+
+    .input:focus,.select:focus,.textarea:focus {
+      border-color:#8EA392;
+      box-shadow:0 0 0 3px rgba(116,142,123,.11);
+      outline:none;
+    }
+
+    .modal-overlay {
+      background:rgba(31,38,33,.48);
+      backdrop-filter:blur(5px);
+    }
+
+    .modal-panel,
+    .drawer-panel,
+    .social-editor-panel {
+      border-left:1px solid #DCD7CF;
+      background:#F9F8F4;
+      box-shadow:-18px 0 50px rgba(34,40,36,.16);
+    }
+
+    .modal-card {
+      border:0;
+      border-radius:0;
+      box-shadow:none;
+      background:transparent;
+    }
+
+    /* Dashboard: compact executive hierarchy */
+    .dashboard-metric-grid {
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .dashboard-metric {
+      min-height:112px;
+      padding:16px 17px;
+      border-top-width:3px;
+      background:#FFF !important;
+      box-shadow:var(--shadow);
+    }
+
+    .dashboard-metric-sage { border-top-color:var(--sage); }
+    .dashboard-metric-sand { border-top-color:var(--sand); }
+    .dashboard-metric-green { border-top-color:#6F947A; }
+    .dashboard-metric-pink { border-top-color:var(--coral); }
+
+    .dashboard-metric-label {
+      color:#687168;
+      font-size:8px;
+      font-weight:800;
+      letter-spacing:.065em;
+    }
+
+    .dashboard-metric-value {
+      margin:7px 0 4px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:27px;
+      font-weight:600;
+    }
+
+    .dashboard-metric-note {
+      color:var(--muted);
+      font-size:8px;
+    }
+
+    .dashboard-metric-icon {
+      width:42px;
+      height:42px;
+      border-color:#E3DED6;
+      background:#FAF9F6;
+    }
+
+    .dashboard-main-grid,
+    .dashboard-lower-grid {
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .dashboard-panel {
+      padding:15px 16px;
+      box-shadow:var(--shadow);
+    }
+
+    .dashboard-panel-header {
+      min-height:34px;
+      padding-bottom:9px;
+      border-bottom:1px solid #EBE7E0;
+    }
+
+    .dashboard-text-button,
+    .dashboard-add-link {
+      color:var(--sage-deep);
+    }
+
+    .dashboard-action-grid {
+      gap:10px;
+    }
+
+    .dashboard-action {
+      min-height:70px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      background:#FFF !important;
+      box-shadow:none;
+    }
+
+    .dashboard-action:hover {
+      border-color:#BFCBC1;
+      transform:none;
+      box-shadow:var(--shadow);
+    }
+
+    .dashboard-action-icon {
+      color:var(--sage-deep);
+      background:#EEF3EF;
+    }
+
+    .dashboard-transaction-table th,
+    .finance-table th {
+      color:#687168;
+      background:#F5F3EE;
+      font-size:7px;
+      letter-spacing:.075em;
+    }
+
+    .dashboard-transaction-table td,
+    .finance-table td {
+      border-color:#ECE8E1;
+    }
+
+    /* Workspace sub-navigation */
+    .workspace-subnav {
+      position:sticky;
+      top:calc(var(--topbar-height) + 8px);
+      z-index:35;
+      display:flex;
+      align-items:center;
+      gap:3px;
+      width:max-content;
+      max-width:100%;
+      margin:0 0 12px;
+      padding:4px;
+      overflow:auto;
+      border:1px solid #DED9D0;
+      border-radius:9px;
+      background:rgba(255,255,255,.94);
+      box-shadow:0 5px 16px rgba(44,50,46,.06);
+      backdrop-filter:blur(10px);
+      scrollbar-width:none;
+    }
+
+    .workspace-subnav::-webkit-scrollbar { display:none; }
+
+    .workspace-subnav button {
+      min-height:31px;
+      padding:7px 11px;
+      border:0;
+      border-radius:6px;
+      color:#687168;
+      background:transparent;
+      font-size:8px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .workspace-subnav button:hover {
+      background:#F1F3F0;
+    }
+
+    .workspace-subnav button.active {
+      color:#FFF;
+      background:var(--sage-deep);
+    }
+
+    #finance-overview-anchor,
+    #finance-entry-anchor,
+    #finance-transactions-anchor,
+    #finance-recurring-anchor,
+    #finance-reports-anchor {
+      scroll-margin-top:145px;
+    }
+
+    /* Finance: compact, accounting-led layout */
+    .finance-toolbar {
+      margin-bottom:10px !important;
+      padding:13px 15px;
+      border-top:0 !important;
+      background:#FFF !important;
+    }
+
+    .finance-controls {
+      gap:10px;
+    }
+
+    .finance-kpi-grid {
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .finance-kpi-card {
+      min-height:116px;
+      padding:15px;
+      border-top-width:3px;
+      box-shadow:var(--shadow);
+    }
+
+    .finance-kpi-card:nth-child(1) { border-top-color:#8EAA9A; }
+    .finance-kpi-card:nth-child(2) { border-top-color:var(--wisteria); }
+    .finance-kpi-card:nth-child(3) { border-top-color:var(--sage); }
+    .finance-kpi-card:nth-child(4) { border-top-color:var(--coral); }
+
+    .finance-kpi-value {
+      margin:7px 0 4px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:25px;
+    }
+
+    .finance-kpi-icon {
+      color:#6D7C72;
+      background:#F3F5F3;
+    }
+
+    .finance-mini-grid {
+      gap:8px;
+      margin-bottom:12px;
+    }
+
+    .finance-mini-card {
+      min-height:80px;
+      padding:13px;
+      box-shadow:none;
+    }
+
+    .finance-mini-card strong {
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:19px;
+    }
+
+    .finance-mini-net {
+      border-top-color:var(--wisteria) !important;
+    }
+
+    .finance-quick-actions {
+      padding:15px;
+    }
+
+    .quick-action-grid {
+      gap:8px;
+    }
+
+    .quick-action {
+      min-height:68px;
+      padding:11px;
+      border:1px solid var(--line);
+      border-top:1px solid var(--line) !important;
+      border-radius:8px;
+      background:#FFF !important;
+    }
+
+    .quick-action:hover {
+      border-color:#BCC9BE;
+      transform:none;
+    }
+
+    .finance-item {
+      border-color:#E9E5DE;
+    }
+
+    .finance-item-title {
+      color:#303832;
+      font-size:10px;
+    }
+
+    .finance-item-meta {
+      color:#7B817B;
+      font-size:7px;
+      line-height:1.45;
+    }
+
+    .finance-ledger-launch {
+      border-radius:8px;
+      box-shadow:none;
+    }
+
+    .attention-stat {
+      border-radius:8px;
+      background:#FAF9F6;
+    }
+
+    /* Social Media: content workspace with a clear primary calendar */
+    .social-command-bar {
+      margin-bottom:10px;
+      padding:2px 0 16px;
+      border:0;
+      border-bottom:1px solid var(--line);
+      border-radius:0;
+      background:transparent !important;
+      box-shadow:none;
+    }
+
+    .social-command-bar h3 {
+      margin:3px 0 4px;
+      font-size:24px;
+    }
+
+    .social-command-bar p {
+      color:var(--muted);
+      font-size:9px;
+    }
+
+    .social-tab-bar {
+      position:sticky;
+      top:calc(var(--topbar-height) + 8px);
+      z-index:32;
+      width:max-content;
+      max-width:100%;
+      margin-bottom:10px;
+      padding:4px;
+      overflow:auto;
+      border:1px solid #DED9D0;
+      border-radius:9px;
+      background:rgba(255,255,255,.94);
+      box-shadow:0 5px 16px rgba(44,50,46,.055);
+      backdrop-filter:blur(10px);
+    }
+
+    .social-tab-button {
+      min-height:31px;
+      padding:7px 12px;
+      border:0;
+      border-radius:6px;
+      color:#687168;
+      font-size:8px;
+      font-weight:800;
+    }
+
+    .social-tab-button.active {
+      color:#FFF;
+      background:#7D708C;
+      box-shadow:none;
+    }
+
+    .social-metric-grid {
+      gap:8px;
+      margin-bottom:10px;
+    }
+
+    .social-metric {
+      min-height:82px;
+      padding:13px 14px;
+      border-top-width:3px;
+      box-shadow:none;
+    }
+
+    .social-metric:nth-child(1) { border-top-color:var(--sage); }
+    .social-metric:nth-child(2) { border-top-color:var(--wisteria); }
+    .social-metric:nth-child(3) { border-top-color:var(--coral); }
+    .social-metric:nth-child(4) { border-top-color:#87A99A; }
+
+    .social-metric strong {
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:23px;
+    }
+
+    .social-calendar-card {
+      padding:14px;
+    }
+
+    .social-calendar-toolbar {
+      padding-bottom:11px;
+      border-bottom:1px solid #EBE7E0;
+    }
+
+    .social-calendar-cell {
+      background:#FFF;
+    }
+
+    .social-calendar-cell:hover {
+      background:#FAFBF9;
+    }
+
+    .social-meta-card {
+      background:#FBFAF7 !important;
+    }
+
+    .social-connection-status {
+      border-radius:5px;
+      color:#786D82;
+      background:#EEEAF3;
+    }
+
+    .social-library-item,
+    .social-upcoming-item,
+    .social-idea-item {
+      border-color:#E7E2DA;
+      border-radius:8px;
+      background:#FFF;
+    }
+
+    .social-analytics-stat {
+      min-height:92px;
+      padding:15px;
+      box-shadow:none;
+    }
+
+    /* Planner, Tasks, Goals, Journal and Settings */
+    .week-shell,
+    .task-inbox-hero,
+    .template-hero,
+    .journal-hero {
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .task-inbox-hero,
+    .template-hero {
+      background:#FFF !important;
+    }
+
+    .task-stat-card {
+      min-height:82px;
+      padding:13px;
+      box-shadow:none;
+    }
+
+    .task-inbox-row,
+    .template-card,
+    .goal-card,
+    .habit-row,
+    .note-card {
+      border-color:#E5E1D9;
+      border-radius:9px;
+      background:#FFF;
+      box-shadow:none;
+    }
+
+    .task-inbox-row:hover,
+    .template-card:hover,
+    .goal-card:hover,
+    .note-card:hover {
+      border-color:#BCC9BE;
+      box-shadow:var(--shadow);
+    }
+
+    .progress-track {
+      background:#ECE9E3;
+    }
+
+    .progress-fill {
+      background:var(--sage);
+    }
+
+    .status-pill,
+    .chip,
+    .task-chip,
+    .season-pill {
+      border-radius:5px;
+    }
+
+    .money-positive { color:#52705B !important; }
+    .money-negative { color:#B45852 !important; }
+    .money-neutral { color:#625348 !important; }
+
+    @media (max-width:1180px) {
+      .app-shell { grid-template-columns:210px minmax(0,1fr); }
+      body.sidebar-is-collapsed .app-shell { grid-template-columns:68px minmax(0,1fr); }
+      .main { padding-left:20px; padding-right:20px; }
+      .topbar { margin-left:-20px; margin-right:-20px; padding-left:20px; padding-right:20px; }
+      .dashboard-metric-value { font-size:23px; }
+    }
+
+    @media (max-width:900px) {
+      .app-shell,
+      body.sidebar-is-collapsed .app-shell {
+        display:block;
+      }
+
+      .sidebar {
+        position:fixed;
+        width:min(84vw,310px);
+      }
+
+      body.sidebar-is-collapsed .sidebar {
+        width:min(84vw,310px);
+      }
+
+      body.sidebar-is-collapsed .sidebar-brand-fixed {
+        height:126px;
+        padding:19px 14px 14px;
+      }
+
+      body.sidebar-is-collapsed .coastal-brand-title,
+      body.sidebar-is-collapsed .coastal-brand-art,
+      body.sidebar-is-collapsed .nav-group-toggle,
+      body.sidebar-is-collapsed .nav-text,
+      body.sidebar-is-collapsed .sidebar-art-spacer {
+        display:initial;
+      }
+
+      body.sidebar-is-collapsed .sidebar-brand-fixed::after {
+        display:none;
+      }
+
+      body.sidebar-is-collapsed .sidebar-scroll {
+        inset:126px 0 146px;
+        padding:12px 10px 20px;
+      }
+
+      body.sidebar-is-collapsed .nav-group-toggle {
+        display:flex;
+      }
+
+      body.sidebar-is-collapsed .nav-button {
+        justify-content:flex-start;
+        padding:9px 10px;
+      }
+
+      body.sidebar-is-collapsed .nav-group-items {
+        display:grid;
+      }
+
+      .desktop-sidebar-toggle {
+        display:none;
+      }
+
+      .main {
+        padding:0 16px 44px;
+      }
+
+      .topbar {
+        min-height:74px;
+        margin:0 -16px 16px;
+        padding:11px 16px;
+      }
+
+      .topbar h2 {
+        font-size:21px;
+      }
+
+      .topbar p {
+        max-width:52vw;
+        font-size:9px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+
+      .topbar-actions .date-chip {
+        display:none;
+      }
+
+      .topbar-quick-add {
+        min-height:36px;
+        padding:0 10px;
+      }
+
+      .quick-add-menu {
+        position:fixed;
+        top:70px;
+        right:12px;
+        left:12px;
+        width:auto;
+      }
+
+      .workspace-subnav,
+      .social-tab-bar {
+        top:80px;
+      }
+    }
+
+    @media (max-width:620px) {
+      .topbar-copy p {
+        display:none;
+      }
+
+      .topbar h2 {
+        max-width:48vw;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;
+        font-size:16px;
+        font-weight:780;
+        letter-spacing:-.01em;
+      }
+
+      .topbar-quick-add b {
+        display:none;
+      }
+
+      .dashboard-metric,
+      .finance-kpi-card {
+        min-height:100px;
+      }
+
+      .dashboard-metric-value,
+      .finance-kpi-value {
+        font-size:21px;
+      }
+
+      .card {
+        padding:14px;
+      }
+
+      .social-command-bar h3 {
+        font-size:21px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -7341,43 +8497,59 @@
       </div>
 
       <div class="sidebar-scroll">
-      <div class="nav-group">
-        <div class="nav-label">Plan</div>
-        <button class="nav-button active" data-page="dashboard"><span class="nav-icon">⌂</span>Dashboard</button>
-        <button class="nav-button" data-page="today"><span class="nav-icon">☼</span>Today</button>
-        <button class="nav-button" data-page="week"><span class="nav-icon">▣</span>Weekly Planner</button>
-        <button class="nav-button" data-page="tasks"><span class="nav-icon">☑</span>Task Inbox</button>
-        <button class="nav-button" data-page="templates"><span class="nav-icon">▦</span>Routines &amp; Templates</button>
+      <div class="nav-group" data-nav-section="plan">
+        <button class="nav-label nav-group-toggle" type="button" aria-expanded="true">
+          <span>Plan</span><span class="nav-group-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <div class="nav-group-items">
+          <button class="nav-button active" data-page="dashboard"><span class="nav-icon">⌂</span><span class="nav-text">Dashboard</span></button>
+        <button class="nav-button" data-page="today"><span class="nav-icon">☼</span><span class="nav-text">Today</span></button>
+        <button class="nav-button" data-page="week"><span class="nav-icon">▣</span><span class="nav-text">Weekly Planner</span></button>
+        <button class="nav-button" data-page="tasks"><span class="nav-icon">☑</span><span class="nav-text">Task Inbox</span></button>
+        <button class="nav-button" data-page="templates"><span class="nav-icon">▦</span><span class="nav-text">Routines &amp; Templates</span></button>
+        </div>
       </div>
 
-      <div class="nav-group">
-        <div class="nav-label">Business</div>
-        <button class="nav-button" data-page="finance"><span class="nav-icon nav-money">$</span>Finance Centre</button>
-        <button class="nav-button" data-page="cashflow"><span class="nav-icon">▥</span>Cash-Flow Calendar</button>
-        <button class="nav-button" data-page="social"><span class="nav-icon">✦</span>Social Media</button>
-        <button class="nav-button feature-link" data-feature="Clients"><span class="nav-icon">♧</span>Clients</button>
-        <button class="nav-button feature-link" data-feature="Quotes"><span class="nav-icon">▤</span>Quotes</button>
-        <button class="nav-button feature-link" data-feature="R2R Hub"><span class="nav-icon">▦</span>R2R Hub</button>
-        <button class="nav-button feature-link" data-feature="Equipment"><span class="nav-icon">▱</span>Equipment</button>
-        <button class="nav-button feature-link" data-feature="Employees"><span class="nav-icon">♧</span>Employees</button>
+      <div class="nav-group" data-nav-section="business">
+        <button class="nav-label nav-group-toggle" type="button" aria-expanded="true">
+          <span>Business</span><span class="nav-group-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <div class="nav-group-items">
+          <button class="nav-button" data-page="finance"><span class="nav-icon nav-money">$</span><span class="nav-text">Finance Centre</span></button>
+        <button class="nav-button" data-page="cashflow"><span class="nav-icon">▥</span><span class="nav-text">Cash-Flow Calendar</span></button>
+        <button class="nav-button" data-page="social"><span class="nav-icon">✦</span><span class="nav-text">Social Media</span></button>
+        <button class="nav-button feature-link" data-feature="Clients"><span class="nav-icon">♧</span><span class="nav-text">Clients</span></button>
+        <button class="nav-button feature-link" data-feature="Quotes"><span class="nav-icon">▤</span><span class="nav-text">Quotes</span></button>
+        <button class="nav-button feature-link" data-feature="R2R Hub"><span class="nav-icon">▦</span><span class="nav-text">R2R Hub</span></button>
+        <button class="nav-button feature-link" data-feature="Equipment"><span class="nav-icon">▱</span><span class="nav-text">Equipment</span></button>
+        <button class="nav-button feature-link" data-feature="Employees"><span class="nav-icon">♧</span><span class="nav-text">Employees</span></button>
+        </div>
       </div>
 
-      <div class="nav-group">
-        <div class="nav-label">Grow</div>
-        <button class="nav-button" data-page="goals"><span class="nav-icon">◎</span>Goals</button>
-        <button class="nav-button" data-page="habits"><span class="nav-icon">○</span>Habits</button>
-        <button class="nav-button feature-link" data-feature="Health"><span class="nav-icon">♡</span>Health</button>
-        <button class="nav-button" data-page="notes"><span class="nav-icon">▢</span>Journal</button>
-        <button class="nav-button feature-link" data-feature="Knowledge Vault"><span class="nav-icon">□</span>Knowledge Vault</button>
+      <div class="nav-group" data-nav-section="grow">
+        <button class="nav-label nav-group-toggle" type="button" aria-expanded="true">
+          <span>Grow</span><span class="nav-group-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <div class="nav-group-items">
+          <button class="nav-button" data-page="goals"><span class="nav-icon">◎</span><span class="nav-text">Goals</span></button>
+        <button class="nav-button" data-page="habits"><span class="nav-icon">○</span><span class="nav-text">Habits</span></button>
+        <button class="nav-button feature-link" data-feature="Health"><span class="nav-icon">♡</span><span class="nav-text">Health</span></button>
+        <button class="nav-button" data-page="notes"><span class="nav-icon">▢</span><span class="nav-text">Journal</span></button>
+        <button class="nav-button feature-link" data-feature="Knowledge Vault"><span class="nav-icon">□</span><span class="nav-text">Knowledge Vault</span></button>
+        </div>
       </div>
 
-      <div class="nav-group data-nav-group">
-        <div class="nav-label">Data</div>
-        <button class="nav-button" data-jump="finance"><span class="nav-icon">▥</span>Reports</button>
-        <button class="nav-button" data-page="settings"><span class="nav-icon">⚙</span>Settings</button>
+      <div class="nav-group data-nav-group" data-nav-section="data">
+        <button class="nav-label nav-group-toggle" type="button" aria-expanded="true">
+          <span>Data</span><span class="nav-group-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <div class="nav-group-items">
+          <button class="nav-button" data-jump="finance"><span class="nav-icon">▥</span><span class="nav-text">Reports</span></button>
+        <button class="nav-button" data-page="settings"><span class="nav-icon">⚙</span><span class="nav-text">Settings</span></button>
+        </div>
       </div>
 
-      <button class="nav-button sidebar-signout" id="signOutBtn"><span class="nav-icon">⇥</span>Sign out</button>
+      <button class="nav-button sidebar-signout" id="signOutBtn"><span class="nav-icon">⇥</span><span class="nav-text">Sign out</span></button>
       </div>
       <div class="sidebar-art-spacer" aria-hidden="true"></div>
     </aside>
@@ -7387,12 +8559,30 @@
       <header class="topbar">
         <div class="topbar-title">
           <button class="mobile-menu" id="menuBtn" aria-label="Open menu">☰</button>
-          <div>
+          <button class="desktop-sidebar-toggle" id="desktopSidebarToggle" type="button" aria-label="Collapse navigation" aria-expanded="true">
+            <span aria-hidden="true">☰</span>
+          </button>
+          <div class="topbar-copy">
             <h2 id="pageTitle">Good morning, Jess! ☀️</h2>
             <p id="pageSubtitle">Here’s what’s happening today in your life and business.</p>
           </div>
         </div>
-        <div class="date-chip" id="todayDisplay"></div>
+        <div class="topbar-actions">
+          <div class="quick-add-wrap">
+            <button class="topbar-quick-add" id="quickAddBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+              <span aria-hidden="true">＋</span> Quick add <b aria-hidden="true">⌄</b>
+            </button>
+            <div class="quick-add-menu" id="quickAddMenu" role="menu" hidden>
+              <button type="button" role="menuitem" data-quick-add="task"><span>☑</span><b>Task</b><small>Capture or schedule work</small></button>
+              <button type="button" role="menuitem" data-quick-add="event"><span>◷</span><b>Agenda event</b><small>Add an exact time block</small></button>
+              <button type="button" role="menuitem" data-quick-add="income"><span>↓</span><b>Income</b><small>Record or expect money in</small></button>
+              <button type="button" role="menuitem" data-quick-add="expense"><span>↑</span><b>Expense or bill</b><small>Record money going out</small></button>
+              <button type="button" role="menuitem" data-quick-add="social"><span>✦</span><b>Social content</b><small>Create an idea or post</small></button>
+              <button type="button" role="menuitem" data-quick-add="journal"><span>▢</span><b>Journal entry</b><small>Save a dated reflection</small></button>
+            </div>
+          </div>
+          <div class="date-chip" id="todayDisplay"></div>
+        </div>
       </header>
 
       <section class="page active dashboard-production" id="dashboard-page">
@@ -8016,9 +9206,18 @@
           </div>
         </div>
 
+        <nav class="workspace-subnav finance-workspace-subnav" aria-label="Finance Centre sections">
+          <button type="button" class="active" data-finance-section="finance-overview-anchor">Overview</button>
+          <button type="button" data-finance-section="finance-entry-anchor">Quick entry</button>
+          <button type="button" data-finance-section="finance-transactions-anchor">Transactions</button>
+          <button type="button" data-finance-section="finance-recurring-anchor">Recurring</button>
+          <button type="button" data-finance-section="finance-reports-anchor">Reports</button>
+          <button type="button" data-finance-section="ledger">Ledger</button>
+        </nav>
+
         <input type="hidden" id="financeCurrentBalance" />
 
-        <div class="finance-kpi-grid">
+        <div class="finance-kpi-grid" id="finance-overview-anchor">
           <button class="finance-kpi-card soft-mint" type="button" data-finance-detail="current-balance">
             <span class="finance-kpi-top"><span class="stat-label">Current bank balance</span><span class="finance-kpi-icon">▤</span></span>
             <strong class="finance-kpi-value money-neutral" id="financeCurrentBalanceDisplay">$0.00</strong>
@@ -8095,7 +9294,7 @@
           </div>
         </div>
 
-        <div class="card finance-quick-actions" style="margin-bottom:18px;">
+        <div class="card finance-quick-actions" id="finance-entry-anchor" style="margin-bottom:18px;">
           <div class="section-heading-row compact-section-heading">
             <div>
               <div class="eyebrow">Quick entry</div>
@@ -8111,7 +9310,7 @@
         </div>
 
         <div class="grid grid-3 finance-lists-layout" style="margin-bottom:18px;">
-          <div class="card finance-transactions-card" style="grid-column:span 2;">
+          <div class="card finance-transactions-card" id="finance-transactions-anchor" style="grid-column:span 2;">
             <div class="card-header finance-scroll-card-header">
               <div>
                 <h3>Transactions</h3>
@@ -8132,7 +9331,7 @@
           </div>
         </div>
 
-        <div class="card finance-recurring-card" style="margin-bottom:18px;">
+        <div class="card finance-recurring-card" id="finance-recurring-anchor" style="margin-bottom:18px;">
           <div class="card-header finance-scroll-card-header">
             <div>
               <h3>Recurring commitments</h3>
@@ -8148,7 +9347,7 @@
           </div>
         </div>
 
-        <div class="card" style="margin-bottom:18px;">
+        <div class="card" id="finance-reports-anchor" style="margin-bottom:18px;">
           <div class="row-wrap spread">
             <div>
               <h3 style="margin:0 0 5px;">Summer & Winter operating year</h3>
@@ -9246,15 +10445,25 @@
       settings: ['Backup & Settings', 'Protect your planner data.']
     };
 
-    document.querySelectorAll('.nav-button').forEach(btn => btn.addEventListener('click', () => openPage(btn.dataset.page)));
+    document.querySelectorAll('.nav-button[data-page]').forEach(btn => btn.addEventListener('click', () => openPage(btn.dataset.page)));
     document.querySelectorAll('[data-jump]').forEach(btn => btn.addEventListener('click', () => openPage(btn.dataset.jump)));
     document.querySelectorAll('[data-feature]').forEach(btn => btn.addEventListener('click', () => showToast(btn.dataset.feature + ' is ready for a future build.')));
     document.getElementById('signOutBtn')?.addEventListener('click', () => showToast('This planner does not use a login yet.'));
     function openPage(page) {
+      if (!pageMeta[page]) return;
       document.querySelectorAll('.nav-button').forEach(b => b.classList.toggle('active', b.dataset.page === page));
       document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === page + '-page'));
       document.getElementById('pageTitle').textContent = pageMeta[page][0];
       document.getElementById('pageSubtitle').textContent = pageMeta[page][1];
+      document.body.dataset.activePage = page;
+
+      const activeNav = document.querySelector(`.nav-button[data-page="${page}"]`);
+      const activeGroup = activeNav?.closest('.nav-group');
+      if (activeGroup) {
+        activeGroup.classList.remove('nav-section-collapsed');
+        activeGroup.querySelector('.nav-group-toggle')?.setAttribute('aria-expanded','true');
+      }
+
       setMenu(false);
       if (page === 'today') renderToday();
       if (page === 'week') renderWeek();
@@ -9285,7 +10494,126 @@
       event.stopPropagation();
       setMenu(!sidebar.classList.contains('open'));
     });
+
     menuBackdrop.addEventListener('click', () => setMenu(false));
+
+    const V50_SIDEBAR_KEY = 'jessPlannerSidebarCollapsedV50';
+    const V50_NAV_KEY = 'jessPlannerNavSectionsV50';
+    const desktopSidebarToggle = document.getElementById('desktopSidebarToggle');
+    const quickAddBtn = document.getElementById('quickAddBtn');
+    const quickAddMenu = document.getElementById('quickAddMenu');
+
+    function setDesktopSidebarCollapsed(collapsed, persist=true) {
+      document.body.classList.toggle('sidebar-is-collapsed', collapsed);
+      desktopSidebarToggle?.setAttribute('aria-expanded', String(!collapsed));
+      desktopSidebarToggle?.setAttribute('aria-label', collapsed ? 'Expand navigation' : 'Collapse navigation');
+      if (persist) {
+        try { localStorage.setItem(V50_SIDEBAR_KEY, collapsed ? '1' : '0'); } catch {}
+      }
+      setTimeout(() => window.dispatchEvent(new Event('resize')), 180);
+    }
+
+    let savedSidebarCollapsed = false;
+    try { savedSidebarCollapsed = localStorage.getItem(V50_SIDEBAR_KEY) === '1'; } catch {}
+    setDesktopSidebarCollapsed(savedSidebarCollapsed, false);
+
+    desktopSidebarToggle?.addEventListener('click', () => {
+      setDesktopSidebarCollapsed(!document.body.classList.contains('sidebar-is-collapsed'));
+    });
+
+    let savedNavSections = {};
+    try { savedNavSections = JSON.parse(localStorage.getItem(V50_NAV_KEY) || '{}') || {}; } catch {}
+
+    function saveNavSectionState() {
+      const state = {};
+      document.querySelectorAll('.nav-group[data-nav-section]').forEach(group => {
+        state[group.dataset.navSection] = group.classList.contains('nav-section-collapsed');
+      });
+      try { localStorage.setItem(V50_NAV_KEY, JSON.stringify(state)); } catch {}
+    }
+
+    document.querySelectorAll('.nav-group[data-nav-section]').forEach(group => {
+      const section = group.dataset.navSection;
+      const defaultCollapsed = section === 'grow' || section === 'data';
+      const collapsed = Object.prototype.hasOwnProperty.call(savedNavSections, section)
+        ? !!savedNavSections[section]
+        : defaultCollapsed;
+
+      group.classList.toggle('nav-section-collapsed', collapsed);
+      const toggle = group.querySelector('.nav-group-toggle');
+      toggle?.setAttribute('aria-expanded', String(!collapsed));
+
+      toggle?.addEventListener('click', () => {
+        if (document.body.classList.contains('sidebar-is-collapsed')) {
+          setDesktopSidebarCollapsed(false);
+          return;
+        }
+        const nextCollapsed = !group.classList.contains('nav-section-collapsed');
+        group.classList.toggle('nav-section-collapsed', nextCollapsed);
+        toggle.setAttribute('aria-expanded', String(!nextCollapsed));
+        saveNavSectionState();
+      });
+    });
+
+    document.querySelectorAll('.nav-button').forEach(button => {
+      const navText = button.querySelector('.nav-text')?.textContent?.trim();
+      if (navText) button.title = navText;
+    });
+
+    function setQuickAddOpen(open) {
+      quickAddMenu.hidden = !open;
+      quickAddBtn.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('quick-add-is-open', open);
+    }
+
+    quickAddBtn.addEventListener('click', event => {
+      event.stopPropagation();
+      setQuickAddOpen(quickAddMenu.hidden);
+    });
+
+    document.addEventListener('click', event => {
+      if (!event.target.closest('.quick-add-wrap')) setQuickAddOpen(false);
+    });
+
+    function runGlobalQuickAdd(action) {
+      setQuickAddOpen(false);
+
+      const triggerAfterPageOpen = (page, selector) => {
+        openPage(page);
+        setTimeout(() => document.querySelector(selector)?.click(), 0);
+      };
+
+      if (action === 'task') return triggerAfterPageOpen('tasks', '#openTaskEditor');
+      if (action === 'event') return triggerAfterPageOpen('week', '#addWeekEvent');
+      if (action === 'income') return triggerAfterPageOpen('finance', '#openIncomeModal');
+      if (action === 'expense') return triggerAfterPageOpen('finance', '#openExpenseModal');
+      if (action === 'social') return triggerAfterPageOpen('social', '#socialNewContent');
+      if (action === 'journal') return triggerAfterPageOpen('notes', '#addNote');
+    }
+
+    quickAddMenu.querySelectorAll('[data-quick-add]').forEach(button => {
+      button.addEventListener('click', () => runGlobalQuickAdd(button.dataset.quickAdd));
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !quickAddMenu.hidden) setQuickAddOpen(false);
+    });
+
+    document.querySelectorAll('[data-finance-section]').forEach(button => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.financeSection;
+        if (target === 'ledger') {
+          document.getElementById('openFinanceLedger')?.click();
+          return;
+        }
+
+        const section = document.getElementById(target);
+        if (!section) return;
+        document.querySelectorAll('[data-finance-section]').forEach(item => item.classList.toggle('active', item === button));
+        section.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
     document.addEventListener('keydown', event => { if (event.key === 'Escape') setMenu(false); });
 
     document.getElementById('todayDisplay').textContent = new Intl.DateTimeFormat('en-CA', { weekday:'short', month:'long', day:'numeric', year:'numeric' }).format(new Date());

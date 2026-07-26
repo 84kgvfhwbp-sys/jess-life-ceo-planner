@@ -1,63 +1,85 @@
-Jess Life & CEO Planner — Version 49 Social Media Content Hub
+Jess Life & CEO Planner — Version 50 Coastal Executive Workspace
 
-New Business page: Social Media
+This is a production redesign of the complete Version 49 planner. Existing
+planner records remain in the browser's saved localStorage and are not erased
+by replacing index.html.
 
-Content Calendar
-- Monthly calendar with Monday-first layout.
-- Previous, current and next month controls.
-- Brand and platform filters.
-- Add content directly to a date.
-- Up to three visible entries per day, with a link to additional content.
-- Upcoming-content list.
+DESIGN DIRECTION
+- 70% polished business operating system
+- 30% warm modern coastal planner
+- Warm ivory workspace with white primary surfaces
+- Coastal sage as the principal action and navigation colour
+- Clay/coral reserved for expenses, warnings and overdue items
+- Wisteria used for personal/content accents
+- Warm sand used for neutral and recurring information
+- Sharper 8–11px corners and lighter shadows
+- Serif typography reserved for identity and major page headings
+- Clean sans-serif typography for navigation, forms, lists and tables
 
-Content Library
-- Search title, caption, campaign, client, brand, category or date.
-- Filter by status and format.
-- Edit every saved entry.
-- Cover image previews and manual performance summaries.
+NAVIGATION
+- Narrower and cleaner desktop sidebar
+- Plan, Business, Grow and Data are collapsible sections
+- Grow and Data start collapsed on the first load
+- Section choices are remembered
+- Desktop sidebar can collapse to a compact icon rail
+- Sidebar state is remembered
+- Mobile navigation continues using the existing slide-out menu
+- Feature-only buttons no longer accidentally attempt to open an undefined page
 
-Ideas & Templates
-- Fast Idea Inbox capture.
-- Eight reusable R2R content starters:
-  Before & after, property-care tip, equipment spotlight, meet the crew,
-  seasonal reminder, testimonial, winter storm update and hiring.
+GLOBAL COMMAND BAR
+- Sticky page header
+- Desktop sidebar collapse control
+- Global Quick Add menu available from every page
+- Quick Add can open:
+  • Task
+  • Agenda event
+  • Income
+  • Expense or bill
+  • Social content
+  • Journal entry
 
-Content editor
-- Brand: R2R Property Care, Jesca Bakes, Personal or Other.
-- Facebook, Instagram or both.
-- Post, Reel, Story, Carousel or Video.
-- Idea, Draft, Ready, Scheduled or Published workflow.
-- Category, date, time, campaign, client/location, caption, hashtags,
-  call to action, link and internal notes.
-- One compressed cover image stored locally.
-- Manual reach, views, likes, comments, shares and saves.
-- Duplicate and delete controls.
+DASHBOARD
+- More compact financial summary cards
+- Reduced decorative colour fills
+- Clearer hierarchy between financial position, today, priorities and activity
+- Smaller action cards and cleaner tables
 
-Performance
-- Published-post count.
-- Total reach, views and engagements.
-- Ranked top-content list.
+FINANCE CENTRE
+- Sticky section navigation:
+  • Overview
+  • Quick entry
+  • Transactions
+  • Recurring
+  • Reports
+  • Ledger
+- Compact KPI and supporting-number cards
+- Accounting-style lists and tables
+- Cleaner recurring, transaction and attention sections
+- Existing calculations, corrected dates, ledger and scrollable lists remain intact
 
-Meta connection preparation
-- Facebook and Instagram connection area is included.
-- Live connection is intentionally not active in this static GitHub file.
-- No passwords, access tokens or app secrets are stored in the planner.
-- The interface and post data structure are prepared for a later secure backend.
+SOCIAL MEDIA HUB
+- Cleaner content-studio heading
+- Sticky workspace tabs
+- Calendar remains the primary focus
+- Compact pipeline metrics
+- Cleaner content library, ideas and analytics surfaces
+- Meta connection area remains prepared but secure credentials are not stored
 
-Data safety
-- Existing planner data is preserved.
-- Social content is included in the planner's existing browser storage and JSON backup.
-- Large image libraries are not recommended in browser-only storage. Use the cover
-  image for a compact preview and keep full media in Drive, Canva or another library.
+FORMS AND DRAWERS
+- Sharper inputs and buttons
+- Clear focus states
+- Cleaner side drawers and modal overlays
+- Existing task, event, finance, journal and social forms continue to work
 
-Verification
-- Full JavaScript syntax passed.
-- No duplicate static HTML IDs.
-- Social page, calendar, modal, library and analytics functions are present.
-- Performance-total logic passed.
+VERIFICATION
+- Full JavaScript syntax passed
+- No duplicate static HTML IDs
+- Four collapsible navigation sections confirmed
+- Six global Quick Add actions confirmed
+- Existing Version 49 features and data schema retained
 
-GitHub update
-1. Replace the repository index.html with this Version 49 file.
+GITHUB UPDATE
+1. Replace the existing repository index.html with this Version 50 file.
 2. Commit directly to main.
-3. Wait approximately one minute.
-4. Hard-refresh with Command + Shift + R.
+3. Wait approximately one minute for GitHub Pages.
+4. Hard-refresh using Command + Shift + R.
