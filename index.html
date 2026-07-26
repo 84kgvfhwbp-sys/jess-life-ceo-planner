@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Version 51: simplified Focus Home with optional Full Overview -->
+  <!-- Version 52: Jess Life OS warm visual home dashboard -->
   <!-- Version 49: Social Media Content Hub, calendar, library, ideas and manual analytics -->
   <!-- Version 48: corrected historical recurring payment months and date-confirmed recording -->
   <!-- Version 47: scrollable Transactions and Recurring Commitments lists with eight visible entries -->
@@ -9099,6 +9099,984 @@
       }
     }
 
+    /* =====================================================================
+       VERSION 52 — JESS LIFE OS HOME
+       Warm, visual and personal. Inspired by digital planner dashboards,
+       while preserving the existing operational pages underneath.
+       ===================================================================== */
+
+    #dashboard-page > .focus-home-heading,
+    #dashboard-page > #dashboardSimpleView,
+    #dashboard-page > #dashboardFullView {
+      display:none !important;
+    }
+
+    body[data-active-page="dashboard"] .topbar-copy,
+    body[data-active-page="dashboard"] .date-chip {
+      display:none;
+    }
+
+    body[data-active-page="dashboard"] .topbar {
+      min-height:62px;
+      margin-bottom:18px;
+    }
+
+    body[data-active-page="dashboard"] .topbar-title {
+      flex:1;
+    }
+
+    .life-os-home {
+      --life-cream:#F8F4EC;
+      --life-ink:#342F2B;
+      --life-muted:#746F69;
+      --life-sage:#88A494;
+      --life-sage-soft:#DDE9E1;
+      --life-peach:#F3DCCF;
+      --life-blue:#DDEAF1;
+      --life-wisteria:#E7E0ED;
+      --life-mint:#DCEBE6;
+      --life-gold:#EFCB7A;
+      --life-line:rgba(92,78,66,.12);
+      color:var(--life-ink);
+      font-size:14px;
+    }
+
+    .life-os-home button,
+    .life-os-home textarea,
+    .life-os-home input {
+      font:inherit;
+    }
+
+    .life-os-hero {
+      position:relative;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(360px,.75fr);
+      align-items:center;
+      gap:28px;
+      min-height:164px;
+      margin-bottom:18px;
+      overflow:hidden;
+      padding:28px 30px;
+      border:1px solid rgba(111,88,69,.1);
+      border-radius:24px;
+      background:
+        radial-gradient(circle at 88% 20%,rgba(255,255,255,.72) 0 54px,transparent 55px),
+        linear-gradient(115deg,#F6E9DB 0%,#F4DECF 52%,#E4ECE1 100%);
+      box-shadow:0 16px 34px rgba(92,72,54,.08);
+    }
+
+    .life-os-hero::after {
+      content:"";
+      position:absolute;
+      right:-55px;
+      bottom:-95px;
+      width:240px;
+      height:240px;
+      border-radius:50%;
+      background:rgba(116,154,128,.13);
+    }
+
+    .life-os-identity {
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+
+    .life-os-mark {
+      display:grid;
+      width:64px;
+      height:64px;
+      flex:0 0 64px;
+      place-items:center;
+      border:1px solid rgba(83,72,63,.16);
+      border-radius:18px;
+      color:#3D5A4C;
+      background:linear-gradient(145deg,#79B6D3 0%,#A8D7C3 53%,#F1C573 100%);
+      box-shadow:0 8px 18px rgba(68,91,77,.15),inset 0 1px rgba(255,255,255,.75);
+      font-size:28px;
+    }
+
+    .life-os-kicker {
+      display:block;
+      margin-bottom:6px;
+      color:#6D6259;
+      font-size:12px;
+      font-weight:750;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .life-os-identity h1 {
+      margin:0;
+      color:#312C28;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:37px;
+      font-weight:600;
+      letter-spacing:-.04em;
+    }
+
+    .life-os-identity p {
+      margin:7px 0 0;
+      color:#6E655E;
+      font-size:14px;
+    }
+
+    .life-os-hero-focus {
+      position:relative;
+      z-index:1;
+      display:grid;
+      gap:7px;
+      padding:19px 20px;
+      border:1px solid rgba(255,255,255,.7);
+      border-radius:18px;
+      background:rgba(255,255,255,.56);
+      box-shadow:inset 0 1px rgba(255,255,255,.72);
+      backdrop-filter:blur(8px);
+    }
+
+    .life-os-hero-focus span {
+      color:#7A6E66;
+      font-size:12px;
+      font-weight:750;
+    }
+
+    .life-os-hero-focus strong {
+      overflow:hidden;
+      color:#403730;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:20px;
+      font-weight:500;
+      line-height:1.35;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .life-os-hero-focus button,
+    .life-os-section-heading button,
+    .life-os-empty button,
+    .life-os-project-empty button {
+      width:max-content;
+      border:0;
+      padding:0;
+      color:#577362;
+      background:transparent;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .life-os-glance-grid {
+      display:grid;
+      grid-template-columns:.82fr .92fr 1.26fr;
+      gap:16px;
+      margin-bottom:20px;
+    }
+
+    .life-os-glance-card {
+      position:relative;
+      display:grid;
+      min-height:112px;
+      align-items:center;
+      gap:12px;
+      padding:18px 20px;
+      overflow:hidden;
+      border:1px solid rgba(90,78,68,.1);
+      border-radius:18px;
+      color:var(--life-ink);
+      text-align:left;
+      box-shadow:0 10px 22px rgba(70,59,49,.07);
+    }
+
+    .life-os-glance-card:hover,
+    .life-os-launch-card:hover,
+    .life-os-project-card:hover {
+      transform:translateY(-2px);
+      box-shadow:0 16px 28px rgba(70,59,49,.1);
+    }
+
+    .life-os-time-card {
+      grid-template-columns:42px auto;
+      background:linear-gradient(135deg,#FFF 0%,#F8E4D4 100%);
+    }
+
+    .life-os-weather-card {
+      grid-template-columns:55px auto;
+      background:linear-gradient(135deg,#F8FBFC 0%,#D7EBF4 100%);
+    }
+
+    .life-os-progress-card {
+      align-content:center;
+      background:linear-gradient(135deg,#F8FBF9 0%,#D8EDE5 100%);
+    }
+
+    .life-os-glance-icon {
+      display:grid;
+      width:42px;
+      height:42px;
+      place-items:center;
+      border-radius:12px;
+      color:#A36E4E;
+      background:rgba(255,255,255,.72);
+      font-size:21px;
+      box-shadow:0 5px 12px rgba(82,68,55,.08);
+    }
+
+    .life-os-weather-symbol {
+      display:grid;
+      width:55px;
+      height:55px;
+      place-items:center;
+      font-size:34px;
+      filter:drop-shadow(0 4px 6px rgba(80,115,133,.15));
+    }
+
+    .life-os-glance-card strong {
+      color:#302C29;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:27px;
+      font-weight:600;
+    }
+
+    #lifeOSClockPeriod {
+      margin-left:4px;
+      color:#5E5752;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .life-os-glance-card small,
+    .life-os-glance-card p {
+      color:#706A65;
+      font-size:12px;
+    }
+
+    .life-os-glance-card p {
+      grid-column:1/-1;
+      margin:0;
+    }
+
+    .life-os-progress-heading {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+    }
+
+    .life-os-progress-heading span {
+      color:#625D58;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .life-os-progress-heading strong {
+      font-size:23px;
+    }
+
+    .life-os-progress-track,
+    .life-os-goal-row > i,
+    .life-os-project-card > i {
+      display:block;
+      height:10px;
+      overflow:hidden;
+      border-radius:999px;
+      background:rgba(85,102,90,.12);
+    }
+
+    .life-os-progress-track i,
+    .life-os-goal-row > i em,
+    .life-os-project-card > i em {
+      display:block;
+      height:100%;
+      border-radius:inherit;
+      background:linear-gradient(90deg,#6BA8D2,#6EC5B0);
+    }
+
+    .life-os-primary-grid {
+      display:grid;
+      grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);
+      grid-template-areas:
+        "today goals"
+        "tasks side";
+      gap:18px;
+      margin-bottom:18px;
+    }
+
+    .life-os-panel,
+    .life-os-work-section {
+      border:1px solid rgba(91,77,66,.1);
+      border-radius:22px;
+      background:#FFF;
+      box-shadow:0 12px 28px rgba(66,57,48,.065);
+    }
+
+    .life-os-panel {
+      padding:21px 22px;
+    }
+
+    .life-os-today-panel {
+      grid-area:today;
+      background:linear-gradient(145deg,#FFF 0%,#F7FCFC 100%);
+    }
+
+    .life-os-goals-panel {
+      grid-area:goals;
+      background:linear-gradient(145deg,#FFF 0%,#FBF5ED 100%);
+    }
+
+    .life-os-tasks-panel {
+      grid-area:tasks;
+      background:linear-gradient(145deg,#FFF 0%,#F8FBFF 100%);
+    }
+
+    .life-os-side-stack {
+      grid-area:side;
+      display:grid;
+      gap:18px;
+    }
+
+    .life-os-habits-panel {
+      background:linear-gradient(145deg,#FFF 0%,#F0F8F3 100%);
+    }
+
+    .life-os-journal-panel {
+      background:linear-gradient(145deg,#FFF 0%,#EEF8F6 100%);
+    }
+
+    .life-os-section-heading {
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:12px;
+      padding-bottom:13px;
+      border-bottom:1px solid var(--life-line);
+    }
+
+    .life-os-section-heading span {
+      color:#7D756E;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .life-os-section-heading h2 {
+      margin:4px 0 0;
+      color:#352F2B;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:21px;
+      font-weight:600;
+      letter-spacing:-.02em;
+    }
+
+    .life-os-timeline,
+    .life-os-goal-list,
+    .life-os-task-list,
+    .life-os-habit-list {
+      display:grid;
+    }
+
+    .life-os-timeline-row {
+      display:grid;
+      grid-template-columns:76px 9px minmax(0,1fr) 16px;
+      align-items:center;
+      gap:12px;
+      min-height:66px;
+      padding:10px 2px;
+      border:0;
+      border-bottom:1px solid var(--life-line);
+      color:var(--life-ink);
+      background:transparent;
+      text-align:left;
+    }
+
+    .life-os-timeline-row:last-child {
+      border-bottom:0;
+    }
+
+    .life-os-timeline-row:hover,
+    .life-os-goal-row:hover {
+      background:rgba(255,255,255,.55);
+    }
+
+    .life-os-time {
+      color:#5F5A55;
+      font-size:13px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .life-os-timeline-row > i {
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:var(--event-colour);
+    }
+
+    .life-os-timeline-row > span:nth-of-type(2) {
+      display:grid;
+      min-width:0;
+      gap:4px;
+    }
+
+    .life-os-timeline-row strong,
+    .life-os-task-row strong,
+    .life-os-goal-row strong {
+      overflow:hidden;
+      color:#38322E;
+      font-size:14px;
+      font-weight:750;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .life-os-timeline-row small,
+    .life-os-task-row small,
+    .life-os-goal-row small {
+      overflow:hidden;
+      color:#77716B;
+      font-size:12px;
+      line-height:1.4;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .life-os-timeline-row > b {
+      color:#A19A94;
+      font-size:18px;
+    }
+
+    .life-os-goal-row {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:8px 12px;
+      min-height:83px;
+      padding:13px 2px;
+      border:0;
+      border-bottom:1px solid var(--life-line);
+      color:var(--life-ink);
+      background:transparent;
+      text-align:left;
+    }
+
+    .life-os-goal-row:last-child {
+      border-bottom:0;
+    }
+
+    .life-os-goal-row > span {
+      display:grid;
+      min-width:0;
+      gap:4px;
+    }
+
+    .life-os-goal-row > b {
+      color:#5F7A68;
+      font-size:13px;
+    }
+
+    .life-os-goal-row > i {
+      grid-column:1/-1;
+      height:8px;
+    }
+
+    .life-os-goal-row:nth-child(2) > i em {
+      background:linear-gradient(90deg,#D9A56C,#ECCB7C);
+    }
+
+    .life-os-goal-row:nth-child(3) > i em {
+      background:linear-gradient(90deg,#A88DB9,#C2A7CD);
+    }
+
+    .life-os-task-row {
+      display:grid;
+      grid-template-columns:22px minmax(0,1fr) auto;
+      align-items:center;
+      gap:11px;
+      min-height:58px;
+      border-bottom:1px solid var(--life-line);
+    }
+
+    .life-os-task-row:last-child {
+      border-bottom:0;
+    }
+
+    .life-os-task-row.is-done > span {
+      opacity:.5;
+      text-decoration:line-through;
+    }
+
+    .life-os-task-check {
+      width:18px;
+      height:18px;
+      accent-color:#78A48C;
+    }
+
+    .life-os-task-row > span {
+      display:grid;
+      min-width:0;
+      gap:3px;
+    }
+
+    .life-os-task-row > b {
+      border-radius:6px;
+      padding:5px 8px;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .life-os-task-row > b.priority-high {
+      color:#8A4B45;
+      background:#F6E3E0;
+    }
+
+    .life-os-task-row > b.priority-medium {
+      color:#5D6677;
+      background:#E7EBF2;
+    }
+
+    .life-os-task-row > b.priority-low {
+      color:#587162;
+      background:#E1EEE5;
+    }
+
+    .life-os-habit-head,
+    .life-os-habit-row {
+      display:grid;
+      grid-template-columns:minmax(95px,1fr) repeat(7,24px);
+      align-items:center;
+      gap:5px;
+    }
+
+    .life-os-habit-head {
+      min-height:30px;
+      color:#807A74;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .life-os-habit-head b {
+      text-align:center;
+    }
+
+    .life-os-habit-row {
+      min-height:38px;
+      border-top:1px solid var(--life-line);
+      color:#49423D;
+      font-size:12px;
+      font-weight:650;
+    }
+
+    .life-os-habit-row > span {
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .life-os-habit-row label {
+      position:relative;
+      display:grid;
+      width:24px;
+      height:24px;
+      place-items:center;
+    }
+
+    .life-os-habit-row input {
+      position:absolute;
+      opacity:0;
+    }
+
+    .life-os-habit-row i {
+      display:grid;
+      width:17px;
+      height:17px;
+      place-items:center;
+      border:1px solid #CBD7CE;
+      border-radius:5px;
+      background:#FFF;
+    }
+
+    .life-os-habit-row input:checked + i {
+      border-color:#75B28F;
+      background:#75B28F;
+    }
+
+    .life-os-habit-row input:checked + i::after {
+      content:"✓";
+      color:#FFF;
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .life-os-journal-panel textarea {
+      width:100%;
+      min-height:106px;
+      resize:vertical;
+      border:1px solid rgba(93,114,102,.16);
+      border-radius:14px;
+      padding:14px;
+      color:#393430;
+      background:rgba(255,255,255,.78);
+      font-size:13px;
+      line-height:1.5;
+      outline:none;
+    }
+
+    .life-os-journal-panel textarea:focus {
+      border-color:#8CB2A1;
+      box-shadow:0 0 0 3px rgba(124,166,148,.12);
+    }
+
+    .life-os-journal-actions {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:10px;
+    }
+
+    .life-os-journal-actions small {
+      color:#7A746E;
+      font-size:11px;
+    }
+
+    .life-os-journal-actions button {
+      min-height:34px;
+      border:0;
+      border-radius:10px;
+      padding:0 14px;
+      color:#FFF;
+      background:#789D8B;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .life-os-work-section {
+      margin-bottom:18px;
+      padding:22px;
+      background:linear-gradient(145deg,#FFF 0%,#F7F5F1 100%);
+    }
+
+    .life-os-wide-heading {
+      margin-bottom:16px;
+    }
+
+    .life-os-project-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .life-os-project-card {
+      display:grid;
+      min-height:142px;
+      align-content:space-between;
+      gap:12px;
+      padding:16px;
+      border:1px solid rgba(88,75,64,.1);
+      border-radius:16px;
+      color:var(--life-ink);
+      background:#F1F2EF;
+      text-align:left;
+      box-shadow:0 6px 14px rgba(68,59,50,.05);
+    }
+
+    .life-os-project-card.project-tone-1 { background:#EAF1F5; }
+    .life-os-project-card.project-tone-2 { background:#F3E9DF; }
+    .life-os-project-card.project-tone-3 { background:#E8F1EB; }
+    .life-os-project-card.project-tone-4 { background:#EEE9F2; }
+
+    .life-os-project-card > div {
+      display:grid;
+      gap:5px;
+    }
+
+    .life-os-project-card span {
+      color:#756E67;
+      font-size:11px;
+      font-weight:800;
+      text-transform:uppercase;
+    }
+
+    .life-os-project-card strong {
+      overflow:hidden;
+      color:#36302C;
+      font-size:14px;
+      font-weight:800;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .life-os-project-card small {
+      color:#756E68;
+      font-size:11px;
+      line-height:1.4;
+    }
+
+    .life-os-project-card > b {
+      justify-self:end;
+      color:#526A5B;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:18px;
+    }
+
+    .life-os-project-card > i {
+      height:7px;
+    }
+
+    .life-os-project-card.project-tone-2 > i em { background:#DAA36E; }
+    .life-os-project-card.project-tone-3 > i em { background:#79A888; }
+    .life-os-project-card.project-tone-4 > i em { background:#A487B1; }
+
+    .life-os-project-empty {
+      grid-column:1/-1;
+      display:grid;
+      min-height:120px;
+      place-items:center;
+      align-content:center;
+      gap:7px;
+      color:#777069;
+      text-align:center;
+    }
+
+    .life-os-project-empty strong,
+    .life-os-empty strong {
+      color:#403A35;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:18px;
+    }
+
+    .life-os-project-empty span,
+    .life-os-empty span {
+      font-size:12px;
+    }
+
+    .life-os-launch-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .life-os-launch-card {
+      display:grid;
+      grid-template-columns:46px minmax(0,1fr) auto;
+      align-items:center;
+      gap:14px;
+      min-height:124px;
+      padding:18px 20px;
+      border:1px solid rgba(86,73,62,.1);
+      border-radius:19px;
+      color:var(--life-ink);
+      text-align:left;
+      box-shadow:0 10px 22px rgba(68,58,49,.065);
+    }
+
+    .life-os-finance-launch {
+      background:linear-gradient(145deg,#FFF 0%,#DFECE2 100%);
+    }
+
+    .life-os-content-launch {
+      background:linear-gradient(145deg,#FFF 0%,#E8E0EE 100%);
+    }
+
+    .life-os-journal-launch {
+      background:linear-gradient(145deg,#FFF 0%,#DDEEEA 100%);
+    }
+
+    .life-os-launch-icon {
+      display:grid;
+      width:46px;
+      height:46px;
+      place-items:center;
+      border-radius:13px;
+      color:#55705F;
+      background:rgba(255,255,255,.72);
+      box-shadow:0 5px 12px rgba(70,58,48,.08);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:20px;
+      font-weight:700;
+    }
+
+    .life-os-launch-card > div {
+      display:grid;
+      min-width:0;
+      gap:4px;
+    }
+
+    .life-os-launch-card > div > span {
+      color:#706962;
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+    }
+
+    .life-os-launch-card strong {
+      overflow:hidden;
+      color:#37312D;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:19px;
+      font-weight:600;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .life-os-launch-card small {
+      overflow:hidden;
+      color:#756E67;
+      font-size:11px;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .life-os-launch-card > b {
+      color:#7D756E;
+      font-size:18px;
+    }
+
+    .life-os-empty {
+      display:grid;
+      min-height:160px;
+      place-items:center;
+      align-content:center;
+      gap:7px;
+      padding:22px;
+      color:#77706A;
+      text-align:center;
+    }
+
+    .life-os-empty.compact {
+      min-height:118px;
+    }
+
+    @media (max-width:1200px) {
+      .life-os-primary-grid {
+        grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);
+      }
+
+      .life-os-project-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:900px) {
+      body[data-active-page="dashboard"] .topbar {
+        display:flex;
+      }
+
+      .life-os-hero {
+        grid-template-columns:1fr;
+      }
+
+      .life-os-glance-grid {
+        grid-template-columns:1fr 1fr;
+      }
+
+      .life-os-progress-card {
+        grid-column:1/-1;
+      }
+
+      .life-os-primary-grid {
+        grid-template-columns:1fr;
+        grid-template-areas:
+          "today"
+          "goals"
+          "tasks"
+          "side";
+      }
+
+      .life-os-side-stack {
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media (max-width:680px) {
+      .life-os-hero {
+        padding:22px;
+        border-radius:20px;
+      }
+
+      .life-os-identity {
+        align-items:flex-start;
+      }
+
+      .life-os-mark {
+        width:54px;
+        height:54px;
+        flex-basis:54px;
+      }
+
+      .life-os-identity h1 {
+        font-size:31px;
+      }
+
+      .life-os-hero-focus strong {
+        white-space:normal;
+      }
+
+      .life-os-glance-grid,
+      .life-os-side-stack,
+      .life-os-launch-grid,
+      .life-os-project-grid {
+        grid-template-columns:1fr;
+      }
+
+      .life-os-progress-card {
+        grid-column:auto;
+      }
+
+      .life-os-panel,
+      .life-os-work-section {
+        padding:18px;
+        border-radius:18px;
+      }
+
+      .life-os-timeline-row {
+        grid-template-columns:68px 8px minmax(0,1fr);
+      }
+
+      .life-os-timeline-row > b {
+        display:none;
+      }
+
+      .life-os-section-heading {
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .life-os-habit-head,
+      .life-os-habit-row {
+        grid-template-columns:minmax(85px,1fr) repeat(7,22px);
+        gap:3px;
+      }
+
+      .life-os-launch-card {
+        min-height:105px;
+      }
+    }
+
+    @media (max-width:430px) {
+      .life-os-identity {
+        flex-direction:column;
+      }
+
+      .life-os-hero {
+        padding:19px;
+      }
+
+      .life-os-glance-card {
+        min-height:102px;
+      }
+
+      .life-os-habit-head,
+      .life-os-habit-row {
+        grid-template-columns:minmax(72px,1fr) repeat(7,20px);
+      }
+
+      .life-os-habit-row label {
+        width:20px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -9205,6 +10183,161 @@
       </header>
 
       <section class="page active dashboard-production focus-home-page" id="dashboard-page">
+
+        <div class="life-os-home" id="lifeOSHome">
+          <header class="life-os-hero">
+            <div class="life-os-identity">
+              <div class="life-os-mark" aria-hidden="true"><span>✦</span></div>
+              <div>
+                <span class="life-os-kicker">Life & CEO Planner</span>
+                <h1>Jess Life OS</h1>
+                <p id="lifeOSHeroDate">Welcome back, Jess.</p>
+              </div>
+            </div>
+
+            <div class="life-os-hero-focus">
+              <span>Today’s focus</span>
+              <strong id="lifeOSHeroFocus">Choose the one thing that matters most today.</strong>
+              <button type="button" data-life-jump="today">Open Today →</button>
+            </div>
+          </header>
+
+          <section class="life-os-glance-grid" aria-label="Today at a glance">
+            <button class="life-os-glance-card life-os-time-card" type="button" data-life-jump="today">
+              <span class="life-os-glance-icon" aria-hidden="true">◷</span>
+              <div>
+                <strong id="lifeOSClock">--:--</strong>
+                <small id="lifeOSClockPeriod"></small>
+              </div>
+              <p id="lifeOSClockDay">Today</p>
+            </button>
+
+            <button class="life-os-glance-card life-os-weather-card" type="button" data-life-jump="today">
+              <span class="life-os-weather-symbol" id="lifeOSWeatherIcon" aria-hidden="true">○</span>
+              <div>
+                <strong id="lifeOSWeatherValue">Weather</strong>
+                <small id="lifeOSWeatherCondition">No weather saved</small>
+              </div>
+              <p>Moncton, NB</p>
+            </button>
+
+            <button class="life-os-glance-card life-os-progress-card" type="button" data-life-jump="tasks">
+              <div class="life-os-progress-heading">
+                <span>Monthly progress</span>
+                <strong id="lifeOSMonthProgress">0%</strong>
+              </div>
+              <div class="life-os-progress-track"><i id="lifeOSMonthProgressBar"></i></div>
+              <p id="lifeOSMonthProgressNote">No tasks scheduled this month</p>
+            </button>
+          </section>
+
+          <section class="life-os-primary-grid">
+            <article class="life-os-panel life-os-today-panel">
+              <div class="life-os-section-heading">
+                <div>
+                  <span>Today</span>
+                  <h2>Your day</h2>
+                </div>
+                <button type="button" data-life-jump="today">See full day</button>
+              </div>
+              <div class="life-os-timeline" id="lifeOSTimeline"></div>
+            </article>
+
+            <article class="life-os-panel life-os-goals-panel">
+              <div class="life-os-section-heading">
+                <div>
+                  <span>Goals</span>
+                  <h2>What you’re building</h2>
+                </div>
+                <button type="button" data-life-jump="goals">All goals</button>
+              </div>
+              <div class="life-os-goal-list" id="lifeOSGoalList"></div>
+            </article>
+
+            <article class="life-os-panel life-os-tasks-panel">
+              <div class="life-os-section-heading">
+                <div>
+                  <span>Top tasks</span>
+                  <h2>What matters next</h2>
+                </div>
+                <button type="button" data-life-jump="tasks">Task inbox</button>
+              </div>
+              <div class="life-os-task-list" id="lifeOSTaskList"></div>
+            </article>
+
+            <div class="life-os-side-stack">
+              <article class="life-os-panel life-os-habits-panel">
+                <div class="life-os-section-heading">
+                  <div>
+                    <span>Habits</span>
+                    <h2>This week</h2>
+                  </div>
+                  <button type="button" data-life-jump="habits">Open</button>
+                </div>
+                <div class="life-os-habit-list" id="lifeOSHabitList"></div>
+              </article>
+
+              <article class="life-os-panel life-os-journal-panel">
+                <div class="life-os-section-heading">
+                  <div>
+                    <span>Journal</span>
+                    <h2>Quick capture</h2>
+                  </div>
+                  <button type="button" data-life-jump="notes">Journal</button>
+                </div>
+                <textarea id="lifeOSJournalInput" placeholder="What’s on your mind today?"></textarea>
+                <div class="life-os-journal-actions">
+                  <small id="lifeOSJournalStatus">Saved as a dated journal entry.</small>
+                  <button type="button" id="lifeOSJournalSave">Save</button>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="life-os-work-section">
+            <div class="life-os-section-heading life-os-wide-heading">
+              <div>
+                <span>Active work</span>
+                <h2>Projects moving right now</h2>
+              </div>
+              <button type="button" data-life-jump="tasks">Manage projects</button>
+            </div>
+            <div class="life-os-project-grid" id="lifeOSProjectGrid"></div>
+          </section>
+
+          <section class="life-os-launch-grid">
+            <button class="life-os-launch-card life-os-finance-launch" type="button" data-life-jump="finance">
+              <span class="life-os-launch-icon" aria-hidden="true">$</span>
+              <div>
+                <span>Money</span>
+                <strong id="lifeOSFinanceBalance">$0.00</strong>
+                <small id="lifeOSFinanceNote">Open Finance Centre</small>
+              </div>
+              <b>→</b>
+            </button>
+
+            <button class="life-os-launch-card life-os-content-launch" type="button" data-life-jump="social">
+              <span class="life-os-launch-icon" aria-hidden="true">✦</span>
+              <div>
+                <span>Content</span>
+                <strong id="lifeOSContentNext">Nothing scheduled</strong>
+                <small id="lifeOSContentNote">Open Social Media</small>
+              </div>
+              <b>→</b>
+            </button>
+
+            <button class="life-os-launch-card life-os-journal-launch" type="button" data-life-jump="notes">
+              <span class="life-os-launch-icon" aria-hidden="true">✎</span>
+              <div>
+                <span>Journal</span>
+                <strong id="lifeOSJournalCount">0 entries</strong>
+                <small id="lifeOSJournalNote">Capture the day</small>
+              </div>
+              <b>→</b>
+            </button>
+          </section>
+        </div>
+
         <div class="focus-home-heading">
           <div>
             <span class="eyebrow">Focus home</span>
@@ -11188,7 +12321,7 @@
     function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
 
     const pageMeta = {
-      dashboard: ['Good morning, Jess! ☀️', 'Here’s what’s happening today in your life and business.'],
+      dashboard: ['Jess Life OS', 'A warm, visual command centre for your day, work and life.'],
       today: ['Today', 'Plan the day without overloading it.'],
       week: ['Weekly Planner', 'See the whole week in one place.'],
       tasks: ['Task Inbox', 'Capture first, then decide when and where it belongs.'],
@@ -11352,6 +12485,40 @@
     document.getElementById('dashboardSimpleView').addEventListener('click', event => {
       const jump = event.target.closest('[data-jump]');
       if (jump) openPage(jump.dataset.jump);
+    });
+
+    document.getElementById('lifeOSHome').addEventListener('click', event => {
+      const jump = event.target.closest('[data-life-jump]');
+      if (jump) openPage(jump.dataset.lifeJump);
+    });
+
+    document.getElementById('lifeOSJournalSave').addEventListener('click', () => {
+      const input = document.getElementById('lifeOSJournalInput');
+      const body = input.value.trim();
+      if (!body) {
+        showToast('Write something before saving');
+        input.focus();
+        return;
+      }
+
+      const now = new Date();
+      const title = body.split(/\n+/)[0].slice(0,70) || 'Journal entry';
+      data.notes.unshift({
+        id:uid(),
+        title,
+        body,
+        entryDate:isoDate(now),
+        mood:'',
+        photos:[],
+        createdAt:now.toISOString(),
+        updatedAt:now.toISOString()
+      });
+
+      if (!saveData('Journal entry saved')) return;
+      input.value = '';
+      document.getElementById('lifeOSJournalStatus').textContent = 'Saved just now.';
+      renderNotes();
+      renderLifeOSHome();
     });
 
     function setQuickAddOpen(open) {
@@ -16530,6 +17697,328 @@
       if(document.getElementById('financeLedgerModal')?.classList.contains('open'))renderFinanceLedger();
     }
 
+
+    function lifeOSMonthTaskSummary(referenceDate=new Date()) {
+      const monthKey = `${referenceDate.getFullYear()}-${String(referenceDate.getMonth()+1).padStart(2,'0')}`;
+      const rows = [];
+
+      (data.tasks || []).forEach(task => {
+        const dateKey = task.scheduledDate || task.due || '';
+        if (String(dateKey).startsWith(monthKey)) rows.push({done:!!task.done});
+      });
+
+      Object.entries(data.days || {}).forEach(([dateKey, day]) => {
+        if (!dateKey.startsWith(monthKey)) return;
+        (day.tasks || []).forEach(task => rows.push({done:!!task.done}));
+      });
+
+      const total = rows.length;
+      const completed = rows.filter(row => row.done).length;
+      return {
+        total,
+        completed,
+        percent: total ? Math.round((completed / total) * 100) : 0
+      };
+    }
+
+    function lifeOSProjectSummaries() {
+      const groups = new Map();
+
+      (data.tasks || []).forEach(task => {
+        const name = String(task.project || '').trim();
+        if (!name) return;
+
+        if (!groups.has(name)) {
+          groups.set(name,{name,total:0,done:0,open:0,dueSoon:0,high:0});
+        }
+
+        const group = groups.get(name);
+        group.total += 1;
+        if (task.done) group.done += 1;
+        else group.open += 1;
+        if (!task.done && task.priority === 'high') group.high += 1;
+        if (!task.done && ['today','soon','overdue'].includes(taskDueStatus(task))) group.dueSoon += 1;
+      });
+
+      return [...groups.values()]
+        .map(group => ({
+          ...group,
+          percent: group.total ? Math.round((group.done / group.total) * 100) : 0,
+          status: group.open === 0 ? 'Complete' : group.done > 0 ? 'In progress' : 'To do'
+        }))
+        .sort((a,b) => b.open - a.open || b.dueSoon - a.dueSoon || a.name.localeCompare(b.name))
+        .slice(0,4);
+    }
+
+    function lifeOSTodayTasks(dateKey) {
+      const day = getDay(dateKey);
+      const rows = [];
+
+      ['priority1','priority2','priority3'].forEach((key,index) => {
+        const text = String(day[key] || '').trim();
+        if (!text) return;
+        rows.push({
+          kind:'priority',
+          index,
+          text,
+          priority:'high',
+          done:!!day.priorityDone?.[index]
+        });
+      });
+
+      tasksForDate(dateKey).forEach(task => rows.push({
+        kind:'task',
+        source:task.source,
+        id:task.id,
+        text:task.text,
+        priority:task.priority || 'medium',
+        done:!!task.done,
+        project:task.project || ''
+      }));
+
+      const priorityOrder = {high:0,medium:1,low:2};
+      return rows
+        .sort((a,b) => Number(a.done)-Number(b.done) || (priorityOrder[a.priority]??1)-(priorityOrder[b.priority]??1))
+        .slice(0,5);
+    }
+
+    function updateLifeOSClock() {
+      const now = new Date();
+      const timeParts = new Intl.DateTimeFormat('en-CA',{
+        hour:'numeric',
+        minute:'2-digit',
+        hour12:true
+      }).formatToParts(now);
+      const hour = timeParts.find(part => part.type === 'hour')?.value || '';
+      const minute = timeParts.find(part => part.type === 'minute')?.value || '';
+      const period = timeParts.find(part => part.type === 'dayPeriod')?.value || '';
+
+      const clock = document.getElementById('lifeOSClock');
+      const periodEl = document.getElementById('lifeOSClockPeriod');
+      const dayEl = document.getElementById('lifeOSClockDay');
+
+      if (clock) clock.textContent = `${hour}:${minute}`;
+      if (periodEl) periodEl.textContent = period;
+      if (dayEl) dayEl.textContent = now.toLocaleDateString('en-CA',{weekday:'long'});
+    }
+
+    function renderLifeOSHome() {
+      const todayObj = new Date();
+      const todayDate = isoDate(todayObj);
+      const today = getDay(todayDate);
+
+      document.getElementById('lifeOSHeroDate').textContent =
+        `${todayObj.toLocaleDateString('en-CA',{weekday:'long',month:'long',day:'numeric'})} · Welcome back, Jess.`;
+
+      const focusText = String(today.businessFocus || today.priority1 || '').trim();
+      document.getElementById('lifeOSHeroFocus').textContent =
+        focusText || 'Choose the one thing that matters most today.';
+
+      updateLifeOSClock();
+
+      const weather = weatherRecordFor(todayDate);
+      document.getElementById('lifeOSWeatherIcon').textContent = weather ? weatherIcon(weather.condition) : '○';
+      document.getElementById('lifeOSWeatherValue').textContent =
+        weather && weather.high !== '' && weather.high != null
+          ? `${Number(weather.high).toFixed(Number(weather.high)%1?1:0)}°C`
+          : 'Weather';
+      document.getElementById('lifeOSWeatherCondition').textContent =
+        weather?.condition || 'No weather saved';
+
+      const monthSummary = lifeOSMonthTaskSummary(todayObj);
+      document.getElementById('lifeOSMonthProgress').textContent = `${monthSummary.percent}%`;
+      document.getElementById('lifeOSMonthProgressBar').style.width = `${monthSummary.percent}%`;
+      document.getElementById('lifeOSMonthProgressNote').textContent = monthSummary.total
+        ? `${monthSummary.completed} of ${monthSummary.total} scheduled tasks completed`
+        : 'No tasks scheduled this month';
+
+      const timeline = ensureDayEvents(todayDate)
+        .filter(eventItem => !eventItem.done)
+        .sort((a,b) => timeToMinutes(a.start)-timeToMinutes(b.start))
+        .slice(0,6);
+
+      const timelineWrap = document.getElementById('lifeOSTimeline');
+      timelineWrap.innerHTML = timeline.length
+        ? timeline.map(eventItem => `
+          <button class="life-os-timeline-row" type="button" data-life-event="${eventItem.id}">
+            <span class="life-os-time">${formatClock(eventItem.start)}</span>
+            <i style="--event-colour:${agendaTypeColours[eventItem.type] || '#748E7B'}"></i>
+            <span>
+              <strong>${escapeHtml(eventItem.title)}</strong>
+              <small>${escapeHtml(eventTypeDetails(eventItem.type).label)} · ${formatClock(eventItem.start)}–${formatClock(eventItem.end)}</small>
+            </span>
+            <b aria-hidden="true">›</b>
+          </button>
+        `).join('')
+        : `<div class="life-os-empty">
+            <strong>Your day is open.</strong>
+            <span>Add an event or task when you are ready.</span>
+            <button type="button" data-life-jump="today">Plan today</button>
+          </div>`;
+
+      timelineWrap.querySelectorAll('[data-life-event]').forEach(button => {
+        button.addEventListener('click', () => openEventEditor(todayDate,button.dataset.lifeEvent));
+      });
+
+      const goals = [...(data.goals || [])]
+        .filter(goal => Number(goal.progress || 0) < 100)
+        .sort((a,b) => Number(b.progress||0)-Number(a.progress||0))
+        .slice(0,3);
+
+      const goalWrap = document.getElementById('lifeOSGoalList');
+      goalWrap.innerHTML = goals.length
+        ? goals.map(goal => `
+          <button class="life-os-goal-row" type="button" data-life-jump="goals">
+            <span>
+              <strong>${escapeHtml(goal.title)}</strong>
+              <small>${escapeHtml(goal.area || 'Goal')}${goal.next ? ` · ${escapeHtml(goal.next)}` : ''}</small>
+            </span>
+            <b>${Number(goal.progress)||0}%</b>
+            <i><em style="width:${Math.max(0,Math.min(100,Number(goal.progress)||0))}%"></em></i>
+          </button>
+        `).join('')
+        : `<div class="life-os-empty compact">
+            <strong>No active goals yet.</strong>
+            <span>Create one when something deserves a longer horizon.</span>
+            <button type="button" data-life-jump="goals">Add a goal</button>
+          </div>`;
+
+      const taskRows = lifeOSTodayTasks(todayDate);
+      const taskWrap = document.getElementById('lifeOSTaskList');
+      taskWrap.innerHTML = taskRows.length
+        ? taskRows.map(task => `
+          <label class="life-os-task-row ${task.done?'is-done':''}">
+            <input type="checkbox" class="life-os-task-check" ${task.done?'checked':''}
+              data-kind="${task.kind}"
+              ${task.kind === 'priority'
+                ? `data-index="${task.index}"`
+                : `data-source="${task.source}" data-id="${task.id}"`}>
+            <span>
+              <strong>${escapeHtml(task.text)}</strong>
+              <small>${task.project ? escapeHtml(task.project) : escapeHtml(taskPriorityLabel(task.priority))}</small>
+            </span>
+            <b class="priority-${task.priority}">${escapeHtml(taskPriorityLabel(task.priority))}</b>
+          </label>
+        `).join('')
+        : `<div class="life-os-empty compact">
+            <strong>No top tasks yet.</strong>
+            <span>Keep this area reserved for what truly matters.</span>
+            <button type="button" data-life-jump="tasks">Add a task</button>
+          </div>`;
+
+      taskWrap.querySelectorAll('.life-os-task-check').forEach(check => {
+        check.addEventListener('change', () => {
+          if (check.dataset.kind === 'priority') {
+            today.priorityDone ??= [];
+            today.priorityDone[Number(check.dataset.index)] = check.checked;
+          } else {
+            setTaskDone(check.dataset.source,check.dataset.id,todayDate,check.checked);
+          }
+          saveData(check.checked ? 'Task completed' : 'Task reopened');
+          renderToday();
+        });
+      });
+
+      const weekStart = startOfWeek(todayObj);
+      const weekDates = Array.from({length:7},(_,index) => isoDate(addDays(weekStart,index)));
+      const habits = (data.habits || []).slice(0,4);
+      const habitWrap = document.getElementById('lifeOSHabitList');
+
+      habitWrap.innerHTML = habits.length
+        ? `<div class="life-os-habit-head"><span>Habit</span>${['M','T','W','T','F','S','S'].map(day => `<b>${day}</b>`).join('')}</div>`
+          + habits.map(habit => `
+            <div class="life-os-habit-row">
+              <span>${escapeHtml(habit.name)}</span>
+              ${weekDates.map(dateKey => `
+                <label>
+                  <input type="checkbox" class="life-os-habit-check"
+                    data-id="${habit.id}" data-date="${dateKey}"
+                    ${habit.checks?.[dateKey]?'checked':''}>
+                  <i></i>
+                </label>
+              `).join('')}
+            </div>
+          `).join('')
+        : `<div class="life-os-empty compact">
+            <strong>No habits yet.</strong>
+            <span>Add the routines that help your days feel better.</span>
+            <button type="button" data-life-jump="habits">Add a habit</button>
+          </div>`;
+
+      habitWrap.querySelectorAll('.life-os-habit-check').forEach(check => {
+        check.addEventListener('change', () => {
+          const habit = data.habits.find(item => item.id === check.dataset.id);
+          if (!habit) return;
+          habit.checks ??= {};
+          habit.checks[check.dataset.date] = check.checked;
+          saveData();
+          renderHabits();
+          renderLifeOSHome();
+        });
+      });
+
+      const projects = lifeOSProjectSummaries();
+      const projectWrap = document.getElementById('lifeOSProjectGrid');
+      projectWrap.innerHTML = projects.length
+        ? projects.map((project,index) => `
+          <button class="life-os-project-card project-tone-${index+1}" type="button" data-life-project="${escapeHtml(project.name)}">
+            <div>
+              <span>${escapeHtml(project.status)}</span>
+              <strong>${escapeHtml(project.name)}</strong>
+              <small>${project.open} open · ${project.done} complete${project.dueSoon ? ` · ${project.dueSoon} due soon` : ''}</small>
+            </div>
+            <b>${project.percent}%</b>
+            <i><em style="width:${project.percent}%"></em></i>
+          </button>
+        `).join('')
+        : `<div class="life-os-project-empty">
+            <strong>Your active projects will live here.</strong>
+            <span>Add a project name to tasks and the planner will group the work automatically.</span>
+            <button type="button" data-life-jump="tasks">Open Task Inbox</button>
+          </div>`;
+
+      projectWrap.querySelectorAll('[data-life-project]').forEach(button => {
+        button.addEventListener('click', () => {
+          openPage('tasks');
+          setTimeout(() => {
+            const projectFilter = document.getElementById('taskProjectFilter');
+            if (projectFilter) {
+              projectFilter.value = button.dataset.lifeProject;
+              projectFilter.dispatchEvent(new Event('change'));
+            }
+          },0);
+        });
+      });
+
+      const currentBalance = currentBankBalance();
+      const dueSeven = outstandingThrough(addDays(todayObj,7));
+      const dueSevenTotals = cashTotals(dueSeven);
+      document.getElementById('lifeOSFinanceBalance').textContent = money(currentBalance);
+      document.getElementById('lifeOSFinanceNote').textContent =
+        dueSevenTotals.plannedExpenses
+          ? `${money(dueSevenTotals.plannedExpenses)} going out in 7 days`
+          : 'No bills due in the next 7 days';
+
+      const upcomingPosts = (data.social?.posts || [])
+        .filter(post => post.date && post.date >= todayDate && post.status !== 'published' && post.status !== 'idea')
+        .sort((a,b) => `${a.date} ${a.time||''}`.localeCompare(`${b.date} ${b.time||''}`));
+      const nextPost = upcomingPosts[0];
+      document.getElementById('lifeOSContentNext').textContent =
+        nextPost ? (nextPost.title || nextPost.caption || 'Upcoming post').slice(0,44) : 'Nothing scheduled';
+      document.getElementById('lifeOSContentNote').textContent = nextPost
+        ? `${prettyDate(nextPost.date)} · ${socialPlatformLabel(nextPost.platform || 'both')}`
+        : 'Open Social Media';
+
+      const monthKey = todayDate.slice(0,7);
+      const journalCount = (data.notes || []).filter(entry => String(entry.entryDate || '').startsWith(monthKey)).length;
+      document.getElementById('lifeOSJournalCount').textContent =
+        `${journalCount} ${journalCount === 1 ? 'entry' : 'entries'} this month`;
+      const latestEntry = [...(data.notes || [])]
+        .sort((a,b) => String(b.entryDate || '').localeCompare(String(a.entryDate || '')))[0];
+      document.getElementById('lifeOSJournalNote').textContent =
+        latestEntry ? `Last entry · ${prettyDate(latestEntry.entryDate)}` : 'Capture the day';
+    }
+
     function renderDashboard(){
       const todayDate=isoDate(new Date());
       const todayObj=localDate(todayDate);
@@ -16733,6 +18222,7 @@
       document.getElementById('focusWeekBills').textContent = money(weekTotals.plannedExpenses);
       document.getElementById('focusWeekAppointments').textContent = appointmentCount;
       document.getElementById('focusWeekContent').textContent = contentCount;
+      renderLifeOSHome();
     }
 
     document.getElementById('exportBtn').addEventListener('click',()=>{
@@ -16769,8 +18259,11 @@
     }
     if(data.settings?.plannerName) document.title=data.settings.plannerName;
     migrateAllScheduleEvents();
+    document.body.dataset.activePage = 'dashboard';
     operatingYearOptions(); renderToday(); renderWeek(); renderTasks(); renderTemplates(); renderFinance(); renderCashFlowCalendar(); renderGoals(); renderHabits(); renderMonthly(); renderNotes(); renderDashboard();
     setDashboardView(data.settings.dashboardView || 'simple', false);
+    updateLifeOSClock();
+    setInterval(updateLifeOSClock, 30000);
     runPlannerIntegrityCheck();
     if (repairedHistoricalFinanceDates) {
       setTimeout(() => showToast(`${repairedHistoricalFinanceDates} historical payment date${repairedHistoricalFinanceDates===1?'':'s'} corrected`), 350);

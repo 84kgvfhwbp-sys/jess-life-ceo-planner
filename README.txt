@@ -1,74 +1,66 @@
-Jess Life & CEO Planner — Version 51 Focus Home
+Jess Life & CEO Planner — Version 52 Jess Life OS Home
 
-The front page is now a calm Focus Home rather than a dense executive report.
+This is the first production phase of the new warm Life OS direction inspired
+by the three dashboard references.
 
-DEFAULT: SIMPLE VIEW
-The planner opens with only:
+THE NEW HOME
+- Warm welcome hero with Jess Life OS identity
+- Real live clock
+- Saved Moncton weather from the planner's daily weather record
+- Monthly task progress
+- Today's real agenda
+- Active goals with progress bars
+- Top tasks with working completion checkboxes
+- Weekly habit tracking with working checkboxes
+- Quick journal capture
+- Active project summaries generated from task project names
+- Money, Content and Journal launch cards
 
-1. Today
-   - Current date
-   - Next agenda item
-   - Remaining priority count
-   - Open Today link
+REAL PLANNER DATA
+The Home screen reads from the existing:
+- daily agenda events
+- day priorities
+- Task Inbox
+- Goals
+- Habit Tracker
+- Finance Centre
+- Social Media Hub
+- Journal
+- weather records
 
-2. Cash Position
-   - Current bank balance
-   - Coming in over the next seven days
-   - Going out over the next seven days
-   - Projected week-end balance
+QUICK JOURNAL
+- Text entered on Home saves as a dated Journal entry.
+- It immediately appears in the full Journal page.
+- Existing journal entries are not changed.
 
-3. Needs Attention
-   - Overdue invoices
-   - Overdue or due bills
-   - Tasks due or unfinished
-   - Social content requiring review
+ACTIVE WORK
+- Project cards are generated automatically from tasks with a Project value.
+- Each card shows open, completed and due-soon work.
+- Clicking a project opens the Task Inbox and applies its project filter.
 
-4. Today's Agenda
-   - Up to six unfinished time blocks
-   - Clear, readable times and event types
-   - Click an item to edit it
+DESIGN DIRECTION
+- Warm cream, sage, peach, powder blue, mint and wisteria
+- Larger readable typography
+- Varied card sizes and shapes
+- Soft depth and subtle glow rather than flat accounting cards
+- Clear visual hierarchy inspired by digital Life OS dashboards
+- Mature and comfortable rather than cartoon-heavy
 
-5. Priority Tasks
-   - Up to five priorities
-   - Complete or reopen tasks directly
-   - Task Inbox remains one click away
-
-6. Upcoming Week
-   - Expected income
-   - Bills and expenses
-   - Appointments
-   - Planned social content
-
-FULL OVERVIEW
-- The complete previous Version 50 dashboard remains available.
-- Use the Simple / Full Overview switch at the top of the front page.
-- The planner remembers which view was last selected.
-- No dashboard functionality or financial reporting was removed.
-
-DESIGN CHANGES
-- Larger readable type
-- Fewer visible boxes
-- Three main summary cards only
-- Two comfortable working sections
-- One quiet upcoming-week strip
-- Mostly white, ivory and stone surfaces
-- Sage for navigation and positive states
-- Coral reserved for attention and overdue information
-
-DATA
-- Existing tasks, agenda events, finance records, social content and settings
-  remain unchanged in localStorage.
-- Replacing index.html does not erase the saved planner information.
+EXISTING PLANNER
+- All detailed planner pages remain intact.
+- The previous dashboards remain hidden for compatibility with existing
+  calculations and render functions.
+- Existing localStorage data is preserved when index.html is replaced.
 
 VERIFICATION
-- Full JavaScript syntax passed
-- No duplicate static HTML IDs
-- Original detailed dashboard retained
-- Simple and Full Overview controls verified
-- Dashboard view preference verified
+- Full JavaScript syntax passed.
+- No duplicate static HTML IDs.
+- Existing main planner pages remain present.
+- Clock, weather, tasks, goals, habits, projects, finance, content and journal
+  bindings were verified in the generated source.
 
 GITHUB UPDATE
-1. Replace the current repository index.html with this Version 51 file.
+1. Replace the current repository index.html with this Version 52 file.
 2. Commit directly to main.
 3. Wait approximately one minute.
 4. Hard-refresh using Command + Shift + R.
