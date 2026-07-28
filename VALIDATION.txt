@@ -1,12 +1,12 @@
 VALIDATION COMPLETED
 
-- Standalone HTML: passed
-- JavaScript syntax (Node.js): passed
-- Duplicate HTML IDs: none
-- Main navigation: Home, Plan, Work, Money, Content, Growth and Notes all switched correctly
-- Right Action Menu: opened and closed correctly
-- Add Event form: saved and displayed correctly
-- No external libraries, fonts, compressed chunks or build tools required
-- Responsive layout rules included for desktop, tablet and mobile
+- Complete single-file HTML package.
+- JavaScript passed node --check.
+- HTML parsed successfully.
+- Priority form verified for date, optional time, four priority levels and four statuses.
+- Shared task form verified for detailed fields and Top Priority option.
+- Notes form verified for related person/project, follow-up scheduling, complete note, linked task and attachments.
+- Task row rendering verified for priority, status, time, related record and description.
+- Same localStorage key retained for existing browser data.
 
-The included PREVIEW_Plan_Page.png was rendered from the packaged index.html during validation.
+Browser rendering could not be screenshot-tested inside the build container because its managed Chromium installation blocks local and file URLs. The source, form generation and JavaScript syntax were validated directly.
