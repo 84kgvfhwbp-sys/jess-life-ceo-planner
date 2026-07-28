@@ -1,48 +1,60 @@
-LIFE & CEO OS — DELETE ANYTHING UPDATE
-===========================================
+LIFE & CEO OS — HABITS & MOOD DASHBOARD UPDATE
+=================================================
 
 WHAT CHANGED
 ------------
-You can now delete records you create throughout the planner.
+Growth now includes an expanded Habits & Mood dashboard.
 
-Delete controls are included for:
-- Events and appointments
-- Tasks and Top Priorities
-- Notes and follow-ups
-- Attached photos and files
-- Projects
-- Clients
-- Quotes and estimates
-- Income and expense transactions
-- Recurring financial items
-- Content records and ideas
-- Goals
-- Habits
-- Monthly resets
-- Routines
-- Custom categories
+HABIT TRACKER
+-------------
+- Larger habit names, day labels, buttons and summary text
+- Weekly completion percentage
+- Today's completed habits and completion percentage
+- Best current habit streak
+- Individual weekly target and progress for each habit
+- Individual current streak for each habit
+- Active or paused status
+- Daily, weekdays, weekly or custom weekly frequency
+- Optional weekly completion target
+- Optional start date
+- Optional AM/PM reminder time
+- A “why this habit matters” note
+- Click a habit name to edit it
+- Existing deletion controls remain available
 
-HOW DELETION WORKS
-------------------
-1. Click the trash icon beside a record, or open a Task/Note and choose Delete.
-2. Confirm the deletion.
-3. The record is removed from every connected planner view.
+MOOD TRACKER
+------------
+- Quick five-level mood check-in:
+  Rough, Low, Okay, Good or Great
+- Optional energy level
+- Optional stress level
+- Optional note about what is affecting the day
+- Seven-day mood overview
+- Click any day to add or edit its mood details
+- Mood entries can be deleted
 
-Important:
-- Deletion cannot be undone unless you restore a previous planner backup.
-- Deleting a note that created a linked follow-up task also removes that linked task.
-- Deleting a habit removes its saved tracking checks.
-- Deleting a task linked to a note clears the link from the note.
-- Custom categories remain removable from the Category Library.
+HOME DASHBOARD
+--------------
+The Home page now shows:
+- Weekly habit completion percentage
+- Habits completed today
+- Today's mood
+- A direct link to Habits & Mood
+- A direct mood check-in button
+
+DATA
+----
+The planner continues to use:
+life-ceo-os-stable-v1
+
+Existing planner records and habit checks remain compatible.
+A new moods collection is added automatically.
 
 GITHUB UPLOAD
 -------------
-1. Use Backup data in the planner before replacing files.
+1. Use Backup data inside the current planner.
 2. Open the jess-life-ceo-planner repository on GitHub.
 3. Replace the root-level index.html with the index.html in this folder.
-4. Commit the change.
+4. Commit the replacement.
 5. Open the GitHub Pages planner.
-6. Press Command + Shift + R once to clear the cached version.
-
-The planner continues to use the same browser storage key, so replacing index.html
-does not intentionally erase existing planner data.
+6. Press Command + Shift + R once.
