@@ -1,0 +1,9 @@
+BEFORE YOU UPLOAD
+
+1. Keep the current GitHub version as a backup.
+2. Upload this index.html into the v2 folder first, not the repository root.
+3. Test Home, Plan, Work, Money, Content, Growth and Notes.
+4. Test the left menu, Condense Menu button and right Action Menu.
+5. Once this version is approved, it can replace the main planner later.
+
+This file is intentionally standalone to avoid the loading and navigation failures caused by the previous chunk-loader and overlay approach.
