@@ -1,0 +1,16 @@
+/* Navigation hotfix: keep the contextual drawer completely off-screen until opened. */
+body.lceo-nav-ready{overflow-x:hidden!important}
+.lceo-action-drawer:not(.open){
+  transform:translateX(calc(100% + var(--lceo-right-rail) + 12px))!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+  box-shadow:none!important;
+}
+.lceo-action-drawer.open{
+  transform:translateX(0)!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+  box-shadow:-24px 0 48px rgba(32,42,35,.16)!important;
+}
+.lceo-action-backdrop:not(.open){visibility:hidden!important}
+.lceo-action-backdrop.open{visibility:visible!important}
