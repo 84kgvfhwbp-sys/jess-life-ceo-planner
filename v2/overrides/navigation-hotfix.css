@@ -1,6 +1,4 @@
-/* Navigation + workspace hotfix.
-   Keeps the action drawer fully off-screen and reserves a true centre workspace
-   between the locked left navigation and right contextual action rail. */
+/* Stable navigation hotfix: reserve the centre workspace without moving app nodes. */
 body.lceo-nav-ready{
   padding:0!important;
   margin:0!important;
@@ -9,27 +7,22 @@ body.lceo-nav-ready{
   min-width:0!important;
   overflow-x:hidden!important;
 }
-#lceoWorkspaceFrame{
-  position:relative;
-  z-index:0;
-  width:calc(100vw - var(--lceo-left-current) - var(--lceo-right-rail));
-  min-width:0;
-  max-width:none;
-  min-height:100vh;
-  margin-left:var(--lceo-left-current);
-  margin-right:var(--lceo-right-rail);
-  overflow-x:clip;
-  transition:width .2s ease,margin-left .2s ease;
-}
-#lceoWorkspaceFrame>.lceo-workspace-root{
-  width:100%!important;
-  max-width:100%!important;
+body.lceo-nav-ready>.lceo-workspace-root{
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  width:calc(100vw - var(--lceo-left-current) - var(--lceo-right-rail))!important;
+  max-width:calc(100vw - var(--lceo-left-current) - var(--lceo-right-rail))!important;
   min-width:0!important;
-  margin-left:0!important;
-  margin-right:0!important;
+  margin-left:var(--lceo-left-current)!important;
+  margin-right:var(--lceo-right-rail)!important;
+  transform:none!important;
+  transition:width .2s ease,margin-left .2s ease!important;
+  overflow-x:clip!important;
 }
-#lceoWorkspaceFrame main,
-#lceoWorkspaceFrame [role="main"]{
+body.lceo-nav-ready>.lceo-workspace-root main,
+body.lceo-nav-ready>.lceo-workspace-root [role="main"]{
+  width:100%!important;
   max-width:100%!important;
   min-width:0!important;
 }
@@ -48,15 +41,17 @@ body.lceo-nav-ready{
 .lceo-action-backdrop:not(.open){visibility:hidden!important}
 .lceo-action-backdrop.open{visibility:visible!important}
 @media(max-width:1040px){
-  #lceoWorkspaceFrame{
-    width:calc(100vw - var(--lceo-left-compact) - var(--lceo-right-rail));
-    margin-left:var(--lceo-left-compact);
+  body.lceo-nav-ready>.lceo-workspace-root{
+    width:calc(100vw - var(--lceo-left-compact) - var(--lceo-right-rail))!important;
+    max-width:calc(100vw - var(--lceo-left-compact) - var(--lceo-right-rail))!important;
+    margin-left:var(--lceo-left-compact)!important;
   }
 }
 @media(max-width:720px){
-  #lceoWorkspaceFrame{
-    width:calc(100vw - var(--lceo-left-compact) - var(--lceo-right-rail));
-    margin-left:var(--lceo-left-compact);
-    margin-right:var(--lceo-right-rail);
+  body.lceo-nav-ready>.lceo-workspace-root{
+    width:calc(100vw - var(--lceo-left-compact) - var(--lceo-right-rail))!important;
+    max-width:calc(100vw - var(--lceo-left-compact) - var(--lceo-right-rail))!important;
+    margin-left:var(--lceo-left-compact)!important;
+    margin-right:var(--lceo-right-rail)!important;
   }
 }
