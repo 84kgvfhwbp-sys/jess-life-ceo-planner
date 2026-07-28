@@ -1,12 +1,22 @@
-VALIDATION COMPLETED
+VALIDATION REPORT
 
-- Complete single-file HTML package.
-- JavaScript passed node --check.
-- HTML parsed successfully.
-- Priority form verified for date, optional time, four priority levels and four statuses.
-- Shared task form verified for detailed fields and Top Priority option.
-- Notes form verified for related person/project, follow-up scheduling, complete note, linked task and attachments.
-- Task row rendering verified for priority, status, time, related record and description.
-- Same localStorage key retained for existing browser data.
+File: index.html
+Size: 97,354 bytes
+SHA-256: e7168987cc11e0a8ccf6b2767841f0889599ab2f90a2c36519a4af951fb03cf6
 
-Browser rendering could not be screenshot-tested inside the build container because its managed Chromium installation blocks local and file URLs. The source, form generation and JavaScript syntax were validated directly.
+Checks completed:
+- Standalone HTML file present
+- JavaScript extracted successfully (70,227 characters)
+- JavaScript syntax passed node --check
+- No <datalist> elements remain
+- Category fields generate native <select> dropdowns
+- Existing category value is preserved in the option list
+- Same Life & CEO OS browser storage key retained
+
+Functional scope of this update:
+- Event category dropdown
+- Task and Top Priority category dropdown
+- Note and Follow-up category dropdown
+- Income category dropdown
+- Expense category dropdown
+- Habit category dropdown

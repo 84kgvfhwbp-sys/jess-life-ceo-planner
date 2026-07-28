@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#2f4337">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Life & CEO OS">
-<title>Life & CEO OS — Detailed Tasks & Follow-ups</title>
+<title>Life & CEO OS — Proper Category Dropdowns</title>
 <style>
 :root{
   --forest:#2f4337;--forest-2:#24352c;--olive:#788466;--sage:#dfe7dc;--cream:#f6f1e8;
@@ -304,7 +304,7 @@ function form(type,title,fields,hidden={}){const html=`<form data-form-type="${t
 function field(n,l,t='text',req=false,val='',opts=[]){
  if(t==='textarea')return `<div class="field"><label>${l}</label><textarea name="${n}" ${req?'required':''}>${safe(val)}</textarea></div>`;
  if(t==='select')return `<div class="field"><label>${l}</label><select name="${n}" ${req?'required':''}>${opts.map(([v,x])=>`<option value="${safe(v)}" ${String(v)===String(val)?'selected':''}>${safe(x)}</option>`).join('')}</select></div>`;
- if(t==='category'){const kind=String(opts||'planning'),listId=`category-list-${kind}`;return `<div class="field"><label>${l}</label><input name="${n}" type="text" list="${safe(listId)}" value="${safe(val)}" ${req?'required':''} autocomplete="off"><datalist id="${safe(listId)}">${categories(kind).map(x=>`<option value="${safe(x)}"></option>`).join('')}</datalist><span class="field-help">Choose from your library or type a new category. New entries are saved automatically.</span></div>`}
+ if(t==='category'){const kind=String(opts||'planning'),current=String(val||'').trim(),list=categories(kind).slice();if(current&&!list.some(x=>x.toLowerCase()===current.toLowerCase()))list.unshift(current);const libraryName=(categoryLibraryLabels[kind]?.[0]||'Category').replace('&','and');return `<div class="field"><label>${l}</label><select name="${n}" ${req?'required':''} data-category-kind="${safe(kind)}">${list.map(x=>`<option value="${safe(x)}" ${x===current?'selected':''}>${safe(x)}</option>`).join('')}</select><span class="field-help">Choose from your ${safe(libraryName)} library. Add or remove options from Category Library in the Action Menu.</span></div>`}
  if(t==='checkbox'){const checked=val===true||String(val)==='true'||String(val)==='on';return `<label class="checkbox-field"><input name="${n}" type="checkbox" value="true" ${checked?'checked':''}><span>${safe(l)}</span></label>`}
  if(t==='file')return `<div class="field"><label>${l}</label><input name="${n}" type="file" multiple accept="${safe(opts||'')}"><span class="field-help">Up to 3 attachments. Images are resized for this browser-based planner; other files must be under 350 KB each.</span></div>`;
  return `<div class="field"><label>${l}</label><input name="${n}" type="${t}" value="${safe(val)}" ${t==='number'?'step="1" min="0"':''} ${req?'required':''}></div>`
