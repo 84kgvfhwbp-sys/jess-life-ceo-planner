@@ -1,56 +1,48 @@
-LIFE & CEO OS — PROJECT BREAKDOWN UPDATE
-==========================================
+LIFE & CEO OS — PROJECT DATABASE WORKSPACE UPDATE
+==================================================
 
-WHAT CHANGED
-------------
-The Work → Projects area now has two levels:
+THIS BUILD STARTS FROM THE LAST VERIFIED WORKING PLANNER.
+The broken Project Breakdown build was not used as its foundation.
 
-1. Projects Overview
-   - board grouped by To Do, In Progress, Waiting and Complete
-   - click any project to open its breakdown
-   - shows task count, progress and due date
+PROJECTS MAIN PAGE
+------------------
+- Searchable project database
+- Status filtering
+- Active, waiting, due-soon and completed totals
+- Project, client, owner, dates, progress, task counts and next action
+- Open button for each project
+- Existing projects remain compatible
 
-2. Project Breakdown
-   - project title, client, owner and status
-   - start date, due date and completed date
-   - objective
-   - top project priorities
-   - time, budget and scope constraints
-   - resources required
-   - project files
-   - complete linked task and deadline table
-   - project progress
+CENTRED PROJECT WORKSPACE
+-------------------------
+Opening a project launches a large centred Project Breakdown window containing:
+- Title, client, owner and status
+- Start date, due date and completion date
+- Objective
+- Top priorities
+- Time, budget and scope constraints
+- Resources required
+- Next action
+- Project files
+- Linked task database
+- Task completion controls
+- Task editing and deletion
+- Project editing
 
-PROJECT TASKS
--------------
-Tasks created inside a project are linked directly to that project.
-They still remain part of the shared planner task system and can appear in other
-connected task areas based on their date and status.
+CONNECTED DATABASE
+------------------
+Tasks created from a project are stored in the same Tasks collection used by the
+rest of the planner. Completing a task inside the project updates it everywhere.
+Project progress is calculated from linked tasks when tasks exist.
 
-PROJECT FORM
-------------
-New and edited projects can collect:
-- title
-- client / company
-- project owner
-- start date
-- due date
-- completed date
-- status
-- progress
-- objective
-- time constraint
-- budget constraint
-- scope constraint
-- resources required
-- next action
-- attachments
+HOME RESTORATION
+----------------
+Home was tested independently and renders from the last stable source. The
+missing startOfWeek function from the broken build is preserved correctly.
 
 GITHUB UPLOAD
 -------------
 1. Use Backup data in the current planner.
-2. Replace the root-level index.html in GitHub.
+2. Replace the root-level index.html in GitHub with the file in this folder.
 3. Commit the replacement.
 4. Open the planner and press Command + Shift + R once.
-
-Existing planner data remains compatible.
