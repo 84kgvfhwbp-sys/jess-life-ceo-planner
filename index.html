@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#2f4337">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Life & CEO OS">
-<title>Life & CEO OS — Weather Restored</title>
+<title>Life & CEO OS — Connected Schedule Update</title>
 <style>
 :root{
   --forest:#2f4337;--forest-2:#24352c;--olive:#788466;--sage:#dfe7dc;--cream:#f6f1e8;
@@ -109,7 +109,7 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;color:var(--ink)}h1{margin:
 .delete-note{margin:4px 0 0;color:var(--muted);font-size:9px;line-height:1.45}
 
 
-/* AM/PM time controls + proportional daily agenda */
+/* AM/PM time controls + connected daily agenda */
 .ampm-time{display:grid;grid-template-columns:minmax(78px,1fr) 10px minmax(78px,1fr) minmax(88px,1fr);gap:7px;align-items:center}
 .ampm-time select{width:100%;min-width:0}
 .ampm-colon{text-align:center;color:var(--muted);font-weight:800}
@@ -117,23 +117,37 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;color:var(--ink)}h1{margin:
 .agenda-anytime .eyebrow{display:block;margin-bottom:7px}
 .agenda-timeline{position:relative;height:var(--agenda-height);min-height:var(--agenda-height);overflow:hidden;background:#fff}
 .agenda-slot-list{position:absolute;inset:0;display:grid;grid-auto-rows:var(--agenda-slot-height)}
-.agenda-slot{display:grid;grid-template-columns:80px minmax(0,1fr);align-items:start;border-bottom:1px solid rgba(57,66,58,.075);background:#fff}
-.agenda-slot.is-hour{border-bottom-color:rgba(57,66,58,.16)}
-.agenda-slot-label{height:100%;display:flex;justify-content:flex-end;padding:5px 10px 0 4px;border-right:1px solid var(--line);color:var(--muted);font-size:9px;font-weight:760;white-space:nowrap}
-.agenda-slot.is-half .agenda-slot-label{color:#9a958d;font-size:8px;font-weight:650}
-.agenda-slot-space{height:100%;background:linear-gradient(90deg,rgba(120,131,101,.018),transparent 22%)}
-.agenda-event-layer{position:absolute;top:0;right:7px;bottom:0;left:80px;pointer-events:none}
-.event-block.timeline-event{position:absolute;right:auto;z-index:2;min-height:26px;margin:0;padding:7px 35px 7px 10px;overflow:hidden;pointer-events:auto;box-shadow:0 5px 14px rgba(48,66,55,.09);transition:box-shadow .16s ease,filter .16s ease}
-.event-block.timeline-event:hover{z-index:5;filter:brightness(.99);box-shadow:0 9px 20px rgba(48,66,55,.15)}
-.event-block.timeline-event strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.event-block.timeline-event small{display:block;margin-top:2px;font-size:9px;line-height:1.28}
-.event-block.timeline-event .event-category{opacity:.8}
-.event-block.timeline-event .record-delete{top:6px;right:5px}
+.agenda-slot{display:grid;grid-template-columns:108px minmax(0,1fr);align-items:stretch;border-bottom:1px solid rgba(57,66,58,.08);background:#fff}
+.agenda-slot.is-hour{border-bottom-color:rgba(57,66,58,.18)}
+.agenda-slot.is-half{border-bottom-style:dashed;border-bottom-color:rgba(57,66,58,.12)}
+.agenda-slot.is-quarter{border-bottom-color:rgba(57,66,58,.06)}
+.agenda-slot-label{height:100%;display:flex;justify-content:flex-end;align-items:flex-start;padding:4px 12px 0 6px;border-right:1px solid var(--line);color:#69655d;font-size:12px;font-weight:800;white-space:nowrap;letter-spacing:.01em}
+.agenda-slot.is-half .agenda-slot-label{color:#8f8a82;font-size:10px;font-weight:720}
+.agenda-slot.is-quarter .agenda-slot-label{font-size:0;color:transparent}
+.agenda-slot-space{height:100%;background:linear-gradient(90deg,rgba(120,131,101,.03),transparent 28%)}
+.agenda-event-layer{position:absolute;top:0;right:10px;bottom:0;left:108px;pointer-events:none}
+.event-block.timeline-event{position:absolute;right:auto;z-index:2;min-height:36px;margin:0;padding:0;overflow:visible;pointer-events:auto;background:transparent;border:0;box-shadow:none;transition:transform .16s ease}
+.event-block.timeline-event:hover{z-index:5;transform:translateY(-1px)}
+.timeline-stem{position:absolute;left:14px;top:12px;bottom:10px;width:2px;border-radius:999px;background:rgba(102,117,87,.62)}
+.timeline-dot{position:absolute;left:8px;top:8px;width:14px;height:14px;border-radius:50%;background:#d8b76d;border:2px solid #758162;box-shadow:0 0 0 4px rgba(255,255,255,.92)}
+.timeline-body{position:absolute;left:30px;top:2px;right:6px;bottom:2px;background:#edf1ea;border:1px solid #d9ddd3;border-radius:16px;padding:10px 14px;box-shadow:0 8px 22px rgba(48,66,55,.09);overflow:hidden}
+.timeline-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.timeline-title{display:block;font-size:16px;font-weight:800;line-height:1.14;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timeline-time{display:block;margin-top:4px;font-size:12px;line-height:1.3;color:var(--muted);font-weight:700}
+.timeline-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.timeline-chip{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid #e2e0d8;font-size:11px;line-height:1.2;color:var(--forest);font-weight:700}
+.event-block.timeline-event .record-delete{position:relative;top:auto;right:auto;width:28px;height:28px;flex:0 0 28px;border-radius:9px;background:rgba(255,255,255,.88);border:1px solid rgba(166,82,70,.18)}
+.event-block.timeline-event .record-delete:hover{border-color:transparent}
+
 @media(max-width:700px){
  .ampm-time{grid-template-columns:1fr 8px 1fr 1fr}
- .agenda-slot{grid-template-columns:66px minmax(0,1fr)}
- .agenda-event-layer{left:66px}
- .agenda-slot-label{padding-right:7px;font-size:8px}
+ .agenda-slot{grid-template-columns:78px minmax(0,1fr)}
+ .agenda-event-layer{left:78px}
+ .agenda-slot-label{padding-right:8px;font-size:10px}
+ .agenda-slot.is-half .agenda-slot-label{font-size:9px}
+ .timeline-body{left:24px;padding:8px 10px}
+ .timeline-title{font-size:14px}
+ .timeline-time{font-size:11px}
 }
 
 
@@ -226,6 +240,93 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;color:var(--ink)}h1{margin:
 @media(max-width:820px){.weather-main{grid-template-columns:auto minmax(0,1fr)}.weather-actions{grid-column:1/-1;justify-content:flex-start}.weather-forecast{grid-template-columns:repeat(5,120px);overflow-x:auto;padding-bottom:3px}}
 @media(max-width:560px){.weather-home,.weather-plan{padding:15px}.weather-symbol{width:54px;height:54px;flex-basis:54px;font-size:29px}.weather-copy h2{font-size:22px}.weather-temp{font-size:28px}.weather-metrics{font-size:10px}}
 
+
+/* ORIGINAL LIFE & CEO OS WEATHER ICONS */
+.weather-symbol{
+  color:var(--forest);
+  font-size:0!important
+}
+.weather-icon{
+  width:48px;
+  height:48px;
+  display:block;
+  overflow:visible
+}
+.weather-home .weather-icon{width:52px;height:52px}
+.weather-plan .weather-icon{width:40px;height:40px}
+.weather-day .weather-icon{
+  width:28px;
+  height:28px;
+  margin:0 auto
+}
+.weather-drawer-current .weather-icon{width:38px;height:38px}
+.weather-icon .wi-sun{
+  fill:#d7b56d;
+  stroke:#b4914f
+}
+.weather-icon .wi-moon{
+  fill:#e5d4a2;
+  stroke:#9b8552
+}
+.weather-icon .wi-cloud{
+  fill:#f8f6ef;
+  stroke:#788365
+}
+.weather-icon .wi-cloud-shadow{
+  fill:#dfe5dc;
+  stroke:#6f7c6b
+}
+.weather-icon .wi-rain{
+  fill:none;
+  stroke:#6e8992;
+  stroke-width:2.4;
+  stroke-linecap:round
+}
+.weather-icon .wi-snow{
+  fill:none;
+  stroke:#7f969c;
+  stroke-width:1.9;
+  stroke-linecap:round
+}
+.weather-icon .wi-fog{
+  fill:none;
+  stroke:#9a9a8c;
+  stroke-width:2.2;
+  stroke-linecap:round
+}
+.weather-icon .wi-lightning{
+  fill:#c99e4f;
+  stroke:#9c7432;
+  stroke-width:1.2;
+  stroke-linejoin:round
+}
+.weather-icon .wi-ice{
+  fill:#cfe0e2;
+  stroke:#78939a
+}
+.weather-icon .wi-ray{
+  fill:none;
+  stroke:#c7a45d;
+  stroke-width:2;
+  stroke-linecap:round
+}
+.weather-icon .wi-outline{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+.weather-icon .wi-soft{
+  opacity:.76
+}
+.weather-day-symbol{
+  display:grid!important;
+  place-items:center;
+  min-height:34px;
+  margin:4px 0!important
+}
+
 </style>
 </head>
 <body>
@@ -263,8 +364,8 @@ const dateLabel=(d,opts={weekday:'long',month:'long',day:'numeric'})=>new Intl.D
 
 const AGENDA_START_MINUTES=6*60;
 const AGENDA_END_MINUTES=22*60+30;
-const AGENDA_SLOT_MINUTES=30;
-const AGENDA_SLOT_HEIGHT=32;
+const AGENDA_SLOT_MINUTES=15;
+const AGENDA_SLOT_HEIGHT=24;
 function timeToMinutes(value=''){
  const raw=String(value||'').trim();
  if(!raw)return NaN;
@@ -356,18 +457,22 @@ function agendaTimeline(events=[]){
  const timed=normalized.filter(event=>timeToMinutes(event.endTime)>AGENDA_START_MINUTES&&timeToMinutes(event.time)<AGENDA_END_MINUTES);
  const slots=[];
  for(let minute=AGENDA_START_MINUTES;minute<AGENDA_END_MINUTES;minute+=AGENDA_SLOT_MINUTES){
-  slots.push(`<div class="agenda-slot ${minute%60===0?'is-hour':'is-half'}"><span class="agenda-slot-label">${formatTime12(minutesToTime(minute))}</span><span class="agenda-slot-space"></span></div>`);
+  const mod=minute%60;
+  const slotClass=mod===0?'is-hour':mod===30?'is-half':'is-quarter';
+  const label=(mod===0||mod===30)?formatTime12(minutesToTime(minute)):'&nbsp;';
+  slots.push(`<div class="agenda-slot ${slotClass}"><span class="agenda-slot-label">${label}</span><span class="agenda-slot-space"></span></div>`);
  }
  const lanes=arrangeAgendaLanes(timed);
  const blocks=timed.map(event=>{
   const start=Math.max(AGENDA_START_MINUTES,timeToMinutes(event.time));
   const end=Math.min(AGENDA_END_MINUTES,timeToMinutes(event.endTime));
   const duration=Math.max(1,end-start);
-  const top=((start-AGENDA_START_MINUTES)/AGENDA_SLOT_MINUTES)*AGENDA_SLOT_HEIGHT+2;
-  const height=Math.max(26,(duration/AGENDA_SLOT_MINUTES)*AGENDA_SLOT_HEIGHT-4);
+  const top=((start-AGENDA_START_MINUTES)/AGENDA_SLOT_MINUTES)*AGENDA_SLOT_HEIGHT;
+  const height=Math.max(38,(duration/AGENDA_SLOT_MINUTES)*AGENDA_SLOT_HEIGHT);
   const layout=lanes.get(event.id)||{lane:0,lanes:1};
   const left=(layout.lane/layout.lanes)*100,width=100/layout.lanes;
-  return `<article class="event-block timeline-event" style="top:${top}px;height:${height}px;left:calc(${left}% + 4px);width:calc(${width}% - 8px)"><strong>${safe(event.title||'Event')}</strong><small>${safe(timeRange12(event.time,event.endTime))}</small>${event.category?`<small class="event-category">${safe(event.category)}</small>`:''}${deleteIconButton('event',event.id,'Delete event')}</article>`;
+  const category=event.category?`<div class="timeline-meta"><span class="timeline-chip">${safe(event.category)}</span></div>`:'';
+  return `<article class="event-block timeline-event" style="top:${top}px;height:${height}px;left:calc(${left}% + 4px);width:calc(${width}% - 8px)"><span class="timeline-stem"></span><span class="timeline-dot"></span><div class="timeline-body"><div class="timeline-head"><strong class="timeline-title">${safe(event.title||'Event')}</strong>${deleteIconButton('event',event.id,'Delete event')}</div><small class="timeline-time">${safe(timeRange12(event.time,event.endTime))}</small>${category}</div></article>`;
  }).join('');
  const anytimeMarkup=untimed.length?`<div class="agenda-anytime"><span class="eyebrow">Anytime</span>${untimed.map(eventRow).join('')}</div>`:'';
  const outsideMarkup=outside.length?`<div class="agenda-anytime"><span class="eyebrow">Outside 6:00 AM – 10:30 PM</span>${outside.map(eventRow).join('')}</div>`:'';
@@ -433,17 +538,63 @@ let weatherRuntime={cache:null,loading:false,error:''};
 try{weatherRuntime.cache=JSON.parse(sessionGet(WEATHER_CACHE_KEY)||'null')}catch(e){weatherRuntime.cache=null}
 function weatherLocation(){const fallback=defaults().settings.weatherLocation,location=state.settings?.weatherLocation;if(!location||!Number.isFinite(Number(location.latitude))||!Number.isFinite(Number(location.longitude)))return fallback;return{name:String(location.name||fallback.name),latitude:Number(location.latitude),longitude:Number(location.longitude),country:String(location.country||'Canada')}}
 function saveWeatherLocation(location){state.settings.weatherLocation={name:String(location.name||'Selected location'),latitude:Number(location.latitude),longitude:Number(location.longitude),country:String(location.country||'Canada')};try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){}weatherRuntime.cache=null;weatherRuntime.error='';sessionSet(WEATHER_CACHE_KEY,'');render()}
-function weatherCodeInfo(code,isDay=1){const v=Number(code);if(v===0)return{label:'Clear',symbol:isDay?'☀️':'🌙'};if(v===1)return{label:'Mainly clear',symbol:isDay?'🌤️':'🌙'};if(v===2)return{label:'Partly cloudy',symbol:'⛅'};if(v===3)return{label:'Overcast',symbol:'☁️'};if(v===45||v===48)return{label:'Fog',symbol:'🌫️'};if(v>=51&&v<=57)return{label:v>=56?'Freezing drizzle':'Drizzle',symbol:'🌦️'};if(v>=61&&v<=67)return{label:v>=66?'Freezing rain':'Rain',symbol:'🌧️'};if(v>=71&&v<=77)return{label:'Snow',symbol:'❄️'};if(v>=80&&v<=82)return{label:'Rain showers',symbol:'🌦️'};if(v>=85&&v<=86)return{label:'Snow showers',symbol:'🌨️'};if(v>=95)return{label:'Thunderstorm',symbol:'⛈️'};return{label:'Weather',symbol:'○'}}
+function weatherIcon(type='weather',label='Weather'){
+ const common=`viewBox="0 0 64 64" role="img" aria-label="${safe(label)}" class="weather-icon"`;
+ const sun=`<circle class="wi-sun" cx="24" cy="23" r="9"/><path class="wi-ray" d="M24 7v5M24 34v5M8 23h5M35 23h5M12.7 11.7l3.6 3.6M31.7 30.7l3.6 3.6M35.3 11.7l-3.6 3.6M16.3 30.7l-3.6 3.6"/>`;
+ const moon=`<path class="wi-moon" d="M34 10c-8.5 2.4-12.8 11.8-8.7 19.5 3.7 7 12.7 9.3 19.3 4.8-2 7.4-9.7 12-17.2 9.9-8.9-2.5-14-11.8-11.2-20.5C18.8 15.6 26.5 9.9 34 10Z"/>`;
+ const cloud=`<path class="wi-cloud" d="M19 43h28.5a9.5 9.5 0 0 0 .5-19A14.2 14.2 0 0 0 21 28.3 8.3 8.3 0 0 0 19 43Z"/>`;
+ const darkCloud=`<path class="wi-cloud-shadow" d="M17 41h30a10 10 0 0 0 .4-20 15 15 0 0 0-28.6 4.7A8.8 8.8 0 0 0 17 41Z"/>`;
+ const rain=`<path class="wi-rain" d="M23 47l-3 7M34 47l-3 7M45 47l-3 7"/>`;
+ const drizzle=`<path class="wi-rain" d="M26 48l-2 4M39 48l-2 4"/>`;
+ const snow=`<g class="wi-snow"><path d="M23 47v9M19 49l8 5M27 49l-8 5"/><path d="M40 47v9M36 49l8 5M44 49l-8 5"/></g>`;
+ const fog=`<path class="wi-fog" d="M12 42h40M17 49h34M22 56h25"/>`;
+ const lightning=`<path class="wi-lightning" d="M35 43h9l-7 9h6L31 63l4-10h-6Z"/>`;
+ const ice=`<path class="wi-ice" d="M25 48l4 6-4 6-4-6Zm16 0 4 6-4 6-4-6Z"/>`;
+ let body='';
+ switch(type){
+  case 'clear-day': body=sun; break;
+  case 'clear-night': body=moon; break;
+  case 'mainly-clear-day': body=`${sun}<g transform="translate(6 5) scale(.86)">${cloud}</g>`; break;
+  case 'mainly-clear-night': body=`${moon}<g transform="translate(6 5) scale(.86)">${cloud}</g>`; break;
+  case 'partly-cloudy': body=`<g transform="translate(-2 -3)">${sun}</g>${cloud}`; break;
+  case 'overcast': body=`<g class="wi-soft" transform="translate(5 -4) scale(.86)">${darkCloud}</g>${cloud}`; break;
+  case 'fog': body=`<g transform="translate(0 -8)">${cloud}</g>${fog}`; break;
+  case 'drizzle': body=`${cloud}${drizzle}`; break;
+  case 'rain': body=`${darkCloud}${rain}`; break;
+  case 'freezing-rain': body=`${darkCloud}${rain}${ice}`; break;
+  case 'snow': body=`${cloud}${snow}`; break;
+  case 'rain-showers': body=`<g transform="translate(-2 -4)">${sun}</g>${cloud}${rain}`; break;
+  case 'snow-showers': body=`<g transform="translate(-2 -4)">${sun}</g>${cloud}${snow}`; break;
+  case 'thunderstorm': body=`${darkCloud}${rain}${lightning}`; break;
+  default: body=`<circle class="wi-outline" cx="32" cy="32" r="18"/><path class="wi-outline" d="M32 22v11M32 42h.01"/>`;
+ }
+ return `<svg ${common}>${body}</svg>`;
+}
+function weatherCodeInfo(code,isDay=1){
+ const value=Number(code);
+ if(value===0)return{label:'Clear',icon:isDay?'clear-day':'clear-night'};
+ if(value===1)return{label:'Mainly clear',icon:isDay?'mainly-clear-day':'mainly-clear-night'};
+ if(value===2)return{label:'Partly cloudy',icon:'partly-cloudy'};
+ if(value===3)return{label:'Overcast',icon:'overcast'};
+ if(value===45||value===48)return{label:'Fog',icon:'fog'};
+ if(value>=51&&value<=57)return{label:value>=56?'Freezing drizzle':'Drizzle',icon:value>=56?'freezing-rain':'drizzle'};
+ if(value>=61&&value<=67)return{label:value>=66?'Freezing rain':'Rain',icon:value>=66?'freezing-rain':'rain'};
+ if(value>=71&&value<=77)return{label:'Snow',icon:'snow'};
+ if(value>=80&&value<=82)return{label:'Rain showers',icon:'rain-showers'};
+ if(value>=85&&value<=86)return{label:'Snow showers',icon:'snow-showers'};
+ if(value>=95)return{label:'Thunderstorm',icon:'thunderstorm'};
+ return{label:'Weather',icon:'weather'}
+}
 function weatherTemp(value){const n=Number(value);return Number.isFinite(n)?`${Math.round(n)}°C`:'—'}
 function weatherCacheMatches(cache,location=weatherLocation()){return!!(cache&&Math.abs(Number(cache.latitude)-Number(location.latitude))<.001&&Math.abs(Number(cache.longitude)-Number(location.longitude))<.001)}
 function weatherCacheFresh(cache,location=weatherLocation()){if(!weatherCacheMatches(cache,location)||!cache.fetchedAt)return false;return Date.now()-new Date(cache.fetchedAt).getTime()<WEATHER_CACHE_MINUTES*60*1000}
 function weatherDailyEntry(cache,date){const d=cache?.data?.daily,index=d?.time?.indexOf(date)??-1;if(index<0)return null;return{date,code:d.weather_code?.[index],high:d.temperature_2m_max?.[index],low:d.temperature_2m_min?.[index],rain:d.precipitation_probability_max?.[index],sunrise:d.sunrise?.[index],sunset:d.sunset?.[index]}}
 function weatherUpdatedLabel(cache){if(!cache?.fetchedAt)return'';try{return new Intl.DateTimeFormat('en-CA',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(cache.fetchedAt))}catch(e){return''}}
 function weatherForecastDays(cache,count=5){const d=cache?.data?.daily;if(!d?.time)return[];return d.time.slice(0,count).map(date=>weatherDailyEntry(cache,date)).filter(Boolean)}
-function weatherPanel(date=todayISO(),context='home'){const location=weatherLocation(),cache=weatherRuntime.cache,matching=weatherCacheMatches(cache,location),selected=matching?weatherDailyEntry(cache,date):null,current=matching?cache?.data?.current:null,currentInfo=weatherCodeInfo(current?.weather_code,current?.is_day),selectedInfo=selected?weatherCodeInfo(selected.code,1):currentInfo,isToday=date===todayISO(),condition=selectedInfo.label,symbol=selectedInfo.symbol,currentTemperature=isToday&&current?weatherTemp(current.temperature_2m):selected?weatherTemp(selected.high):'—',title=context==='plan'?`${isToday?'Today':dateLabel(date,{weekday:'long',month:'short',day:'numeric'})} · ${condition}`:condition,metrics=[];if(selected)metrics.push(`High ${weatherTemp(selected.high)}`,`Low ${weatherTemp(selected.low)}`);if(isToday&&current&&Number.isFinite(Number(current.apparent_temperature)))metrics.push(`Feels ${weatherTemp(current.apparent_temperature)}`);if(selected&&Number.isFinite(Number(selected.rain)))metrics.push(`${Math.round(selected.rain)}% precipitation`);if(isToday&&current&&Number.isFinite(Number(current.wind_speed_10m)))metrics.push(`Wind ${Math.round(current.wind_speed_10m)} km/h`);const loading=!matching&&weatherRuntime.loading,status=weatherRuntime.error?`<span class="weather-error">${safe(weatherRuntime.error)}</span>`:loading?'Loading the latest forecast…':matching?`Updated ${safe(weatherUpdatedLabel(cache))} · Forecast data by Open-Meteo`:'Live forecast will load automatically.',forecast=context==='home'&&matching?`<div class="weather-forecast">${weatherForecastDays(cache,5).map(day=>{const info=weatherCodeInfo(day.code,1),today=day.date===todayISO();return `<div class="weather-day ${today?'is-today':''}"><strong>${today?'Today':dateLabel(day.date,{weekday:'short'})}</strong><span class="weather-day-symbol">${info.symbol}</span><span>${weatherTemp(day.high)} / ${weatherTemp(day.low)}</span><span>${Number.isFinite(Number(day.rain))?`${Math.round(day.rain)}% rain`:'—'}</span></div>`}).join('')}</div>`:'';return `<section class="weather-card weather-${context}" data-weather-widget><div class="weather-main"><div class="weather-symbol" aria-hidden="true">${symbol}</div><div class="weather-copy"><span class="weather-kicker">${context==='plan'?'Weather for your plan':'Current weather'}</span><${context==='home'?'h2':'h3'}>${safe(title)}</${context==='home'?'h2':'h3'}><div class="weather-location">${safe(location.name)}</div><div class="weather-current"><span class="weather-temp">${safe(currentTemperature)}</span>${context==='home'?`<span class="weather-condition">${safe(condition)}</span>`:''}</div><div class="weather-metrics">${metrics.length?metrics.map(item=>`<span>${safe(item)}</span>`).join(''):'<span>Forecast details are loading.</span>'}</div></div><div class="weather-actions"><button type="button" class="weather-action" data-weather-settings>Change</button><button type="button" class="weather-action primary" data-weather-refresh>${weatherRuntime.loading?'Loading…':'Refresh'}</button></div></div>${forecast}<div class="weather-status">${status}</div></section>`}
+function weatherPanel(date=todayISO(),context='home'){const location=weatherLocation(),cache=weatherRuntime.cache,matching=weatherCacheMatches(cache,location),selected=matching?weatherDailyEntry(cache,date):null,current=matching?cache?.data?.current:null,currentInfo=weatherCodeInfo(current?.weather_code,current?.is_day),selectedInfo=selected?weatherCodeInfo(selected.code,1):currentInfo,isToday=date===todayISO(),condition=selectedInfo.label,weatherGraphic=weatherIcon(selectedInfo.icon,selectedInfo.label),currentTemperature=isToday&&current?weatherTemp(current.temperature_2m):selected?weatherTemp(selected.high):'—',title=context==='plan'?`${isToday?'Today':dateLabel(date,{weekday:'long',month:'short',day:'numeric'})} · ${condition}`:condition,metrics=[];if(selected)metrics.push(`High ${weatherTemp(selected.high)}`,`Low ${weatherTemp(selected.low)}`);if(isToday&&current&&Number.isFinite(Number(current.apparent_temperature)))metrics.push(`Feels ${weatherTemp(current.apparent_temperature)}`);if(selected&&Number.isFinite(Number(selected.rain)))metrics.push(`${Math.round(selected.rain)}% precipitation`);if(isToday&&current&&Number.isFinite(Number(current.wind_speed_10m)))metrics.push(`Wind ${Math.round(current.wind_speed_10m)} km/h`);const loading=!matching&&weatherRuntime.loading,status=weatherRuntime.error?`<span class="weather-error">${safe(weatherRuntime.error)}</span>`:loading?'Loading the latest forecast…':matching?`Updated ${safe(weatherUpdatedLabel(cache))} · Forecast data by Open-Meteo`:'Live forecast will load automatically.',forecast=context==='home'&&matching?`<div class="weather-forecast">${weatherForecastDays(cache,5).map(day=>{const info=weatherCodeInfo(day.code,1),today=day.date===todayISO();return `<div class="weather-day ${today?'is-today':''}"><strong>${today?'Today':dateLabel(day.date,{weekday:'short'})}</strong><span class="weather-day-symbol">${weatherIcon(info.icon,info.label)}</span><span>${weatherTemp(day.high)} / ${weatherTemp(day.low)}</span><span>${Number.isFinite(Number(day.rain))?`${Math.round(day.rain)}% rain`:'—'}</span></div>`}).join('')}</div>`:'';return `<section class="weather-card weather-${context}" data-weather-widget><div class="weather-main"><div class="weather-symbol">${weatherGraphic}</div><div class="weather-copy"><span class="weather-kicker">${context==='plan'?'Weather for your plan':'Current weather'}</span><${context==='home'?'h2':'h3'}>${safe(title)}</${context==='home'?'h2':'h3'}><div class="weather-location">${safe(location.name)}</div><div class="weather-current"><span class="weather-temp">${safe(currentTemperature)}</span>${context==='home'?`<span class="weather-condition">${safe(condition)}</span>`:''}</div><div class="weather-metrics">${metrics.length?metrics.map(item=>`<span>${safe(item)}</span>`).join(''):'<span>Forecast details are loading.</span>'}</div></div><div class="weather-actions"><button type="button" class="weather-action" data-weather-settings>Change</button><button type="button" class="weather-action primary" data-weather-refresh>${weatherRuntime.loading?'Loading…':'Refresh'}</button></div></div>${forecast}<div class="weather-status">${status}</div></section>`}
 async function fetchWeather(force=false,location=weatherLocation()){if(weatherRuntime.loading)return;if(!force&&weatherCacheFresh(weatherRuntime.cache,location))return;weatherRuntime.loading=true;weatherRuntime.error='';if(document.querySelector('[data-weather-widget]'))render();const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),14000);try{const params=new URLSearchParams({latitude:String(location.latitude),longitude:String(location.longitude),current:'temperature_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m',daily:'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset',timezone:'auto',forecast_days:'7'}),response=await fetch(`https://api.open-meteo.com/v1/forecast?${params.toString()}`,{signal:controller.signal});if(!response.ok)throw new Error('Weather service did not respond.');const data=await response.json();if(!data?.current||!data?.daily)throw new Error('Weather information was incomplete.');weatherRuntime.cache={latitude:Number(location.latitude),longitude:Number(location.longitude),locationName:String(location.name),fetchedAt:new Date().toISOString(),data};sessionSet(WEATHER_CACHE_KEY,JSON.stringify(weatherRuntime.cache));weatherRuntime.error=''}catch(error){weatherRuntime.error=error?.name==='AbortError'?'The weather request timed out. Try Refresh.':'Weather could not be updated. Check your internet connection.'}finally{clearTimeout(timer);weatherRuntime.loading=false;if(document.querySelector('[data-weather-widget]'))render()}}
 function ensureWeather(){if(!document.querySelector('[data-weather-widget]'))return;if(!weatherCacheFresh(weatherRuntime.cache))fetchWeather(false)}
-function openWeatherSettings(){const location=weatherLocation(),current=weatherCacheMatches(weatherRuntime.cache,location)?weatherRuntime.cache?.data?.current:null,info=weatherCodeInfo(current?.weather_code,current?.is_day);openDrawer('Weather','Choose the location used on Home and Plan.',`<div class="weather-drawer-current"><div class="weather-symbol">${info.symbol}</div><div><span class="eyebrow">Current weather location</span><h3 style="margin:5px 0 2px">${safe(location.name)}</h3><p class="muted">${current?`${weatherTemp(current.temperature_2m)} · ${safe(info.label)}`:'Forecast will load automatically.'}</p></div></div><div class="field"><label>Search a Canadian city or postal code</label><div class="weather-search-row"><input id="weatherLocationQuery" type="search" placeholder="Moncton, Dieppe, E1A…" autocomplete="off"><button type="button" class="primary-btn" data-weather-search>Search</button></div><span class="field-help">Choose a result below to make it your saved weather location.</span></div><div id="weatherSearchResults" class="weather-search-results"></div><div class="weather-drawer-actions"><button type="button" class="soft-btn" data-weather-geolocate>Use my current location</button><button type="button" class="soft-btn" data-weather-refresh>Refresh forecast</button></div>`)}
+function openWeatherSettings(){const location=weatherLocation(),current=weatherCacheMatches(weatherRuntime.cache,location)?weatherRuntime.cache?.data?.current:null,info=weatherCodeInfo(current?.weather_code,current?.is_day);openDrawer('Weather','Choose the location used on Home and Plan.',`<div class="weather-drawer-current"><div class="weather-symbol">${weatherIcon(info.icon,info.label)}</div><div><span class="eyebrow">Current weather location</span><h3 style="margin:5px 0 2px">${safe(location.name)}</h3><p class="muted">${current?`${weatherTemp(current.temperature_2m)} · ${safe(info.label)}`:'Forecast will load automatically.'}</p></div></div><div class="field"><label>Search a Canadian city or postal code</label><div class="weather-search-row"><input id="weatherLocationQuery" type="search" placeholder="Moncton, Dieppe, E1A…" autocomplete="off"><button type="button" class="primary-btn" data-weather-search>Search</button></div><span class="field-help">Choose a result below to make it your saved weather location.</span></div><div id="weatherSearchResults" class="weather-search-results"></div><div class="weather-drawer-actions"><button type="button" class="soft-btn" data-weather-geolocate>Use my current location</button><button type="button" class="soft-btn" data-weather-refresh>Refresh forecast</button></div>`)}
 async function searchWeatherLocations(){const input=document.getElementById('weatherLocationQuery'),results=document.getElementById('weatherSearchResults'),query=String(input?.value||'').trim();if(!results||query.length<2){if(results)results.innerHTML='<p class="muted">Enter at least two characters.</p>';return}results.innerHTML='<p class="muted">Searching locations…</p>';try{const params=new URLSearchParams({name:query,count:'8',language:'en',format:'json',countryCode:'CA'}),response=await fetch(`https://geocoding-api.open-meteo.com/v1/search?${params.toString()}`);if(!response.ok)throw new Error('Location search failed.');const payload=await response.json(),choices=Array.isArray(payload.results)?payload.results:[];if(!choices.length){results.innerHTML='<p class="muted">No Canadian location was found. Try a nearby city or postal code.</p>';return}results.innerHTML=choices.map(item=>{const name=[item.name,item.admin1].filter(Boolean).join(', '),detail=[item.country,item.postcodes?.[0]].filter(Boolean).join(' · ');return `<button type="button" class="weather-location-choice" data-weather-choice data-weather-name="${safe(name)}" data-weather-country="${safe(item.country||'Canada')}" data-weather-latitude="${safe(item.latitude)}" data-weather-longitude="${safe(item.longitude)}"><span><strong>${safe(name)}</strong><small>${safe(detail)}</small></span><span>›</span></button>`}).join('');bindWeatherLocationChoices()}catch(error){results.innerHTML='<p class="muted weather-error">The location search could not be completed.</p>'}}
 function bindWeatherLocationChoices(){document.querySelectorAll('#drawer [data-weather-choice]').forEach(button=>{button.onclick=()=>{const location={name:button.dataset.weatherName,country:button.dataset.weatherCountry||'Canada',latitude:Number(button.dataset.weatherLatitude),longitude:Number(button.dataset.weatherLongitude)};saveWeatherLocation(location);closeDrawer();fetchWeather(true,location)}})}
 function useCurrentWeatherLocation(){if(!navigator.geolocation){showToast('Location access is not supported in this browser.');return}showToast('Requesting your location…');navigator.geolocation.getCurrentPosition(position=>{const location={name:'Current location',country:'Canada',latitude:Number(position.coords.latitude),longitude:Number(position.coords.longitude)};saveWeatherLocation(location);closeDrawer();fetchWeather(true,location)},()=>showToast('Location permission was not granted.'),{enableHighAccuracy:false,timeout:12000,maximumAge:600000})}
@@ -618,7 +769,7 @@ function taskRow(t){const priority=taskPriority(t),status=taskStatus(t),related=
 function noteRow(n){const follow=n.followUpDate?`${safe(n.followUpDate)}${n.followUpTime?' · '+safe(formatTime12(n.followUpTime)):' · Start of day'}`:'',status=String(n.status||'pending').toLowerCase();return `<div class="note-item"><button class="note-open" data-open-note="${n.id}"><div class="row-title">${safe(n.title||'Note')}</div><div class="meta-pills"><span class="meta-pill">${safe(n.type||'note')}</span>${n.category?`<span class="meta-pill">${safe(n.category)}</span>`:''}${follow?`<span class="task-status-badge status-${status==='completed'?'completed':status==='paused'?'paused':status==='active'?'active':'pending'}">Follow-up ${follow}</span>`:''}</div>${n.relatedTo?`<div class="row-meta">${safe(n.relatedTo)}</div>`:''}<div class="task-description">${safe((n.body||n.nextAction||'').slice(0,140))}</div></button>${deleteIconButton('note',n.id,'Delete note or follow-up')}</div>`}
 function empty(title,subtitle,action){return `<div class="empty"><div><strong>${title}</strong><span>${subtitle}</span><br><button class="text-btn" data-open-action="${action}">Add one now →</button></div></div>`}
 function renderPlan(){document.getElementById('page').innerHTML=`${pageHead('Plan','Plan with clarity.','Daily, weekly and monthly planning that stays connected to tasks, money and content.',{id:'add-event',label:'+ Add event'})}${weatherPanel(currentPlanDate(),'plan')}${tabs()}${route.tab==='day'?renderDay():route.tab==='week'?renderWeek():route.tab==='month'?renderMonth():renderRoutines()}`}
-function renderDay(){const d=currentPlanDate(),events=byDate(state.events,d).sort((a,b)=>(eventStartValue(a)||'').localeCompare(eventStartValue(b)||'')),allTasks=tasksForDate(d),priorities=allTasks.filter(taskIsTop).slice(0,3),flexible=allTasks.filter(t=>!taskIsTop(t)).slice(0,8),notes=state.notes.filter(n=>n.date===d||n.followUpDate===d).sort((a,b)=>(a.followUpTime||'00:00').localeCompare(b.followUpTime||'00:00')).slice(0,5);return `<section class="agenda-layout"><article class="card agenda-card"><div class="agenda-toolbar"><div><span class="eyebrow">${dateLabel(d,{weekday:'long',month:'long',day:'numeric'})}</span><h3>Schedule</h3><p class="muted" style="margin-top:4px">Events fill the agenda according to their exact start and end times.</p></div><input class="date-input" id="planDate" type="date" value="${d}"></div><div class="agenda">${agendaTimeline(events)}</div></article><aside class="side-stack"><article class="card card-pad"><div class="card-head"><div><span class="eyebrow">Most important</span><h3>Top priorities</h3></div><button class="text-btn" data-open-action="add-priority">Add</button></div>${priorities.map(taskRow).join('')||empty('No priorities yet.','Create a dated priority with urgency and status.','add-priority')}</article><article class="card card-pad"><div class="card-head"><div><span class="eyebrow">Flexible</span><h3>Tasks</h3></div><button class="text-btn" data-open-action="add-task">Add</button></div>${flexible.map(taskRow).join('')||empty('No tasks for this day.','Add a detailed task; no time means start of day.','add-task')}</article><article class="card card-pad"><div class="card-head"><div><span class="eyebrow">Capture</span><h3>Notes & follow-ups</h3></div><button class="text-btn" data-open-action="add-note">Add</button></div>${notes.map(noteRow).join('')||empty('No notes or follow-ups.','Record the full note, related person or project, next action and attachments.','add-note')}</article></aside></section>`}
+function renderDay(){const d=currentPlanDate(),events=byDate(state.events,d).sort((a,b)=>(eventStartValue(a)||'').localeCompare(eventStartValue(b)||'')),allTasks=tasksForDate(d),priorities=allTasks.filter(taskIsTop).slice(0,3),flexible=allTasks.filter(t=>!taskIsTop(t)).slice(0,8),notes=state.notes.filter(n=>n.date===d||n.followUpDate===d).sort((a,b)=>(a.followUpTime||'00:00').localeCompare(b.followUpTime||'00:00')).slice(0,5);return `<section class="agenda-layout"><article class="card agenda-card"><div class="agenda-toolbar"><div><span class="eyebrow">${dateLabel(d,{weekday:'long',month:'long',day:'numeric'})}</span><h3>Schedule</h3><p class="muted" style="margin-top:4px">Events flow through the agenda with connected start points and true time duration.</p></div><input class="date-input" id="planDate" type="date" value="${d}"></div><div class="agenda">${agendaTimeline(events)}</div></article><aside class="side-stack"><article class="card card-pad"><div class="card-head"><div><span class="eyebrow">Most important</span><h3>Top priorities</h3></div><button class="text-btn" data-open-action="add-priority">Add</button></div>${priorities.map(taskRow).join('')||empty('No priorities yet.','Create a dated priority with urgency and status.','add-priority')}</article><article class="card card-pad"><div class="card-head"><div><span class="eyebrow">Flexible</span><h3>Tasks</h3></div><button class="text-btn" data-open-action="add-task">Add</button></div>${flexible.map(taskRow).join('')||empty('No tasks for this day.','Add a detailed task; no time means start of day.','add-task')}</article><article class="card card-pad"><div class="card-head"><div><span class="eyebrow">Capture</span><h3>Notes & follow-ups</h3></div><button class="text-btn" data-open-action="add-note">Add</button></div>${notes.map(noteRow).join('')||empty('No notes or follow-ups.','Record the full note, related person or project, next action and attachments.','add-note')}</article></aside></section>`}
 function startOfWeek(d=new Date()){const x=new Date(d);const day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);x.setHours(12,0,0,0);return x}
 function renderWeek(){const start=startOfWeek(new Date(currentPlanDate()+'T12:00:00'));const days=Array.from({length:7},(_,i)=>{const x=new Date(start);x.setDate(start.getDate()+i);return x.toISOString().slice(0,10)});return `<div class="grid grid-2" style="margin-bottom:18px"><article class="card card-pad"><span class="eyebrow">This week</span><h3>Weekly focus</h3><p class="muted">Choose one outcome that keeps the week centred.</p></article><article class="card card-pad"><span class="eyebrow">Top priorities</span><h3>What must move forward</h3>${topTasks().slice(0,3).map(taskRow).join('')||'<p class="muted">Add your top priorities from the Action Menu.</p>'}</article></div><div class="week-grid">${days.map(d=>{const es=byDate(state.events,d),ts=state.tasks.filter(t=>!taskIsComplete(t)&&(t.date===d||t.dueDate===d)),cs=state.content.filter(c=>c.date===d||c.scheduledDate===d);return `<article class="day-card ${d===todayISO()?'today':''}"><div class="day-title"><strong>${dateLabel(d,{weekday:'short'})}</strong><span>${dateLabel(d,{month:'short',day:'numeric'})}</span></div>${es.map(e=>`<div class="mini-entry">${safe(formatTime12(eventStartValue(e),'Anytime'))} ${safe(e.title||'Event')}${deleteIconButton('event',e.id,'Delete event')}</div>`).join('')}${ts.map(t=>`<div class="mini-entry task">□ ${safe(t.title||'Task')}${deleteIconButton('task',t.id,'Delete task')}</div>`).join('')}${cs.map(c=>`<div class="mini-entry content">✦ ${safe(c.title||'Content')}${deleteIconButton('content',c.id,'Delete content item')}</div>`).join('')||(!es.length&&!ts.length&&!cs.length?'<p class="muted" style="font-size:10px">Open space</p>':'')}</article>`}).join('')}</div>`}
 function monthDays(value){const base=new Date((value||todayISO()).slice(0,7)+'-01T12:00:00'),first=startOfWeek(base),days=[];for(let i=0;i<42;i++){const x=new Date(first);x.setDate(first.getDate()+i);days.push(x.toISOString().slice(0,10))}return{base,days}}

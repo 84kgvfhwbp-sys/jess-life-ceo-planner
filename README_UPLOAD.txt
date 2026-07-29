@@ -1,35 +1,26 @@
-LIFE & CEO OS — WEATHER RESTORED UPDATE
-===========================================
+LIFE & CEO OS — CONNECTED SCHEDULE UPDATE
+=======================================
 
-HOME
-- Live current temperature and condition
-- Feels-like temperature, high, low, precipitation chance and wind
-- Five-day forecast
-- Refresh and Change Location controls
+WHAT CHANGED
+------------
+This update refines the Plan → Day schedule so it feels more like a seamless visual planner.
 
-PLAN
-- Weather directly above Day / Week / Month / Routines
-- Uses the selected planning date
-- Shows condition, high, low and precipitation chance
-- Today also shows live temperature, feels-like temperature and wind
+Included in this update:
+- Larger schedule text
+- 15-minute internal time precision
+- Stronger AM/PM time labels
+- A connected event layout with a dot + vertical stem
+- Event cards that visually fill their true duration
+- Improved spacing and readability for the daily agenda
 
-LOCATION
-- Defaults to Greater Moncton, New Brunswick
-- Search Canadian cities or postal codes
-- Optional Use My Current Location
-- Saved location remains in planner settings
+NOTES
+-----
+This update only changes the schedule presentation and timing precision.
+Your saved planner data remains compatible.
 
-STORAGE
-Forecast responses are cached in sessionStorage, not in the main planner record,
-so weather does not add meaningful pressure to localStorage.
-
-SOURCE
-Forecast and location data are supplied by Open-Meteo. No API key is required.
-
-GITHUB UPLOAD
-1. Use Backup data in the current planner.
-2. Replace the root-level index.html in the GitHub repository.
-3. Commit the replacement.
-4. Open GitHub Pages and press Command + Shift + R once.
-
-Existing records continue using life-ceo-os-stable-v1.
+UPLOAD
+------
+1. Back up your data from inside the planner first.
+2. Replace the root index.html file in GitHub with the one in this folder.
+3. Commit the change.
+4. Refresh the planner with Cmd + Shift + R once.

@@ -1,14 +1,10 @@
-LIFE & CEO OS — WEATHER UPDATE VALIDATION
-===============================================
-PASS — standalone HTML generated
-PASS — JavaScript passed node --check
-PASS — no duplicate static HTML IDs
-PASS — existing storage key retained
-PASS — weather shown on Home and Plan
-PASS — selected Plan-date forecast supported
-PASS — five-day forecast included
-PASS — Greater Moncton default included
-PASS — Canadian city/postal search included
-PASS — browser geolocation option included
-PASS — weather cache kept outside main planner data
-PASS — Open-Meteo attribution included
+LIFE & CEO OS — CONNECTED SCHEDULE UPDATE VALIDATION
+===================================================
+
+PASS — source based on latest custom weather icons build
+PASS — agenda timeline upgraded to 15-minute precision
+PASS — larger schedule labels applied
+PASS — event blocks render with connected dot and stem styling
+PASS — event height is tied to duration
+PASS — existing storage structure retained
+PASS — planner remains single-file deployable
