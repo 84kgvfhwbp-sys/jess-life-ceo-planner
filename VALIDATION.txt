@@ -1,10 +1,17 @@
-LIFE & CEO OS — CONNECTED SCHEDULE UPDATE VALIDATION
-===================================================
+LIFE & CEO OS — INTERACTIVE SCHEDULE VALIDATION
+====================================================
 
-PASS — source based on latest custom weather icons build
-PASS — agenda timeline upgraded to 15-minute precision
-PASS — larger schedule labels applied
-PASS — event blocks render with connected dot and stem styling
-PASS — event height is tied to duration
-PASS — existing storage structure retained
-PASS — planner remains single-file deployable
+PASS — standalone HTML generated
+PASS — JavaScript passed node --check
+PASS — no duplicate static HTML IDs
+PASS — existing localStorage key retained
+PASS — Schedule header Add Event control included
+PASS — pointer-based event dragging included
+PASS — pointer-based event resizing included
+PASS — 15-minute snapping included
+PASS — time changes persist to existing event records
+PASS — click-to-edit event flow included
+PASS — typed AM/PM input included
+PASS — selector-based AM/PM input included
+PASS — task and follow-up time fields inherit hybrid input
+PASS — existing category colours and event icons retained

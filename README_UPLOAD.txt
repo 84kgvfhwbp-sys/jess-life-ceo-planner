@@ -1,26 +1,42 @@
-LIFE & CEO OS — CONNECTED SCHEDULE UPDATE
-=======================================
+LIFE & CEO OS — INTERACTIVE SCHEDULE UPDATE
+================================================
 
 WHAT CHANGED
 ------------
-This update refines the Plan → Day schedule so it feels more like a seamless visual planner.
+PLAN → DAY
 
-Included in this update:
-- Larger schedule text
-- 15-minute internal time precision
-- Stronger AM/PM time labels
-- A connected event layout with a dot + vertical stem
-- Event cards that visually fill their true duration
-- Improved spacing and readability for the daily agenda
+- A + Add event button now appears directly in the Schedule header.
+- Drag an event vertically to change its start time.
+- Events snap to 15-minute increments.
+- Pull the small handle along the bottom edge to change the event duration.
+- Resizing also snaps to 15-minute increments.
+- Event times save immediately to the same event record.
+- Overlapping-event layout recalculates after moving or resizing.
+- Click an event without moving it to open the Edit Event form.
 
-NOTES
------
-This update only changes the schedule presentation and timing precision.
-Your saved planner data remains compatible.
+TIME ENTRY
+----------
+Start time, end time, task time and follow-up time now support two methods:
 
-UPLOAD
-------
-1. Back up your data from inside the planner first.
-2. Replace the root index.html file in GitHub with the one in this folder.
-3. Commit the change.
-4. Refresh the planner with Cmd + Shift + R once.
+1. Type the time:
+   7:30 AM
+   730 PM
+   19:30
+
+2. Select Choose:
+   Hour
+   Minute
+   AM / PM
+
+On phones and tablets, the browser may display the selectors as native rolling
+pickers. The visible time remains in AM/PM format.
+
+GITHUB UPLOAD
+-------------
+1. Use Backup data inside the current planner.
+2. Replace the root-level index.html in GitHub with the index.html in this folder.
+3. Commit the replacement.
+4. Open the planner.
+5. Press Command + Shift + R once.
+
+Existing planner data remains compatible.
