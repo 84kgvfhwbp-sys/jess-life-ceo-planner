@@ -1,34 +1,30 @@
-LIFE & CEO OS — CATEGORY COLOUR STUDIO UPDATE
-=================================================
+LIFE & CEO OS — STATUS-SPLIT TASK PANELS UPDATE
+================================================
 
-The Category Library is now a full category style manager.
+WHAT CHANGED
+------------
+The Day Planner side panels now split Top Priorities and Tasks into two visual sections:
 
-Each category appears in a list row with:
-- Category name
-- Current colour swatch
-- Full-spectrum colour picker
-- Editable hex colour
-- Delete control
+1. Current
+   - includes pending, active and paused items
+2. Completed
+   - completed items show in the lower section
+   - completed items remain crossed out
 
-Choose the colour square to open the spectrum, or type an exact value such as
-#315842.
+This applies to:
+- Top Priorities card
+- Tasks card
 
-Planning-category colours automatically control:
-- Schedule event background
-- Event border
-- Connected timeline dot
-- Connected duration line
-- Category label
-
-New categories can be assigned a colour before they are added.
-
-Existing categories and data are retained. The planner stores category colours
-inside the same browser data record using the existing storage key:
-life-ceo-os-stable-v1
+DETAILS
+-------
+- Completed priority items now stay visible instead of disappearing.
+- Completed flexible tasks now stay visible instead of disappearing.
+- Each section shows its own count.
+- The existing task status pills and crossed-out completed styling remain intact.
 
 GITHUB UPLOAD
 -------------
-1. Use Backup data in the current planner.
-2. Replace the root-level index.html in GitHub.
-3. Commit the replacement.
-4. Open the planner and press Command + Shift + R once.
+1. Back up your data.
+2. Replace the root index.html with the file in this folder.
+3. Commit the change.
+4. Reload the planner with Command + Shift + R.
