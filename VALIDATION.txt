@@ -1,17 +1,14 @@
-LIFE & CEO OS — VALIDATION REPORT
-======================================
-
-PASS — standalone index.html created
+LIFE & CEO OS — WEATHER UPDATE VALIDATION
+===============================================
+PASS — standalone HTML generated
 PASS — JavaScript passed node --check
 PASS — no duplicate static HTML IDs
-PASS — existing localStorage key retained
-PASS — existing habit checks retained
-PASS — existing delete controls retained
-PASS — expanded habit form included
-PASS — weekly completion calculations included
-PASS — today's habit completion included
-PASS — habit streak calculations included
-PASS — mood, energy, stress and note tracking included
-PASS — mood deletion included
-PASS — Home habit and mood summary included
-PASS — larger habit and mood typography included
+PASS — existing storage key retained
+PASS — weather shown on Home and Plan
+PASS — selected Plan-date forecast supported
+PASS — five-day forecast included
+PASS — Greater Moncton default included
+PASS — Canadian city/postal search included
+PASS — browser geolocation option included
+PASS — weather cache kept outside main planner data
+PASS — Open-Meteo attribution included
