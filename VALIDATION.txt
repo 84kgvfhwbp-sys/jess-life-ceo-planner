@@ -1,19 +1,15 @@
-LIFE & CEO OS — FULL PROJECT PAGES VALIDATION
-================================================
+LIFE & CEO OS — ACTIONABLE PROJECT PAGES VALIDATION
+=====================================================
 
 PASS — standalone index.html generated
 PASS — JavaScript passed node --check
 PASS — no duplicate static HTML IDs
 PASS — existing storage key retained
-PASS — Home renderer retained
-PASS — dedicated project URL routing included
-PASS — Project database opens full Project pages
-PASS — project drawer/modal is not used for navigation
-PASS — Back to Projects included
-PASS — spacious paper-style Project Breakdown included
-PASS — Objective, priorities and constraints included
-PASS — Resources Required included
-PASS — linked Project Task database included
-PASS — Project files included
-PASS — project-specific Action Menu included
-PASS — existing edit and add-task forms retained
+PASS — full project route retained
+PASS — site-style project cards included
+PASS — section-specific edit forms included
+PASS — project completion toggle included
+PASS — project-connected notes included
+PASS — project tasks remain shared
+PASS — project file upload and removal retained
+PASS — existing Home and non-project renderers preserved

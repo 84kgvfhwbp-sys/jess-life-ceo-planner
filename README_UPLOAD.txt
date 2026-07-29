@@ -1,55 +1,35 @@
-LIFE & CEO OS — FULL PROJECT PAGES UPDATE
-============================================
+LIFE & CEO OS — ACTIONABLE PROJECT PAGES UPDATE
+=================================================
 
-Projects no longer open in a drawer, side panel or pop-up.
-
-NEW FLOW
---------
-Projects Database → Open Project → Dedicated Project Breakdown Page
-
-Each project has its own internal page address:
-#work/projects/PROJECT-ID
-
-PROJECT PAGE
+WHAT CHANGED
 ------------
-The whole centre workspace is dedicated to the selected project and includes:
-- Project title, client and owner
-- Status, start date, due date and completion date
-- Calculated task progress
-- Objective
-- Eight-line Top Priorities area
-- Time, budget and scope constraints
-- Next action
-- Sixteen-line Resources Required area
-- Full linked Project Task database
-- Project files and attachments
-- Edit Project and Add Project Task controls
+Every full Project page now matches the visual language used throughout the rest
+of Life & CEO OS: warm cards, rounded panels, forest-green actions, sage and
+beige accents, clearer spacing and larger headings.
 
-The layout is intentionally spacious and paper-like, based on the Project
-Breakdown reference supplied by Jessica.
+EVERY SECTION IS ACTIONABLE
+---------------------------
+- Project Details: edit title, client, owner, status and dates
+- Objective: edit the complete project objective
+- Top Priorities: add or update priorities line by line
+- Constraints: update time, budget and scope
+- Next Action: set the immediate next step
+- Resources Required: add or edit people, tools, materials and documents
+- Notes & Follow-ups: add project-connected notes and open saved notes
+- Project Tasks: add, open, complete and delete linked tasks
+- Project Files: upload and remove attachments
+- Project Status: mark the project complete or reopen it from the page header
 
-TASK CONNECTIONS
+DATA CONNECTIONS
 ----------------
-Tasks created inside a project remain the same records used in the main Tasks
-area. Completion, edits and deletions stay connected everywhere.
+Project tasks continue to use the shared Tasks database. Project notes are saved
+in the shared Notes database with a project ID and related-project name.
 
-NAVIGATION
-----------
-- Back to Projects returns to the project database.
-- The left Main Menu remains available.
-- The right Action Menu becomes project-specific.
-- The project stays open as a true page until another page is selected.
-
-HOME
-----
-This version is based directly on the Home-validated Project Database build.
-The Home renderer and all existing planner sections remain intact.
+Existing projects are compatible. No storage key changes were made.
 
 GITHUB UPLOAD
 -------------
 1. Use Backup data in the current planner.
-2. Replace the root-level index.html in GitHub.
+2. Replace the root-level index.html in GitHub with the index.html in this folder.
 3. Commit the replacement.
 4. Open the planner and press Command + Shift + R once.
-
-Existing storage key: life-ceo-os-stable-v1
