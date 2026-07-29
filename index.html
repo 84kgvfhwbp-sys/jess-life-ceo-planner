@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#2f4337">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Life & CEO OS">
-<title>Life & CEO OS — Project Database Workspace</title>
+<title>Life & CEO OS — Full Project Pages</title>
 <style>
 :root{
   --forest:#2f4337;--forest-2:#24352c;--olive:#788466;--sage:#dfe7dc;--cream:#f6f1e8;
@@ -548,6 +548,62 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;color:var(--ink)}h1{margin:
 .project-empty strong{display:block;margin-bottom:7px;font:500 20px Georgia,serif;color:var(--ink)}
 @media(max-width:950px){.project-db-summary{grid-template-columns:repeat(2,1fr)}.project-db-tools{grid-template-columns:1fr 160px}.project-db-tools .primary-btn{grid-column:1/-1}.project-modal{width:calc(100vw - 95px);height:calc(100vh - 35px)}.project-sheet-upper{grid-template-columns:1fr}.project-details-grid{grid-template-columns:repeat(2,1fr)}.project-detail-cell{border-bottom:1px solid var(--line)}}
 @media(max-width:700px){.project-db-summary{grid-template-columns:1fr 1fr}.project-db-tools{grid-template-columns:1fr}.project-modal{left:var(--left-compact);right:var(--rail);top:10px;width:auto;height:calc(100vh - 20px);transform:translateY(10px);border-radius:18px}.project-modal.open{transform:none}.project-modal-head{align-items:flex-start;flex-direction:column}.project-modal-actions{width:100%;justify-content:flex-start}.project-modal-body{padding:16px}.project-sheet-top{flex-direction:column}.project-sheet-progress{text-align:left}.project-details-grid{grid-template-columns:1fr}.project-detail-cell{border-right:0}.project-resources{grid-template-columns:1fr}}
+
+
+/* FULL PROJECT PAGES — dedicated route per project */
+.project-full-page{width:100%;max-width:1280px;margin:0 auto;padding-bottom:54px}
+.project-page-toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:14px}
+.project-page-back{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 13px;border:1px solid var(--line);border-radius:10px;color:var(--forest);background:#fffdf8;font-size:10px;font-weight:800}
+.project-page-back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.project-page-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.project-page-paper{min-height:960px;padding:38px 42px 48px;border:1px solid #deddd8;border-radius:0;background:#fff;box-shadow:0 18px 42px rgba(42,50,44,.09)}
+.project-page-titlebar{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding-bottom:20px}
+.project-page-titlebar h1{margin:6px 0 0;font-size:38px;line-height:1.06}
+.project-page-titlebar p{margin:9px 0 0;color:var(--muted);font-size:11px}
+.project-page-progress{min-width:230px;padding-top:4px;text-align:right}
+.project-page-progress strong{display:block;color:var(--forest);font:600 30px/1 Georgia,serif}
+.project-page-progress small{display:block;margin-top:5px;color:var(--muted);font-size:9px}
+.project-page-progress .progress{height:7px;margin-top:10px}
+.project-page-section-title{display:flex;align-items:center;gap:10px;margin:0 0 11px;padding-bottom:8px;border-bottom:1px solid #565954;color:#343632;font-size:9px;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+.project-page-meta{display:grid;grid-template-columns:1.35fr repeat(4,minmax(115px,.68fr));margin-bottom:26px;border-top:1px solid #cfcfca;border-bottom:1px solid #cfcfca}
+.project-page-meta-cell{min-height:78px;padding:14px 13px;border-right:1px solid #e1e1dc}
+.project-page-meta-cell:last-child{border-right:0}
+.project-page-meta-cell small{display:block;color:var(--muted);font-size:7px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
+.project-page-meta-cell strong{display:block;margin-top:9px;color:var(--ink);font-size:11px;line-height:1.42}
+.project-page-upper{display:grid;grid-template-columns:.92fr 1.08fr;gap:28px;margin-bottom:28px}
+.project-page-block{min-width:0}
+.project-objective-paper{min-height:210px;padding:18px;border:1px solid #ededeb;background:#f6f6f4}
+.project-objective-paper p{margin:0;color:#4e504c;font-size:12px;line-height:1.75;white-space:pre-wrap}
+.project-lined-list{margin:0;padding:0;list-style:none;counter-reset:projectline}
+.project-lined-list li{counter-increment:projectline;display:grid;grid-template-columns:30px minmax(0,1fr);gap:8px;min-height:37px;padding:9px 5px 7px;border-bottom:1px solid #e2e2de;color:#4d504c;font-size:11px;line-height:1.45}
+.project-lined-list li::before{content:counter(projectline) '.';color:#777a74;font-size:9px}
+.project-lined-list li.is-empty{color:transparent}
+.project-page-constraints{display:grid;gap:0}
+.project-page-constraint{display:grid;grid-template-columns:90px minmax(0,1fr);gap:12px;min-height:42px;padding:10px 7px;border-bottom:1px solid #e2e2de}
+.project-page-constraint strong{color:#555852;font-size:8px;font-weight:850;letter-spacing:.09em;text-transform:uppercase}
+.project-page-constraint span{color:var(--muted);font-size:11px;line-height:1.5}
+.project-next-action{margin-top:18px;padding:14px 16px;border-left:5px solid var(--olive);background:#f2f4ef}
+.project-next-action small{display:block;color:var(--olive);font-size:7px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
+.project-next-action strong{display:block;margin-top:6px;color:var(--ink);font-size:12px;line-height:1.5}
+.project-page-lower{display:grid;grid-template-columns:.32fr .68fr;gap:26px;align-items:start}
+.project-resource-lines{display:grid;gap:0}
+.project-resource-line{display:grid;grid-template-columns:27px minmax(0,1fr);gap:7px;min-height:35px;padding:8px 4px 7px;border-bottom:1px solid #e2e2de;color:#4d504c;font-size:10px;line-height:1.45}
+.project-resource-line span:first-child{color:#777a74;font-size:9px}
+.project-resource-line.is-empty span:last-child{color:transparent}
+.project-page-task-zone{min-width:0}
+.project-page-task-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:8px}
+.project-page-task-head .project-page-section-title{flex:1;margin-bottom:0}
+.project-page-task-head p{margin:5px 0 0;color:var(--muted);font-size:9px}
+.project-page-task-zone .project-task-table-wrap{border-top:1px solid #565954}
+.project-page-task-zone .project-task-table{min-width:780px}
+.project-page-task-zone .project-task-table th,.project-page-task-zone .project-task-table td{padding:11px 8px}
+.project-page-files{margin-top:28px}
+.project-page-files .attachments{margin-top:10px}
+.project-page-missing{max-width:760px;margin:60px auto;padding:50px;border:1px solid var(--line);background:#fff;text-align:center}
+.project-page-missing h2{margin-bottom:10px}
+.project-page-missing p{margin-bottom:20px;color:var(--muted)}
+@media(max-width:1050px){.project-page-paper{padding:30px 28px 40px}.project-page-meta{grid-template-columns:repeat(2,1fr)}.project-page-meta-cell{border-bottom:1px solid #e1e1dc}.project-page-upper,.project-page-lower{grid-template-columns:1fr}}
+@media(max-width:700px){.project-page-toolbar,.project-page-titlebar,.project-page-task-head{align-items:flex-start;flex-direction:column}.project-page-actions{justify-content:flex-start}.project-page-paper{padding:24px 18px 34px}.project-page-titlebar h1{font-size:31px}.project-page-progress{width:100%;min-width:0;text-align:left}.project-page-meta{grid-template-columns:1fr}.project-page-meta-cell{border-right:0}}
 
 </style>
 </head>
@@ -1566,6 +1622,124 @@ function openBackup(){openDrawer('Backup & restore','Your planner stays in this 
 function exportBackup(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`life-ceo-os-backup-${todayISO()}.json`;a.click();URL.revokeObjectURL(a.href)}
 function importBackup(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const next=JSON.parse(reader.result);if(!next||typeof next!=='object')throw new Error('Invalid');state=Object.assign(defaults(),next);normalizeCategoryLibraries(state);if(!Array.isArray(state.moods))state.moods=[];localStorage.setItem(STORE,JSON.stringify(state));closeDrawer();applyNav();render();showToast('Backup restored.')}catch(err){showToast('That backup file could not be read.')}};reader.readAsText(file)}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2500)}
+
+/* Dedicated full project page overrides */
+const fullProjectBaseBindPage=bindPage;
+const fullProjectBaseOpenAction=openAction;
+const fullProjectBaseOpenActionMenu=openActionMenu;
+const fullProjectBaseDeleteRecord=deleteRecord;
+
+function openProjectPage(id){
+ route.area='work';route.tab='projects';route.projectId=String(id||'');
+ location.hash=`work/projects/${encodeURIComponent(route.projectId)}`;
+ render()
+}
+function backToProjects(){
+ route.area='work';route.tab='projects';route.projectId='';
+ location.hash='work/projects';render()
+}
+function projectDisplayLines(items,count=8){
+ const list=Array.isArray(items)?items:[];
+ return Array.from({length:Math.max(count,list.length)},(_,index)=>({value:list[index]||'',empty:!list[index]}))
+}
+function projectPriorityLines(items,count=8){
+ return `<ol class="project-lined-list">${projectDisplayLines(items,count).map(item=>`<li class="${item.empty?'is-empty':''}">${safe(item.value||'—')}</li>`).join('')}</ol>`
+}
+function projectResourceLines(items,count=16){
+ return `<div class="project-resource-lines">${projectDisplayLines(items,count).map((item,index)=>`<div class="project-resource-line ${item.empty?'is-empty':''}"><span>${index+1}.</span><span>${safe(item.value||'—')}</span></div>`).join('')}</div>`
+}
+function renderProjectFullPage(id){
+ const project=state.projects.find(item=>String(item.id)===String(id));
+ if(!project)return `<div class="project-page-missing"><span class="eyebrow">Project database</span><h2>Project not found.</h2><p>This project may have been deleted or the link may no longer be valid.</p><button class="primary-btn" type="button" data-project-back>Back to Projects</button></div>`;
+ const tasks=projectTasks(project),progress=projectProgress(project,tasks),priorities=projectLines(project.priorities),resources=projectLines(project.resources),completed=tasks.filter(taskIsComplete).length;
+ return `<section class="project-full-page">
+  <div class="project-page-toolbar">
+   <button class="project-page-back" type="button" data-project-back>${svg('collapse')} Back to Projects</button>
+   <div class="project-page-actions"><button class="soft-btn" type="button" data-project-edit="${safe(project.id)}">Edit project</button><button class="primary-btn" type="button" data-project-add-task="${safe(project.id)}">+ Add project task</button></div>
+  </div>
+  <article class="project-page-paper">
+   <header class="project-page-titlebar">
+    <div><span class="eyebrow">Project breakdown</span><h1>${safe(project.title||project.name||'Untitled project')}</h1><p>${safe(project.client||'No client recorded')}${project.owner?` · Project owner: ${safe(project.owner)}`:''}</p></div>
+    <div class="project-page-progress"><strong>${progress}%</strong><small>${completed} of ${tasks.length} tasks completed</small><div class="progress"><span style="width:${progress}%"></span></div></div>
+   </header>
+   <h2 class="project-page-section-title">Details</h2>
+   <section class="project-page-meta">
+    <div class="project-page-meta-cell"><small>Title</small><strong>${safe(project.title||project.name||'Untitled project')}</strong></div>
+    <div class="project-page-meta-cell"><small>Status</small><strong><span class="project-status ${safe(project.status||'to-do')}">${safe(projectStatusLabel(project.status))}</span></strong></div>
+    <div class="project-page-meta-cell"><small>Start date</small><strong>${safe(project.startDate||'—')}</strong></div>
+    <div class="project-page-meta-cell"><small>Due date</small><strong>${safe(project.dueDate||'—')}</strong></div>
+    <div class="project-page-meta-cell"><small>Completed on</small><strong>${safe(project.completedDate||'—')}</strong></div>
+   </section>
+   <section class="project-page-upper">
+    <div class="project-page-block">
+     <h2 class="project-page-section-title">Objective</h2>
+     <div class="project-objective-paper"><p>${safe(project.objective||'Add the project objective, intended result and definition of success.')}</p></div>
+     <div style="margin-top:25px"><h2 class="project-page-section-title">Constraints</h2><div class="project-page-constraints"><div class="project-page-constraint"><strong>Time</strong><span>${safe(project.timeConstraint||'Not specified')}</span></div><div class="project-page-constraint"><strong>Budget</strong><span>${safe(project.budgetConstraint||'Not specified')}</span></div><div class="project-page-constraint"><strong>Scope</strong><span>${safe(project.scopeConstraint||'Not specified')}</span></div></div></div>
+     <div class="project-next-action"><small>Next action</small><strong>${safe(project.nextAction||'No next action recorded.')}</strong></div>
+    </div>
+    <div class="project-page-block"><h2 class="project-page-section-title">Top priorities</h2>${projectPriorityLines(priorities,8)}</div>
+   </section>
+   <section class="project-page-lower">
+    <div class="project-page-block"><h2 class="project-page-section-title">Resources required</h2>${projectResourceLines(resources,16)}</div>
+    <div class="project-page-task-zone"><div class="project-page-task-head"><div style="flex:1"><h2 class="project-page-section-title">Project task database</h2><p>Every task here remains connected to the main Tasks area.</p></div><button class="primary-btn" type="button" data-project-add-task="${safe(project.id)}">+ Add task</button></div>${projectTaskTable(project,tasks)}</div>
+   </section>
+   <section class="project-page-files"><h2 class="project-page-section-title">Project files</h2>${attachmentsHTML(project.attachments,'project',project.id)}</section>
+  </article>
+ </section>`
+}
+
+parseHash=function(){
+ const parts=(location.hash.replace(/^#/,'')||'home').split('/'),a=parts[0],t=parts[1];
+ route.area=areas[a]?a:'home';route.tab=t||defaultTab(route.area);
+ route.projectId=route.area==='work'&&route.tab==='projects'&&parts[2]?decodeURIComponent(parts.slice(2).join('/')):''
+};
+setRoute=function(area,tab){
+ route.area=area;route.tab=tab||defaultTab(area);route.projectId='';
+ location.hash=area+(route.tab&&route.tab!==defaultTab(area)?'/'+route.tab:'');render()
+};
+renderWork=function(){
+ if(route.tab==='projects'&&route.projectId){document.getElementById('page').innerHTML=renderProjectFullPage(route.projectId);return}
+ const action=route.tab==='projects'?{id:'add-project',label:'+ New project'}:{id:'add-task',label:'+ Add work item'};
+ document.getElementById('page').innerHTML=`${pageHead('Work','Run the work.','Tasks, projects, clients and quotes in one clear operating area.',action)}${tabs()}${route.tab==='tasks'?workTasks():route.tab==='projects'?workProjects():route.tab==='clients'?workClients():workQuotes()}`
+};
+openProjectWorkspace=function(id){openProjectPage(id)};
+closeProjectWorkspace=function(){
+ activeProjectId='';document.getElementById('projectModalBackdrop')?.classList.remove('open');document.getElementById('projectModal')?.classList.remove('open');document.getElementById('projectModal')?.setAttribute('aria-hidden','true');
+ if(route.area==='work'&&route.tab==='projects'&&route.projectId)backToProjects()
+};
+bindPage=function(){
+ fullProjectBaseBindPage();
+ document.querySelectorAll('[data-open-project]').forEach(button=>button.onclick=e=>{if(e.target.closest('[data-delete-type]'))return;e.stopPropagation();openProjectPage(button.dataset.openProject)});
+ document.querySelectorAll('[data-project-back]').forEach(button=>button.onclick=backToProjects);
+ document.querySelectorAll('[data-project-edit]').forEach(button=>button.onclick=()=>openProjectEditor(button.dataset.projectEdit));
+ document.querySelectorAll('[data-project-add-task]').forEach(button=>button.onclick=()=>openProjectTaskForm(button.dataset.projectAddTask));
+ document.querySelectorAll('[data-project-toggle-task]').forEach(button=>button.onclick=()=>toggleTask(button.dataset.projectToggleTask));
+ document.querySelectorAll('[data-project-open-task]').forEach(button=>button.onclick=()=>openTaskDetail(button.dataset.projectOpenTask))
+};
+renderActions=function(){
+ const a=areas[route.area],project=route.projectId?state.projects.find(item=>String(item.id)===String(route.projectId)):null;
+ const items=project?[['project-back','Back to projects','list','Return to the Projects database.'],['project-edit','Edit project','project','Update this project record.'],['project-add-task','Add project task','task','Create a task connected to this project.'],['add-note','Project note','note','Capture a note or follow-up.']]:a.actions.slice(0,7);
+ document.getElementById('actionBrand').textContent=project?'PROJ':a.label.slice(0,4).toUpperCase();
+ document.getElementById('actionList').innerHTML=items.map(x=>`<button class="action-btn" data-action="${x[0]}" data-tip="${safe(x[1])}" aria-label="${safe(x[1])}">${svg(x[2])}</button>`).join('');
+ document.querySelectorAll('.action-btn').forEach(button=>button.onclick=()=>openAction(button.dataset.action));document.getElementById('actionMenuButton').onclick=openActionMenu
+};
+openAction=function(id){
+ if(id==='project-back'){backToProjects();closeDrawer();return}
+ if(id==='project-edit'){if(route.projectId)openProjectEditor(route.projectId);return}
+ if(id==='project-add-task'){if(route.projectId)openProjectTaskForm(route.projectId);return}
+ return fullProjectBaseOpenAction(id)
+};
+openActionMenu=function(){
+ const a=areas[route.area],project=route.projectId?state.projects.find(item=>String(item.id)===String(route.projectId)):null;
+ if(!project)return fullProjectBaseOpenActionMenu();
+ const items=[['project-back','Back to projects','list','Return to the Projects database.'],['project-edit','Edit project','project','Update the complete project record.'],['project-add-task','Add project task','task','Create a task inside this project.'],['add-note','Project note','note','Capture a note or follow-up.']];
+ openDrawer('Project actions',`Tools connected to ${project.title||project.name||'this project'}.`,`<div class="action-menu-grid">${items.map(x=>`<button class="menu-action" data-action="${x[0]}"><span class="icon-box">${svg(x[2])}</span><span><strong>${safe(x[1])}</strong><small>${safe(x[3])}</small></span><span>›</span></button>`).join('')}</div>`)
+};
+deleteRecord=function(type,id){
+ fullProjectBaseDeleteRecord(type,id);
+ if(type==='project'&&route.projectId&&String(route.projectId)===String(id)&&!state.projects.some(project=>String(project.id)===String(id)))backToProjects()
+};
+
 init();
 })();
 </script>

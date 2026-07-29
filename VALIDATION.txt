@@ -1,44 +1,19 @@
-LIFE & CEO OS — PROJECT DATABASE WORKSPACE VALIDATION
-========================================================
+LIFE & CEO OS — FULL PROJECT PAGES VALIDATION
+================================================
 
-SOURCE
-------
-PASS — rebuilt from the last working Category Colour Studio planner
-PASS — the broken Project Breakdown file was not used as the foundation
-
-HOME
-----
-PASS — Home renders successfully
-PASS — “Good morning, Jess.” heading verified
-PASS — Today at a Glance dashboard verified
-PASS — weather, modules and summary cards render
-PASS — no runtime errors during Home validation
-
-PROJECT DATABASE
-----------------
-PASS — Projects main page renders as a searchable database
-PASS — status filter included
-PASS — summary metrics included
-PASS — project rows include status, dates, progress, tasks and next action
-PASS — project deletion remains available
-
-CENTRED PROJECT WORKSPACE
--------------------------
-PASS — project opens in a centred modal window
-PASS — project title, client, owner and status render
-PASS — objective, priorities, constraints and resources render
-PASS — project files area included
-PASS — linked project task database included
-PASS — linked task rows verified
-PASS — task completion, editing and deletion controls included
-PASS — Edit Project opens above the project modal
-PASS — Add Project Task opens above the project modal
-PASS — new project task retains the correct projectId
-
-TECHNICAL
----------
+PASS — standalone index.html generated
 PASS — JavaScript passed node --check
-PASS — runtime browser test completed with zero page errors
-PASS — existing localStorage key retained
-PASS — existing project and task records remain compatible
-PASS — single-file GitHub Pages deployment retained
+PASS — no duplicate static HTML IDs
+PASS — existing storage key retained
+PASS — Home renderer retained
+PASS — dedicated project URL routing included
+PASS — Project database opens full Project pages
+PASS — project drawer/modal is not used for navigation
+PASS — Back to Projects included
+PASS — spacious paper-style Project Breakdown included
+PASS — Objective, priorities and constraints included
+PASS — Resources Required included
+PASS — linked Project Task database included
+PASS — Project files included
+PASS — project-specific Action Menu included
+PASS — existing edit and add-task forms retained

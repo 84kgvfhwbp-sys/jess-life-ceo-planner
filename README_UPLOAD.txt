@@ -1,48 +1,55 @@
-LIFE & CEO OS — PROJECT DATABASE WORKSPACE UPDATE
-==================================================
+LIFE & CEO OS — FULL PROJECT PAGES UPDATE
+============================================
 
-THIS BUILD STARTS FROM THE LAST VERIFIED WORKING PLANNER.
-The broken Project Breakdown build was not used as its foundation.
+Projects no longer open in a drawer, side panel or pop-up.
 
-PROJECTS MAIN PAGE
-------------------
-- Searchable project database
-- Status filtering
-- Active, waiting, due-soon and completed totals
-- Project, client, owner, dates, progress, task counts and next action
-- Open button for each project
-- Existing projects remain compatible
+NEW FLOW
+--------
+Projects Database → Open Project → Dedicated Project Breakdown Page
 
-CENTRED PROJECT WORKSPACE
--------------------------
-Opening a project launches a large centred Project Breakdown window containing:
-- Title, client, owner and status
-- Start date, due date and completion date
+Each project has its own internal page address:
+#work/projects/PROJECT-ID
+
+PROJECT PAGE
+------------
+The whole centre workspace is dedicated to the selected project and includes:
+- Project title, client and owner
+- Status, start date, due date and completion date
+- Calculated task progress
 - Objective
-- Top priorities
+- Eight-line Top Priorities area
 - Time, budget and scope constraints
-- Resources required
 - Next action
-- Project files
-- Linked task database
-- Task completion controls
-- Task editing and deletion
-- Project editing
+- Sixteen-line Resources Required area
+- Full linked Project Task database
+- Project files and attachments
+- Edit Project and Add Project Task controls
 
-CONNECTED DATABASE
-------------------
-Tasks created from a project are stored in the same Tasks collection used by the
-rest of the planner. Completing a task inside the project updates it everywhere.
-Project progress is calculated from linked tasks when tasks exist.
+The layout is intentionally spacious and paper-like, based on the Project
+Breakdown reference supplied by Jessica.
 
-HOME RESTORATION
+TASK CONNECTIONS
 ----------------
-Home was tested independently and renders from the last stable source. The
-missing startOfWeek function from the broken build is preserved correctly.
+Tasks created inside a project remain the same records used in the main Tasks
+area. Completion, edits and deletions stay connected everywhere.
+
+NAVIGATION
+----------
+- Back to Projects returns to the project database.
+- The left Main Menu remains available.
+- The right Action Menu becomes project-specific.
+- The project stays open as a true page until another page is selected.
+
+HOME
+----
+This version is based directly on the Home-validated Project Database build.
+The Home renderer and all existing planner sections remain intact.
 
 GITHUB UPLOAD
 -------------
 1. Use Backup data in the current planner.
-2. Replace the root-level index.html in GitHub with the file in this folder.
+2. Replace the root-level index.html in GitHub.
 3. Commit the replacement.
 4. Open the planner and press Command + Shift + R once.
+
+Existing storage key: life-ceo-os-stable-v1
