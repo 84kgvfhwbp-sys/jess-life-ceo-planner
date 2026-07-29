@@ -1,10 +1,15 @@
-LIFE & CEO OS — STATUS-SPLIT TASK PANELS VALIDATION
-=====================================================
+LIFE & CEO OS — PROJECT BREAKDOWN VALIDATION
+==============================================
 
 PASS — standalone HTML generated
-PASS — renderDay now separates current and completed tasks
-PASS — Top Priorities card split into current/completed sections
-PASS — Tasks card split into current/completed sections
-PASS — completed tasks remain crossed out
+PASS — JavaScript passed node --check
 PASS — existing storage key retained
-PASS — no data model changes required
+PASS — Projects overview retained
+PASS — project cards open detailed breakdown
+PASS — project details and dates included
+PASS — objective and constraints included
+PASS — resources and attachments included
+PASS — linked project tasks included
+PASS — task completion remains connected
+PASS — project edit and delete included
+PASS — responsive layout included

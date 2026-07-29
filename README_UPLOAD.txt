@@ -1,30 +1,56 @@
-LIFE & CEO OS — STATUS-SPLIT TASK PANELS UPDATE
-================================================
+LIFE & CEO OS — PROJECT BREAKDOWN UPDATE
+==========================================
 
 WHAT CHANGED
 ------------
-The Day Planner side panels now split Top Priorities and Tasks into two visual sections:
+The Work → Projects area now has two levels:
 
-1. Current
-   - includes pending, active and paused items
-2. Completed
-   - completed items show in the lower section
-   - completed items remain crossed out
+1. Projects Overview
+   - board grouped by To Do, In Progress, Waiting and Complete
+   - click any project to open its breakdown
+   - shows task count, progress and due date
 
-This applies to:
-- Top Priorities card
-- Tasks card
+2. Project Breakdown
+   - project title, client, owner and status
+   - start date, due date and completed date
+   - objective
+   - top project priorities
+   - time, budget and scope constraints
+   - resources required
+   - project files
+   - complete linked task and deadline table
+   - project progress
 
-DETAILS
--------
-- Completed priority items now stay visible instead of disappearing.
-- Completed flexible tasks now stay visible instead of disappearing.
-- Each section shows its own count.
-- The existing task status pills and crossed-out completed styling remain intact.
+PROJECT TASKS
+-------------
+Tasks created inside a project are linked directly to that project.
+They still remain part of the shared planner task system and can appear in other
+connected task areas based on their date and status.
+
+PROJECT FORM
+------------
+New and edited projects can collect:
+- title
+- client / company
+- project owner
+- start date
+- due date
+- completed date
+- status
+- progress
+- objective
+- time constraint
+- budget constraint
+- scope constraint
+- resources required
+- next action
+- attachments
 
 GITHUB UPLOAD
 -------------
-1. Back up your data.
-2. Replace the root index.html with the file in this folder.
-3. Commit the change.
-4. Reload the planner with Command + Shift + R.
+1. Use Backup data in the current planner.
+2. Replace the root-level index.html in GitHub.
+3. Commit the replacement.
+4. Open the planner and press Command + Shift + R once.
+
+Existing planner data remains compatible.
