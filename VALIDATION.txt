@@ -1,17 +1,19 @@
-LIFE & CEO OS — INTERACTIVE SCHEDULE VALIDATION
-====================================================
+LIFE & CEO OS — CATEGORY COLOUR STUDIO VALIDATION
+=====================================================
 
 PASS — standalone HTML generated
 PASS — JavaScript passed node --check
 PASS — no duplicate static HTML IDs
-PASS — existing localStorage key retained
-PASS — Schedule header Add Event control included
-PASS — pointer-based event dragging included
-PASS — pointer-based event resizing included
-PASS — 15-minute snapping included
-PASS — time changes persist to existing event records
-PASS — click-to-edit event flow included
-PASS — typed AM/PM input included
-PASS — selector-based AM/PM input included
-PASS — task and follow-up time fields inherit hybrid input
-PASS — existing category colours and event icons retained
+PASS — existing storage key retained
+PASS — existing categories retained
+PASS — automatic category-colour migration included
+PASS — category list rows included
+PASS — full-spectrum colour picker included
+PASS — editable hex colour included
+PASS — new-category colour selection included
+PASS — category deletion retained
+PASS — category reset retained
+PASS — schedule backgrounds use category colours
+PASS — schedule dots and lines use category colours
+PASS — schedule labels use category colours
+PASS — existing event icons retained

@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#2f4337">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Life & CEO OS">
-<title>Life & CEO OS — Interactive Schedule</title>
+<title>Life & CEO OS — Category Colour Studio</title>
 <style>
 :root{
   --forest:#2f4337;--forest-2:#24352c;--olive:#788466;--sage:#dfe7dc;--cream:#f6f1e8;
@@ -359,6 +359,139 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;color:var(--ink)}h1{margin:
  .time-picker-panel{grid-template-columns:1fr 8px 1fr 1fr}
 }
 
+
+/* CATEGORY COLOUR STUDIO */
+.category-section{
+  padding:18px;
+  border-radius:18px
+}
+.category-add-row{
+  grid-template-columns:minmax(0,1fr) 46px auto;
+  align-items:center
+}
+.category-add-colour{
+  width:46px!important;
+  height:46px;
+  padding:3px!important;
+  border:1px solid var(--line)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  cursor:pointer
+}
+.category-list{
+  display:grid;
+  border:1px solid var(--line);
+  border-radius:15px;
+  overflow:hidden;
+  background:#fff
+}
+.category-row{
+  --category-color:#758162;
+  --category-soft:#eef2eb;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 38px 92px 32px;
+  gap:10px;
+  align-items:center;
+  min-height:59px;
+  padding:9px 10px 9px 14px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(90deg,var(--category-soft),#fff 38%)
+}
+.category-row:last-child{border-bottom:0}
+.category-row-name{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  color:var(--forest);
+  font-size:12px;
+  font-weight:800
+}
+.category-row-swatch{
+  width:17px;
+  height:38px;
+  flex:0 0 17px;
+  border:1px solid rgba(48,66,55,.14);
+  border-radius:3px;
+  background:var(--category-color);
+  box-shadow:inset 0 0 0 3px rgba(255,255,255,.24)
+}
+.category-row-name span:last-child{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
+}
+.category-colour-picker{
+  width:38px!important;
+  height:38px;
+  padding:2px!important;
+  border:1px solid var(--line)!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  cursor:pointer
+}
+.category-hex{
+  width:92px!important;
+  min-height:38px;
+  padding:8px 9px!important;
+  border-radius:9px!important;
+  font-size:10px;
+  font-weight:750;
+  text-transform:uppercase
+}
+.category-row-delete{
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  border:0;
+  border-radius:8px;
+  color:var(--danger);
+  background:transparent
+}
+.category-row-delete:hover{
+  color:#fff;
+  background:var(--danger)
+}
+.category-row-delete svg{
+  width:16px;
+  height:16px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+.category-colour-note{
+  margin:9px 0 0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.5
+}
+.category-colour-preview{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+  padding:9px 10px;
+  border-left:5px solid var(--category-color,#758162);
+  background:var(--category-soft,#eef2eb);
+  color:var(--forest);
+  font-size:10px;
+  font-weight:700
+}
+@media(max-width:560px){
+  .category-add-row{grid-template-columns:minmax(0,1fr) 42px}
+  .category-add-row .primary-btn{grid-column:1/-1}
+  .category-row{
+    grid-template-columns:minmax(0,1fr) 38px 32px
+  }
+  .category-hex{
+    grid-column:1/-1;
+    width:100%!important
+  }
+}
+
 </style>
 </head>
 <body>
@@ -664,24 +797,173 @@ const categoryLibraryLabels={
  expense:['Expenses','Used for purchases, bills and outgoing money.'],
  habits:['Habits','Used for wellness, personal and business habits.']
 };
-const defaults=()=>({version:5,migrated:false,settings:{nav:'full',openingBalance:0,weatherLocation:{name:'Greater Moncton, New Brunswick',latitude:46.0878,longitude:-64.7782,country:'Canada'}},categoryLibraries:defaultCategoryLibraries(),events:[],tasks:[],projects:[],clients:[],quotes:[],transactions:[],recurring:[],content:[],goals:[],habits:[],habitChecks:{},moods:[],notes:[],routines:[],resets:[]});
-function normalizeCategoryLibraries(s){const base=defaultCategoryLibraries();if(!s.categoryLibraries||typeof s.categoryLibraries!=='object')s.categoryLibraries={};for(const[k,items]of Object.entries(base)){const existing=Array.isArray(s.categoryLibraries[k])?s.categoryLibraries[k]:[];s.categoryLibraries[k]=[...new Set([...items,...existing].map(x=>String(x||'').trim()).filter(Boolean))]}return s}
-function categories(kind='planning'){normalizeCategoryLibraries(state);return state.categoryLibraries[kind]||[]}
-function addCategory(kind,name,persist=true){const value=String(name||'').trim();if(!value)return false;normalizeCategoryLibraries(state);const list=state.categoryLibraries[kind]||(state.categoryLibraries[kind]=[]);if(!list.some(x=>x.toLowerCase()===value.toLowerCase())){list.push(value);list.sort((a,b)=>a.localeCompare(b));if(persist)localStorage.setItem(STORE,JSON.stringify(state));return true}return false}
-function removeCategory(kind,name){normalizeCategoryLibraries(state);state.categoryLibraries[kind]=(state.categoryLibraries[kind]||[]).filter(x=>x!==name);localStorage.setItem(STORE,JSON.stringify(state));openCategoryLibrary(kind)}
-function resetCategoryLibrary(kind){state.categoryLibraries[kind]=defaultCategoryLibraries()[kind].slice();localStorage.setItem(STORE,JSON.stringify(state));openCategoryLibrary(kind)}
-function eventAppearance(event={}){const key=`${String(event.category||'')} ${String(event.title||'')}`.toLowerCase();const palettes=[
- {match:/work|r2r|project|job|office|admin/,icon:'💼',bg:'#eef3ec',border:'#cfd9c8',stem:'#6f8164',dot:'#8ca07d',chipBg:'#f8fbf6',chipBorder:'#d8e1d3',chipText:'#4d5f49'},
- {match:/meeting|appointment|call|interview|consult/,icon:'📅',bg:'#eef1f6',border:'#d2dae6',stem:'#6f7f99',dot:'#8fa4c2',chipBg:'#f9fbff',chipBorder:'#dbe3ef',chipText:'#4a617d'},
- {match:/personal|home|family|kids|self/,icon:'🏡',bg:'#f6efe7',border:'#e7d8ca',stem:'#9b7e67',dot:'#caa689',chipBg:'#fffaf6',chipBorder:'#eadccf',chipText:'#7a614d'},
- {match:/health|wellness|fitness|gym|walk|skincare/,icon:'🌿',bg:'#edf5ef',border:'#d1e1d4',stem:'#5f8b66',dot:'#83b18a',chipBg:'#f8fcf9',chipBorder:'#d8e7db',chipText:'#4a6c50'},
- {match:/money|finance|bill|payment|invoice|budget/,icon:'💰',bg:'#f6f1e5',border:'#e7dcc0',stem:'#9c8655',dot:'#d0b36f',chipBg:'#fffdf6',chipBorder:'#ece1c8',chipText:'#7b683f'},
- {match:/content|social|marketing|post|reel|photo|design/,icon:'✨',bg:'#f4edf8',border:'#dfd2e9',stem:'#846a97',dot:'#b292c6',chipBg:'#fbf8fd',chipBorder:'#e5dbee',chipText:'#654f78'},
- {match:/errand|reminder|pickup|pick up|grocer|shopping|supply/,icon:'🛒',bg:'#f5efe7',border:'#e7d9c8',stem:'#8d765c',dot:'#c2a07d',chipBg:'#fffaf4',chipBorder:'#eadfce',chipText:'#705b46'},
- {match:/follow-up|follow up|client|lead|quote/,icon:'📌',bg:'#f9ece8',border:'#e9d0c7',stem:'#a16d5c',dot:'#d89a86',chipBg:'#fff7f4',chipBorder:'#eed8d0',chipText:'#855646'}
-];
- const fallback={icon:'•',bg:'#edf1ea',border:'#d9ddd3',stem:'#758162',dot:'#d8b76d',chipBg:'#fff',chipBorder:'#e2e0d8',chipText:'var(--forest)'};
- return palettes.find(p=>p.match.test(key))||fallback}
+const categoryPalette=['#657B63','#315842','#7890AE','#6F7F99','#B58C78','#9B7E67','#C39D83','#5F8B66','#A78C50','#8A6B9B','#9B7D5F','#B38B62','#A66F5F','#708C93','#C18276','#796C94'];
+const defaultCategoryColors=()=>({
+ planning:{
+  Work:'#657B63',R2R:'#315842',Appointment:'#7890AE',Meeting:'#6F7F99',
+  Personal:'#B58C78',Home:'#9B7E67',Family:'#C39D83',Health:'#5F8B66',
+  Finance:'#A78C50',Content:'#8A6B9B',Errand:'#9B7D5F',Reminder:'#B38B62',
+  'Follow-up':'#A66F5F'
+ },
+ notes:{
+  'Client Follow-up':'#A66F5F','Project Note':'#657B63',Meeting:'#6F7F99',
+  Reminder:'#B38B62','Site Note':'#708C93','Personal Note':'#B58C78',
+  Decision:'#796C94',Idea:'#C18276'
+ },
+ income:{
+  'Client Payment':'#477B5E','Contract Income':'#315842','Product Sale':'#5E8774',
+  Refund:'#708C93','Owner Contribution':'#657B63','Other Income':'#78907C'
+ },
+ expense:{
+  Payroll:'#A66F5F',Fuel:'#B07D55',Equipment:'#657B63',Vehicle:'#708C93',
+  Materials:'#9B7D5F',Insurance:'#6F7F99',Rent:'#A78C50',Software:'#796C94',
+  Marketing:'#8A6B9B',Taxes:'#A36D5E',Meals:'#C18276','Other Expense':'#887B70'
+ },
+ habits:{
+  Health:'#5F8B66',Wellness:'#708C93',Fitness:'#477B5E',
+  Personal:'#B58C78',Home:'#9B7E67',Business:'#315842'
+ }
+});
+function isHexColor(value){return /^#[0-9A-F]{6}$/i.test(String(value||'').trim())}
+function normalizeHexColor(value,fallback='#758162'){
+ const raw=String(value||'').trim();
+ if(/^#[0-9A-F]{6}$/i.test(raw))return raw.toUpperCase();
+ if(/^#[0-9A-F]{3}$/i.test(raw))return `#${raw.slice(1).split('').map(x=>x+x).join('')}`.toUpperCase();
+ return fallback.toUpperCase()
+}
+function hexToRgb(hex){
+ const value=normalizeHexColor(hex).slice(1);
+ return{r:parseInt(value.slice(0,2),16),g:parseInt(value.slice(2,4),16),b:parseInt(value.slice(4,6),16)}
+}
+function rgbToHex({r,g,b}){
+ const part=value=>Math.max(0,Math.min(255,Math.round(value))).toString(16).padStart(2,'0');
+ return `#${part(r)}${part(g)}${part(b)}`.toUpperCase()
+}
+function mixHex(base,target,amount=.5){
+ const a=hexToRgb(base),b=hexToRgb(target),weight=Math.max(0,Math.min(1,Number(amount)||0));
+ return rgbToHex({r:a.r+(b.r-a.r)*weight,g:a.g+(b.g-a.g)*weight,b:a.b+(b.b-a.b)*weight})
+}
+function seededCategoryColor(name='',kind='planning'){
+ const text=`${kind}:${String(name).toLowerCase()}`;
+ let hash=0;
+ for(let i=0;i<text.length;i++)hash=((hash<<5)-hash+text.charCodeAt(i))|0;
+ return categoryPalette[Math.abs(hash)%categoryPalette.length]
+}
+function nextCategoryColor(kind='planning'){
+ const count=(state?.categoryLibraries?.[kind]||[]).length;
+ return categoryPalette[count%categoryPalette.length]
+}
+function categoryAppearanceFromColor(color){
+ const stem=normalizeHexColor(color);
+ return{
+  bg:mixHex(stem,'#FFFFFF',.88),
+  border:mixHex(stem,'#FFFFFF',.58),
+  stem,
+  dot:mixHex(stem,'#FFFFFF',.18),
+  chipBg:mixHex(stem,'#FFFFFF',.93),
+  chipBorder:mixHex(stem,'#FFFFFF',.68),
+  chipText:mixHex(stem,'#000000',.26)
+ }
+}
+const defaults=()=>({
+ version:6,migrated:false,
+ settings:{nav:'full',openingBalance:0,weatherLocation:{name:'Greater Moncton, New Brunswick',latitude:46.0878,longitude:-64.7782,country:'Canada'}},
+ categoryLibraries:defaultCategoryLibraries(),
+ categoryColors:defaultCategoryColors(),
+ events:[],tasks:[],projects:[],clients:[],quotes:[],transactions:[],recurring:[],content:[],goals:[],habits:[],habitChecks:{},moods:[],notes:[],routines:[],resets:[]
+});
+function normalizeCategoryLibraries(s){
+ const base=defaultCategoryLibraries(),baseColors=defaultCategoryColors();
+ if(!s.categoryLibraries||typeof s.categoryLibraries!=='object')s.categoryLibraries={};
+ if(!s.categoryColors||typeof s.categoryColors!=='object')s.categoryColors={};
+ for(const[k,items]of Object.entries(base)){
+  const existing=Array.isArray(s.categoryLibraries[k])?s.categoryLibraries[k]:[];
+  s.categoryLibraries[k]=[...new Set([...items,...existing].map(x=>String(x||'').trim()).filter(Boolean))];
+  if(!s.categoryColors[k]||typeof s.categoryColors[k]!=='object')s.categoryColors[k]={};
+  for(const name of s.categoryLibraries[k]){
+   const current=s.categoryColors[k][name];
+   s.categoryColors[k][name]=normalizeHexColor(current,baseColors[k]?.[name]||seededCategoryColor(name,k))
+  }
+ }
+ return s
+}
+function categories(kind='planning'){
+ normalizeCategoryLibraries(state);
+ return state.categoryLibraries[kind]||[]
+}
+function categoryColor(kind='planning',name=''){
+ normalizeCategoryLibraries(state);
+ const canonical=categories(kind).find(item=>item.toLowerCase()===String(name||'').toLowerCase())||String(name||'');
+ return normalizeHexColor(state.categoryColors?.[kind]?.[canonical],seededCategoryColor(canonical,kind))
+}
+function setCategoryColor(kind,name,color,persist=true){
+ const value=normalizeHexColor(color,'');
+ if(!isHexColor(value))return false;
+ normalizeCategoryLibraries(state);
+ if(!state.categoryColors[kind])state.categoryColors[kind]={};
+ state.categoryColors[kind][name]=value;
+ if(persist)localStorage.setItem(STORE,JSON.stringify(state));
+ updateScheduleColorsFromState();
+ return true
+}
+function addCategory(kind,name,persist=true,color=''){
+ const value=String(name||'').trim();
+ if(!value)return false;
+ normalizeCategoryLibraries(state);
+ const list=state.categoryLibraries[kind]||(state.categoryLibraries[kind]=[]);
+ if(list.some(x=>x.toLowerCase()===value.toLowerCase()))return false;
+ list.push(value);
+ list.sort((a,b)=>a.localeCompare(b));
+ if(!state.categoryColors[kind])state.categoryColors[kind]={};
+ state.categoryColors[kind][value]=normalizeHexColor(color,seededCategoryColor(value,kind));
+ if(persist)localStorage.setItem(STORE,JSON.stringify(state));
+ return true
+}
+function removeCategory(kind,name){
+ normalizeCategoryLibraries(state);
+ state.categoryLibraries[kind]=(state.categoryLibraries[kind]||[]).filter(x=>x!==name);
+ if(state.categoryColors?.[kind])delete state.categoryColors[kind][name];
+ localStorage.setItem(STORE,JSON.stringify(state));
+ openCategoryLibrary(kind)
+}
+function resetCategoryLibrary(kind){
+ state.categoryLibraries[kind]=defaultCategoryLibraries()[kind].slice();
+ state.categoryColors[kind]=Object.assign({},defaultCategoryColors()[kind]||{});
+ normalizeCategoryLibraries(state);
+ localStorage.setItem(STORE,JSON.stringify(state));
+ updateScheduleColorsFromState();
+ openCategoryLibrary(kind)
+}
+function eventAppearance(event={}){
+ const key=`${String(event.category||'')} ${String(event.title||'')}`.toLowerCase();
+ const iconsByType=[
+  {match:/work|r2r|project|job|office|admin/,icon:'💼'},
+  {match:/meeting|appointment|call|interview|consult/,icon:'📅'},
+  {match:/personal|home|family|kids|self/,icon:'🏡'},
+  {match:/health|wellness|fitness|gym|walk|skincare/,icon:'🌿'},
+  {match:/money|finance|bill|payment|invoice|budget/,icon:'💰'},
+  {match:/content|social|marketing|post|reel|photo|design/,icon:'✨'},
+  {match:/errand|reminder|pickup|pick up|grocer|shopping|supply/,icon:'🛒'},
+  {match:/follow-up|follow up|client|lead|quote/,icon:'📌'}
+ ];
+ const icon=(iconsByType.find(item=>item.match.test(key))||{icon:'•'}).icon;
+ const colour=categoryColor('planning',event.category||'Work');
+ return{icon,...categoryAppearanceFromColor(colour)}
+}
+function updateScheduleColorsFromState(){
+ document.querySelectorAll('.timeline-event[data-event-id]').forEach(block=>{
+  const event=state.events.find(item=>item.id===block.dataset.eventId);
+  if(!event)return;
+  const appearance=eventAppearance(event);
+  block.style.setProperty('--event-bg',appearance.bg);
+  block.style.setProperty('--event-border',appearance.border);
+  block.style.setProperty('--event-stem',appearance.stem);
+  block.style.setProperty('--event-dot',appearance.dot);
+  block.style.setProperty('--event-chip-bg',appearance.chipBg);
+  block.style.setProperty('--event-chip-border',appearance.chipBorder);
+  block.style.setProperty('--event-chip-text',appearance.chipText)
+ })
+}
 
 let state=loadState();let route={area:'home',tab:'overview'};let toastTimer;
 const WEATHER_CACHE_KEY='life-ceo-weather-cache-v1';
@@ -1065,7 +1347,7 @@ function notesView(){let items;if(route.tab==='followups')items=state.notes.filt
 function openDrawer(title,subtitle,html){document.getElementById('drawerTitle').textContent=title;document.getElementById('drawerSubtitle').textContent=subtitle||'';document.getElementById('drawerBody').innerHTML=html;document.getElementById('drawer').classList.add('open');document.getElementById('drawerBackdrop').classList.add('open');document.getElementById('drawer').setAttribute('aria-hidden','false');bindDrawer()}
 function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('drawerBackdrop').classList.remove('open');document.getElementById('drawer').setAttribute('aria-hidden','true')}
 function openActionMenu(){const a=areas[route.area];openDrawer(`${a.label} actions`,`Tools and shortcuts connected directly to ${a.label}.`,`<div class="action-menu-grid">${a.actions.map(x=>`<button class="menu-action" data-action="${x[0]}"><span class="icon-box">${svg(x[2])}</span><span><strong>${safe(x[1])}</strong><small>${safe(x[3])}</small></span><span>›</span></button>`).join('')}</div>`)}
-function bindDrawer(){bindAmPmTimeFields(document.getElementById('drawer'));document.querySelectorAll('#drawer [data-action]').forEach(b=>b.onclick=()=>openAction(b.dataset.action));const form=document.querySelector('#drawer form');if(form)form.onsubmit=handleForm;document.querySelectorAll('#drawer [data-import]').forEach(b=>b.onclick=()=>document.getElementById('backupFile').click());const file=document.getElementById('backupFile');if(file)file.onchange=importBackup;document.querySelectorAll('#drawer [data-category-add]').forEach(b=>b.onclick=()=>addCategoryFromDrawer(b.dataset.categoryAdd));document.querySelectorAll('#drawer [data-category-input]').forEach(i=>i.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();addCategoryFromDrawer(i.dataset.categoryInput)}});document.querySelectorAll('#drawer [data-category-remove]').forEach(b=>b.onclick=()=>removeCategory(b.dataset.categoryKind,b.dataset.categoryRemove));document.querySelectorAll('#drawer [data-category-reset]').forEach(b=>b.onclick=()=>resetCategoryLibrary(b.dataset.categoryReset));document.querySelectorAll('#drawer [data-edit-task]').forEach(b=>b.onclick=()=>openTaskEditor(b.dataset.editTask));document.querySelectorAll('#drawer [data-edit-note]').forEach(b=>b.onclick=()=>openNoteEditor(b.dataset.editNote));document.querySelectorAll('#drawer [data-open-mood-date]').forEach(b=>b.onclick=()=>openMoodEditor(b.dataset.openMoodDate));document.querySelectorAll('#drawer [data-open-habit]').forEach(b=>b.onclick=()=>openHabitEditor(b.dataset.openHabit));document.querySelectorAll('#drawer [data-toggle-task]').forEach(b=>b.onclick=()=>{toggleTask(b.dataset.toggleTask);closeDrawer()});document.querySelectorAll('#drawer [data-delete-type]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();deleteRecord(b.dataset.deleteType,b.dataset.deleteId)});document.querySelectorAll('#drawer [data-weather-search]').forEach(b=>b.onclick=searchWeatherLocations);document.querySelectorAll('#drawer [data-weather-geolocate]').forEach(b=>b.onclick=useCurrentWeatherLocation);document.querySelectorAll('#drawer [data-weather-refresh]').forEach(b=>b.onclick=()=>{closeDrawer();fetchWeather(true)});const weatherQuery=document.getElementById('weatherLocationQuery');if(weatherQuery)weatherQuery.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();searchWeatherLocations()}};bindWeatherLocationChoices();document.querySelectorAll('#drawer [data-remove-attachment]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();removeAttachment(b.dataset.ownerType,b.dataset.ownerId,b.dataset.removeAttachment)})}
+function bindDrawer(){bindAmPmTimeFields(document.getElementById('drawer'));document.querySelectorAll('#drawer [data-action]').forEach(b=>b.onclick=()=>openAction(b.dataset.action));const form=document.querySelector('#drawer form');if(form)form.onsubmit=handleForm;document.querySelectorAll('#drawer [data-import]').forEach(b=>b.onclick=()=>document.getElementById('backupFile').click());const file=document.getElementById('backupFile');if(file)file.onchange=importBackup;document.querySelectorAll('#drawer [data-category-add]').forEach(b=>b.onclick=()=>addCategoryFromDrawer(b.dataset.categoryAdd));document.querySelectorAll('#drawer [data-category-input]').forEach(i=>i.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();addCategoryFromDrawer(i.dataset.categoryInput)}});document.querySelectorAll('#drawer [data-category-remove]').forEach(b=>b.onclick=()=>removeCategory(b.dataset.categoryKind,b.dataset.categoryRemove));document.querySelectorAll('#drawer [data-category-reset]').forEach(b=>b.onclick=()=>resetCategoryLibrary(b.dataset.categoryReset));bindCategoryColourControls();document.querySelectorAll('#drawer [data-edit-task]').forEach(b=>b.onclick=()=>openTaskEditor(b.dataset.editTask));document.querySelectorAll('#drawer [data-edit-note]').forEach(b=>b.onclick=()=>openNoteEditor(b.dataset.editNote));document.querySelectorAll('#drawer [data-open-mood-date]').forEach(b=>b.onclick=()=>openMoodEditor(b.dataset.openMoodDate));document.querySelectorAll('#drawer [data-open-habit]').forEach(b=>b.onclick=()=>openHabitEditor(b.dataset.openHabit));document.querySelectorAll('#drawer [data-toggle-task]').forEach(b=>b.onclick=()=>{toggleTask(b.dataset.toggleTask);closeDrawer()});document.querySelectorAll('#drawer [data-delete-type]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();deleteRecord(b.dataset.deleteType,b.dataset.deleteId)});document.querySelectorAll('#drawer [data-weather-search]').forEach(b=>b.onclick=searchWeatherLocations);document.querySelectorAll('#drawer [data-weather-geolocate]').forEach(b=>b.onclick=useCurrentWeatherLocation);document.querySelectorAll('#drawer [data-weather-refresh]').forEach(b=>b.onclick=()=>{closeDrawer();fetchWeather(true)});const weatherQuery=document.getElementById('weatherLocationQuery');if(weatherQuery)weatherQuery.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();searchWeatherLocations()}};bindWeatherLocationChoices();document.querySelectorAll('#drawer [data-remove-attachment]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();removeAttachment(b.dataset.ownerType,b.dataset.ownerId,b.dataset.removeAttachment)})}
 function taskForm(title='Add task',values={},forceTop=false){const hidden={__categoryLibrary:'planning'};if(values.id)hidden.__editId=values.id;if(forceTop)hidden.isTopPriority='true';const date=values.date||values.dueDate||(route.area==='plan'?currentPlanDate():todayISO());const fields=[['title','Task name','text',true,values.title||values.name||''],['description','Task details','textarea',false,values.description||''],['date','Date','date',true,date],['time','Time (optional)','ampm-time',false,values.time||''],['priority','Priority','select',true,taskPriority({priority:values.priority||(forceTop?'high':'medium')}),[['low','Low'],['medium','Medium'],['high','High'],['critical','Critical']]],['status','Status','select',true,taskStatus(values||{status:'pending'}),[['pending','Pending'],['active','Active'],['paused','Paused'],['completed','Completed']]],['category','Category','category',true,values.category||'Work','planning'],['relatedTo','Client / person / project','text',false,values.relatedTo||values.project||values.client||''],['assignee','Assigned to','text',false,values.assignee||''],['estimatedMinutes','Estimated minutes','number',false,values.estimatedMinutes||''],['tags','Tags','text',false,values.tags||'']];if(!forceTop)fields.push(['isTopPriority','Show in Top Priorities','checkbox',false,taskIsTop(values)]);fields.push(['attachments','Photos or files','file',false,'','image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt']);return form('task',title,fields,hidden)}
 function noteForm(title='New note or follow-up',values={},forceType=''){const hidden={__categoryLibrary:'notes'};if(values.id)hidden.__editId=values.id;if(forceType)hidden.type=forceType;const defaultType=forceType||values.type||(route.area==='notes'?({brain:'brain',quick:'quick',followups:'follow-up',journal:'journal',meetings:'meeting'}[route.tab]||'quick'):'quick');const fields=[['title','Title / subject','text',true,values.title||'']];if(!forceType)fields.push(['type','Note type','select',true,defaultType,[['quick','Quick note'],['follow-up','Follow-up'],['client','Client note'],['project','Project note'],['meeting','Meeting'],['reminder','Reminder'],['brain','Brain dump'],['journal','Journal']]]);fields.push(['date','Note date','date',true,values.date||todayISO()],['status','Status','select',true,String(values.status||'pending').toLowerCase(),[['pending','Pending'],['active','Active'],['paused','Paused'],['completed','Completed']]],['relatedTo','Client / person / project','text',false,values.relatedTo||''],['contact','Contact details','text',false,values.contact||''],['followUpDate','Follow-up date','date',false,values.followUpDate||''],['followUpTime','Follow-up time (optional)','ampm-time',false,values.followUpTime||''],['category','Category','category',true,values.category||'Client Follow-up','notes'],['nextAction','Next action','text',false,values.nextAction||''],['body','Full note','textarea',true,values.body||values.text||''],['tags','Tags / attendees','text',false,values.tags||''],['createTask','Create a linked task from this follow-up','checkbox',false,false],['attachments','Photos or files','file',false,'','image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt']);return form('note',title,fields,hidden)}
 function openAction(id){if(id==='weather-settings'){openWeatherSettings();return}if(id==='refresh-weather'){closeDrawer();fetchWeather(true);return}if(id==='manage-categories'){openCategoryLibrary(route.area==='money'?'expense':route.area==='growth'?'habits':route.area==='notes'?'notes':'planning');return}if(id.startsWith('view-')){const tab=id.replace('view-','');setRoute(route.area,tab);closeDrawer();return}const forms={
@@ -1090,11 +1372,90 @@ function openAction(id){if(id==='weather-settings'){openWeatherSettings();return
 'add-meeting':noteForm('Meeting note',{},'meeting'),
 'add-routine':form('routine','Add routine',[['title','Routine name','text',true],['frequency','Frequency','select',false,'daily',[['daily','Daily'],['weekly','Weekly'],['monthly','Monthly']]],['details','Steps / details','textarea']])};
 const f=forms[id];if(f)openDrawer(f.title,'Complete the details below.',f.html);else showToast('That action is not connected yet.')}
-function categoryChips(kind){const list=categories(kind);return list.length?`<div class="category-chips">${list.map(name=>`<span class="category-chip">${safe(name)}<button type="button" aria-label="Remove ${safe(name)}" data-category-kind="${safe(kind)}" data-category-remove="${safe(name)}">×</button></span>`).join('')}</div>`:'<div class="category-empty">No saved categories yet.</div>'}
-function categorySection(kind,focus){const[label,description]=categoryLibraryLabels[kind];return `<section class="category-section" id="category-${safe(kind)}"><div class="category-section-head"><div><h3>${safe(label)}</h3><p>${safe(description)}</p></div><button type="button" class="category-reset" data-category-reset="${safe(kind)}">Reset defaults</button></div><div class="category-add-row"><input type="text" placeholder="Add a new category" data-category-input="${safe(kind)}" autocomplete="off"><button type="button" class="primary-btn" data-category-add="${safe(kind)}">Add</button></div>${categoryChips(kind)}</section>`}
-function categoryLibraryHTML(focus='planning'){return `<div class="category-library">${['planning','notes','income','expense','habits'].map(kind=>categorySection(kind,focus)).join('')}</div>`}
-function openCategoryLibrary(focus='planning'){openDrawer('Category library','Choose from these categories in forms, or type a new one and it will be saved automatically.',categoryLibraryHTML(focus));setTimeout(()=>document.getElementById(`category-${focus}`)?.scrollIntoView({block:'start'}),40)}
-function addCategoryFromDrawer(kind){const input=document.querySelector(`#drawer [data-category-input="${kind}"]`);if(!input)return;const value=input.value.trim();if(!value)return;if(addCategory(kind,value)){openCategoryLibrary(kind);showToast('Category added.')}else{input.focus();showToast('That category is already in the library.')}}
+function categoryRow(kind,name){
+ const colour=categoryColor(kind,name),soft=mixHex(colour,'#FFFFFF',.88);
+ return `<div class="category-row" data-category-row data-category-kind="${safe(kind)}" data-category-name="${safe(name)}" style="--category-color:${safe(colour)};--category-soft:${safe(soft)}">
+  <div class="category-row-name"><span class="category-row-swatch"></span><span>${safe(name)}</span></div>
+  <input class="category-colour-picker" type="color" value="${safe(colour)}" data-category-colour="${safe(kind)}" data-category-name="${safe(name)}" aria-label="Choose colour for ${safe(name)}">
+  <input class="category-hex" type="text" value="${safe(colour)}" maxlength="7" data-category-hex="${safe(kind)}" data-category-name="${safe(name)}" aria-label="Hex colour for ${safe(name)}">
+  <button type="button" class="category-row-delete" aria-label="Delete ${safe(name)}" title="Delete category" data-category-kind="${safe(kind)}" data-category-remove="${safe(name)}">${svg('trash')}</button>
+ </div>`
+}
+function categoryList(kind){
+ const list=categories(kind);
+ return list.length?`<div class="category-list">${list.map(name=>categoryRow(kind,name)).join('')}</div>`:'<div class="category-empty">No saved categories yet.</div>'
+}
+function categorySection(kind,focus){
+ const[label,description]=categoryLibraryLabels[kind],newColour=nextCategoryColor(kind);
+ return `<section class="category-section" id="category-${safe(kind)}">
+  <div class="category-section-head"><div><h3>${safe(label)}</h3><p>${safe(description)}</p></div><button type="button" class="category-reset" data-category-reset="${safe(kind)}">Reset defaults</button></div>
+  <div class="category-add-row">
+   <input type="text" placeholder="Add a new category" data-category-input="${safe(kind)}" autocomplete="off">
+   <input class="category-add-colour" type="color" value="${safe(newColour)}" data-category-new-colour="${safe(kind)}" aria-label="Choose new category colour">
+   <button type="button" class="primary-btn" data-category-add="${safe(kind)}">Add</button>
+  </div>
+  ${categoryList(kind)}
+  <p class="category-colour-note">Select the colour square to open the full spectrum. You can also type an exact six-digit hex colour.</p>
+ </section>`
+}
+function categoryLibraryHTML(focus='planning'){
+ return `<div class="category-library">${['planning','notes','income','expense','habits'].map(kind=>categorySection(kind,focus)).join('')}</div>`
+}
+function openCategoryLibrary(focus='planning'){
+ openDrawer('Category library','Manage each category in a list and choose its colour from the full spectrum.',categoryLibraryHTML(focus));
+ setTimeout(()=>document.getElementById(`category-${focus}`)?.scrollIntoView({block:'start'}),40)
+}
+function updateCategoryRowPreview(row,colour){
+ if(!row)return;
+ const value=normalizeHexColor(colour);
+ row.style.setProperty('--category-color',value);
+ row.style.setProperty('--category-soft',mixHex(value,'#FFFFFF',.88));
+ const picker=row.querySelector('[data-category-colour]');
+ const hex=row.querySelector('[data-category-hex]');
+ if(picker&&picker.value.toUpperCase()!==value)picker.value=value;
+ if(hex&&hex.value.toUpperCase()!==value)hex.value=value
+}
+function bindCategoryColourControls(){
+ document.querySelectorAll('#drawer [data-category-colour]').forEach(input=>{
+  const row=input.closest('[data-category-row]');
+  const kind=input.dataset.categoryColour,name=input.dataset.categoryName;
+  input.oninput=()=>{
+   const colour=normalizeHexColor(input.value);
+   setCategoryColor(kind,name,colour,false);
+   updateCategoryRowPreview(row,colour)
+  };
+  input.onchange=()=>{
+   setCategoryColor(kind,name,input.value,true);
+   updateCategoryRowPreview(row,input.value);
+   showToast(`${name} colour updated.`)
+  }
+ });
+ document.querySelectorAll('#drawer [data-category-hex]').forEach(input=>{
+  const row=input.closest('[data-category-row]');
+  const kind=input.dataset.categoryHex,name=input.dataset.categoryName;
+  const apply=persist=>{
+   const value=normalizeHexColor(input.value,'');
+   if(!isHexColor(value)){input.setAttribute('aria-invalid','true');return false}
+   input.removeAttribute('aria-invalid');
+   setCategoryColor(kind,name,value,persist);
+   updateCategoryRowPreview(row,value);
+   if(persist)showToast(`${name} colour updated.`);
+   return true
+  };
+  input.oninput=()=>{if(isHexColor(normalizeHexColor(input.value,'')))apply(false)};
+  input.onblur=()=>apply(true);
+  input.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();if(apply(true))input.blur()}}
+ })
+}
+function addCategoryFromDrawer(kind){
+ const input=document.querySelector(`#drawer [data-category-input="${kind}"]`);
+ const colourInput=document.querySelector(`#drawer [data-category-new-colour="${kind}"]`);
+ if(!input)return;
+ const value=input.value.trim(),colour=colourInput?.value||nextCategoryColor(kind);
+ if(!value)return;
+ if(addCategory(kind,value,true,colour)){openCategoryLibrary(kind);showToast('Category added.')}
+ else{input.focus();showToast('That category is already in the library.')}
+}
 function form(type,title,fields,hidden={}){const editId=hidden.__editId||'',deleteControl=editId&&recordCollections[type]?`<button type="button" class="danger-btn" data-delete-type="${safe(type)}" data-delete-id="${safe(editId)}">${svg('trash')} Delete</button>`:'';const html=`<form data-form-type="${type}">${Object.entries(hidden).map(([k,v])=>`<input type="hidden" name="${k}" value="${safe(v)}">`).join('')}<div class="form-grid">${fields.map(([n,l,t,req,val,opts])=>field(n,l,t,req,val,opts)).join('')}<div class="form-actions">${deleteControl}<button type="button" class="soft-btn" onclick="document.getElementById('drawerClose').click()">Cancel</button><button class="primary-btn" type="submit">Save</button></div></div></form>`;return{title,html}}
 function field(n,l,t='text',req=false,val='',opts=[]){
  if(t==='textarea')return `<div class="field"><label>${l}</label><textarea name="${n}" ${req?'required':''}>${safe(val)}</textarea></div>`;
@@ -1116,7 +1477,7 @@ function readDataUrl(file){return new Promise((resolve,reject)=>{const reader=ne
 function loadImage(url){return new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(new Error('An image could not be processed.'));image.src=url})}
 async function fileAttachment(file){let dataUrl;if(String(file.type||'').startsWith('image/')){const original=await readDataUrl(file);const image=await loadImage(original);const max=1100,scale=Math.min(1,max/Math.max(image.width,image.height)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(image.width*scale));canvas.height=Math.max(1,Math.round(image.height*scale));canvas.getContext('2d').drawImage(image,0,0,canvas.width,canvas.height);dataUrl=canvas.toDataURL('image/jpeg',.68)}else{if(file.size>350*1024)throw new Error(`${file.name} is too large. Non-image files must be under 350 KB.`);dataUrl=await readDataUrl(file)}return{id:uid(),name:file.name,type:file.type||'application/octet-stream',size:file.size,dataUrl}}
 async function collectAttachments(form){const input=form.querySelector('input[type="file"][name="attachments"]'),files=input?[...input.files]:[];if(files.length>3)throw new Error('Please choose no more than 3 attachments.');const items=[];for(const file of files)items.push(await fileAttachment(file));if(items.reduce((s,a)=>s+String(a.dataUrl||'').length,0)>1800000)throw new Error('These attachments are too large for browser storage. Please use smaller files.');return items}
-async function handleForm(e){e.preventDefault();const form=e.currentTarget,type=form.dataset.formType,button=form.querySelector('[type="submit"]');button?.classList.add('form-saving');const before=JSON.stringify(state);try{form.querySelectorAll('[data-ampm-time]').forEach(group=>{if(!syncAmPmTimeField(group,'text'))throw new Error('Enter a valid time such as 7:30 AM.')});const fd=new FormData(form),data={};for(const[k,v]of fd.entries())if(!(v instanceof File))data[k]=v;const categoryLibrary=data.__categoryLibrary,editId=data.__editId;delete data.__categoryLibrary;delete data.__editId;const newAttachments=await collectAttachments(form);if(categoryLibrary&&data.category)addCategory(categoryLibrary,data.category,false);if(type==='opening'){state.settings.openingBalance=Number(data.openingBalance||0)}else{const key={event:'events',task:'tasks',transaction:'transactions',project:'projects',client:'clients',quote:'quotes',recurring:'recurring',content:'content',goal:'goals',habit:'habits',mood:'moods',reset:'resets',note:'notes',routine:'routines'}[type];if(!key)return;let existing=editId?state[key].find(x=>x.id===editId):null;if(type==='mood'&&!existing)existing=state.moods.find(x=>x.date===data.date);data.id=existing?.id||uid();data.attachments=[...(Array.isArray(existing?.attachments)?existing.attachments:[]),...newAttachments];if(type==='event'){const start=timeToMinutes(data.time),end=timeToMinutes(data.endTime);if(data.endTime&&!Number.isFinite(start))throw new Error('Choose a start time before adding an end time.');if(Number.isFinite(start)&&!Number.isFinite(end))data.endTime=minutesToTime(Math.min(start+60,1439));if(Number.isFinite(start)&&Number.isFinite(timeToMinutes(data.endTime))&&timeToMinutes(data.endTime)<=start)throw new Error('The end time must be later than the start time.');}if(type==='task'){data.isTopPriority=String(data.isTopPriority)==='true'||form.querySelector('[name="isTopPriority"]')?.checked===true;data.priority=taskPriority(data);data.status=taskStatus(data);data.done=data.status==='completed';if(data.done)data.completedAt=existing?.completedAt||new Date().toISOString();else data.completedAt='';for(const k of ['estimatedMinutes'])if(data[k]!==undefined&&data[k]!=='')data[k]=Number(data[k])}const createTask=type==='note'&&form.querySelector('[name="createTask"]')?.checked===true;if(type==='note'){data.status=String(data.status||'pending').toLowerCase();if(createTask&&!existing?.linkedTaskId){const linked={id:uid(),title:`Follow up: ${data.title}`,description:data.nextAction||String(data.body||'').slice(0,300),date:data.followUpDate||data.date,time:data.followUpTime||'',priority:'medium',status:'pending',done:false,category:'Follow-up',relatedTo:data.relatedTo||'',isTopPriority:false,linkedNoteId:data.id,attachments:[]};state.tasks.push(linked);data.linkedTaskId=linked.id}else if(existing?.linkedTaskId){data.linkedTaskId=existing.linkedTaskId;const linked=state.tasks.find(t=>t.id===existing.linkedTaskId);if(linked&&!taskIsComplete(linked)){linked.title=`Follow up: ${data.title}`;linked.description=data.nextAction||String(data.body||'').slice(0,300);linked.date=data.followUpDate||data.date;linked.time=data.followUpTime||'';linked.relatedTo=data.relatedTo||''}}}if(type==='habit'){data.status=String(data.status||'active').toLowerCase();if(data.weeklyTarget!=='')data.weeklyTarget=Math.min(7,Math.max(1,Number(data.weeklyTarget)||habitTarget(data)));else data.weeklyTarget=''}if(type==='mood'){data.mood=Number(data.mood||3);data.energy=data.energy?Number(data.energy):'';data.stress=data.stress?Number(data.stress):'';data.updatedAt=new Date().toISOString()}for(const k of ['amount','progress','reach','engagement'])if(data[k]!==undefined&&data[k]!=='')data[k]=Number(data[k]);if(existing)Object.assign(existing,data);else state[key].push(data)}localStorage.setItem(STORE,JSON.stringify(state));closeDrawer();showToast(editId?'Updated.':'Saved.');render()}catch(err){try{state=JSON.parse(before)}catch(e){}showToast(err?.message||'This record could not be saved.');button?.classList.remove('form-saving')}}
+async function handleForm(e){e.preventDefault();const form=e.currentTarget,type=form.dataset.formType,button=form.querySelector('[type="submit"]');button?.classList.add('form-saving');const before=JSON.stringify(state);try{form.querySelectorAll('[data-ampm-time]').forEach(group=>{if(!syncAmPmTimeField(group,'text'))throw new Error('Enter a valid time such as 7:30 AM.')});const fd=new FormData(form),data={};for(const[k,v]of fd.entries())if(!(v instanceof File))data[k]=v;const categoryLibrary=data.__categoryLibrary,editId=data.__editId;delete data.__categoryLibrary;delete data.__editId;const newAttachments=await collectAttachments(form);if(categoryLibrary&&data.category)addCategory(categoryLibrary,data.category,false,seededCategoryColor(data.category,categoryLibrary));if(type==='opening'){state.settings.openingBalance=Number(data.openingBalance||0)}else{const key={event:'events',task:'tasks',transaction:'transactions',project:'projects',client:'clients',quote:'quotes',recurring:'recurring',content:'content',goal:'goals',habit:'habits',mood:'moods',reset:'resets',note:'notes',routine:'routines'}[type];if(!key)return;let existing=editId?state[key].find(x=>x.id===editId):null;if(type==='mood'&&!existing)existing=state.moods.find(x=>x.date===data.date);data.id=existing?.id||uid();data.attachments=[...(Array.isArray(existing?.attachments)?existing.attachments:[]),...newAttachments];if(type==='event'){const start=timeToMinutes(data.time),end=timeToMinutes(data.endTime);if(data.endTime&&!Number.isFinite(start))throw new Error('Choose a start time before adding an end time.');if(Number.isFinite(start)&&!Number.isFinite(end))data.endTime=minutesToTime(Math.min(start+60,1439));if(Number.isFinite(start)&&Number.isFinite(timeToMinutes(data.endTime))&&timeToMinutes(data.endTime)<=start)throw new Error('The end time must be later than the start time.');}if(type==='task'){data.isTopPriority=String(data.isTopPriority)==='true'||form.querySelector('[name="isTopPriority"]')?.checked===true;data.priority=taskPriority(data);data.status=taskStatus(data);data.done=data.status==='completed';if(data.done)data.completedAt=existing?.completedAt||new Date().toISOString();else data.completedAt='';for(const k of ['estimatedMinutes'])if(data[k]!==undefined&&data[k]!=='')data[k]=Number(data[k])}const createTask=type==='note'&&form.querySelector('[name="createTask"]')?.checked===true;if(type==='note'){data.status=String(data.status||'pending').toLowerCase();if(createTask&&!existing?.linkedTaskId){const linked={id:uid(),title:`Follow up: ${data.title}`,description:data.nextAction||String(data.body||'').slice(0,300),date:data.followUpDate||data.date,time:data.followUpTime||'',priority:'medium',status:'pending',done:false,category:'Follow-up',relatedTo:data.relatedTo||'',isTopPriority:false,linkedNoteId:data.id,attachments:[]};state.tasks.push(linked);data.linkedTaskId=linked.id}else if(existing?.linkedTaskId){data.linkedTaskId=existing.linkedTaskId;const linked=state.tasks.find(t=>t.id===existing.linkedTaskId);if(linked&&!taskIsComplete(linked)){linked.title=`Follow up: ${data.title}`;linked.description=data.nextAction||String(data.body||'').slice(0,300);linked.date=data.followUpDate||data.date;linked.time=data.followUpTime||'';linked.relatedTo=data.relatedTo||''}}}if(type==='habit'){data.status=String(data.status||'active').toLowerCase();if(data.weeklyTarget!=='')data.weeklyTarget=Math.min(7,Math.max(1,Number(data.weeklyTarget)||habitTarget(data)));else data.weeklyTarget=''}if(type==='mood'){data.mood=Number(data.mood||3);data.energy=data.energy?Number(data.energy):'';data.stress=data.stress?Number(data.stress):'';data.updatedAt=new Date().toISOString()}for(const k of ['amount','progress','reach','engagement'])if(data[k]!==undefined&&data[k]!=='')data[k]=Number(data[k]);if(existing)Object.assign(existing,data);else state[key].push(data)}localStorage.setItem(STORE,JSON.stringify(state));closeDrawer();showToast(editId?'Updated.':'Saved.');render()}catch(err){try{state=JSON.parse(before)}catch(e){}showToast(err?.message||'This record could not be saved.');button?.classList.remove('form-saving')}}
 function openBackup(){openDrawer('Backup & restore','Your planner stays in this browser. Download a backup before replacing files or clearing browser data.',`<div class="action-menu-grid"><button class="menu-action" id="exportBackup"><span class="icon-box">${svg('download')}</span><span><strong>Download backup</strong><small>Save all planner data as a JSON file.</small></span><span>›</span></button><button class="menu-action" data-import><span class="icon-box">${svg('upload')}</span><span><strong>Restore backup</strong><small>Import a backup file from this planner.</small></span><span>›</span></button><input id="backupFile" type="file" accept="application/json" hidden><button class="menu-action" id="legacyImport"><span class="icon-box">${svg('repeat')}</span><span><strong>Try legacy import again</strong><small>Copy compatible records from the original planner storage.</small></span><span>›</span></button></div>`);document.getElementById('exportBackup').onclick=exportBackup;document.getElementById('legacyImport').onclick=()=>{state.migrated=false;migrateLegacy(state);state.migrated=true;localStorage.setItem(STORE,JSON.stringify(state));closeDrawer();render();showToast('Legacy import completed.')}}
 function exportBackup(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`life-ceo-os-backup-${todayISO()}.json`;a.click();URL.revokeObjectURL(a.href)}
 function importBackup(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const next=JSON.parse(reader.result);if(!next||typeof next!=='object')throw new Error('Invalid');state=Object.assign(defaults(),next);normalizeCategoryLibraries(state);if(!Array.isArray(state.moods))state.moods=[];localStorage.setItem(STORE,JSON.stringify(state));closeDrawer();applyNav();render();showToast('Backup restored.')}catch(err){showToast('That backup file could not be read.')}};reader.readAsText(file)}

@@ -1,42 +1,34 @@
-LIFE & CEO OS — INTERACTIVE SCHEDULE UPDATE
-================================================
+LIFE & CEO OS — CATEGORY COLOUR STUDIO UPDATE
+=================================================
 
-WHAT CHANGED
-------------
-PLAN → DAY
+The Category Library is now a full category style manager.
 
-- A + Add event button now appears directly in the Schedule header.
-- Drag an event vertically to change its start time.
-- Events snap to 15-minute increments.
-- Pull the small handle along the bottom edge to change the event duration.
-- Resizing also snaps to 15-minute increments.
-- Event times save immediately to the same event record.
-- Overlapping-event layout recalculates after moving or resizing.
-- Click an event without moving it to open the Edit Event form.
+Each category appears in a list row with:
+- Category name
+- Current colour swatch
+- Full-spectrum colour picker
+- Editable hex colour
+- Delete control
 
-TIME ENTRY
-----------
-Start time, end time, task time and follow-up time now support two methods:
+Choose the colour square to open the spectrum, or type an exact value such as
+#315842.
 
-1. Type the time:
-   7:30 AM
-   730 PM
-   19:30
+Planning-category colours automatically control:
+- Schedule event background
+- Event border
+- Connected timeline dot
+- Connected duration line
+- Category label
 
-2. Select Choose:
-   Hour
-   Minute
-   AM / PM
+New categories can be assigned a colour before they are added.
 
-On phones and tablets, the browser may display the selectors as native rolling
-pickers. The visible time remains in AM/PM format.
+Existing categories and data are retained. The planner stores category colours
+inside the same browser data record using the existing storage key:
+life-ceo-os-stable-v1
 
 GITHUB UPLOAD
 -------------
-1. Use Backup data inside the current planner.
-2. Replace the root-level index.html in GitHub with the index.html in this folder.
+1. Use Backup data in the current planner.
+2. Replace the root-level index.html in GitHub.
 3. Commit the replacement.
-4. Open the planner.
-5. Press Command + Shift + R once.
-
-Existing planner data remains compatible.
+4. Open the planner and press Command + Shift + R once.
